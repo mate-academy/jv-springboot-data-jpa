@@ -1,4 +1,4 @@
-package mate.academy.springboot.datajpa.dto;
+package mate.academy.springboot.datajpa.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CategoryRequestDto {
+public class CategoryResponseDto {
+    private Long id;
     private String name;
 }
