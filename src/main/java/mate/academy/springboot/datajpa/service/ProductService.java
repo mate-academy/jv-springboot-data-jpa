@@ -19,5 +19,5 @@ public interface ProductService {
 
     public List<Product> findAllByPriceBetween(BigDecimal from, BigDecimal to);
 
-    public List<Product> findProductByCategoryName(String name);
+    public List<Product> findAllByCategoryName(List<String> names);
 }

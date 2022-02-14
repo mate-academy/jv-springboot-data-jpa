@@ -31,12 +31,12 @@ public class CategoryController {
         return categoryMapper.toDto(categoryService.save(categoryMapper.toModel(dto)));
     }
 
-    @GetMapping("/get/{id}")
+    @GetMapping("/{id}")
     public CategoryResponseDto get(@PathVariable Long id) {
         return categoryMapper.toDto(categoryService.get(id));
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}")
     public CategoryResponseDto update(@PathVariable Long id,
                                       @RequestBody @Valid CategoryRequestDto dto) {
         Category category = categoryMapper.toModel(dto);
@@ -44,7 +44,7 @@ public class CategoryController {
         return categoryMapper.toDto(categoryService.save(category));
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
         categoryService.delete(id);
     }
