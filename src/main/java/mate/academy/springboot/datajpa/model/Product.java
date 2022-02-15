@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,15 +22,15 @@ public class Product {
     @Column(length = 25)
     private String title;
     private BigDecimal price;
-    @OneToOne
+    @ManyToOne
     private Category category;
 
     @Override
     public String toString() {
-        return "Product{" +
-                "title='" + title + '\'' +
-                ", price=" + price +
-                ", category=" + category +
-                '}';
+        return "Product{"
+                + "title='" + title + '\''
+                + ", price=" + price
+                + ", category=" + category
+                + '}';
     }
 }

@@ -3,8 +3,8 @@ package mate.academy.springboot.datajpa.service.impl;
 import java.math.BigDecimal;
 import java.util.List;
 import lombok.AllArgsConstructor;
-import mate.academy.springboot.datajpa.repository.ProductRepository;
 import mate.academy.springboot.datajpa.model.Product;
+import mate.academy.springboot.datajpa.repository.ProductRepository;
 import mate.academy.springboot.datajpa.service.ProductService;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -31,8 +31,8 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product update(Long id, Product product) {
-        return productRepository.save(new Product(id, product.getTitle(),
-                product.getPrice(), product.getCategory()));
+        product.setId(id);
+        return productRepository.save(product);
     }
 
     @Override
