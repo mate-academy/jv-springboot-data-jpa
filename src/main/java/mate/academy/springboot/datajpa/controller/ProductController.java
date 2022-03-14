@@ -30,6 +30,14 @@ public class ProductController {
         this.productMapper = productMapper;
     }
 
+    @GetMapping
+    public List<ProductResponseDto> findAll() {
+        return productService.findAll()
+                .stream()
+                .map(productMapper::toResponseDto)
+                .collect(Collectors.toList());
+    }
+
     @PostMapping
     public ProductResponseDto create(@RequestBody ProductRequestDto productRequestDto) {
         Product product = productService.save(productMapper.toModel(productRequestDto));
@@ -67,8 +75,8 @@ public class ProductController {
     }
 
     @GetMapping("/available")
-    public List<ProductResponseDto> findAll(@RequestParam Map<String, String> params) {
-        return productService.findAll(params)
+    public List<ProductResponseDto> findAllBy(@RequestParam Map<String, String> params) {
+        return productService.findAllBy(params)
                 .stream()
                 .map(productMapper::toResponseDto)
                 .collect(Collectors.toList());

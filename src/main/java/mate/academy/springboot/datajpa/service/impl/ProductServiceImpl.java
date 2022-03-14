@@ -52,7 +52,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> findAll(Map<String, String> params) {
+    public List<Product> findAllBy(Map<String, String> params) {
         Specification<Product> specification = null;
         for (Map.Entry<String, String> entry : params.entrySet()) {
             Specification<Product> sp = productSpecificationManager.get(entry.getKey(),
@@ -60,6 +60,11 @@ public class ProductServiceImpl implements ProductService {
             specification = specification == null ? Specification.where(sp) : specification.and(sp);
         }
         return productRepository.findAll(specification);
+    }
+
+    @Override
+    public List<Product> findAll() {
+        return productRepository.findAll();
     }
 
 }

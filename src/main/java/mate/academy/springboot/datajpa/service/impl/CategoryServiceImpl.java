@@ -1,5 +1,6 @@
 package mate.academy.springboot.datajpa.service.impl;
 
+import java.util.List;
 import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.repository.CategoryRepository;
 import mate.academy.springboot.datajpa.service.CategoryService;
@@ -34,5 +35,10 @@ public class CategoryServiceImpl implements CategoryService {
         newCategory.setId(category.getId());
         newCategory.setName(category.getName());
         categoryRepository.save(newCategory);
+    }
+
+    @Override
+    public List<Category> findAll() {
+        return categoryRepository.findAll();
     }
 }
