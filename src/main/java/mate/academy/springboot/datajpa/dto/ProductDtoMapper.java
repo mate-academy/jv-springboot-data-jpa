@@ -13,21 +13,20 @@ public class ProductDtoMapper {
         this.categoryService = categoryService;
     }
 
-    public Product toModel(ProductDto productDto) {
+    public Product toModel(ProductRequestDto productRequestDto) {
         Product product = new Product();
-        product.setId(productDto.getId());
-        product.setTitle(productDto.getTitle());
-        product.setPrice(new BigDecimal(productDto.getPrice()));
-        product.setCategory(categoryService.getById(productDto.getCategoryId()));
+        product.setTitle(productRequestDto.getTitle());
+        product.setPrice(new BigDecimal(productRequestDto.getPrice()));
+        product.setCategory(categoryService.getById(productRequestDto.getCategoryId()));
         return product;
     }
 
-    public ProductDto toDto(Product product) {
-        ProductDto productDto = new ProductDto();
-        productDto.setId(product.getId());
-        productDto.setTitle(product.getTitle());
-        productDto.setPrice(product.getPrice().toString());
-        productDto.setCategoryId(product.getCategory().getId());
-        return productDto;
+    public ProductResponseDto toDto(Product product) {
+        ProductResponseDto productResponseDto = new ProductResponseDto();
+        productResponseDto.setId(product.getId());
+        productResponseDto.setTitle(product.getTitle());
+        productResponseDto.setPrice(product.getPrice().toString());
+        productResponseDto.setCategoryId(product.getCategory().getId());
+        return productResponseDto;
     }
 }

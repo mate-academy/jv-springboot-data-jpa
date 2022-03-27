@@ -2,20 +2,13 @@ package mate.academy.springboot.datajpa.controller;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
-import mate.academy.springboot.datajpa.dto.ProductDto;
-import mate.academy.springboot.datajpa.dto.ProductDtoMapper;
-import mate.academy.springboot.datajpa.model.Category;
+import mate.academy.springboot.datajpa.dto.*;
+import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.service.CategoryService;
 import mate.academy.springboot.datajpa.service.ProductService;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/products")
@@ -24,42 +17,48 @@ public class ProductController {
     private final ProductDtoMapper productDtoMapper;
     private final CategoryService categoryService;
 
-    public ProductController(ProductService productService, ProductDtoMapper productDtoMapper, CategoryService categoryService) {
+    public ProductController(ProductService productService,
+                             ProductDtoMapper productDtoMapper,
+                             CategoryService categoryService) {
         this.productService = productService;
         this.productDtoMapper = productDtoMapper;
         this.categoryService = categoryService;
     }
 
     @PostMapping
-    public ProductDto save(@RequestBody ProductDto productDto) {
-        return productDtoMapper.toDto(productService.save(productDtoMapper.toModel(productDto)));
+    public ProductResponseDto save(@RequestBody ProductRequestDto productRequestDto) {
+        return productDtoMapper.toDto(productService.save(productDtoMapper.toModel(productRequestDto)));
+    }
+
+    @PutMapping(value = "/{id}")
+    public ProductResponseDto update(@PathVariable Long id, @RequestBody ProductRequestDto productRequestDto) {
+        Product product = productDtoMapper.toModel(productRequestDto);
+        product.setId(id);
+        return productDtoMapper.toDto(productService.save(product));
     }
 
     @GetMapping(value = "/{id}")
-    public ProductDto getById(@PathVariable Long id) {
+    public ProductResponseDto getById(@PathVariable Long id) {
         return productDtoMapper.toDto(productService.getById(id));
     }
 
     @DeleteMapping(value = "/{id}")
-    public String deleteById(@PathVariable Long id) {
+    public boolean deleteById(@PathVariable Long id) {
         productService.deleteDyId(id);
-        return "Done!";
+        return true;
     }
 
-    @GetMapping(value = "/by_prices")
-    public List<ProductDto> findAllByPriceBetween(@RequestParam String from, @RequestParam String to) {
+    @GetMapping(value = "/price")
+    public List<ProductResponseDto> findAllByPriceBetween(@RequestParam String from, @RequestParam String to) {
         return productService.findAllByPriceBetween(new BigDecimal(from), new BigDecimal(to))
                 .stream()
                 .map(productDtoMapper::toDto)
                 .collect(Collectors.toList());
     }
 
-    @GetMapping(value = "/by_categories")
-    public List<ProductDto> getAllInCategoryIn(@RequestParam List<String> categoryId) {
-        List<Category> categories = categoryId.stream()
-                .map(s -> categoryService.getById(Long.parseLong(s)))
-                .collect(Collectors.toList());
-        return productService.getAllInCategoryIn(categories).stream()
+    @GetMapping(value = "/categories")
+    public List<ProductResponseDto> getAllInCategories(@RequestParam Map<String, String> params) {
+        return productService.getAllInCategories(params).stream()
                 .map(productDtoMapper::toDto)
                 .collect(Collectors.toList());
     }
