@@ -1,15 +1,14 @@
 package mate.academy.springboot.datajpa.repository.specification;
 
+import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.util.SystemException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
-import java.util.Map;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 @Component
 public class ProductSpecificationManager implements SpecificationManager<Product> {
@@ -18,7 +17,8 @@ public class ProductSpecificationManager implements SpecificationManager<Product
     @Autowired
     public ProductSpecificationManager(List<SpecificationProvider<Product>> productSpecifications) {
         this.providersMap = productSpecifications.stream()
-                .collect(Collectors.toMap(SpecificationProvider::getFilterKey, Function.identity()));
+                .collect(Collectors.toMap(SpecificationProvider::getFilterKey,
+                        Function.identity()));
     }
 
     @Override

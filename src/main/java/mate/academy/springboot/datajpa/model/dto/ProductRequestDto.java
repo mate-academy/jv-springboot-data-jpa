@@ -1,9 +1,8 @@
 package mate.academy.springboot.datajpa.model.dto;
 
+import java.math.BigDecimal;
 import lombok.Data;
 import mate.academy.springboot.datajpa.model.Category;
-
-import java.math.BigDecimal;
 
 @Data
 public class ProductRequestDto {

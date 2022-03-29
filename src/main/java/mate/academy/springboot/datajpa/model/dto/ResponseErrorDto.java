@@ -1,16 +1,16 @@
 package mate.academy.springboot.datajpa.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.Data;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import lombok.Data;
 
 @Data
 public class ResponseErrorDto {
     @JsonFormat(pattern = "yyyy/MM/dd hh:mm:ss")
-    public final LocalDateTime date;
-    public final Integer errorCode;
-    public final String message;
+    private final LocalDateTime date;
+    private final Integer errorCode;
+    private final String message;
 
     public ResponseErrorDto(final Integer errorCode,
                             final String message) {

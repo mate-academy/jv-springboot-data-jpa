@@ -1,15 +1,19 @@
 package mate.academy.springboot.datajpa.util;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+import javax.annotation.PostConstruct;
 import lombok.Data;
 import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.service.CategoryService;
 import mate.academy.springboot.datajpa.service.ProductService;
 import org.springframework.stereotype.Component;
-
-import javax.annotation.PostConstruct;
-import java.math.BigDecimal;
-import java.util.*;
 
 @Data
 @Component
@@ -60,14 +64,15 @@ public class InjectDataService {
     }
 
     public List<Category> saveCategories() {
-        Category[] categories = {new Category("Phones"), new Category("Backpacks"), new Category("Caffe"), new Category("Watches")};
-        /*for (int i = 0; i < categories.length; i++) {
-            categoryService.save(categories[i]);
-        }*/
+        Category[] categories = {new Category("Phones"),
+                new Category("Backpacks"),
+                new Category("Caffe"),
+                new Category("Watches")};
         Arrays.stream(categories).forEach(categoryService::save);
 
         return categoryService.getAll();
     }
+
     public void saveProducts(List<Product> products) {
         products.forEach(productService::save);
     }

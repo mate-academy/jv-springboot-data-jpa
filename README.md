@@ -29,7 +29,3 @@ Your task is:
     - delete Category by ID
     - update Category
 - create required DTOs and mappers
-
-###
-To test the app please use postman collection
-

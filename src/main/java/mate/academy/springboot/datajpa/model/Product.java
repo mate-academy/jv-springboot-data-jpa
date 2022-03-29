@@ -1,7 +1,6 @@
 package mate.academy.springboot.datajpa.model;
 
-import lombok.Data;
-
+import java.math.BigDecimal;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,7 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import java.math.BigDecimal;
+import lombok.Data;
 
 @Data
 @Entity
@@ -23,8 +22,8 @@ public class Product {
     private BigDecimal price;
     @ManyToOne
     @JoinTable(name = "product_category",
-    joinColumns = @JoinColumn(name = "product_id"),
-    inverseJoinColumns = @JoinColumn(name = "category_id"))
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id"))
     private Category category;
 
 }

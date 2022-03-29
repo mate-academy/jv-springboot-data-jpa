@@ -1,5 +1,8 @@
 package mate.academy.springboot.datajpa.service.impl;
 
+import java.util.List;
+import java.util.Map;
+import java.util.NoSuchElementException;
 import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.repository.ProductRepository;
@@ -11,10 +14,6 @@ import mate.academy.springboot.datajpa.util.SystemException;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
-
-import java.util.List;
-import java.util.Map;
-import java.util.NoSuchElementException;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -46,7 +45,8 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product getById(Long id) {
-        return productRepository.findById(id).orElseThrow(() -> new SystemException("No product found by id " + id));
+        return productRepository.findById(id)
+                .orElseThrow(() -> new SystemException("No product found by id " + id));
     }
 
     @Override
@@ -77,7 +77,8 @@ public class ProductServiceImpl implements ProductService {
     public List<Product> findAll(Map<String, String> parameters) {
         Specification<Product> specification = null;
         for (Map.Entry<String, String> entry: parameters.entrySet()) {
-            Specification<Product> sp = productSpecificationManager.get(entry.getKey(), entry.getValue().split(","));
+            Specification<Product> sp = productSpecificationManager
+                    .get(entry.getKey(), entry.getValue().split(","));
             specification = specification == null ? Specification.where(sp) : specification.and(sp);
         }
 

@@ -1,5 +1,8 @@
 package mate.academy.springboot.datajpa.service.impl;
 
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Objects;
 import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.repository.CategoryRepository;
 import mate.academy.springboot.datajpa.service.CategoryService;
@@ -7,10 +10,6 @@ import mate.academy.springboot.datajpa.service.ProductService;
 import mate.academy.springboot.datajpa.util.SystemException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Objects;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
@@ -29,19 +28,23 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category save(Category element) {
-        return categoryRepository.getCategoryByName(element.getName()).orElseGet(() -> categoryRepository.getCategoryByName(element.getName())
+        return categoryRepository.getCategoryByName(element.getName())
+                .orElseGet(() -> categoryRepository.getCategoryByName(element.getName())
                 .orElse(categoryRepository.save(element)));
     }
 
     @Override
     public Category getById(Long id) {
-        return categoryRepository.findById(id).orElseThrow(() -> new SystemException("No category found by id " + id));
+        return categoryRepository.findById(id)
+                .orElseThrow(() -> new SystemException("No category found by id " + id));
     }
 
     @Override
     public void deleteById(Long id) {
         try {
-            productService.getAll().stream().filter(p-> Objects.equals(p.getCategory().getId(), id)).forEach(p->p.setCategory(null));
+            productService.getAll().stream()
+                    .filter(p -> Objects.equals(p.getCategory().getId(), id))
+                    .forEach(p -> p.setCategory(null));
             categoryRepository.deleteById(id);
         } catch (RuntimeException e) {
             throw new SystemException("No category found by id " + id);

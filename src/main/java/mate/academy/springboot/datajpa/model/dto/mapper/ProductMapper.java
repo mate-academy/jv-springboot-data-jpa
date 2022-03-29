@@ -1,13 +1,11 @@
 package mate.academy.springboot.datajpa.model.dto.mapper;
 
+import java.util.Objects;
 import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.model.Product;
-import mate.academy.springboot.datajpa.model.dto.CategoryResponseDto;
 import mate.academy.springboot.datajpa.model.dto.ProductRequestDto;
 import mate.academy.springboot.datajpa.model.dto.ProductResponseDto;
 import org.springframework.stereotype.Component;
-
-import java.util.Objects;
 
 @Component
 public class ProductMapper {

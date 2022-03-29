@@ -11,6 +11,7 @@ public class ExceptionControllerAdvice {
 
     @ExceptionHandler(SystemException.class)
     public ResponseEntity<ResponseErrorDto> handleSystemExceptions(final SystemException e) {
-        return new ResponseEntity<>(new ResponseErrorDto(400, e.getMessage()), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(new ResponseErrorDto(400, e.getMessage()),
+                HttpStatus.BAD_REQUEST);
     }
 }
