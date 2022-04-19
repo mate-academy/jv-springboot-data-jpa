@@ -29,17 +29,15 @@ public class CategoryController {
 
     @PostMapping
     public CategoryResponseDto createCategory(@RequestBody CategoryRequestDto categoryRequestDto) {
-        Category category = categoryMapper.toModel(categoryRequestDto);
-        category.setName(categoryRequestDto.getName());
-        Category createdCategory = categoryService.create(category);
-        return categoryMapper.toCategoryResponseDto(createdCategory);
+        return categoryMapper.toCategoryResponseDto(categoryService
+            .create(categoryMapper.toModel(categoryRequestDto)));
     }
 
     @PatchMapping("/{id}")
     public CategoryResponseDto updateCategory(@PathVariable Long id,
             @RequestBody CategoryRequestDto categoryRequestDto) {
         Category category = categoryMapper.toModel(categoryRequestDto);
-        category.setName(categoryRequestDto.getName());
+        category.setId(id);
         return categoryMapper.toCategoryResponseDto(categoryService.create(category));
     }
 

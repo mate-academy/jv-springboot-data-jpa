@@ -8,7 +8,6 @@ import mate.academy.springboot.datajpa.dto.ProductRequestDto;
 import mate.academy.springboot.datajpa.dto.ProductResponseDto;
 import mate.academy.springboot.datajpa.dto.mapper.ProductMapper;
 import mate.academy.springboot.datajpa.model.Product;
-import mate.academy.springboot.datajpa.service.CategoryService;
 import mate.academy.springboot.datajpa.service.ProductService;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,7 +25,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class ProductController {
     private final ProductService productService;
     private final ProductMapper productMapper;
-    private final CategoryService categoryService;
 
     @GetMapping("/{id}")
     public ProductResponseDto getProduct(@PathVariable Long id) {
@@ -35,21 +33,15 @@ public class ProductController {
 
     @PostMapping
     public ProductResponseDto createProduct(@RequestBody ProductRequestDto productRequestDto) {
-        Product product = productMapper.toModel(productRequestDto);
-        product.setPrice(productRequestDto.getPrice());
-        product.setTitle(productRequestDto.getTitle());
-        product.setCategory(categoryService.getById(productRequestDto.getCategoryId()));
-        Product createdProduct = productService.create(product);
-        return productMapper.toProductResponseDto(createdProduct);
+        return productMapper.toProductResponseDto(productService
+            .create(productMapper.toModel(productRequestDto)));
     }
 
     @PatchMapping("/{id}")
     public ProductResponseDto updateProduct(@PathVariable Long id,
             @RequestBody ProductRequestDto productRequestDto) {
         Product product = productMapper.toModel(productRequestDto);
-        product.setTitle(productRequestDto.getTitle());
-        product.setPrice(productRequestDto.getPrice());
-        product.setCategory(categoryService.getById(productRequestDto.getCategoryId()));
+        product.setId(id);
         return productMapper.toProductResponseDto(productService.create(product));
     }
 
@@ -60,8 +52,7 @@ public class ProductController {
 
     @GetMapping("by_price")
     public List<ProductResponseDto> findAllByPriceBetween(@RequestParam Integer from, Integer to) {
-        return productService.getAllByPriceBetween(from, to)
-          .stream()
+        return productService.getAllByPriceBetween(from, to).stream()
           .map(productMapper::toProductResponseDto)
           .collect(
           Collectors.toList());
