@@ -47,7 +47,8 @@ public class CategoryController {
     public CategoryResponseDto update(@PathVariable Long id,
                                       @RequestBody @Valid CategoryRequestDto dto) {
         Category category = dtoRequestMapper.toEntity(dto);
-        Category categoryUpdated = categoryService.update(id, category);
+        category.setId(id);
+        Category categoryUpdated = categoryService.update(category);
         return dtoResponseMapper.toDto(categoryUpdated);
     }
 }
