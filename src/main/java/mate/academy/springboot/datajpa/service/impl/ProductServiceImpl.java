@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Set;
 import javax.persistence.EntityNotFoundException;
+import lombok.RequiredArgsConstructor;
 import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.repository.ProductRepository;
@@ -11,12 +12,9 @@ import mate.academy.springboot.datajpa.service.ProductService;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
-
-    public ProductServiceImpl(ProductRepository productRepository) {
-        this.productRepository = productRepository;
-    }
 
     @Override
     public Product save(Product product) {
@@ -26,7 +24,8 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product findById(Long id) {
         return productRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Cant find product with ID:" + id));
+                .orElseThrow(() -> new EntityNotFoundException(
+                        "Cant find product with ID: " + id));
     }
 
     @Override
@@ -46,11 +45,8 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product update(Long id, Product product) {
-        if (productRepository.existsById(id)) {
-            product.setId(id);
-            productRepository.save(product);
-        }
-        throw new EntityNotFoundException("Cant find Product with ID:" + id);
+        product.setId(id);
+        return productRepository.save(product);
     }
 
     @Override

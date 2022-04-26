@@ -1,6 +1,7 @@
 package mate.academy.springboot.datajpa.controller;
 
 import java.math.BigDecimal;
+import lombok.RequiredArgsConstructor;
 import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.repository.CategoryRepository;
@@ -11,15 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/inject")
+@RequiredArgsConstructor
 public class InjectController {
     private final CategoryRepository categoryRepository;
     private final ProductRepository productRepository;
-
-    public InjectController(CategoryRepository categoryRepository,
-                            ProductRepository productRepository) {
-        this.categoryRepository = categoryRepository;
-        this.productRepository = productRepository;
-    }
 
     @GetMapping
     public String injectProducts() {

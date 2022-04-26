@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import javax.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import mate.academy.springboot.datajpa.mapper.DtoRequestMapper;
 import mate.academy.springboot.datajpa.mapper.DtoResponseMapper;
 import mate.academy.springboot.datajpa.model.Category;
@@ -26,21 +27,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/products")
+@RequiredArgsConstructor
 public class ProductController {
     private final ProductService productService;
     private final CategoryService categoryService;
     private final DtoRequestMapper<ProductRequestDto, Product> dtoRequestMapper;
     private final DtoResponseMapper<ProductResponseDto, Product> dtoResponseMapper;
-
-    public ProductController(ProductService productService,
-                             CategoryService categoryService,
-                             DtoRequestMapper<ProductRequestDto, Product> dtoRequestMapper,
-                             DtoResponseMapper<ProductResponseDto, Product> dtoResponseMapper) {
-        this.productService = productService;
-        this.categoryService = categoryService;
-        this.dtoRequestMapper = dtoRequestMapper;
-        this.dtoResponseMapper = dtoResponseMapper;
-    }
 
     @PostMapping
     public ProductResponseDto create(@RequestBody @Valid ProductRequestDto dto) {

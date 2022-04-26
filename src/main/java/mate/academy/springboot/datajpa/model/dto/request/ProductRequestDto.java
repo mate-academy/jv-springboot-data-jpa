@@ -17,6 +17,6 @@ public class ProductRequestDto {
     @Min(value = 1)
     private BigDecimal price;
     @NotEmpty (message = "Enter category ID")
-    @Min(value = 0)
+    @Min(value = 1)
     private Long categoryId;
 }
