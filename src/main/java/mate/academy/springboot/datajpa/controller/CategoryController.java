@@ -23,17 +23,17 @@ public class CategoryController {
     private final CategoryDtoMapper categoryDtoMapper;
 
     @GetMapping("/{id}")
-    CategoryResponseDto get(@PathVariable Long id) {
+    public CategoryResponseDto get(@PathVariable Long id) {
         return categoryDtoMapper.toDto(categoryService.getById(id));
     }
 
     @DeleteMapping("/{id}")
-    void delete(@PathVariable Long id) {
+    public void delete(@PathVariable Long id) {
         categoryService.deleteById(id);
     }
 
     @PostMapping
-    CategoryResponseDto save(@RequestBody Category category) {
+    public CategoryResponseDto save(@RequestBody Category category) {
         return categoryDtoMapper.toDto(categoryService.save(category));
     }
 
