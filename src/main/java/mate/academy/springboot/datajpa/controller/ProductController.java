@@ -59,7 +59,7 @@ public class ProductController {
                 .collect(Collectors.toList());
     }
 
-    @GetMapping("/categories")
+    @GetMapping
     public List<ProductResponseDto> getAllByCategory(@RequestParam Map<String, String> params) {
         return productService.findAll(params).stream()
                 .map(productDtoMapper::toDto)
