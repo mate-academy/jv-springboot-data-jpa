@@ -1,6 +1,5 @@
 package mate.academy.springboot.datajpa.controller;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -40,7 +39,6 @@ public class ProductController {
     public ProductResponseDto getById(@PathVariable Long id) {
         return productMapper.mapToDto(productService.getById(id));
     }
-
 
     @GetMapping
     public List<ProductResponseDto> findAll(@RequestParam Map<String, String> params) {
