@@ -47,7 +47,7 @@ public class ProductController {
         return productMapper.mapToDto(productService.save(product));
     }
 
-    @DeleteMapping("/remove/{id}")
+    @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
         productService.deleteById(id);
     }
