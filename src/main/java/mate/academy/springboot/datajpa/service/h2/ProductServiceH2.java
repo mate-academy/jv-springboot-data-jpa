@@ -17,7 +17,9 @@ public class ProductServiceH2 implements ProductService {
     private final SpecificationManager<Product> productSpecificationManager;
 
     @Autowired
-    public ProductServiceH2(ProductRepository productRepository, ProductSpecificationManager productSpecificationManager) {
+    public ProductServiceH2(
+            ProductRepository productRepository,
+            ProductSpecificationManager productSpecificationManager) {
         this.productRepository = productRepository;
         this.productSpecificationManager = productSpecificationManager;
     }
