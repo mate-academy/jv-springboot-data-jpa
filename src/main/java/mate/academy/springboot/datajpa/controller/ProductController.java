@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-
 @RestController
 @RequestMapping("/products")
 public class ProductController {
@@ -32,7 +31,10 @@ public class ProductController {
     private final ProductMapper productMapper;
 
     @Autowired
-    public ProductController(ProductService productService, CategoryService categoryService, ProductMapper productMapper) {
+    public ProductController(
+            ProductService productService,
+            CategoryService categoryService,
+            ProductMapper productMapper) {
         this.productService = productService;
         this.categoryService = categoryService;
         this.productMapper = productMapper;
@@ -61,7 +63,9 @@ public class ProductController {
     }
 
     @PutMapping(value = "/{id}")
-    public ProductResponseDto update(@RequestBody ProductRequestDto productRequestDto, @PathVariable Long id) {
+    public ProductResponseDto update(
+            @RequestBody ProductRequestDto productRequestDto,
+            @PathVariable Long id) {
         Product product = productService.getById(id);
         if (product == null) {
             throw new RuntimeException("can't update product with id: " + id);

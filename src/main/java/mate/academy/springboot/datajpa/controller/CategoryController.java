@@ -47,7 +47,9 @@ public class CategoryController {
     }
 
     @PutMapping("/{id}")
-    public CategoryResponseDto update(@RequestBody CategoryRequestDto categoryRequestDto, @PathVariable Long id) {
+    public CategoryResponseDto update(
+            @RequestBody CategoryRequestDto categoryRequestDto,
+            @PathVariable Long id) {
         Category category = categoryService.getById(id);
         if (category == null) {
             throw new RuntimeException("can't update Category with id: " + id);

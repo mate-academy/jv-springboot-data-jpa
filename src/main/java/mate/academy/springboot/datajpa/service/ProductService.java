@@ -5,9 +5,14 @@ import java.util.Map;
 import mate.academy.springboot.datajpa.model.Product;
 
 public interface ProductService {
+
     void add(Product product);
+
     Product update(Product product);
+
     void delete(Product product);
+
     Product getById(Long id);
+
     List<Product> getAll(Map<String, String> params);
 }
