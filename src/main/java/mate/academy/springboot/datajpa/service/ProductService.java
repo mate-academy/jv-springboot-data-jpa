@@ -6,7 +6,7 @@ import mate.academy.springboot.datajpa.model.Product;
 
 public interface ProductService {
 
-    void add(Product product);
+    Product add(Product product);
 
     Product update(Product product);
 

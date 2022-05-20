@@ -4,7 +4,7 @@ import mate.academy.springboot.datajpa.model.Category;
 
 public interface CategoryService {
 
-    void add(Category category);
+    Category add(Category category);
 
     Category update(Category category);
 

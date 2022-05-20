@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import lombok.RequiredArgsConstructor;
 import mate.academy.springboot.datajpa.dto.ProductRequestDto;
 import mate.academy.springboot.datajpa.dto.ProductResponseDto;
 import mate.academy.springboot.datajpa.mappers.ProductMapper;
@@ -11,7 +12,6 @@ import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.service.CategoryService;
 import mate.academy.springboot.datajpa.service.ProductService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,21 +24,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/products")
+@RequiredArgsConstructor
 public class ProductController {
 
     private final ProductService productService;
     private final CategoryService categoryService;
     private final ProductMapper productMapper;
-
-    @Autowired
-    public ProductController(
-            ProductService productService,
-            CategoryService categoryService,
-            ProductMapper productMapper) {
-        this.productService = productService;
-        this.categoryService = categoryService;
-        this.productMapper = productMapper;
-    }
 
     @GetMapping("/inject")
     public void inject() {
@@ -57,9 +48,10 @@ public class ProductController {
     }
 
     @PostMapping
-    public void create(@RequestBody ProductRequestDto productRequestDto) {
+    public ProductResponseDto create(@RequestBody ProductRequestDto productRequestDto) {
         Product product = productMapper.toModel(productRequestDto);
         productService.add(product);
+        return productMapper.toDto(product);
     }
 
     @PutMapping(value = "/{id}")
@@ -67,10 +59,6 @@ public class ProductController {
             @RequestBody ProductRequestDto productRequestDto,
             @PathVariable Long id) {
         Product product = productService.getById(id);
-        if (product == null) {
-            throw new RuntimeException("can't update product with id: " + id);
-        }
-
         Product updatedProduct = productMapper.toModel(productRequestDto);
         updatedProduct.setId(id);
         productService.update(product);

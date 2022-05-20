@@ -17,7 +17,7 @@ public class ProductServiceImpl implements ProductService {
     private final SpecificationManager<Product> productSpecificationManager;
 
     @Autowired
-    public ProductServiceH2(
+    public ProductServiceImpl(
             ProductRepository productRepository,
             ProductSpecificationManager productSpecificationManager) {
         this.productRepository = productRepository;
@@ -25,8 +25,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void add(Product product) {
-        productRepository.save(product);
+    public Product add(Product product) {
+        return productRepository.save(product);
     }
 
     @Override
