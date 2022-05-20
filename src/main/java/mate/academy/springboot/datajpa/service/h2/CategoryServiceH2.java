@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CategoryServiceH2 implements CategoryService {
+public class CategoryServiceImpl implements CategoryService {
     private final CategoryRepository categoryRepository;
 
     @Autowired
