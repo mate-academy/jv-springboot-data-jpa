@@ -73,16 +73,14 @@ public class ProductController {
     @DeleteMapping(value = "/{id}")
     public void delete(@PathVariable Long id) {
         Product product = productService.getById(id);
-        if (product != null) {
-            productService.delete(product);
-        }
+        productService.delete(product);
     }
 
     @GetMapping
     public List<ProductResponseDto> getAll(@RequestParam Map<String, String> params) {
         List<Product> products = productService.getAll(params);
         return products.stream()
-        	.map(productMapper::toDto)
-        	.collect(Collectors.toList());
+                .map(productMapper::toDto)
+                .collect(Collectors.toList());
     }
 }
