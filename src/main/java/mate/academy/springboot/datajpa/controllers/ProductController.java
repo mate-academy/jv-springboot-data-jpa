@@ -54,7 +54,7 @@ public class ProductController {
     }
 
     @GetMapping("/by-price")
-    public List<ProductResponseDto> getAllByPriceIsBetween(@RequestParam BigDecimal from,
+    public List<ProductResponseDto> getAllByPriceBetween(@RequestParam BigDecimal from,
                                                            @RequestParam BigDecimal to) {
         return productService.findAllByPriceBetween(from, to).stream()
                 .map(productDtoMapper::mapToDto)
@@ -62,7 +62,7 @@ public class ProductController {
     }
 
     @GetMapping("/by-category")
-    public List<ProductResponseDto> getAllByPriceIsBetween(@RequestParam List<Long> categoryIds) {
+    public List<ProductResponseDto> getAllByCategoryIn(@RequestParam List<Long> categoryIds) {
         return productService.findAllByCategoryIn(categoryIds).stream()
                 .map(productDtoMapper::mapToDto)
                 .collect(Collectors.toList());
