@@ -82,7 +82,7 @@ public class ProductController {
     public List<ProductResponseDto> getAll(@RequestParam Map<String, String> params) {
         List<Product> products = productService.getAll(params);
         return products.stream()
-        	.map(productMapper::toDto)
-        	.collect(Collectors.toList());
+                .map(productMapper::toDto)
+                .collect(Collectors.toList());
     }
 }
