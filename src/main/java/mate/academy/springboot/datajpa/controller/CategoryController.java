@@ -29,7 +29,7 @@ public class CategoryController {
     }
 
     @PostMapping
-    public void create(@RequestBody CategoryRequestDto categoryRequestDto) {
+    public CategoryResponseDto create(@RequestBody CategoryRequestDto categoryRequestDto) {
         categoryService.add(categoryMapper.toModel(categoryRequestDto));
     }
 
