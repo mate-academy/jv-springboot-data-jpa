@@ -33,7 +33,7 @@ public class ProductController {
         return new ResponseEntity<>(facade.findById(id), HttpStatus.OK);
     }
 
-    @PostMapping("/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<ProductDto> update(@PathVariable Long id, @RequestBody ProductDto dto) {
         return new ResponseEntity<>(facade.update(id, dto), HttpStatus.OK);
     }
