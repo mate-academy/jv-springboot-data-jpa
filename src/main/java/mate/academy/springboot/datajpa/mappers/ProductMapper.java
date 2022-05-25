@@ -1,19 +1,15 @@
 package mate.academy.springboot.datajpa.mappers;
 
+import lombok.RequiredArgsConstructor;
 import mate.academy.springboot.datajpa.dto.ProductRequestDto;
 import mate.academy.springboot.datajpa.dto.ProductResponseDto;
 import mate.academy.springboot.datajpa.model.Product;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor
 public class ProductMapper {
     private final CategoryMapper categoryMapper;
-
-    @Autowired
-    public ProductMapper(CategoryMapper categoryMapper) {
-        this.categoryMapper = categoryMapper;
-    }
 
     public Product toModel(ProductRequestDto productRequestDto) {
         Product product = new Product();

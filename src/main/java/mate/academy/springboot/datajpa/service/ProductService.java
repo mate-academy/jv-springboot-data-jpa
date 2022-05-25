@@ -5,7 +5,6 @@ import java.util.Map;
 import mate.academy.springboot.datajpa.model.Product;
 
 public interface ProductService {
-
     Product add(Product product);
 
     Product update(Product product);

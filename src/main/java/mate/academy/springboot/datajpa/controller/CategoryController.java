@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/categories")
 @RequiredArgsConstructor
 public class CategoryController {
-
     private final CategoryService categoryService;
     private final CategoryMapper categoryMapper;
 
@@ -44,10 +43,9 @@ public class CategoryController {
     public CategoryResponseDto update(
             @RequestBody CategoryRequestDto categoryRequestDto,
             @PathVariable Long id) {
-        Category category = categoryService.getById(id);
-        Category updatedCategory = categoryMapper.toModel(categoryRequestDto);
-        updatedCategory.setId(id);
+        Category category = categoryMapper.toModel(categoryRequestDto);
+        category.setId(id);
         categoryService.update(category);
-        return categoryMapper.toDto(updatedCategory);
+        return categoryMapper.toDto(category);
     }
 }

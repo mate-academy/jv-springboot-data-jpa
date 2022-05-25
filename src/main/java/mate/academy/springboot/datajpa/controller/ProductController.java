@@ -26,7 +26,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/products")
 @RequiredArgsConstructor
 public class ProductController {
-
     private final ProductService productService;
     private final CategoryService categoryService;
     private final ProductMapper productMapper;
@@ -58,9 +57,8 @@ public class ProductController {
     public ProductResponseDto update(
             @RequestBody ProductRequestDto productRequestDto,
             @PathVariable Long id) {
-        Product product = productService.getById(id);
-        Product updatedProduct = productMapper.toModel(productRequestDto);
-        updatedProduct.setId(id);
+        Product product = productMapper.toModel(productRequestDto);
+        product.setId(id);
         productService.update(product);
         return productMapper.toDto(product);
     }
