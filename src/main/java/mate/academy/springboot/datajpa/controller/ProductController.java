@@ -65,7 +65,7 @@ public class ProductController {
 
     @GetMapping(value = "/{id}")
     public ProductResponseDto getById(@PathVariable Long id) {
-        return productService.getById(id);
+        return productMapper.toDto(productService.getById(id));
     }
 
     @DeleteMapping(value = "/{id}")
