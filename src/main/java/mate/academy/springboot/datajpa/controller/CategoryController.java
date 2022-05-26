@@ -2,7 +2,9 @@ package mate.academy.springboot.datajpa.controller;
 
 import lombok.RequiredArgsConstructor;
 import mate.academy.springboot.datajpa.dto.CategoryDto;
-import mate.academy.springboot.datajpa.facade.CategoryFacade;
+import mate.academy.springboot.datajpa.mapper.CategoryMapper;
+import mate.academy.springboot.datajpa.model.Category;
+import mate.academy.springboot.datajpa.service.CategoryServiceImp;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -19,26 +21,34 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/categories")
 public class CategoryController {
 
-    private final CategoryFacade facade;
+    private final CategoryServiceImp categoryService;
+    private final CategoryMapper mapper;
 
     @PostMapping
     public ResponseEntity<CategoryDto> create(@RequestBody CategoryDto dto) {
-        return new ResponseEntity<>(facade.create(dto), HttpStatus.OK);
+        Category category = mapper.mapToEntity(dto);
+        Category savedCategory = categoryService.create(category);
+        CategoryDto resultDto = mapper.mapToDto(savedCategory);
+        return new ResponseEntity<>(resultDto, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<CategoryDto> get(@PathVariable Long id) {
-        return new ResponseEntity<>(facade.findById(id), HttpStatus.OK);
+        CategoryDto resultDto = categoryService.findById(id).map(mapper::mapToDto).orElse(null);
+        return new ResponseEntity<>(resultDto, HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<CategoryDto> update(@PathVariable Long id, @RequestBody CategoryDto dto) {
-        return new ResponseEntity<>(facade.update(id, dto), HttpStatus.OK);
+        Category category = mapper.mapToEntity(dto);
+        Category updatedCategory = categoryService.update(id, category);
+        CategoryDto resultDto = mapper.mapToDto(updatedCategory);
+        return new ResponseEntity<>(resultDto, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<CategoryDto> delete(@PathVariable Long id) {
-        facade.delete(id);
+        categoryService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
