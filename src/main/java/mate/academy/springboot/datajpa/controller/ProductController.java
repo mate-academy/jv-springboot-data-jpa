@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
-import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.model.dto.request.ProductRequestDto;
 import mate.academy.springboot.datajpa.model.dto.response.ProductResponseDto;
@@ -69,11 +68,8 @@ public class ProductController {
     }
 
     @GetMapping("/by-category")
-    public List<ProductResponseDto> getByCategories(@RequestParam List<Long> ids) {
-        List<Category> categoryList = ids.stream()
-                .map(categoryService::get)
-                .collect(Collectors.toList());
-        return productService.getProductsByCategoryIn(categoryList).stream()
+    public List<ProductResponseDto> getByCategories(@RequestParam List<Long> categoryIds) {
+        return productService.getProductsByCategoryIn(categoryIds).stream()
                 .map(productMapper::mapToDto)
                 .collect(Collectors.toList());
     }
