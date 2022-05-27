@@ -7,13 +7,11 @@ import lombok.experimental.Accessors;
 
 @Data
 @Accessors(chain = true)
-public class ProductRequest {
-
+public class ProductRequestDto {
     @NotNull
     private Long categoryId;
     @NotBlank
     private String title;
     @NotNull
     private Integer price;
-
 }

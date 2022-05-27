@@ -2,8 +2,8 @@ package mate.academy.springboot.datajpa.controller;
 
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import mate.academy.springboot.datajpa.dto.CategoryRequest;
-import mate.academy.springboot.datajpa.dto.CategoryResponse;
+import mate.academy.springboot.datajpa.dto.CategoryRequestDto;
+import mate.academy.springboot.datajpa.dto.CategoryResponseDto;
 import mate.academy.springboot.datajpa.mapper.CategoryMapper;
 import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.service.CategoryServiceImp;
@@ -26,27 +26,28 @@ public class CategoryController {
     private final CategoryMapper mapper;
 
     @PostMapping
-    public ResponseEntity<CategoryResponse> create(@Valid @RequestBody CategoryRequest request) {
+    public ResponseEntity<CategoryResponseDto> create(
+            @Valid @RequestBody CategoryRequestDto request) {
         Category category = mapper.mapToEntity(request);
         Category savedCategory = categoryService.create(category);
-        CategoryResponse response = mapper.mapToDto(savedCategory);
+        CategoryResponseDto response = mapper.mapToDto(savedCategory);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CategoryResponse> get(@PathVariable Long id) {
+    public ResponseEntity<CategoryResponseDto> get(@PathVariable Long id) {
         Category category = categoryService.getById(id);
-        CategoryResponse response = mapper.mapToDto(category);
+        CategoryResponseDto response = mapper.mapToDto(category);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CategoryResponse> update(
+    public ResponseEntity<CategoryResponseDto> update(
             @PathVariable Long id,
-            @Valid @RequestBody CategoryRequest request) {
-        Category category = mapper.mapToEntity(request);
-        Category updatedCategory = categoryService.update(id, category);
-        CategoryResponse response = mapper.mapToDto(updatedCategory);
+            @Valid @RequestBody CategoryRequestDto request) {
+        Category category = mapper.mapToEntity(request).setId(id);
+        Category updatedCategory = categoryService.update(category);
+        CategoryResponseDto response = mapper.mapToDto(updatedCategory);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 

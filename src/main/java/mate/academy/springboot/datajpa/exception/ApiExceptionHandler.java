@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @ControllerAdvice
 public class ApiExceptionHandler {
-
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiException> handleEntityNotFoundException(Exception ex) {
         HttpStatus badRequest = HttpStatus.BAD_REQUEST;

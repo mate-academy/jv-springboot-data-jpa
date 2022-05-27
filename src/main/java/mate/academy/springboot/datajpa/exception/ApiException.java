@@ -8,7 +8,6 @@ import org.springframework.http.HttpStatus;
 @Data
 @Accessors(chain = true)
 public class ApiException {
-
     private Exception exception;
     private String message;
     private HttpStatus httpStatus;

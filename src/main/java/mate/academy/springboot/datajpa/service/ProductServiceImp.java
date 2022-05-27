@@ -29,8 +29,7 @@ public class ProductServiceImp extends BaseService<Product> implements ProductSe
 
     @Override
     @Transactional
-    public Product update(Long id, Product source) {
-        source.setId(id);
+    public Product update(Product source) {
         return repository.save(source);
     }
 

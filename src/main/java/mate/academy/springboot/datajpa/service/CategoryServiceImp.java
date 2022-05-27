@@ -27,8 +27,7 @@ public class CategoryServiceImp extends BaseService<Category> implements Categor
 
     @Override
     @Transactional
-    public Category update(Long id, Category source) {
-        source.setId(id);
+    public Category update(Category source) {
         return repository.save(source);
     }
 

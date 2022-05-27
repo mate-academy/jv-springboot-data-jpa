@@ -5,8 +5,8 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import mate.academy.springboot.datajpa.dto.ProductRequest;
-import mate.academy.springboot.datajpa.dto.ProductResponse;
+import mate.academy.springboot.datajpa.dto.ProductRequestDto;
+import mate.academy.springboot.datajpa.dto.ProductResponseDto;
 import mate.academy.springboot.datajpa.mapper.ProductMapper;
 import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.model.Product;
@@ -33,32 +33,33 @@ public class ProductController {
     private final ProductMapper mapper;
 
     @PostMapping
-    public ResponseEntity<ProductResponse> create(@Valid @RequestBody ProductRequest request) {
+    public ResponseEntity<ProductResponseDto> create(
+            @Valid @RequestBody ProductRequestDto request) {
         Long categoryId = request.getCategoryId();
         Category category = categoryService.getById(categoryId);
         Product newProduct = mapper.mapToEntity(request);
         newProduct.setCategory(category);
         Product product = productService.create(newProduct);
-        ProductResponse response = mapper.mapToDto(product);
+        ProductResponseDto response = mapper.mapToDto(product);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ProductResponse> get(@PathVariable Long id) {
+    public ResponseEntity<ProductResponseDto> get(@PathVariable Long id) {
         Product product = productService.getById(id);
-        ProductResponse response = mapper.mapToDto(product);
+        ProductResponseDto response = mapper.mapToDto(product);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ProductResponse> update(
+    public ResponseEntity<ProductResponseDto> update(
             @PathVariable Long id,
-            @Valid @RequestBody ProductRequest request) {
+            @Valid @RequestBody ProductRequestDto request) {
         Long categoryId = request.getCategoryId();
         Category category = categoryService.getById(categoryId);
-        Product product = mapper.mapToEntity(request).setCategory(category);
-        Product updatedProduct = productService.update(id, product);
-        ProductResponse response = mapper.mapToDto(updatedProduct);
+        Product product = mapper.mapToEntity(request).setCategory(category).setId(id);
+        Product updatedProduct = productService.update(product);
+        ProductResponseDto response = mapper.mapToDto(updatedProduct);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
@@ -68,10 +69,10 @@ public class ProductController {
     }
 
     @GetMapping("/price/between")
-    public ResponseEntity<List<ProductResponse>> getByPriceBetween(
+    public ResponseEntity<List<ProductResponseDto>> getByPriceBetween(
             @RequestParam Integer minPrice,
             @RequestParam Integer maxPrice) {
-        List<ProductResponse> products = productService
+        List<ProductResponseDto> products = productService
                 .getByPriceBetween(minPrice, maxPrice).stream()
                 .map(mapper::mapToDto)
                 .collect(Collectors.toList());
@@ -79,13 +80,13 @@ public class ProductController {
     }
 
     @GetMapping("/categories")
-    public ResponseEntity<List<ProductResponse>> getByCategories(
+    public ResponseEntity<List<ProductResponseDto>> getByCategories(
             @RequestParam List<String> names) {
         List<Category> categories = names.stream()
                 .map(categoryService::findByName)
                 .filter(Objects::nonNull)
                 .collect(Collectors.toList());
-        List<ProductResponse> products = productService.getByCategories(categories).stream()
+        List<ProductResponseDto> products = productService.getByCategories(categories).stream()
                 .map(mapper::mapToDto)
                 .collect(Collectors.toList());
         return new ResponseEntity<>(products, HttpStatus.OK);

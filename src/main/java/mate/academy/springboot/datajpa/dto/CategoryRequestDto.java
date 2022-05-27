@@ -6,8 +6,7 @@ import lombok.experimental.Accessors;
 
 @Data
 @Accessors(chain = true)
-public class CategoryRequest {
-
+public class CategoryRequestDto {
     @NotBlank
     private String name;
 }

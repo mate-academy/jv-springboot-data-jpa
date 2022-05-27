@@ -17,21 +17,16 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @Table(name = "product")
 public class Product {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @Column(name = "title")
     private String title;
-
     @Column(name = "price")
     private Integer price;
-
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;
-
     @Column(name = "deleted", nullable = false)
-    private Boolean deleted = Boolean.FALSE;
+    private boolean deleted = Boolean.FALSE;
 }
