@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 public class CategoryServiceImp extends BaseService<Category> implements CategoryService {
-
     private final CategoryRepository repository;
 
     @Override
@@ -22,30 +21,15 @@ public class CategoryServiceImp extends BaseService<Category> implements Categor
     @Override
     @Transactional(readOnly = true)
     public Category getById(Long id) {
-        return repository.getById(id);
+        return repository.findById(id).orElseThrow(() -> new EntityNotFoundException(
+            String.format("Category with id %d is not found", id)));
     }
 
     @Override
     @Transactional
     public Category update(Long id, Category source) {
-        Category target = repository.getById(id);
-        return update(source, target);
-    }
-
-    private Category update(Category source, Category target) {
-        if (target == null) {
-            return null;
-        }
-        if (source.getId() != null) {
-            target.setId(source.getId());
-        }
-        if (source.getDeleted() != null) {
-            target.setDeleted(source.getDeleted());
-        }
-        if (source.getName() != null) {
-            target.setName(source.getName());
-        }
-        return repository.save(target);
+        source.setId(id);
+        return repository.save(source);
     }
 
     @Override

@@ -20,5 +20,5 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     List<Product> getByCategories(List<Category> categories);
 
     @Query("select p from Product p where p.price between ?1 and ?2 and p.deleted = false")
-    List<Product> getByPriceBetween(Integer lowerPrice, Integer higherPrice);
+    List<Product> getByPriceBetween(Integer minPrice, Integer maxPrice);
 }

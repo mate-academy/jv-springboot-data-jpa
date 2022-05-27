@@ -9,8 +9,8 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 public class ProductRequest {
 
-    @NotBlank
-    private String categoryName;
+    @NotNull
+    private Long categoryId;
     @NotBlank
     private String title;
     @NotNull
