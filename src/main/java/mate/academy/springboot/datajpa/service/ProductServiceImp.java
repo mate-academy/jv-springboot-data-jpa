@@ -34,7 +34,7 @@ public class ProductServiceImp extends BaseService<Product> implements ProductSe
     }
 
     private Product update(Product source, Product target) {
-        if (source == null) {
+        if (target == null) {
             return null;
         }
         if (source.getId() != null) {
