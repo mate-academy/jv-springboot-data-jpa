@@ -1,10 +1,13 @@
 package mate.academy.springboot.datajpa.controller;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.Objects;
 import java.util.stream.Collectors;
+import javax.annotation.PostConstruct;
+import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import mate.academy.springboot.datajpa.dto.ProductDto;
+import mate.academy.springboot.datajpa.dto.ProductRequest;
+import mate.academy.springboot.datajpa.dto.ProductResponse;
 import mate.academy.springboot.datajpa.mapper.ProductMapper;
 import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.model.Product;
@@ -26,54 +29,69 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RequestMapping("/products")
 public class ProductController {
-
     private final ProductServiceImp productService;
     private final CategoryServiceImp categoryService;
     private final ProductMapper mapper;
 
+    @PostConstruct
+    public void init() {
+        Category meat = new Category().setName("meat");
+        Category milk = new Category().setName("milk");
+        Category bread = new Category().setName("bread");
+        categoryService.create(meat);
+        categoryService.create(milk);
+        categoryService.create(bread);
+        Product firstMeat = new Product().setCategory(meat).setPrice(15).setTitle("Fresh");
+        Product secondMeat = new Product().setCategory(meat).setPrice(25).setTitle("Middle");
+        Product firstMilk = new Product().setCategory(milk).setPrice(40).setTitle("Prostokvash");
+        Product secondMilk = new Product().setCategory(milk).setPrice(50).setTitle("Yagotin");
+        Product firstBread = new Product().setCategory(bread).setPrice(15).setTitle("Rudnia");
+        productService.create(firstMeat);
+        productService.create(secondMeat);
+        productService.create(firstMilk);
+        productService.create(secondMilk);
+        productService.create(firstBread);
+    }
+
     @PostMapping
-    public ResponseEntity<ProductDto> create(@RequestBody ProductDto dto) {
-        String categoryName = dto.getCategoryName();
-        Category category = categoryService.findByName(categoryName)
-                .orElse(new Category().setName(categoryName));
-        Product newProduct = mapper.mapToEntity(dto);
+    public ResponseEntity<ProductResponse> create(@Valid @RequestBody ProductRequest request) {
+        String categoryName = request.getCategoryName();
+        Category category = categoryService.findByName(categoryName);
+        Product newProduct = mapper.mapToEntity(request);
         newProduct.setCategory(category);
         Product product = productService.create(newProduct);
-        ProductDto resultDto = mapper.mapToDto(product);
-        return new ResponseEntity<>(resultDto, HttpStatus.OK);
+        ProductResponse response = mapper.mapToDto(product);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ProductDto> get(@PathVariable Long id) {
-        ProductDto resultDto = productService.findById(id).map(mapper::mapToDto).orElse(null);
-        return new ResponseEntity<>(resultDto, HttpStatus.OK);
+    public ResponseEntity<ProductResponse> get(@PathVariable Long id) {
+        Product product = productService.getById(id);
+        ProductResponse response = product == null ? null : mapper.mapToDto(product);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ProductDto> update(@PathVariable Long id, @RequestBody ProductDto dto) {
-        Product updatedProduct;
-        Category category = categoryService.findByName(dto.getCategoryName()).orElse(null);
-        if (category == null) {
-            updatedProduct = null;
-        } else {
-            Product product = mapper.mapToEntity(dto).setCategory(category);
-            updatedProduct = productService.update(id, product);
-        }
-        ProductDto resultDto = mapper.mapToDto(updatedProduct);
-        return new ResponseEntity<>(resultDto, HttpStatus.OK);
+    public ResponseEntity<ProductResponse> update(
+            @PathVariable Long id,
+            @Valid @RequestBody ProductRequest request) {
+        Category category = categoryService.findByName(request.getCategoryName());
+        Product product = mapper.mapToEntity(request).setCategory(category);
+        Product updatedProduct = productService.update(id, product);
+        ProductResponse response = mapper.mapToDto(updatedProduct);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<ProductDto> delete(@PathVariable Long id) {
+    public void delete(@PathVariable Long id) {
         productService.delete(id);
-        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping("/price/between")
-    public ResponseEntity<List<ProductDto>> getByPriceBetween(
+    public ResponseEntity<List<ProductResponse>> getByPriceBetween(
             @RequestParam Integer lowerPrice,
             @RequestParam Integer higherPrice) {
-        List<ProductDto> resultList = productService
+        List<ProductResponse> resultList = productService
                 .getByPriceBetween(lowerPrice, higherPrice).stream()
                 .map(mapper::mapToDto)
                 .collect(Collectors.toList());
@@ -81,14 +99,13 @@ public class ProductController {
     }
 
     @GetMapping("/categories")
-    public ResponseEntity<List<ProductDto>> getByCategories(
+    public ResponseEntity<List<ProductResponse>> getByCategories(
             @RequestParam List<String> names) {
         List<Category> categories = names.stream()
                 .map(categoryService::findByName)
-                .filter(Optional::isPresent)
-                .map(Optional::get)
+                .filter(Objects::nonNull)
                 .collect(Collectors.toList());
-        List<ProductDto> resultList = productService.getByCategories(categories).stream()
+        List<ProductResponse> resultList = productService.getByCategories(categories).stream()
                 .map(mapper::mapToDto)
                 .collect(Collectors.toList());
         return new ResponseEntity<>(resultList, HttpStatus.OK);

@@ -1,7 +1,9 @@
 package mate.academy.springboot.datajpa.controller;
 
+import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import mate.academy.springboot.datajpa.dto.CategoryDto;
+import mate.academy.springboot.datajpa.dto.CategoryRequest;
+import mate.academy.springboot.datajpa.dto.CategoryResponse;
 import mate.academy.springboot.datajpa.mapper.CategoryMapper;
 import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.service.CategoryServiceImp;
@@ -20,35 +22,36 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RequestMapping("/categories")
 public class CategoryController {
-
     private final CategoryServiceImp categoryService;
     private final CategoryMapper mapper;
 
     @PostMapping
-    public ResponseEntity<CategoryDto> create(@RequestBody CategoryDto dto) {
-        Category category = mapper.mapToEntity(dto);
+    public ResponseEntity<CategoryResponse> create(@Valid @RequestBody CategoryRequest request) {
+        Category category = mapper.mapToEntity(request);
         Category savedCategory = categoryService.create(category);
-        CategoryDto resultDto = mapper.mapToDto(savedCategory);
-        return new ResponseEntity<>(resultDto, HttpStatus.OK);
+        CategoryResponse response = mapper.mapToDto(savedCategory);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CategoryDto> get(@PathVariable Long id) {
-        CategoryDto resultDto = categoryService.findById(id).map(mapper::mapToDto).orElse(null);
-        return new ResponseEntity<>(resultDto, HttpStatus.OK);
+    public ResponseEntity<CategoryResponse> get(@PathVariable Long id) {
+        Category category = categoryService.getById(id);
+        CategoryResponse response = mapper.mapToDto(category);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CategoryDto> update(@PathVariable Long id, @RequestBody CategoryDto dto) {
-        Category category = mapper.mapToEntity(dto);
+    public ResponseEntity<CategoryResponse> update(
+            @PathVariable Long id,
+            @Valid @RequestBody CategoryRequest request) {
+        Category category = mapper.mapToEntity(request);
         Category updatedCategory = categoryService.update(id, category);
-        CategoryDto resultDto = mapper.mapToDto(updatedCategory);
-        return new ResponseEntity<>(resultDto, HttpStatus.OK);
+        CategoryResponse response = mapper.mapToDto(updatedCategory);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<CategoryDto> delete(@PathVariable Long id) {
+    public void delete(@PathVariable Long id) {
         categoryService.delete(id);
-        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

@@ -5,7 +5,7 @@ import lombok.experimental.Accessors;
 
 @Data
 @Accessors(chain = true)
-public class CategoryDto {
+public class CategoryResponse {
 
     private String name;
 }

@@ -2,20 +2,26 @@ package mate.academy.springboot.datajpa.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Table;
 import lombok.Data;
 import lombok.experimental.Accessors;
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
 
 @Data
 @Entity
 @Accessors(chain = true)
 @Table(name = "category")
-@SQLDelete(sql = "UPDATE category SET deleted = true WHERE id = ?")
-@Where(clause = "deleted=false")
-public class Category extends BaseEntity {
+public class Category {
 
-    @Column(name = "name")
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "name", unique = true)
     private String name;
+
+    @Column(name = "deleted", nullable = false)
+    private Boolean deleted = Boolean.FALSE;
 }
