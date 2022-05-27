@@ -19,7 +19,7 @@ public class CategoryMapper implements RequestDtoMapper<Category, CategoryReques
     }
 
     @Override
-    public CategoryResponseDto modelToDto(Category model) {
+    public CategoryResponseDto mapToDto(Category model) {
         return mapper.map(model, CategoryResponseDto.class);
     }
 }
