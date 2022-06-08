@@ -1,6 +1,10 @@
 package mate.academy.springboot.datajpa.service;
 
+import mate.academy.springboot.datajpa.dto.ResponseProductDto;
 import mate.academy.springboot.datajpa.model.Product;
+
+import java.math.BigDecimal;
+import java.util.List;
 
 public interface ProductService {
     Product create(Product toModel);
@@ -9,5 +13,9 @@ public interface ProductService {
 
     void deleteById(Long id);
 
-    Product update(Product product);
+    void update(Product product);
+
+    List<Product> findAllByPriceBetween(BigDecimal from, BigDecimal to);
+
+    List<Product> findAll();
 }

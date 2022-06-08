@@ -10,5 +10,5 @@ import java.math.BigDecimal;
 public class RequestProductDto {
     private String title;
     private BigDecimal price;
-    private Long category_id;
+    private Long categoryId;
 }

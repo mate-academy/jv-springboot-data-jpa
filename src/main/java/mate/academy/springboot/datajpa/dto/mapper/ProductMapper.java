@@ -18,7 +18,7 @@ public class ProductMapper {
         Product product = new Product();
         product.setTitle(requestProductDto.getTitle());
         product.setPrice(requestProductDto.getPrice());
-        product.setCategory(categoryService.getById(requestProductDto.getCategory_id()));
+        product.setCategory(categoryService.getById(requestProductDto.getCategoryId()));
         return product;
     }
 
