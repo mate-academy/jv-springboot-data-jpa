@@ -1,5 +1,8 @@
 package mate.academy.springboot.datajpa.service.impl;
 
+import java.math.BigDecimal;
+import java.util.List;
+import java.util.Optional;
 import mate.academy.springboot.datajpa.dao.CategoryRepository;
 import mate.academy.springboot.datajpa.dao.ProductRepository;
 import mate.academy.springboot.datajpa.exception.ServiceDataException;
@@ -7,10 +10,6 @@ import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.service.ProductService;
 import org.springframework.stereotype.Service;
-
-import java.math.BigDecimal;
-import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ProductServiceImpl implements ProductService {

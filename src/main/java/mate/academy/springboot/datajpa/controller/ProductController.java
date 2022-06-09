@@ -33,12 +33,15 @@ public class ProductController {
         this.productMapper = productMapper;
     }
 
-
     @PostMapping("/create")
-    public ResponseProductDto create(RequestProductDto requestProductDto) {
+    public ResponseProductDto create(RequestProductDto requestProductDto)
+            throws ControllerException {
+        try {
         return productMapper.toDto(productService.create(productMapper
                 .toModel(requestProductDto)));
-
+        } catch (ServiceDataException e) {
+            throw new ControllerException(e.getMessage());
+        }
     }
 
     @GetMapping("/{id}")
@@ -87,8 +90,7 @@ public class ProductController {
     }
 
     @ExceptionHandler(ControllerException.class)
-    public ResponseExceptionDto handleException(ControllerException e) {
+    private ResponseExceptionDto handleException(ControllerException e) {
         return new ResponseExceptionDto(e.getMessage());
     }
-
 }

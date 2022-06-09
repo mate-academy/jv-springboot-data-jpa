@@ -2,6 +2,7 @@ package mate.academy.springboot.datajpa.dto.mapper;
 
 import mate.academy.springboot.datajpa.dto.RequestProductDto;
 import mate.academy.springboot.datajpa.dto.ResponseProductDto;
+import mate.academy.springboot.datajpa.exception.ServiceDataException;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.service.CategoryService;
 import org.springframework.stereotype.Component;
@@ -14,11 +15,11 @@ public class ProductMapper {
         this.categoryService = categoryService;
     }
 
-    public Product toModel(RequestProductDto requestProductDto) {
+    public Product toModel(RequestProductDto requestProductDto) throws ServiceDataException {
         Product product = new Product();
         product.setTitle(requestProductDto.getTitle());
         product.setPrice(requestProductDto.getPrice());
-        product.setCategory(categoryService.getById(requestProductDto.getCategoryId()));
+        product.setCategory(categoryService.findById(requestProductDto.getCategoryId()));
         return product;
     }
 
