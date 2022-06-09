@@ -64,14 +64,22 @@ public class ProductController {
 
     @GetMapping()
     public List<ResponseProductDto> findAllByPriceBetween(@RequestParam(required = false) Long from,
-                                               @RequestParam(required = false) Long to) throws ControllerException {
-        if (from == null && to == null) {
-            return productService.findAll().stream()
-                    .map(productMapper::toDto)
-                    .collect(Collectors.toList());
+                                                          @RequestParam(required = false) Long to,
+                                                          @RequestParam(required = false) Long categoryId)
+            throws ControllerException {
+        if (from == null && to == null && categoryId != null) {
+            try {
+                return productService.findAllByCategory(categoryId).stream()
+                        .map(productMapper::toDto)
+                        .collect(Collectors.toList());
+            } catch (ServiceDataException e) {
+                throw new ControllerException(e.getMessage());
+            }
+
         }
-        if (from != null && to != null) {
-            return productService.findAllByPriceBetween(BigDecimal.valueOf(from), BigDecimal.valueOf(to)).stream()
+        if (from != null && to != null && categoryId == null) {
+            return productService.findAllByPriceBetween(BigDecimal.valueOf(from),
+                            BigDecimal.valueOf(to)).stream()
                     .map(productMapper::toDto)
                     .collect(Collectors.toList());
         }

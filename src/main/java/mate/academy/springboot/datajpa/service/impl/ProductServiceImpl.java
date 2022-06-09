@@ -1,5 +1,6 @@
 package mate.academy.springboot.datajpa.service.impl;
 
+import mate.academy.springboot.datajpa.dao.CategoryRepository;
 import mate.academy.springboot.datajpa.dao.ProductRepository;
 import mate.academy.springboot.datajpa.exception.ServiceDataException;
 import mate.academy.springboot.datajpa.model.Category;
@@ -14,9 +15,12 @@ import java.util.Optional;
 @Service
 public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
+    private final CategoryRepository categoryRepository;
 
-    public ProductServiceImpl(ProductRepository productRepository) {
+    public ProductServiceImpl(ProductRepository productRepository,
+                              CategoryRepository categoryRepository) {
         this.productRepository = productRepository;
+        this.categoryRepository = categoryRepository;
     }
 
     @Override
@@ -40,11 +44,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void update(Product product) {
-        Long id = product.getId();
-        String title = product.getTitle();
-        BigDecimal price = product.getPrice();
-        Long categoryId = product.getCategory().getId();
-        productRepository.update(id, title, price, categoryId);
+        productRepository.save(product);
     }
 
     @Override
@@ -53,7 +53,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> findAll() {
-        return productRepository.findAll();
+    public List<Product> findAllByCategory(Long categoryId) {
+        Optional<Category> categoryOptional = categoryRepository.findById(categoryId);
+        if (categoryOptional.isEmpty()) {
+            throw new ServiceDataException("The category is absent by Id : " + categoryId + " !");
+        }
+        return productRepository.findAllByCategory(categoryOptional.get());
     }
 }
