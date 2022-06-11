@@ -3,6 +3,8 @@ package mate.academy.springboot.datajpa.controller;
 import mate.academy.springboot.datajpa.dto.request.RequestCategoryDto;
 import mate.academy.springboot.datajpa.dto.response.ResponseCategoryDto;
 import mate.academy.springboot.datajpa.dto.mapper.CategoryMapper;
+import mate.academy.springboot.datajpa.exception.ControllerException;
+import mate.academy.springboot.datajpa.exception.ServiceDataException;
 import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.service.CategoryService;
 import org.junit.jupiter.api.Assertions;
@@ -15,6 +17,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 class CategoryControllerTest {
     private final static String FRUIT = "fruit";
     private final static Long ID = 1L;
+    private static final String MESSAGE = "Can't find a category by Id : " + ID + " !";
     private CategoryController categoryController;
     private CategoryService categoryService;
     private CategoryMapper categoryMapper;
@@ -57,7 +60,7 @@ class CategoryControllerTest {
     }
 
     @Test
-    void getByIdOk() {
+    void getByIdOk() throws ControllerException {
         Mockito.when(categoryService.findById(ID)).thenReturn(category);
         Mockito.when(categoryMapper.toDto(category)).thenReturn(expectedDto);
 
@@ -65,6 +68,17 @@ class CategoryControllerTest {
 
         Assertions.assertNotNull(actual);
         Assertions.assertEquals(expectedDto, actual);
+    }
+
+    @Test
+    void getByIdCatchServiceDataException() {
+        Mockito.when(categoryService.findById(ID)).thenThrow(new ServiceDataException(MESSAGE));
+
+        ControllerException actual = Assertions.assertThrows(ControllerException.class, () -> {
+            categoryController.getById(ID);
+        });
+
+        Assertions.assertEquals(MESSAGE, actual.getMessage());
     }
 
     @Test
