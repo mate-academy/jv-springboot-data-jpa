@@ -1,8 +1,8 @@
 package mate.academy.springboot.datajpa.controller;
 
-import mate.academy.springboot.datajpa.dto.RequestCategoryDto;
-import mate.academy.springboot.datajpa.dto.ResponseCategoryDto;
-import mate.academy.springboot.datajpa.dto.ResponseExceptionDto;
+import mate.academy.springboot.datajpa.dto.request.RequestCategoryDto;
+import mate.academy.springboot.datajpa.dto.response.ResponseCategoryDto;
+import mate.academy.springboot.datajpa.dto.response.ResponseExceptionDto;
 import mate.academy.springboot.datajpa.dto.mapper.CategoryMapper;
 import mate.academy.springboot.datajpa.exception.ControllerException;
 import mate.academy.springboot.datajpa.model.Category;

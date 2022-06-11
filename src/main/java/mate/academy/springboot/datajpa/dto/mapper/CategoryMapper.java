@@ -1,7 +1,7 @@
 package mate.academy.springboot.datajpa.dto.mapper;
 
-import mate.academy.springboot.datajpa.dto.RequestCategoryDto;
-import mate.academy.springboot.datajpa.dto.ResponseCategoryDto;
+import mate.academy.springboot.datajpa.dto.request.RequestCategoryDto;
+import mate.academy.springboot.datajpa.dto.response.ResponseCategoryDto;
 import mate.academy.springboot.datajpa.model.Category;
 import org.springframework.stereotype.Component;
 

@@ -1,7 +1,7 @@
 package mate.academy.springboot.datajpa.controller;
 
-import mate.academy.springboot.datajpa.dto.RequestCategoryDto;
-import mate.academy.springboot.datajpa.dto.ResponseCategoryDto;
+import mate.academy.springboot.datajpa.dto.request.RequestCategoryDto;
+import mate.academy.springboot.datajpa.dto.response.ResponseCategoryDto;
 import mate.academy.springboot.datajpa.dto.mapper.CategoryMapper;
 import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.service.CategoryService;
@@ -9,7 +9,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import org.springframework.boot.test.context.SpringBootTest;
 
+@SpringBootTest
 class CategoryControllerTest {
     private final static String FRUIT = "fruit";
     private final static Long ID = 1L;
@@ -43,7 +45,7 @@ class CategoryControllerTest {
     }
 
     @Test
-    void create_Ok() {
+    void createOk() {
         Mockito.when(categoryMapper.toModel(requestDto)).thenReturn(categoryWithoutId);
         Mockito.when(categoryService.create(categoryWithoutId)).thenReturn(category);
         Mockito.when(categoryMapper.toDto(category)).thenReturn(expectedDto);
@@ -55,7 +57,7 @@ class CategoryControllerTest {
     }
 
     @Test
-    void getById_Ok() {
+    void getByIdOk() {
         Mockito.when(categoryService.findById(ID)).thenReturn(category);
         Mockito.when(categoryMapper.toDto(category)).thenReturn(expectedDto);
 
@@ -66,7 +68,7 @@ class CategoryControllerTest {
     }
 
     @Test
-    void update_Ok() {
+    void updateOk() {
         Mockito.when(categoryMapper.toModel(requestDto)).thenReturn(categoryWithoutId);
         Mockito.when(categoryService.update(category)).thenReturn(category);
         Mockito.when(categoryMapper.toDto(category)).thenReturn(expectedDto);

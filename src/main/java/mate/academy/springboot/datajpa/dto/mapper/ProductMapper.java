@@ -1,7 +1,7 @@
 package mate.academy.springboot.datajpa.dto.mapper;
 
-import mate.academy.springboot.datajpa.dto.RequestProductDto;
-import mate.academy.springboot.datajpa.dto.ResponseProductDto;
+import mate.academy.springboot.datajpa.dto.request.RequestProductDto;
+import mate.academy.springboot.datajpa.dto.response.ResponseProductDto;
 import mate.academy.springboot.datajpa.exception.ServiceDataException;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.service.CategoryService;
@@ -28,7 +28,7 @@ public class ProductMapper {
         responseProductDto.setId(product.getId());
         responseProductDto.setTitle(product.getTitle());
         responseProductDto.setPrice(product.getPrice());
-        responseProductDto.setCategory_id(product.getCategory().getId());
+        responseProductDto.setCategoryId(product.getCategory().getId());
         return responseProductDto;
     }
 }

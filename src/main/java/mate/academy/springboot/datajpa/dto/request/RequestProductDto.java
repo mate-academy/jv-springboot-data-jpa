@@ -1,4 +1,4 @@
-package mate.academy.springboot.datajpa.dto;
+package mate.academy.springboot.datajpa.dto.request;
 
 import java.math.BigDecimal;
 import lombok.Data;

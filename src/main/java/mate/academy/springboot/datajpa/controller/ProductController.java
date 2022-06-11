@@ -3,9 +3,11 @@ package mate.academy.springboot.datajpa.controller;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
-import mate.academy.springboot.datajpa.dto.RequestProductDto;
-import mate.academy.springboot.datajpa.dto.ResponseExceptionDto;
-import mate.academy.springboot.datajpa.dto.ResponseProductDto;
+import java.util.stream.Stream;
+
+import mate.academy.springboot.datajpa.dto.request.RequestProductDto;
+import mate.academy.springboot.datajpa.dto.response.ResponseExceptionDto;
+import mate.academy.springboot.datajpa.dto.response.ResponseProductDto;
 import mate.academy.springboot.datajpa.dto.mapper.ProductMapper;
 import mate.academy.springboot.datajpa.exception.ControllerException;
 import mate.academy.springboot.datajpa.exception.ServiceDataException;
@@ -34,14 +36,9 @@ public class ProductController {
     }
 
     @PostMapping("/create")
-    public ResponseProductDto create(RequestProductDto requestProductDto)
-            throws ControllerException {
-        try {
-        return productMapper.toDto(productService.create(productMapper
+    public ResponseProductDto create(RequestProductDto requestProductDto) {
+            return productMapper.toDto(productService.create(productMapper
                 .toModel(requestProductDto)));
-        } catch (ServiceDataException e) {
-            throw new ControllerException(e.getMessage());
-        }
     }
 
     @GetMapping("/{id}")
@@ -59,17 +56,17 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
-    public void update(@PathVariable Long id, RequestProductDto requestProductDto) {
+    public ResponseProductDto update(@PathVariable Long id, RequestProductDto requestProductDto) {
         Product product = productMapper.toModel(requestProductDto);
         product.setId(id);
-        productService.update(product);
+        return productMapper.toDto(productService.update(product));
     }
 
     @GetMapping()
-    public List<ResponseProductDto> findAllByPriceBetween(@RequestParam(required = false) Long from,
-                                                          @RequestParam(required = false) Long to,
-                                                          @RequestParam(required = false) Long categoryId)
-            throws ControllerException {
+    public List<ResponseProductDto> findAllByPriceBetweenOrByCategory(
+            @RequestParam(required = false) Long from,
+            @RequestParam(required = false) Long to,
+            @RequestParam(required = false) Long categoryId) throws ControllerException {
         if (from == null && to == null && categoryId != null) {
             try {
                 return productService.findAllByCategory(categoryId).stream()
