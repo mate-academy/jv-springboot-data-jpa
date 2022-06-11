@@ -5,18 +5,10 @@ import mate.academy.springboot.datajpa.dto.ResponseCategoryDto;
 import mate.academy.springboot.datajpa.dto.mapper.CategoryMapper;
 import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.service.CategoryService;
-import mate.academy.springboot.datajpa.service.impl.CategoryServiceImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Mock;
 import org.mockito.Mockito;
-
-import javax.persistence.Id;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
 
 class CategoryControllerTest {
     private final static String FRUIT = "fruit";
@@ -26,10 +18,8 @@ class CategoryControllerTest {
     private CategoryMapper categoryMapper;
     private Category category;
     private Category categoryWithoutId;
-    private ResponseCategoryDto expected;
-    private RequestCategoryDto requestCategoryDto;
-    private Long id;
-
+    private ResponseCategoryDto expectedDto;
+    private RequestCategoryDto requestDto;
 
     @BeforeEach
     void setUp() {
@@ -44,46 +34,46 @@ class CategoryControllerTest {
         categoryWithoutId = new Category();
         categoryWithoutId.setTitle(FRUIT);
 
-        expected = new ResponseCategoryDto();
-        expected.setId(ID);
-        expected.setTitle(FRUIT);
+        expectedDto = new ResponseCategoryDto();
+        expectedDto.setId(ID);
+        expectedDto.setTitle(FRUIT);
 
-        requestCategoryDto = new RequestCategoryDto();
-        requestCategoryDto.setTitle(FRUIT);
+        requestDto = new RequestCategoryDto();
+        requestDto.setTitle(FRUIT);
     }
 
     @Test
     void create_Ok() {
-        Mockito.when(categoryMapper.toModel(requestCategoryDto)).thenReturn(categoryWithoutId);
+        Mockito.when(categoryMapper.toModel(requestDto)).thenReturn(categoryWithoutId);
         Mockito.when(categoryService.create(categoryWithoutId)).thenReturn(category);
-        Mockito.when(categoryMapper.toDto(category)).thenReturn(expected);
+        Mockito.when(categoryMapper.toDto(category)).thenReturn(expectedDto);
 
-        ResponseCategoryDto actual = categoryController.create(requestCategoryDto);
+        ResponseCategoryDto actual = categoryController.create(requestDto);
 
         Assertions.assertNotNull(actual);
-        Assertions.assertEquals(expected, actual);
+        Assertions.assertEquals(expectedDto, actual);
     }
 
     @Test
     void getById_Ok() {
         Mockito.when(categoryService.findById(ID)).thenReturn(category);
-        Mockito.when(categoryMapper.toDto(category)).thenReturn(expected);
+        Mockito.when(categoryMapper.toDto(category)).thenReturn(expectedDto);
 
         ResponseCategoryDto actual = categoryController.getById(ID);
 
         Assertions.assertNotNull(actual);
-        Assertions.assertEquals(expected, actual);
+        Assertions.assertEquals(expectedDto, actual);
     }
 
     @Test
     void update_Ok() {
-        Mockito.when(categoryMapper.toModel(requestCategoryDto)).thenReturn(categoryWithoutId);
+        Mockito.when(categoryMapper.toModel(requestDto)).thenReturn(categoryWithoutId);
         Mockito.when(categoryService.update(category)).thenReturn(category);
-        Mockito.when(categoryMapper.toDto(category)).thenReturn(expected);
+        Mockito.when(categoryMapper.toDto(category)).thenReturn(expectedDto);
 
-        ResponseCategoryDto actual = categoryController.update(ID, requestCategoryDto);
+        ResponseCategoryDto actual = categoryController.update(ID, requestDto);
 
         Assertions.assertNotNull(actual);
-        Assertions.assertEquals(expected, actual);
+        Assertions.assertEquals(expectedDto, actual);
     }
 }
