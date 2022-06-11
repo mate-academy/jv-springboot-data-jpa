@@ -30,9 +30,8 @@ public class CategoryController {
 
     @PostMapping()
     public ResponseCategoryDto create(RequestCategoryDto requestCategoryDto) {
-            Category category = categoryService.create(categoryMapper
-                    .toModel(requestCategoryDto));
-            return categoryMapper.toDto(category);
+        Category category = categoryMapper.toModel(requestCategoryDto);
+        return categoryMapper.toDto(categoryService.create(category));
     }
 
     @GetMapping("/{id}")
@@ -46,10 +45,10 @@ public class CategoryController {
     }
 
     @PutMapping("/{id}")
-    public void update(@PathVariable Long id, RequestCategoryDto requestCategoryDto) {
+    public ResponseCategoryDto update(@PathVariable Long id, RequestCategoryDto requestCategoryDto) {
         Category category = categoryMapper.toModel(requestCategoryDto);
         category.setId(id);
-        categoryService.update(category);
+        return categoryMapper.toDto(categoryService.update(category));
     }
 
     @ExceptionHandler(ControllerException.class)
