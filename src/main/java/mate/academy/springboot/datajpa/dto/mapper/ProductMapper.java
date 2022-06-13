@@ -10,9 +10,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class ProductMapper {
     private final CategoryService categoryService;
+    private final CategoryMapper categoryMapper;
 
-    public ProductMapper(CategoryService categoryService) {
+    public ProductMapper(CategoryService categoryService, CategoryMapper categoryMapper) {
         this.categoryService = categoryService;
+        this.categoryMapper = categoryMapper;
     }
 
     public ProductResponseDto toResponseDto(Product product) {
@@ -20,7 +22,7 @@ public class ProductMapper {
         responseDto.setId(product.getId());
         responseDto.setTitle(product.getTitle());
         responseDto.setPrice(product.getPrice());
-        responseDto.setCategory(product.getCategory());
+        responseDto.setCategory(categoryMapper.toResponseDto(product.getCategory()));
         return responseDto;
     }
 
