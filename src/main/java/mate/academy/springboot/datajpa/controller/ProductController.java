@@ -82,11 +82,7 @@ public class ProductController {
 
     @GetMapping("/category")
     public List<ProductResponseDto> findAllByCategory(@RequestParam Set<Long> categoryIds) {
-        Set<Category> categories = new HashSet<>();
-        for (Long categoryId : categoryIds) {
-            categories.add(categoryService.getById(categoryId));
-        }
-        return productService.findAllByCategoryIn(categories)
+        return productService.findAllByCategoryIdIn(categoryIds)
                 .stream()
                 .map(productMapper::toResponseDto)
                 .collect(Collectors.toList());
