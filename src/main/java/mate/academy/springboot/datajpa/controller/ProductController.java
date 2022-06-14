@@ -3,13 +3,12 @@ package mate.academy.springboot.datajpa.controller;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
 import mate.academy.springboot.datajpa.dto.request.RequestProductDto;
 import mate.academy.springboot.datajpa.dto.response.ResponseExceptionDto;
 import mate.academy.springboot.datajpa.dto.response.ResponseProductDto;
 import mate.academy.springboot.datajpa.dto.mapper.ProductMapper;
 import mate.academy.springboot.datajpa.exception.ControllerException;
+import mate.academy.springboot.datajpa.exception.CustomGlobalExceptionHandler;
 import mate.academy.springboot.datajpa.exception.ServiceDataException;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.service.ProductService;
@@ -25,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/products")
-public class ProductController {
+public class ProductController extends CustomGlobalExceptionHandler {
     private final ProductService productService;
     private final ProductMapper productMapper;
 
@@ -36,9 +35,13 @@ public class ProductController {
     }
 
     @PostMapping("/create")
-    public ResponseProductDto create(RequestProductDto requestProductDto) {
+    public ResponseProductDto create(RequestProductDto requestProductDto) throws ControllerException {
+        try {
             return productMapper.toDto(productService.create(productMapper
                 .toModel(requestProductDto)));
+        } catch (ServiceDataException e) {
+            throw new ControllerException(e.getMessage());
+        }
     }
 
     @GetMapping("/{id}")
@@ -56,10 +59,15 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
-    public ResponseProductDto update(@PathVariable Long id, RequestProductDto requestProductDto) {
-        Product product = productMapper.toModel(requestProductDto);
-        product.setId(id);
-        return productMapper.toDto(productService.update(product));
+    public ResponseProductDto update(@PathVariable Long id, RequestProductDto requestProductDto)
+            throws ControllerException {
+        try {
+            Product product = productMapper.toModel(requestProductDto);
+            product.setId(id);
+            return productMapper.toDto(productService.update(product));
+        } catch (ServiceDataException e) {
+            throw new ControllerException(e.getMessage());
+        }
     }
 
     @GetMapping()
@@ -84,10 +92,5 @@ public class ProductController {
                     .collect(Collectors.toList());
         }
         throw new ControllerException("A controller is not exist for these parameters!");
-    }
-
-    @ExceptionHandler(ControllerException.class)
-    private ResponseExceptionDto handleException(ControllerException e) {
-        return new ResponseExceptionDto(e.getMessage());
     }
 }

@@ -5,6 +5,7 @@ import mate.academy.springboot.datajpa.dto.response.ResponseCategoryDto;
 import mate.academy.springboot.datajpa.dto.response.ResponseExceptionDto;
 import mate.academy.springboot.datajpa.dto.mapper.CategoryMapper;
 import mate.academy.springboot.datajpa.exception.ControllerException;
+import mate.academy.springboot.datajpa.exception.CustomGlobalExceptionHandler;
 import mate.academy.springboot.datajpa.exception.ServiceDataException;
 import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.service.CategoryService;
@@ -19,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/categories")
-public class CategoryController {
+public class CategoryController extends CustomGlobalExceptionHandler {
     private final CategoryService categoryService;
     private final CategoryMapper categoryMapper;
 
@@ -55,10 +56,5 @@ public class CategoryController {
         Category category = categoryMapper.toModel(requestCategoryDto);
         category.setId(id);
         return categoryMapper.toDto(categoryService.update(category));
-    }
-
-    @ExceptionHandler(ControllerException.class)
-    private ResponseExceptionDto handleException(ControllerException e) {
-        return new ResponseExceptionDto(e.getMessage());
     }
 }

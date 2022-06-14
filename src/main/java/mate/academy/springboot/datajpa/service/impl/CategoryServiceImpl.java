@@ -16,12 +16,9 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Category findById(Long id) {
-        Optional<Category> categoryOptional = categoryRepository.findById(id);
-        if (categoryOptional.isEmpty()) {
-            throw new ServiceDataException("Can't find a category by Id : " + id + " !");
-        }
-        return categoryOptional.get();
+    public Category findById(Long id) throws ServiceDataException {
+        return categoryRepository.findById(id).orElseThrow(()
+                -> new ServiceDataException("Can't find a category by Id : " + id + " !"));
     }
 
     @Override

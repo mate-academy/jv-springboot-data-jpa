@@ -28,12 +28,9 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product getById(Long id) {
-        Optional<Product> optionalProduct = productRepository.findById(id);
-        if (optionalProduct.isEmpty()) {
-            throw new ServiceDataException("A product is absent by id : " + id + " !");
-        }
-        return optionalProduct.get();
+    public Product getById(Long id) throws ServiceDataException {
+        return productRepository.findById(id).orElseThrow(()
+                -> new ServiceDataException("A product is absent by id : " + id + " !"));
     }
 
     @Override
@@ -52,11 +49,10 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> findAllByCategory(Long categoryId) {
-        Optional<Category> categoryOptional = categoryRepository.findById(categoryId);
-        if (categoryOptional.isEmpty()) {
-            throw new ServiceDataException("The category is absent by Id : " + categoryId + " !");
-        }
-        return productRepository.findAllByCategory(categoryOptional.get());
+    public List<Product> findAllByCategory(Long categoryId) throws ServiceDataException {
+        Category category = categoryRepository.findById(categoryId).orElseThrow(()
+                -> new ServiceDataException("The category is absent by Id : " + categoryId
+                + " !"));
+        return productRepository.findAllByCategory(category);
     }
 }
