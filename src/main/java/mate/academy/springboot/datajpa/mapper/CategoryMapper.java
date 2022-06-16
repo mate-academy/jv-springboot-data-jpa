@@ -10,7 +10,7 @@ public class CategoryMapper {
     public CategoryResponseDto toDto(Category category) {
         CategoryResponseDto responseDto = new CategoryResponseDto();
         responseDto.setId(category.getId());
-        category.setName(category.getName());
+        responseDto.setName(category.getName());
         return responseDto;
     }
 
