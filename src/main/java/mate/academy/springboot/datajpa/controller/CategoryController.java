@@ -3,6 +3,7 @@ package mate.academy.springboot.datajpa.controller;
 import mate.academy.springboot.datajpa.dto.CategoryRequestDto;
 import mate.academy.springboot.datajpa.dto.CategoryResponseDto;
 import mate.academy.springboot.datajpa.dto.mapper.CategoryMapper;
+import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.service.CategoryService;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -43,11 +44,11 @@ public class CategoryController {
         categoryService.deleteById(id);
     }
 
-    @PutMapping
-    public CategoryResponseDto update(@RequestBody CategoryRequestDto categoryRequestDto) {
-        return categoryMapper
-                .toResponseDto(categoryService
-                .update(categoryMapper
-                .toModel(categoryRequestDto)));
+    @PutMapping("/{id}")
+    public CategoryResponseDto update(@PathVariable Long id,
+                                      @RequestBody CategoryRequestDto categoryRequestDto) {
+        Category category = categoryMapper.toModel(categoryRequestDto);
+        category.setId(id);
+        return categoryMapper.toResponseDto(categoryService.update(category));
     }
 }

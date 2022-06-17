@@ -28,8 +28,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Category update(Category categoryDto) {
-        categoryRepository.deleteById(categoryDto.getId());
-        return categoryRepository.save(categoryDto);
+    public Category update(Category category) {
+        return categoryRepository.save(category);
     }
 }
