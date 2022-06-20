@@ -26,7 +26,7 @@ public class CategoryController {
     }
 
     @PostMapping
-    CategoryResponseDto create(@RequestBody CategoryRequestDto categoryRequestDto) {
+    public CategoryResponseDto create(@RequestBody CategoryRequestDto categoryRequestDto) {
         Category category = categoryService.save(categoryMapper.mapToModel(categoryRequestDto));
         return categoryMapper.mapToDto(category);
     }
