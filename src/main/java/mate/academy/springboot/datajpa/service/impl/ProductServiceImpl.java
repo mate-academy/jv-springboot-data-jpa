@@ -1,25 +1,24 @@
 package mate.academy.springboot.datajpa.service.impl;
 
-import java.math.BigDecimal;
 import java.util.List;
-import java.util.Optional;
-import mate.academy.springboot.datajpa.dao.CategoryRepository;
+import java.util.Map;
 import mate.academy.springboot.datajpa.dao.ProductRepository;
+import mate.academy.springboot.datajpa.dao.specification.SpecificationManager;
 import mate.academy.springboot.datajpa.exception.ServiceDataException;
-import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.service.ProductService;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
-    private final CategoryRepository categoryRepository;
+    private final SpecificationManager<Product> productSpecificationManager;
 
     public ProductServiceImpl(ProductRepository productRepository,
-                              CategoryRepository categoryRepository) {
+                              SpecificationManager<Product> productSpecificationManager) {
         this.productRepository = productRepository;
-        this.categoryRepository = categoryRepository;
+        this.productSpecificationManager = productSpecificationManager;
     }
 
     @Override
@@ -44,15 +43,14 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> findAllByPriceBetween(BigDecimal from, BigDecimal to) {
-        return productRepository.findAllByPriceBetween(from, to);
-    }
-
-    @Override
-    public List<Product> findAllByCategory(Long categoryId) throws ServiceDataException {
-        Category category = categoryRepository.findById(categoryId).orElseThrow(()
-                -> new ServiceDataException("The category is absent by Id : " + categoryId
-                + " !"));
-        return productRepository.findAllByCategory(category);
+    public List<Product> findAll(Map<String, String> params) {
+        Specification<Product> specification = null;
+        for (Map.Entry<String, String> entry : params.entrySet()) {
+            Specification<Product> sp = productSpecificationManager.get(entry.getKey(),
+                    entry.getValue().split(","));
+            specification = specification == null
+                    ? Specification.where(sp) : specification.and(sp);
+        }
+        return productRepository.findAll(specification);
     }
 }

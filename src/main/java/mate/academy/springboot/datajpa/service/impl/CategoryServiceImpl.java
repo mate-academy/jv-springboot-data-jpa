@@ -1,6 +1,5 @@
 package mate.academy.springboot.datajpa.service.impl;
 
-import java.util.Optional;
 import mate.academy.springboot.datajpa.dao.CategoryRepository;
 import mate.academy.springboot.datajpa.exception.ServiceDataException;
 import mate.academy.springboot.datajpa.model.Category;

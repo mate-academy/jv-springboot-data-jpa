@@ -18,5 +18,4 @@ public class Product {
     private BigDecimal price;
     @ManyToOne
     private Category category;
-
 }

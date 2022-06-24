@@ -5,7 +5,6 @@ import java.util.List;
 import mate.academy.springboot.datajpa.dto.mapper.ProductMapper;
 import mate.academy.springboot.datajpa.dto.request.RequestProductDto;
 import mate.academy.springboot.datajpa.dto.response.ResponseProductDto;
-import mate.academy.springboot.datajpa.exception.ControllerException;
 import mate.academy.springboot.datajpa.exception.ServiceDataException;
 import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.model.Product;
@@ -69,7 +68,7 @@ class ProductControllerTest {
     }
 
     @Test
-    void createOk() throws ServiceDataException, ControllerException {
+    void createOk() {
         Mockito.when(productMapper.toModel(requestDto)).thenReturn(productWithoutId);
         Mockito.when(productService.create(productWithoutId)).thenReturn(product);
         Mockito.when(productMapper.toDto(product)).thenReturn(expectedDto);
@@ -81,7 +80,7 @@ class ProductControllerTest {
     }
 
     @Test
-    void getByIdOK() throws ControllerException, ServiceDataException {
+    void getByIdOK() {
         Mockito.when(productService.getById(ID)).thenReturn(product);
         Mockito.when(productMapper.toDto(product)).thenReturn(expectedDto);
 
@@ -96,13 +95,13 @@ class ProductControllerTest {
         Mockito.when(productService.getById(ID)).thenThrow(
                 new ServiceDataException(MESSAGE));
 
-        ControllerException actual = Assertions.assertThrows(ControllerException.class, ()
+        ServiceDataException actual = Assertions.assertThrows(ServiceDataException.class, ()
                 -> productController.getById(ID));
         Assertions.assertEquals(MESSAGE, actual.getMessage());
     }
 
     @Test
-    void update() throws ServiceDataException, ControllerException {
+    void update() {
         Mockito.when(productMapper.toModel(requestDto)).thenReturn(productWithoutId);
         Mockito.when(productService.update(product)).thenReturn(product);
         Mockito.when(productMapper.toDto(product)).thenReturn(expectedDto);
@@ -111,37 +110,5 @@ class ProductControllerTest {
 
         Assertions.assertNotNull(actual);
         Assertions.assertEquals(expectedDto, actual);
-    }
-
-    @Test
-    void findAllByCategoryOK() throws ControllerException, ServiceDataException {
-        Mockito.when(productService.findAllByCategory(ID)).thenReturn(List.of(product));
-        Mockito.when(productMapper.toDto(product)).thenReturn(expectedDto);
-
-        List<ResponseProductDto> actual = productController
-                .findAllByPriceBetweenOrByCategory(null, null, ID);
-
-        Assertions.assertNotNull(actual);
-        Assertions.assertEquals(List.of(expectedDto), actual);
-    }
-
-    @Test
-    void findAllByPriceBetweenOK() throws ControllerException {
-        Mockito.when(productService.findAllByPriceBetween(BigDecimal.valueOf(FROM),
-                BigDecimal.valueOf(TO))).thenReturn(List.of(product));
-        Mockito.when(productMapper.toDto(product)).thenReturn(expectedDto);
-
-        List<ResponseProductDto> actual = productController
-                .findAllByPriceBetweenOrByCategory(FROM, TO, null);
-
-        Assertions.assertNotNull(actual);
-        Assertions.assertEquals(List.of(expectedDto), actual);
-    }
-
-    @Test
-    void findAllByPriceBetweenOrByCategoryCatchServiceDataException() {
-        ControllerException actual = Assertions.assertThrows(ControllerException.class, ()
-                -> productController.findAllByPriceBetweenOrByCategory(FROM, TO, CATEGORY_ID));
-        Assertions.assertEquals(MESSAGE_TWO, actual.getMessage());
     }
 }

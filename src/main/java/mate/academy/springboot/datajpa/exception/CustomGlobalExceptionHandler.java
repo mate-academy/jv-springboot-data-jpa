@@ -5,8 +5,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 public class CustomGlobalExceptionHandler {
 
-    @ExceptionHandler(ControllerException.class)
-    private ResponseExceptionDto handleException(ControllerException e) {
+    @ExceptionHandler(ServiceDataException.class)
+    private ResponseExceptionDto handleException(ServiceDataException e) {
         return new ResponseExceptionDto(e.getMessage());
     }
 }

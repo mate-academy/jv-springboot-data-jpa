@@ -3,7 +3,6 @@ package mate.academy.springboot.datajpa.controller;
 import mate.academy.springboot.datajpa.dto.request.RequestCategoryDto;
 import mate.academy.springboot.datajpa.dto.response.ResponseCategoryDto;
 import mate.academy.springboot.datajpa.dto.mapper.CategoryMapper;
-import mate.academy.springboot.datajpa.exception.ControllerException;
 import mate.academy.springboot.datajpa.exception.ServiceDataException;
 import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.service.CategoryService;
@@ -60,7 +59,7 @@ class CategoryControllerTest {
     }
 
     @Test
-    void getByIdOk() throws ControllerException {
+    void getByIdOk() {
         Mockito.when(categoryService.findById(ID)).thenReturn(category);
         Mockito.when(categoryMapper.toDto(category)).thenReturn(expectedDto);
 
@@ -74,9 +73,8 @@ class CategoryControllerTest {
     void getByIdCatchServiceDataException() {
         Mockito.when(categoryService.findById(ID)).thenThrow(new ServiceDataException(MESSAGE));
 
-        ControllerException actual = Assertions.assertThrows(ControllerException.class, () -> {
-            categoryController.getById(ID);
-        });
+        ServiceDataException actual = Assertions.assertThrows(ServiceDataException.class, ()
+                -> categoryController.getById(ID));
 
         Assertions.assertEquals(MESSAGE, actual.getMessage());
     }

@@ -2,15 +2,11 @@ package mate.academy.springboot.datajpa.controller;
 
 import mate.academy.springboot.datajpa.dto.request.RequestCategoryDto;
 import mate.academy.springboot.datajpa.dto.response.ResponseCategoryDto;
-import mate.academy.springboot.datajpa.dto.response.ResponseExceptionDto;
 import mate.academy.springboot.datajpa.dto.mapper.CategoryMapper;
-import mate.academy.springboot.datajpa.exception.ControllerException;
 import mate.academy.springboot.datajpa.exception.CustomGlobalExceptionHandler;
-import mate.academy.springboot.datajpa.exception.ServiceDataException;
 import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.service.CategoryService;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -37,14 +33,9 @@ public class CategoryController extends CustomGlobalExceptionHandler {
     }
 
     @GetMapping("/{id}")
-    public ResponseCategoryDto getById(@PathVariable Long id) throws ControllerException {
-        try {
+    public ResponseCategoryDto getById(@PathVariable Long id) {
             return categoryMapper.toDto(categoryService.findById(id));
-        } catch (ServiceDataException e) {
-            throw new ControllerException (e.getMessage());
-        }
     }
-
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
