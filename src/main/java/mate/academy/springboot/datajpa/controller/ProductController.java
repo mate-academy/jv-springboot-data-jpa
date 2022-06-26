@@ -1,5 +1,6 @@
 package mate.academy.springboot.datajpa.controller;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 import mate.academy.springboot.datajpa.mapper.ProductDtoMapper;
@@ -53,15 +54,15 @@ public class ProductController {
         return productDtoMapper.toDto(productService.save(product));
     }
 
-    @GetMapping("/byPrice")
-    public List<ProductResponseDto> getByPriceBetween(@RequestParam Double min,
-                                                      @RequestParam Double max) {
+    @GetMapping("/by-price")
+    public List<ProductResponseDto> getByPriceBetween(@RequestParam BigDecimal min,
+                                                      @RequestParam BigDecimal max) {
         return productService.getByPriceBetween(min, max).stream()
                 .map(productDtoMapper::toDto)
                 .collect(Collectors.toList());
     }
 
-    @GetMapping("/byCategories")
+    @GetMapping("/by-category")
     public List<ProductResponseDto> getByCategories(@RequestParam List<Long> categoryIds) {
         return productService.getByCategories(categoryIds).stream()
                 .map(productDtoMapper::toDto)
