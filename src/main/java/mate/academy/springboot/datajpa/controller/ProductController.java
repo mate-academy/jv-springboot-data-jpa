@@ -7,7 +7,8 @@ import mate.academy.springboot.datajpa.dto.request.ProductRequestDto;
 import mate.academy.springboot.datajpa.dto.response.ProductResponseDto;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.service.ProductService;
-import mate.academy.springboot.datajpa.service.mapper.ProductMapper;
+import mate.academy.springboot.datajpa.service.mapper.RequestDtoMapper;
+import mate.academy.springboot.datajpa.service.mapper.ResponseDtoMapper;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,31 +17,34 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/products")
 public class ProductController {
     private final ProductService productService;
-    private final ProductMapper productMapper;
+    private final RequestDtoMapper<ProductRequestDto, Product> productRequestDtoMapper;
+    private final ResponseDtoMapper<ProductResponseDto, Product> productResponseDtoMapper;
 
     public ProductController(ProductService productService,
-                             ProductMapper productMapper) {
+                             RequestDtoMapper<ProductRequestDto, Product>
+                                     productRequestDtoMapper,
+                             ResponseDtoMapper<ProductResponseDto, Product>
+                                     productResponseDtoMapper) {
         this.productService = productService;
-        this.productMapper = productMapper;
+        this.productRequestDtoMapper = productRequestDtoMapper;
+        this.productResponseDtoMapper = productResponseDtoMapper;
     }
 
     @PostMapping
     public ProductResponseDto addProduct(@RequestBody ProductRequestDto productRequestDto) {
-        return productMapper.mapToDto(productService.add(
-                productMapper.mapToModel(productRequestDto)));
+        Product product = productService.add(productRequestDtoMapper.mapToModel(productRequestDto));
+        return productResponseDtoMapper.mapToDto(product);
     }
 
     @GetMapping("/{id}")
-    @ResponseBody
     public ProductResponseDto getById(@PathVariable Long id) {
-        return productMapper.mapToDto(productService.get(id));
+        return productResponseDtoMapper.mapToDto(productService.get(id));
     }
 
     @DeleteMapping("/{id}")
@@ -51,23 +55,23 @@ public class ProductController {
     @PutMapping("/{id}")
     public ProductResponseDto update(@PathVariable Long id,
                                      @RequestBody ProductRequestDto productRequestDto) {
-        Product product = productMapper.mapToModel(productRequestDto);
+        Product product = productRequestDtoMapper.mapToModel(productRequestDto);
         product.setId(id);
-        return productMapper.mapToDto(productService.update(product));
+        return productResponseDtoMapper.mapToDto(productService.update(product));
     }
 
-    @GetMapping("/byPrice")
+    @GetMapping("/by-price")
     public List<ProductResponseDto> getBetweenPrice(@RequestParam BigDecimal from,
                                                     @RequestParam BigDecimal to) {
         return productService.getBetweenPrice(from, to).stream()
-                .map(productMapper::mapToDto)
+                .map(productResponseDtoMapper::mapToDto)
                 .collect(Collectors.toList());
     }
 
-    @GetMapping("/byCategory")
+    @GetMapping("/by-category")
     public List<ProductResponseDto> getByCategory(@RequestParam List<Long> categoriesIds) {
         return productService.getByCategories(categoriesIds).stream()
-                .map(productMapper::mapToDto)
+                .map(productResponseDtoMapper::mapToDto)
                 .collect(Collectors.toList());
     }
 }
