@@ -63,7 +63,7 @@ public class ProductController {
                                      @RequestBody ProductRequestDto requestDto) {
         Product product = productDtoMapper.toProductModel(requestDto);
         product.setId(id);
-        return productDtoMapper.toProductResponseDto(productService.save(product));
+        return productDtoMapper.toProductResponseDto(productService.update(product));
     }
 
     @DeleteMapping("/{id}")
