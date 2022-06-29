@@ -1,5 +1,6 @@
 package mate.academy.springboot.datajpa.controller;
 
+import javax.validation.Valid;
 import mate.academy.springboot.datajpa.dto.CategoryRequestDto;
 import mate.academy.springboot.datajpa.dto.CategoryResponseDto;
 import mate.academy.springboot.datajpa.mapper.CategoryMapper;
@@ -26,7 +27,7 @@ public class CategoryController {
     }
 
     @PostMapping
-    public CategoryResponseDto create(@RequestBody CategoryRequestDto categoryRequestDto) {
+    public CategoryResponseDto create(@RequestBody @Valid CategoryRequestDto categoryRequestDto) {
         Category category = categoryMapper.toModel(categoryRequestDto);
         return categoryMapper.toDto(categoryService.create(category));
     }
@@ -38,7 +39,7 @@ public class CategoryController {
 
     @PutMapping("/{id}")
     public CategoryResponseDto update(@PathVariable Long id,
-                                      @RequestBody CategoryRequestDto categoryRequestDto) {
+                                      @RequestBody @Valid CategoryRequestDto categoryRequestDto) {
         Category category = categoryMapper.toModel(categoryRequestDto);
         category.setId(id);
         return categoryMapper.toDto(categoryService.update(category));

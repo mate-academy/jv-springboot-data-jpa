@@ -1,10 +1,18 @@
 package mate.academy.springboot.datajpa.dto;
 
 import java.math.BigDecimal;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.PositiveOrZero;
 
 public class ProductRequestDto {
+    @NotBlank
+    @NotEmpty
     private String title;
+    @PositiveOrZero
     private BigDecimal price;
+    @Positive
     private Long categoryId;
 
     public String getTitle() {
