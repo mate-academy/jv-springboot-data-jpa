@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/product")
+@RequestMapping("/products")
 public class ProductController {
     private final CategoryService categoryService;
     private final ProductService productService;
@@ -35,7 +35,7 @@ public class ProductController {
         this.productDtoMapper = productDtoMapper;
     }
 
-    @GetMapping("/inj")
+    @GetMapping("/inject")
     public void inject() {
         Product testProduct = new Product();
         Category category = new Category();
@@ -71,7 +71,7 @@ public class ProductController {
         productService.delete(id);
     }
 
-    @GetMapping("/2")
+    @GetMapping("/by-price")
     public List<ProductResponseDto> getRange(@RequestParam BigDecimal from,
                                              @RequestParam BigDecimal to) {
         return productService.findAllByPriceBetween(from, to)
@@ -80,7 +80,7 @@ public class ProductController {
                 .collect(Collectors.toList());
     }
 
-    @GetMapping()
+    @GetMapping("/by-categories")
     public List<ProductResponseDto> getList(@RequestParam List<Long> ids) {
         return productService.findAllByCategoryIdIn(ids)
                 .stream()
