@@ -31,8 +31,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product update(Product product) {
-        return productRepository.updateProductById(product.getTitle(), product.getPrice(),
-                product.getCategory(), product.getId());
+        return productRepository.save(product);
     }
 
     @Override
@@ -42,6 +41,6 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> getByCategory(List<Long> categoryIds) {
-        return productRepository.getAllByCategory(categoryIds);
+        return productRepository.findAllByCategoryIdIn(categoryIds);
     }
 }

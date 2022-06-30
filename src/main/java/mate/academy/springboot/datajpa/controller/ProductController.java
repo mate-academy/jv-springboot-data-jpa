@@ -12,9 +12,9 @@ import mate.academy.springboot.datajpa.service.CategoryService;
 import mate.academy.springboot.datajpa.service.ProductService;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -51,7 +51,7 @@ public class ProductController {
         productService.delete(id);
     }
 
-    @PatchMapping("/{id}")
+    @PutMapping("/{id}")
     public ProductResponseDto update(@PathVariable Long id) {
         Product product = productService.getById(id);
         return productDtoMapper.mapToDto(productService.update(product));
@@ -67,7 +67,7 @@ public class ProductController {
     }
 
     @GetMapping("/by-categories")
-    public List<ProductResponseDto> getAllByCategories(@RequestParam(value = "id")
+    public List<ProductResponseDto> getAllByCategories(@RequestParam(value = "category-ids")
                                                            List<Long> categoryIds) {
         return productService.getByCategory(categoryIds)
                 .stream()
