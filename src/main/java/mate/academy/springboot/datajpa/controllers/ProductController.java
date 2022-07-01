@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import mate.academy.springboot.datajpa.dto.request.ProductRequestDto;
 import mate.academy.springboot.datajpa.dto.response.ProductResponseDto;
-import mate.academy.springboot.datajpa.mappers.ProductDtoMapper;
+import mate.academy.springboot.datajpa.mappers.ProductMapper;
 import mate.academy.springboot.datajpa.models.Product;
 import mate.academy.springboot.datajpa.service.ProductService;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -22,9 +22,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/products")
 public class ProductController {
     private final ProductService productService;
-    private final ProductDtoMapper productDtoMapper;
+    private final ProductMapper productDtoMapper;
 
-    public ProductController(ProductService productService, ProductDtoMapper productDtoMapper) {
+    public ProductController(ProductService productService, ProductMapper productDtoMapper) {
         this.productService = productService;
         this.productDtoMapper = productDtoMapper;
     }

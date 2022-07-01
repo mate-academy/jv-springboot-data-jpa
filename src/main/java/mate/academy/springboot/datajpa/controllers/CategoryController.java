@@ -2,7 +2,7 @@ package mate.academy.springboot.datajpa.controllers;
 
 import mate.academy.springboot.datajpa.dto.request.CategoryRequestDto;
 import mate.academy.springboot.datajpa.dto.response.CategoryResponseDto;
-import mate.academy.springboot.datajpa.mappers.CategoryDtoMapper;
+import mate.academy.springboot.datajpa.mappers.CategoryMapper;
 import mate.academy.springboot.datajpa.models.Category;
 import mate.academy.springboot.datajpa.service.CategoryService;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,10 +18,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/categories")
 public class CategoryController {
     private final CategoryService categoryService;
-    private final CategoryDtoMapper categoryDtoMapper;
+    private final CategoryMapper categoryDtoMapper;
 
     public CategoryController(CategoryService categoryService,
-                              CategoryDtoMapper categoryDtoMapper) {
+                              CategoryMapper categoryDtoMapper) {
         this.categoryService = categoryService;
         this.categoryDtoMapper = categoryDtoMapper;
     }
