@@ -15,7 +15,7 @@ public class Product {
     private Long id;
     private String title;
     private BigDecimal price;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private Category category;
 
     public Product() {
