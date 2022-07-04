@@ -6,7 +6,7 @@ import mate.academy.springboot.datajpa.model.Category;
 public class ProductRequestDto {
     private String title;
     private BigDecimal price;
-    private Category category;
+    private Long categoryId;
 
     public String getTitle() {
         return title;
@@ -24,11 +24,11 @@ public class ProductRequestDto {
         this.price = price;
     }
 
-    public Category getCategory() {
-        return category;
+    public Long getCategoryId() {
+        return categoryId;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
+    public void setCategoryId(Category category) {
+        this.categoryId = categoryId;
     }
 }

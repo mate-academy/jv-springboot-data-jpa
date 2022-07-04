@@ -1,13 +1,12 @@
 package mate.academy.springboot.datajpa.dto.response;
 
 import java.math.BigDecimal;
-import mate.academy.springboot.datajpa.model.Category;
 
 public class ProductResponseDto {
     private Long id;
     private String title;
     private BigDecimal price;
-    private Category category;
+    private Long categoryId;
 
     public Long getId() {
         return id;
@@ -33,11 +32,11 @@ public class ProductResponseDto {
         this.price = price;
     }
 
-    public Category getCategory() {
-        return category;
+    public Long getCategoryId() {
+        return categoryId;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
     }
 }
