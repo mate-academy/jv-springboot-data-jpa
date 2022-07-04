@@ -18,7 +18,7 @@ public class Product {
     private String title;
     private BigDecimal price;
     @ManyToOne
-//    @JoinColumn(name = "category_id")
+    @JoinColumn(name = "category_id")
     private Category category;
 
     public Product() {

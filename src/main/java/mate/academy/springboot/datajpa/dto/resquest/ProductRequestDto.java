@@ -1,7 +1,6 @@
 package mate.academy.springboot.datajpa.dto.resquest;
 
 import java.math.BigDecimal;
-import mate.academy.springboot.datajpa.model.Category;
 
 public class ProductRequestDto {
     private String title;
@@ -28,7 +27,7 @@ public class ProductRequestDto {
         return categoryId;
     }
 
-    public void setCategoryId(Category category) {
+    public void setCategoryId(Long categoryId) {
         this.categoryId = categoryId;
     }
 }
