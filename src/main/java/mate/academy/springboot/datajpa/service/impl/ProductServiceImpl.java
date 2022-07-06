@@ -8,6 +8,7 @@ import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.repository.ProductRepository;
 import mate.academy.springboot.datajpa.repository.specification.SpecificationManager;
 import mate.academy.springboot.datajpa.service.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,7 @@ public class ProductServiceImpl implements ProductService {
     private ProductRepository productRepository;
     private SpecificationManager<Product> productSpecificationManager;
 
+    @Autowired
     public ProductServiceImpl(ProductRepository productRepository,
                               SpecificationManager<Product> productSpecificationManager) {
         this.productRepository = productRepository;
@@ -35,9 +37,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void deleteById(Long id) {
-        if (productRepository.existsById(id)) {
-            productRepository.deleteById(id);
-        }
+        productRepository.deleteById(id);
     }
 
     @Override

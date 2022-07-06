@@ -30,9 +30,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public void delete(Long id) {
-        if (categoryRepository.existsById(id)) {
-            categoryRepository.deleteById(id);
-        }
+        categoryRepository.deleteById(id);
     }
 
     @Override

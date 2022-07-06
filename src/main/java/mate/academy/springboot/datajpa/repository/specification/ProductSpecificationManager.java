@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import mate.academy.springboot.datajpa.model.Product;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Component;
 public class ProductSpecificationManager implements SpecificationManager<Product> {
     private final Map<String, SpecificationProvider<Product>> providersMap;
 
+    @Autowired
     public ProductSpecificationManager(List<SpecificationProvider<Product>> providersMap) {
         this.providersMap = providersMap.stream()
                 .collect(Collectors.toMap(SpecificationProvider::getFilterKey,

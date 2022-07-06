@@ -26,15 +26,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class ProductController {
     private ProductService productService;
     private ProductMapper productMapper;
-    private CategoryService categoryService;
 
     @Autowired
     public ProductController(ProductService productService,
-                             ProductMapper productMapper,
-                             CategoryService categoryService) {
+                             ProductMapper productMapper) {
         this.productService = productService;
         this.productMapper = productMapper;
-        this.categoryService = categoryService;
     }
 
     @PostMapping()
@@ -71,10 +68,8 @@ public class ProductController {
     @PutMapping("/update/{id}")
     public ProductResponseDto update(@PathVariable(name = "id") Long id,
                                      @RequestBody ProductRequestDto requestDto) {
-        Product product = productService.get(id);
-        product.setTitle(requestDto.getTitle());
-        product.setPrice(requestDto.getPrice());
-        product.setCategory(categoryService.get(requestDto.getCategoryId()));
+        Product product = productMapper.toModel(requestDto);
+        product.setId(id);
         return productMapper.toDto(productService.update(product));
     }
 }
