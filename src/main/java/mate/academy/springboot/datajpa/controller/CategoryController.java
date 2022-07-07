@@ -3,6 +3,7 @@ package mate.academy.springboot.datajpa.controller;
 import mate.academy.springboot.datajpa.dto.CategoryRequestDto;
 import mate.academy.springboot.datajpa.dto.CategoryResponseDto;
 import mate.academy.springboot.datajpa.dto.mapper.CategoryMapper;
+import mate.academy.springboot.datajpa.exception.CategoryNotFoundException;
 import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.service.CategoryService;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/category")
+@RequestMapping("/categories")
 public class CategoryController {
 
     private final CategoryService categoryService;
@@ -33,11 +34,12 @@ public class CategoryController {
     }
 
     @GetMapping("/{id}")
-    public CategoryResponseDto getById(@PathVariable Long id) {
+    public CategoryResponseDto getById(@PathVariable Long id)
+            throws CategoryNotFoundException {
         return categoryMapper.toResponseDto(categoryService.findById(id));
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public void deleteCategory(@PathVariable Long id) {
         categoryService.deleteById(id);
     }
@@ -45,7 +47,8 @@ public class CategoryController {
     @PutMapping("/update/{id}")
     public CategoryResponseDto updateCategory(@PathVariable Long id,
                                               @RequestBody CategoryRequestDto requestDto) {
-        Category category = categoryService.updateById(id, categoryMapper.toCategory(requestDto));
-        return categoryMapper.toResponseDto(category);
+        Category category = categoryMapper.toCategory(requestDto);
+        category.setId(id);
+        return categoryMapper.toResponseDto(categoryService.update(category));
     }
 }

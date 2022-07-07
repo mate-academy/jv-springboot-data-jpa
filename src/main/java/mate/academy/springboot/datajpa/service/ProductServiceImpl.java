@@ -32,18 +32,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product updateById(Long id, Product product) {
-        Product productById = productRepository.getById(id);
-        if (!product.getTitle().isEmpty()) {
-            productById.setTitle(product.getTitle());
-        }
-        if (product.getPrice() != null) {
-            productById.setPrice(product.getPrice());
-        }
-        if (product.getCategory() != null) {
-            productById.setCategory(product.getCategory());
-        }
-        return productRepository.save(productById);
+    public Product update(Product product) {
+        return productRepository.save(product);
     }
 
     @Override
@@ -53,7 +43,6 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> findProductsByCategoriesIds(List<Long> categoriesIds) {
-        return productRepository.findProductsByCategoriesIds(categoriesIds);
+        return productRepository.findProductsByCategoryIdIn(categoriesIds);
     }
-
 }

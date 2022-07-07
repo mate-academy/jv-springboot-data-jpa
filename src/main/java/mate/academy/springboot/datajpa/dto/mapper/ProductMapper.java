@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import mate.academy.springboot.datajpa.dto.ProductRequestDto;
 import mate.academy.springboot.datajpa.dto.ProductResponseDto;
+import mate.academy.springboot.datajpa.exception.CategoryNotFoundException;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.service.CategoryService;
 import org.springframework.stereotype.Component;
@@ -17,16 +18,21 @@ public class ProductMapper {
         this.categoryService = categoryService;
     }
 
-    public Product toProduct(ProductRequestDto requestDto) {
+    public Product toProduct(ProductRequestDto requestDto) throws CategoryNotFoundException {
         Product product = new Product();
         product.setTitle(requestDto.getTittle());
         product.setPrice(requestDto.getPrice());
-        product.setCategory(categoryService.findById(requestDto.getCategoryId()));
+        if (requestDto.getCategoryId() != null) {
+            product.setCategory(categoryService.findById(requestDto.getCategoryId()));
+        }
         return product;
     }
 
     public List<ProductResponseDto> toProductResponseDtos(List<Product> products) {
-        return products.stream().map(this::toResponseDto).collect(Collectors.toList());
+        return products
+                .stream()
+                .map(this::toResponseDto)
+                .collect(Collectors.toList());
     }
 
     public ProductResponseDto toResponseDto(Product product) {

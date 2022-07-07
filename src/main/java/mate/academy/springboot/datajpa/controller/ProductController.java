@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import mate.academy.springboot.datajpa.dto.ProductRequestDto;
 import mate.academy.springboot.datajpa.dto.ProductResponseDto;
 import mate.academy.springboot.datajpa.dto.mapper.ProductMapper;
+import mate.academy.springboot.datajpa.exception.CategoryNotFoundException;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.service.ProductService;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -31,7 +32,8 @@ public class ProductController {
     }
 
     @PostMapping
-    public ProductResponseDto create(@RequestBody ProductRequestDto requestDto) {
+    public ProductResponseDto create(@RequestBody ProductRequestDto requestDto)
+            throws CategoryNotFoundException {
         Product product = productService.save(productMapper.toProduct(requestDto));
         return productMapper.toResponseDto(product);
     }
@@ -41,16 +43,18 @@ public class ProductController {
         return productMapper.toResponseDto(productService.findById(id));
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public void deleteProduct(@PathVariable Long id) {
         productService.deleteById(id);
     }
 
     @PutMapping("/update/{id}")
     public ProductResponseDto updateProduct(@PathVariable Long id,
-                                            @RequestBody ProductRequestDto requestDto) {
-        Product product = productService.updateById(id, productMapper.toProduct(requestDto));
-        return productMapper.toResponseDto(product);
+                                            @RequestBody ProductRequestDto requestDto)
+            throws CategoryNotFoundException {
+        Product product = productMapper.toProduct(requestDto);
+        product.setId(id);
+        return productMapper.toResponseDto(productService.update(product));
     }
 
     @GetMapping("/filter")

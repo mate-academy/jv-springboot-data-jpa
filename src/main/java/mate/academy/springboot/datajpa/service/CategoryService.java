@@ -1,15 +1,14 @@
 package mate.academy.springboot.datajpa.service;
 
+import mate.academy.springboot.datajpa.exception.CategoryNotFoundException;
 import mate.academy.springboot.datajpa.model.Category;
 
 public interface CategoryService {
     Category save(Category category);
 
-    Category findById(Long id);
-
-    Category findByName(String name);
+    Category findById(Long id) throws CategoryNotFoundException;
 
     void deleteById(Long id);
 
-    Category updateById(Long id, Category category);
+    Category update(Category category);
 }
