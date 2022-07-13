@@ -42,7 +42,7 @@ public class CategoryController {
         categoryService.deleteById(id);
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}")
     public CategoryResponseDto updateCategory(@PathVariable Long id,
                                               @RequestBody CategoryRequestDto requestDto) {
         Category category = categoryMapper.toCategory(requestDto);

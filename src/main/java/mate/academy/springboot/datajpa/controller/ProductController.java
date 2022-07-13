@@ -2,7 +2,6 @@ package mate.academy.springboot.datajpa.controller;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.stream.Collectors;
 import mate.academy.springboot.datajpa.dto.ProductRequestDto;
 import mate.academy.springboot.datajpa.dto.ProductResponseDto;
 import mate.academy.springboot.datajpa.dto.mapper.ProductMapper;
@@ -46,7 +45,7 @@ public class ProductController {
         productService.deleteById(id);
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}")
     public ProductResponseDto updateProduct(@PathVariable Long id,
                                             @RequestBody ProductRequestDto requestDto) {
         Product product = productMapper.toProduct(requestDto);
@@ -54,21 +53,17 @@ public class ProductController {
         return productMapper.toResponseDto(productService.update(product));
     }
 
-    @GetMapping("/filter")
-    public List<ProductResponseDto> getAllByPrice(@RequestParam BigDecimal from,
-                                                  @RequestParam BigDecimal to) {
-        return productService.findAllByPriceBetween(from, to)
-                .stream()
-                .map(productMapper::toResponseDto)
-                .collect(Collectors.toList());
-    }
-
     @GetMapping
-    public List<ProductResponseDto> getAllByCategories(
-            @RequestParam(required = false) List<Long> categoriesIds) {
+    public List<ProductResponseDto> getAllProducts(
+            @RequestParam(required = false) List<Long> categoriesIds,
+            @RequestParam(required = false) BigDecimal from,
+            @RequestParam(required = false) BigDecimal to) {
         List<Product> products;
-        if (categoriesIds != null) {
-            products = productService.findProductsByCategoriesIds(categoriesIds);
+        if (categoriesIds != null && from != null && to != null
+                || categoriesIds == null && from != null && to != null
+                || categoriesIds != null && from == null && to == null) {
+            products = productService.findProductsByCategoriesIdsAndPriceBetween(
+                    categoriesIds, from, to);
         } else {
             products = productService.findAll();
         }
