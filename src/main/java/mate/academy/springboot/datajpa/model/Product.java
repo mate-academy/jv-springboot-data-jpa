@@ -1,7 +1,6 @@
 package mate.academy.springboot.datajpa.model;
 
 import java.math.BigDecimal;
-import java.util.StringJoiner;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -56,11 +55,11 @@ public class Product {
 
     @Override
     public String toString() {
-        return new StringJoiner(", ", Product.class.getSimpleName() + "[", "]")
-                .add("id=" + id)
-                .add("title='" + title + "'")
-                .add("price=" + price)
-                .add("category=" + category)
-                .toString();
+        return "Product{"
+                + "id=" + id
+                + ", title='" + title + '\''
+                + ", price=" + price
+                + ", category=" + category
+                + '}';
     }
 }

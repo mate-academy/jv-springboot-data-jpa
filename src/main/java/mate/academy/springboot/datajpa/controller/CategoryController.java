@@ -31,19 +31,19 @@ public class CategoryController {
     }
 
     @PostMapping
-    public CategoryResponseDto addCategory(@RequestBody CategoryRequestDto dto) {
+    public CategoryResponseDto add(@RequestBody CategoryRequestDto dto) {
         return categoryMapper.mapToDto(
                 categoryService.save(categoryMapper.mapToCategory(dto)));
     }
 
     @DeleteMapping("/{id}")
-    public void deleteCategoryById(@PathVariable Long id) {
+    public void deleteById(@PathVariable Long id) {
         categoryService.delete(id);
     }
 
     @PutMapping("/{id}")
-    public CategoryResponseDto updateCategory(@PathVariable Long id,
-                               @RequestBody CategoryRequestDto dto) {
+    public CategoryResponseDto update(@PathVariable Long id,
+                                      @RequestBody CategoryRequestDto dto) {
         Category category = categoryMapper.mapToCategory(dto);
         category.setId(id);
         return categoryMapper.mapToDto(categoryService.save(category));
