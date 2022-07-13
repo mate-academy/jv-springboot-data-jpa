@@ -2,6 +2,7 @@ package mate.academy.springboot.datajpa.service;
 
 import java.math.BigDecimal;
 import java.util.List;
+import mate.academy.springboot.datajpa.exception.ProductNotFoundException;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.repository.ProductRepository;
 import org.springframework.stereotype.Service;
@@ -21,9 +22,14 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public List<Product> findAll() {
+        return productRepository.findAll();
+    }
+
+    @Override
     public Product findById(Long id) {
         return productRepository.findById(id).orElseThrow(() ->
-                new RuntimeException("Not found product with Id: " + id));
+                new ProductNotFoundException("Not found product with Id: " + id));
     }
 
     @Override

@@ -6,7 +6,6 @@ import java.util.stream.Collectors;
 import mate.academy.springboot.datajpa.dto.ProductRequestDto;
 import mate.academy.springboot.datajpa.dto.ProductResponseDto;
 import mate.academy.springboot.datajpa.dto.mapper.ProductMapper;
-import mate.academy.springboot.datajpa.exception.CategoryNotFoundException;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.service.ProductService;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -32,8 +31,7 @@ public class ProductController {
     }
 
     @PostMapping
-    public ProductResponseDto create(@RequestBody ProductRequestDto requestDto)
-            throws CategoryNotFoundException {
+    public ProductResponseDto create(@RequestBody ProductRequestDto requestDto) {
         Product product = productService.save(productMapper.toProduct(requestDto));
         return productMapper.toResponseDto(product);
     }
@@ -50,8 +48,7 @@ public class ProductController {
 
     @PutMapping("/update/{id}")
     public ProductResponseDto updateProduct(@PathVariable Long id,
-                                            @RequestBody ProductRequestDto requestDto)
-            throws CategoryNotFoundException {
+                                            @RequestBody ProductRequestDto requestDto) {
         Product product = productMapper.toProduct(requestDto);
         product.setId(id);
         return productMapper.toResponseDto(productService.update(product));
@@ -67,8 +64,14 @@ public class ProductController {
     }
 
     @GetMapping
-    public List<ProductResponseDto> getAllByCategories(@RequestParam List<Long> categoriesIds) {
-        List<Product> products = productService.findProductsByCategoriesIds(categoriesIds);
+    public List<ProductResponseDto> getAllByCategories(
+            @RequestParam(required = false) List<Long> categoriesIds) {
+        List<Product> products;
+        if (categoriesIds != null) {
+            products = productService.findProductsByCategoriesIds(categoriesIds);
+        } else {
+            products = productService.findAll();
+        }
         return productMapper.toProductResponseDtos(products);
     }
 }

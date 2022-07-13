@@ -3,7 +3,6 @@ package mate.academy.springboot.datajpa.controller;
 import mate.academy.springboot.datajpa.dto.CategoryRequestDto;
 import mate.academy.springboot.datajpa.dto.CategoryResponseDto;
 import mate.academy.springboot.datajpa.dto.mapper.CategoryMapper;
-import mate.academy.springboot.datajpa.exception.CategoryNotFoundException;
 import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.service.CategoryService;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -34,8 +33,7 @@ public class CategoryController {
     }
 
     @GetMapping("/{id}")
-    public CategoryResponseDto getById(@PathVariable Long id)
-            throws CategoryNotFoundException {
+    public CategoryResponseDto getById(@PathVariable Long id) {
         return categoryMapper.toResponseDto(categoryService.findById(id));
     }
 

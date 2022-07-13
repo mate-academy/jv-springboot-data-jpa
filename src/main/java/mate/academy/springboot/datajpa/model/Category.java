@@ -13,7 +13,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "category")
+@Table(name = "categories")
 @Getter
 @Setter
 public class Category {
