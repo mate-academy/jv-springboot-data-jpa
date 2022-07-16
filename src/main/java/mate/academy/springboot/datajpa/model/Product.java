@@ -11,7 +11,7 @@ import lombok.Data;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name="categories")
+@Table(name="products")
 @Data
 public class Product {
     @Id
