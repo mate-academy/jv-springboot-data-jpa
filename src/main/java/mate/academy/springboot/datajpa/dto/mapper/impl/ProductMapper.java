@@ -22,7 +22,8 @@ public class ProductMapper implements Mapper<Product, ProductRequestDto, Product
         productResponseDto.setId(model.getId());
         productResponseDto.setTitle(model.getTitle());
         productResponseDto.setPrice(model.getPrice());
-        productResponseDto.setCategory(model.getCategory());
+        productResponseDto.setCategoryId(model.getCategory().getId());
+        productResponseDto.setCategoryName(model.getCategory().getName());
         return productResponseDto;
     }
 
