@@ -1,5 +1,6 @@
 package mate.academy.springboot.datajpa.model;
 
+import java.math.BigDecimal;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -8,10 +9,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import lombok.Data;
 
-import java.math.BigDecimal;
-
 @Entity
-@Table(name="products")
+@Table(name = "products")
 @Data
 public class Product {
     @Id
