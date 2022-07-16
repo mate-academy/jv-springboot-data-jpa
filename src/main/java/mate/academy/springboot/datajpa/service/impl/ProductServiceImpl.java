@@ -48,9 +48,9 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> findAll(Map<String, String> filters) {
+    public List<Product> findAll(Map<String, String> params) {
         Specification<Product> specification = null;
-        for (Map.Entry<String, String> entry : filters.entrySet()) {
+        for (Map.Entry<String, String> entry : params.entrySet()) {
             Specification<Product> bufSpecification =
                     productSpecificationManager.get(entry.getKey(), entry.getValue().split(","));
             specification = (specification == null) ? bufSpecification :

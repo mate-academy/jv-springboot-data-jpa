@@ -17,5 +17,5 @@ public interface ProductService {
 
     List<Product> findAll(BigDecimal from, BigDecimal to);
 
-    List<Product> findAll(Map<String, String> filters);
+    List<Product> findAll(Map<String, String> params);
 }
