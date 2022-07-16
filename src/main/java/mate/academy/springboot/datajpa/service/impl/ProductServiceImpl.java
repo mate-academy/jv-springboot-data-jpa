@@ -56,6 +56,6 @@ public class ProductServiceImpl implements ProductService {
             specification = (specification == null) ? bufSpecification :
                     specification.and(bufSpecification);
         }
-        return productRepository.findAll();
+        return productRepository.findAll(specification);
     }
 }
