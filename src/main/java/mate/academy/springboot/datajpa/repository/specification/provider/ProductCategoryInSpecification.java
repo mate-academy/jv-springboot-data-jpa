@@ -15,12 +15,12 @@ public class ProductCategoryInSpecification implements SpecificationProvider<Pro
     private static final String FIELD_NAME = "name";
 
     @Override
-    public Specification<Product> getSpecification(String[] params) {
+    public Specification<Product> getSpecification(String[] parameters) {
         return (root, query, cb) -> {
             Join<Product, Category> join = root.join("category", JoinType.INNER);
             CriteriaBuilder.In<String> predicate = cb.in(join.get(FIELD_NAME));
-            for (String category : params) {
-                predicate.value(category);
+            for (String parameter : parameters) {
+                predicate.value(parameter);
             }
             return cb.and(predicate, predicate);
         };
