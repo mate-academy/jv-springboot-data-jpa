@@ -54,7 +54,7 @@ public class ProductController {
         service.update(product);
     }
 
-    @GetMapping
+    @GetMapping("/by-price")
     public List<ProductResponseDto> findAllByPrice(@RequestParam BigDecimal from,
                                                  @RequestParam BigDecimal to) {
         return service.findAll(from, to)
@@ -63,7 +63,7 @@ public class ProductController {
                 .collect(Collectors.toList());
     }
 
-    @GetMapping("/filtered")
+    @GetMapping("/by-params")
     public List<ProductResponseDto> findAll(@RequestParam Map<String, String> params) {
         return service.findAll(params)
                 .stream()
