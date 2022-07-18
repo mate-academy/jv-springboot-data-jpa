@@ -50,10 +50,10 @@ public class ProductServiceImpl implements ProductService {
     public List<Product> findAll(Map<String, String> params) {
         Specification<Product> specification = null;
         for (Map.Entry<String, String> entry : params.entrySet()) {
-            Specification<Product> bufSpecification =
+            Specification<Product> currentSpecification =
                     productSpecificationManager.get(entry.getKey(), entry.getValue().split(","));
-            specification = (specification == null) ? bufSpecification :
-                    specification.and(bufSpecification);
+            specification = specification == null ? currentSpecification :
+                    specification.and(currentSpecification);
         }
         return productRepository.findAll(specification);
     }
