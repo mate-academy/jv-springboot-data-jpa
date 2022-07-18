@@ -1,11 +1,7 @@
 package mate.academy.springboot.datajpa.dto.mapper;
 
 public interface Mapper<T, Q, V> {
-    default V toResponseDto(T model) {
-        return null;
-    }
+    V toResponseDto(T model);
 
-    default T toModel(Q requestDto) {
-        return null;
-    }
+    T toModel(Q requestDto);
 }
