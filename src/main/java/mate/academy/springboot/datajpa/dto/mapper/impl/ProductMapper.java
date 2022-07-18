@@ -17,13 +17,13 @@ public class ProductMapper implements Mapper<Product, ProductRequestDto, Product
     }
 
     @Override
-    public ProductResponseDto toResponseDto(Product model) {
+    public ProductResponseDto toResponseDto(Product product) {
         ProductResponseDto productResponseDto = new ProductResponseDto();
-        productResponseDto.setId(model.getId());
-        productResponseDto.setTitle(model.getTitle());
-        productResponseDto.setPrice(model.getPrice());
-        productResponseDto.setCategoryId(model.getCategory().getId());
-        productResponseDto.setCategoryName(model.getCategory().getName());
+        productResponseDto.setId(product.getId());
+        productResponseDto.setTitle(product.getTitle());
+        productResponseDto.setPrice(product.getPrice());
+        productResponseDto.setCategoryId(product.getCategory().getId());
+        productResponseDto.setCategoryName(product.getCategory().getName());
         return productResponseDto;
     }
 
