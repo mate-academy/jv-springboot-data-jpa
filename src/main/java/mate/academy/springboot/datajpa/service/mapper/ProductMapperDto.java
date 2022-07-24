@@ -5,9 +5,9 @@ import mate.academy.springboot.datajpa.model.dto.ProductRequestDto;
 import mate.academy.springboot.datajpa.model.dto.ProductResponseDto;
 import mate.academy.springboot.datajpa.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
-@Service
+@Component
 public class ProductMapperDto implements RequestDtoMapper<ProductRequestDto, Product>,
         ResponseDtoMapper<ProductResponseDto, Product> {
     private final CategoryService categoryService;

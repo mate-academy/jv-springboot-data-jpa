@@ -3,9 +3,9 @@ package mate.academy.springboot.datajpa.service.mapper;
 import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.model.dto.CategoryRequestDto;
 import mate.academy.springboot.datajpa.model.dto.CategoryResponseDto;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
-@Service
+@Component
 public class CategoryMapperDto implements RequestDtoMapper<CategoryRequestDto, Category>,
         ResponseDtoMapper<CategoryResponseDto, Category> {
 
