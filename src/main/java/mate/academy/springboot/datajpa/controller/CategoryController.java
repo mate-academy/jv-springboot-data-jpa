@@ -22,7 +22,11 @@ public class CategoryController {
     private final DtoResponseMapper<CategoryResponseDto, Category> dtoResponseMapper;
     private final DtoRequestMapper<CategoryRequestDto, Category> dtoRequestMapper;
 
-    public CategoryController(CategoryService categoryService, DtoResponseMapper<CategoryResponseDto, Category> dtoResponseMapper, DtoRequestMapper<CategoryRequestDto, Category> dtoRequestMapper) {
+    public CategoryController(CategoryService categoryService,
+                              DtoResponseMapper<CategoryResponseDto, Category>
+                                      dtoResponseMapper,
+                              DtoRequestMapper<CategoryRequestDto, Category>
+                                      dtoRequestMapper) {
         this.categoryService = categoryService;
         this.dtoResponseMapper = dtoResponseMapper;
         this.dtoRequestMapper = dtoRequestMapper;
@@ -35,11 +39,14 @@ public class CategoryController {
 
     @PostMapping
     public CategoryResponseDto create(@RequestBody CategoryRequestDto categoryRequestDto) {
-        return dtoResponseMapper.toDto(categoryService.save(dtoRequestMapper.fromDto(categoryRequestDto)));
+        return dtoResponseMapper.toDto(
+                categoryService.save(
+                        dtoRequestMapper.fromDto(categoryRequestDto)));
     }
 
     @PutMapping("/{id}")
-    public CategoryResponseDto update(@PathVariable Long id, @RequestBody CategoryRequestDto categoryRequestDto) {
+    public CategoryResponseDto update(@PathVariable Long id,
+                                      @RequestBody CategoryRequestDto categoryRequestDto) {
         Category category = dtoRequestMapper.fromDto(categoryRequestDto);
         category.setId(id);
         return dtoResponseMapper.toDto(categoryService.save(category));
