@@ -28,12 +28,8 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public void update(Category category, Long id) {
-        if (!repository.getById(id).equals(null)) {
-            category.setId(id);
-            repository.save(category);
-            return;
-        }
-        throw new RuntimeException("Category by id " + id + " doesn't exist");
+    public Category update(Category category, Long id) {
+        category.setId(id);
+        return repository.save(category);
     }
 }

@@ -1,7 +1,7 @@
 package mate.academy.springboot.datajpa.controller;
 
-import mate.academy.springboot.datajpa.dto.RequestCategory;
-import mate.academy.springboot.datajpa.dto.ResponseCategory;
+import mate.academy.springboot.datajpa.dto.CategoryRequestDto;
+import mate.academy.springboot.datajpa.dto.CategoryResponseDto;
 import mate.academy.springboot.datajpa.dto.mapper.CategoryMapper;
 import mate.academy.springboot.datajpa.service.CategoryService;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -26,27 +26,22 @@ public class CategoryController {
     }
 
     @PostMapping
-    public ResponseCategory create(@RequestBody RequestCategory req) {
-        return mapper.toResponseCategory(service.save(mapper.toModel(req)));
+    public CategoryResponseDto create(@RequestBody CategoryRequestDto req) {
+        return mapper.toCategoryResponseDto(service.save(mapper.toModel(req)));
     }
 
     @GetMapping("/{id}")
-    public ResponseCategory get(@PathVariable Long id) {
-        return mapper.toResponseCategory(service.get(id));
+    public CategoryResponseDto get(@PathVariable Long id) {
+        return mapper.toCategoryResponseDto(service.get(id));
     }
 
     @DeleteMapping("/{id}")
-    public String delete(@PathVariable Long id) {
-        String deletedCategory = service.get(id).getName();
+    public void delete(@PathVariable Long id) {
         service.delete(id);
-        return "Category " + deletedCategory + " was deleted";
     }
 
     @PutMapping("/{id}")
-    public String update(@RequestBody RequestCategory req, @PathVariable Long id) {
-        String oldName = service.get(id).getName();
-        service.update(mapper.toModel(req), id);
-        String newName = service.get(id).getName();
-        return "The category changed its name from " + oldName + " to " + newName;
+    public CategoryResponseDto update(@RequestBody CategoryRequestDto req, @PathVariable Long id) {
+        return mapper.toCategoryResponseDto(service.update(mapper.toModel(req), id));
     }
 }

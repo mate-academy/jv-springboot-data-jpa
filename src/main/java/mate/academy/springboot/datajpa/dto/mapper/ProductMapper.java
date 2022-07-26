@@ -1,8 +1,8 @@
 package mate.academy.springboot.datajpa.dto.mapper;
 
 import java.math.BigDecimal;
-import mate.academy.springboot.datajpa.dto.RequestProduct;
-import mate.academy.springboot.datajpa.dto.ResponseProduct;
+import mate.academy.springboot.datajpa.dto.ProductRequestDto;
+import mate.academy.springboot.datajpa.dto.ProductResponseDto;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.service.CategoryService;
 import org.springframework.stereotype.Component;
@@ -15,7 +15,7 @@ public class ProductMapper {
         this.categoryService = categoryService;
     }
 
-    public Product toModel(RequestProduct req) {
+    public Product toModel(ProductRequestDto req) {
         Product product = new Product();
         product.setTitle(req.getTitle());
         product.setPrice(BigDecimal.valueOf(req.getPrice()));
@@ -23,8 +23,8 @@ public class ProductMapper {
         return product;
     }
 
-    public ResponseProduct toResponseProduct(Product product) {
-        ResponseProduct responseProduct = new ResponseProduct();
+    public ProductResponseDto toProductResponseDto(Product product) {
+        ProductResponseDto responseProduct = new ProductResponseDto();
         responseProduct.setId(product.getId());
         responseProduct.setTitle(product.getTitle());
         responseProduct.setPrice(product.getPrice().longValue());

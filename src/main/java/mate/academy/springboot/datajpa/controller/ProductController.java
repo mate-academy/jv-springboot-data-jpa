@@ -3,8 +3,8 @@ package mate.academy.springboot.datajpa.controller;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
-import mate.academy.springboot.datajpa.dto.RequestProduct;
-import mate.academy.springboot.datajpa.dto.ResponseProduct;
+import mate.academy.springboot.datajpa.dto.ProductRequestDto;
+import mate.academy.springboot.datajpa.dto.ProductResponseDto;
 import mate.academy.springboot.datajpa.dto.mapper.ProductMapper;
 import mate.academy.springboot.datajpa.service.ProductService;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -30,41 +30,37 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseProduct create(@RequestBody RequestProduct req) {
-        return mapper.toResponseProduct(service.save(mapper.toModel(req)));
+    public ProductResponseDto create(@RequestBody ProductRequestDto req) {
+        return mapper.toProductResponseDto(service.save(mapper.toModel(req)));
     }
 
     @GetMapping("/{id}")
-    public ResponseProduct get(@PathVariable Long id) {
-        return mapper.toResponseProduct(service.get(id));
+    public ProductResponseDto get(@PathVariable Long id) {
+        return mapper.toProductResponseDto(service.get(id));
     }
 
     @DeleteMapping("/{id}")
-    public String delete(@PathVariable Long id) {
-        String deletedProduct = service.get(id).getTitle();
+    public void delete(@PathVariable Long id) {
         service.delete(id);
-        return "Product " + deletedProduct + " was deleted";
     }
 
     @PutMapping("/{id}")
-    public ResponseProduct update(@RequestBody RequestProduct req, @PathVariable Long id) {
-        return mapper.toResponseProduct(service.update(mapper.toModel(req), id));
+    public ProductResponseDto update(@RequestBody ProductRequestDto req, @PathVariable Long id) {
+        return mapper.toProductResponseDto(service.update(mapper.toModel(req), id));
     }
 
     @GetMapping("/price")
-    public List<ResponseProduct> findAllByPriceBetween(@RequestParam BigDecimal from,
-                                                       BigDecimal to) {
-        return service.findAllByPriceBetween(from, to)
-                .stream()
-                .map(mapper::toResponseProduct)
+    public List<ProductResponseDto> findAllByPriceBetween(@RequestParam BigDecimal from,
+                                                          BigDecimal to) {
+        return service.findAllByPriceBetween(from, to).stream()
+                .map(mapper::toProductResponseDto)
                 .collect(Collectors.toList());
     }
 
     @GetMapping("/categories")
-    public List<ResponseProduct> findAllByCategories(@RequestParam List<Long> ids) {
-        return service.findAllByCategories(ids)
-                .stream()
-                .map(mapper::toResponseProduct)
+    public List<ProductResponseDto> findAllByCategories(@RequestParam List<Long> ids) {
+        return service.findAllByCategories(ids).stream()
+                .map(mapper::toProductResponseDto)
                 .collect(Collectors.toList());
     }
 }
