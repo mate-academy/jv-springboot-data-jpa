@@ -1,16 +1,23 @@
 package mate.academy.springboot.datajpa.service;
 
 import java.math.BigDecimal;
+import java.util.List;
+import java.util.Map;
 import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.repository.ProductRepository;
+import mate.academy.springboot.datajpa.repository.specification.ProductSpecificationManager;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ProductServiceImpl implements ProductService {
+    private final ProductSpecificationManager productSpecificationManager;
     private final ProductRepository productRepository;
 
-    public ProductServiceImpl(ProductRepository productRepository) {
+    public ProductServiceImpl(ProductSpecificationManager productSpecificationManager,
+                              ProductRepository productRepository) {
+        this.productSpecificationManager = productSpecificationManager;
         this.productRepository = productRepository;
     }
 
@@ -33,5 +40,17 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void update(String title, BigDecimal price, Category category, Long id) {
         productRepository.update(title, price, category, id);
+    }
+
+    @Override
+    public List<Product> findAll(Map<String, String> params) {
+        Specification<Product> specification = null;
+        for (Map.Entry<String, String> entry : params.entrySet()) {
+            Specification<Product> ps = productSpecificationManager.get(
+                    entry.getKey(),
+                    entry.getValue().split(","));
+            specification = specification == null ? Specification.where(ps) : specification.and(ps);
+        }
+        return productRepository.findAll(specification);
     }
 }

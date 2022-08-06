@@ -1,5 +1,8 @@
 package mate.academy.springboot.datajpa.controller;
 
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 import mate.academy.springboot.datajpa.mapper.ProductMapper;
 import mate.academy.springboot.datajpa.model.dto.ProductRequestDto;
 import mate.academy.springboot.datajpa.model.dto.ProductResponseDto;
@@ -58,5 +61,12 @@ public class ProductController {
                 categoryService.findBy(
                         dto.getCategoryId()),
                 dto.getId());
+    }
+
+    @GetMapping
+    public List<ProductResponseDto> findAll(@RequestParam Map<String, String> params) {
+        return productService.findAll(params).stream()
+                .map(productMapper::toResponseDto)
+                .collect(Collectors.toList());
     }
 }
