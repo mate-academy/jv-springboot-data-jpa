@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import mate.academy.springboot.datajpa.mapper.ProductMapper;
+import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.model.dto.ProductRequestDto;
 import mate.academy.springboot.datajpa.model.dto.ProductResponseDto;
 import mate.academy.springboot.datajpa.service.CategoryService;
@@ -53,14 +54,11 @@ public class ProductController {
         productService.deleteById(id);
     }
 
-    @PutMapping
-    public void update(@RequestBody ProductResponseDto dto) {
-        productService.update(
-                dto.getTitle(),
-                dto.getPrice(),
-                categoryService.findBy(
-                        dto.getCategoryId()),
-                dto.getId());
+    @PutMapping("/{id}")
+    public void update(@PathVariable Long id,@RequestBody ProductRequestDto dto) {
+        Product product = productMapper.toModel(dto);
+        product.setId(id);
+        productService.save(product);
     }
 
     @GetMapping

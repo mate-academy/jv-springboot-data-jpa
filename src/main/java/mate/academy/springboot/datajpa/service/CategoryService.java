@@ -8,6 +8,4 @@ public interface CategoryService {
     Category save(Category category);
 
     void deleteById(Long id);
-
-    void update(String name, Long id);
 }
