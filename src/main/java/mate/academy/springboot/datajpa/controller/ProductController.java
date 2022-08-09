@@ -3,6 +3,7 @@ package mate.academy.springboot.datajpa.controller;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import lombok.RequiredArgsConstructor;
 import mate.academy.springboot.datajpa.dto.request.ProductRequestDto;
 import mate.academy.springboot.datajpa.dto.response.ProductResponseDto;
 import mate.academy.springboot.datajpa.mapper.ProductMapper;
@@ -20,14 +21,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/products")
+@RequiredArgsConstructor
 public class ProductController {
     private final ProductService productService;
     private final ProductMapper productMapper;
-
-    public ProductController(ProductService productService, ProductMapper productMapper) {
-        this.productService = productService;
-        this.productMapper = productMapper;
-    }
 
     @PostMapping()
     public ProductResponseDto create(@RequestBody ProductRequestDto requestDto) {
@@ -39,7 +36,7 @@ public class ProductController {
         return productMapper.toDto(productService.getById(id));
     }
 
-    @GetMapping() // supported params: priceFrom, priceTo, category
+    @GetMapping // supported params: priceFrom, priceTo, category
     public List<ProductResponseDto> findAll(@RequestParam Map<String, String> params) {
         return productService.findAll(params).stream()
                 .map(productMapper::toDto)
