@@ -2,6 +2,7 @@ package mate.academy.springboot.datajpa.service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.repository.ProductRepository;
 import mate.academy.springboot.datajpa.repository.specification.ProductSpecificationManager;
@@ -27,7 +28,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product getById(Long id) {
         return productRepository.findById(id).orElseThrow(() ->
-                new RuntimeException("Product with id " + id + "is not exist at DB"));
+                new NoSuchElementException("Product with id " + id + "is not exist at DB"));
     }
 
     @Override

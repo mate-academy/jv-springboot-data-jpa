@@ -1,5 +1,6 @@
 package mate.academy.springboot.datajpa.mapper;
 
+import lombok.RequiredArgsConstructor;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.model.dto.ProductRequestDto;
 import mate.academy.springboot.datajpa.model.dto.ProductResponseDto;
@@ -7,12 +8,9 @@ import mate.academy.springboot.datajpa.service.CategoryService;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor
 public class ProductMapper {
     private final CategoryService categoryService;
-
-    public ProductMapper(CategoryService categoryService) {
-        this.categoryService = categoryService;
-    }
 
     public Product toModel(ProductRequestDto dto) {
         Product product = new Product();

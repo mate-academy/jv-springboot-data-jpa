@@ -22,7 +22,7 @@ public class ProductSpecificationManager implements SpecificationManager<Product
     @Override
     public Specification<Product> get(String filterKey, String[] params) {
         if (!providerMap.containsKey(filterKey)) {
-            throw new RuntimeException();
+            throw new RuntimeException("Can't create " + filterKey + " search criteria");
         }
         return providerMap.get(filterKey).getSpecification(params);
     }

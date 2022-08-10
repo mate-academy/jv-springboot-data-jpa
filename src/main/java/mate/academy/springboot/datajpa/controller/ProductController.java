@@ -24,23 +24,17 @@ import org.springframework.web.bind.annotation.RestController;
 public class ProductController {
     private final ProductMapper productMapper;
     private final ProductService productService;
-    private final CategoryService categoryService;
 
     public ProductController(ProductMapper productMapper,
                              ProductService productService,
                              CategoryService categoryService) {
         this.productMapper = productMapper;
         this.productService = productService;
-        this.categoryService = categoryService;
     }
 
     @PostMapping
     public ProductResponseDto save(@RequestBody ProductRequestDto requestDto) {
-        return productMapper
-                .toResponseDto(
-                        productService
-                                .save(
-                                        productMapper
+        return productMapper.toResponseDto(productService.save(productMapper
                                                 .toModel(requestDto)));
     }
 
