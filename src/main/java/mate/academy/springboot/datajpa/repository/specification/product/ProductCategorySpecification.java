@@ -10,15 +10,15 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ProductCategoryInSpecification implements SpecificationProvider<Product> {
+public class ProductCategorySpecification implements SpecificationProvider<Product> {
     private static final String FILTER_KEY = "category";
     private static final String FIELD_NAME = "name";
 
     @Override
     public Specification<Product> getSpecification(String[] categories) {
-        return (root, query, cb) -> {
+        return (root, query, criteriaBuilder) -> {
             Join<Product, Category> join = root.join("category", JoinType.INNER);
-            CriteriaBuilder.In<String> predicate = cb.in(join.get(FIELD_NAME));
+            CriteriaBuilder.In<String> predicate = criteriaBuilder.in(join.get(FIELD_NAME));
             for (String category : categories) {
                 predicate.value(category);
             }

@@ -29,8 +29,8 @@ public class CategoryController {
 
     @PostMapping
     public CategoryResponseDto create(@Valid @RequestBody CategoryRequestDto requestDto) {
-        Category category = categoryRequestDtoMapper.mapToModel(requestDto);
-        return categoryResponseDtoMapper.mapToDto(categoryService.save(category));
+        Category category = categoryRequestDtoMapper.toModel(requestDto);
+        return categoryResponseDtoMapper.toDto(categoryService.save(category));
     }
 
     @DeleteMapping("/{id}")
@@ -41,20 +41,20 @@ public class CategoryController {
     @PutMapping("/{id}")
     public CategoryResponseDto update(@PathVariable Long id,
                                       @Valid @RequestBody CategoryRequestDto requestDto) {
-        Category category = categoryRequestDtoMapper.mapToModel(requestDto);
+        Category category = categoryRequestDtoMapper.toModel(requestDto);
         category.setId(id);
-        return categoryResponseDtoMapper.mapToDto(categoryService.save(category));
+        return categoryResponseDtoMapper.toDto(categoryService.save(category));
     }
 
     @GetMapping("/{id}")
     public CategoryResponseDto findById(@PathVariable Long id) {
-        return categoryResponseDtoMapper.mapToDto(categoryService.get(id));
+        return categoryResponseDtoMapper.toDto(categoryService.get(id));
     }
 
     @GetMapping
     public List<CategoryResponseDto> findAll() {
         return categoryService.findAll().stream()
-                .map(categoryResponseDtoMapper::mapToDto)
+                .map(categoryResponseDtoMapper::toDto)
                 .collect(Collectors.toList());
     }
 }

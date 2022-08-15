@@ -18,12 +18,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 @ControllerAdvice
 public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler {
-    private static final Map<Class<? extends RuntimeException>, HttpStatus> RESPONSE_STATUS_MAP;
-    private static final HttpStatus DEFAULT_RESPONSE_STATUS = HttpStatus.CONFLICT;
-
-    static {
-        RESPONSE_STATUS_MAP = new HashMap<>();
-    }
+    private static final HttpStatus DEFAULT_ERROR_RESPONSE_STATUS = HttpStatus.CONFLICT;
 
     @Override
     public ResponseEntity<Object> handleMethodArgumentNotValid(
@@ -47,11 +42,11 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
     public ResponseEntity<Object> handleConflict(RuntimeException ex) {
         Map<String, Object> body = new HashMap<>(3);
         body.put("timestamp", LocalDateTime.now().toString());
-        body.put("status", getExceptionResponseStatus(ex.getClass()).value());
+        body.put("status", DEFAULT_ERROR_RESPONSE_STATUS.value());
         body.put("error", ex.getMessage());
         return new ResponseEntity<>(body,
                 new HttpHeaders(),
-                getExceptionResponseStatus(ex.getClass()));
+                DEFAULT_ERROR_RESPONSE_STATUS);
     }
 
     private String getErrorMessage(ObjectError error) {
@@ -60,9 +55,5 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
             return field + " " + error.getDefaultMessage();
         }
         return error.getDefaultMessage();
-    }
-
-    private HttpStatus getExceptionResponseStatus(Class<? extends RuntimeException> clazz) {
-        return RESPONSE_STATUS_MAP.getOrDefault(clazz, DEFAULT_RESPONSE_STATUS);
     }
 }

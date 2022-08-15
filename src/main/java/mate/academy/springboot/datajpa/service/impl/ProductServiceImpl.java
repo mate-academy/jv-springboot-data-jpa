@@ -28,13 +28,16 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> findAll(Map<String, String> params) {
-        Specification<Product> specification = null;
+        Specification<Product> totalSpecification = null;
         for (Map.Entry<String, String> entry : params.entrySet()) {
-            Specification<Product> sp = productSpecificationManager.get(entry.getKey(),
-                    entry.getValue().split("\\s*,\\s*"));
-            specification = specification == null ? Specification.where(sp) : specification.and(sp);
+            Specification<Product> localSpecification =
+                    productSpecificationManager.get(entry.getKey(),
+                            entry.getValue().split(","));
+            totalSpecification = totalSpecification == null
+                    ? Specification.where(localSpecification)
+                    : totalSpecification.and(localSpecification);
         }
-        return productRepository.findAll(specification);
+        return productRepository.findAll(totalSpecification);
     }
 
     @Override
