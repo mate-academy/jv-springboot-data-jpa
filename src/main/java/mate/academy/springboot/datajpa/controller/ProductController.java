@@ -1,5 +1,9 @@
 package mate.academy.springboot.datajpa.controller;
 
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+import lombok.RequiredArgsConstructor;
 import mate.academy.springboot.datajpa.dto.ProductRequestDto;
 import mate.academy.springboot.datajpa.dto.ProductResponseDto;
 import mate.academy.springboot.datajpa.model.Product;
@@ -12,18 +16,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/products")
 public class ProductController {
     private final ProductService productService;
     private final ProductMapper productMapper;
-
-    public ProductController(ProductService productService, ProductMapper productMapper) {
-        this.productService = productService;
-        this.productMapper = productMapper;
-    }
 
     @PostMapping
     public ProductResponseDto create(@RequestBody ProductRequestDto productRequestDto) {
@@ -46,5 +47,13 @@ public class ProductController {
         Product product = productMapper.toModel(requestDto);
         product.setId(id);
         return productMapper.toDto(productService.save(product));
+    }
+
+    @GetMapping
+    List<ProductResponseDto> getAll(@RequestParam Map<String, String> params) {
+        return productService.findAll(params)
+                .stream()
+                .map(productMapper::toDto)
+                .collect(Collectors.toList());
     }
 }

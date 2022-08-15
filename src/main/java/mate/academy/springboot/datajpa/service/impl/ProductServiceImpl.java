@@ -2,23 +2,19 @@ package mate.academy.springboot.datajpa.service.impl;
 
 import java.util.List;
 import java.util.Map;
+import lombok.RequiredArgsConstructor;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.repository.ProductRepository;
-import mate.academy.springboot.datajpa.repository.specification.SpecificationProvider;
 import mate.academy.springboot.datajpa.service.ProductService;
+import mate.academy.springboot.datajpa.specification.ProductSpecificationManager;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+@RequiredArgsConstructor
 @Service
 public class ProductServiceImpl implements ProductService {
-    private final SpecificationProvider specificationProvider;
+    private final ProductSpecificationManager productSpecificationManager;
     private final ProductRepository productRepository;
-
-    public ProductServiceImpl(SpecificationProvider specificationProvider,
-                              ProductRepository productRepository) {
-        this.specificationProvider = specificationProvider;
-        this.productRepository = productRepository;
-    }
 
     @Override
     public Product save(Product product) {
@@ -36,14 +32,14 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> findAll(Map<String, List<String>> params) {
+    public List<Product> findAll(Map<String, String> params) {
         Specification<Product> specification = null;
-        for (Map.Entry<String, List<String>> entry : params.entrySet()) {
-            Specification<Product> sp = specificationProvider
-                    .getSpecification(entry.getValue(), entry.getKey());
-            specification = specification == null ? Specification.where(sp) : specification.and(sp);
+        for (Map.Entry<String, String> entry : params.entrySet()) {
+            Specification<Product> sp = productSpecificationManager.get(entry.getKey(),
+                    entry.getValue().split("\\s*,\\s*"));
+            specification = specification == null ? Specification.where(sp) :
+                    specification.and(sp);
         }
         return productRepository.findAll(specification);
     }
-
 }

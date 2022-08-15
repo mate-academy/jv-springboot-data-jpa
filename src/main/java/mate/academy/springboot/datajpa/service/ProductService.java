@@ -11,5 +11,5 @@ public interface ProductService {
 
     void deleteById(Long id);
 
-    List<Product> findAll(Map<String, List<String>> params);
+    List<Product> findAll(Map<String, String> params);
 }
