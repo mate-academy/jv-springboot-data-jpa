@@ -10,10 +10,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import lombok.Data;
-import lombok.ToString;
 
 @Data
-@ToString
 @Entity
 @Table(name = "products")
 public class Product {
