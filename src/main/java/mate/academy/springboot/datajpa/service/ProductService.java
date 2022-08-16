@@ -6,9 +6,9 @@ import java.util.Map;
 import mate.academy.springboot.datajpa.model.Product;
 
 public interface ProductService extends GenericService<Product> {
-    List<Product> getAllBetweenPrice(BigDecimal minPrice, BigDecimal maxPrice);
+    List<Product> getAllWherePriceBetween(BigDecimal minPrice, BigDecimal maxPrice);
 
-    List<Product> findAll(Map<String, String> params);
+    List<Product> findAllByParams(Map<String, String> params);
 
-    List<Product> getAllProducts();
+    List<Product> findAll();
 }

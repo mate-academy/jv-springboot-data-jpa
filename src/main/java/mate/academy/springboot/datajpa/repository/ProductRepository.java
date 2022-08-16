@@ -17,5 +17,5 @@ public interface ProductRepository extends JpaRepository<Product, Long>,
     List<Product> findAll(Specification specification);
 
     @Query("from Product p where p.price between ?1 and ?2 order by 1 desc")
-    List<Product> findAllByPriceBetween();
+    List<Product> findAllByPriceBetweenDesc(BigDecimal min, BigDecimal max);
 }

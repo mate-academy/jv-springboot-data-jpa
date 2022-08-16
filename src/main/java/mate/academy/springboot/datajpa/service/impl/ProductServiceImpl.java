@@ -24,13 +24,13 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product create(Product entity) {
-        return productRepository.save(entity);
+    public Product save(Product product) {
+        return productRepository.save(product);
     }
 
     @Override
     public Product getById(Long id) {
-        return productRepository.findById(id).get();
+        return productRepository.findById(id).orElseThrow();
     }
 
     @Override
@@ -39,21 +39,12 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product update(Product entity) {
-        Product currentProduct = productRepository.getById(entity.getId());
-        currentProduct.setTitle(entity.getTitle());
-        currentProduct.setPrice(entity.getPrice());
-        currentProduct.setCategory(entity.getCategory());
-        return productRepository.save(currentProduct);
-    }
-
-    @Override
-    public List<Product> getAllBetweenPrice(BigDecimal minPrice, BigDecimal maxPrice) {
+    public List<Product> getAllWherePriceBetween(BigDecimal minPrice, BigDecimal maxPrice) {
         return productRepository.findAllByPriceBetweenOrderByPriceAsc(minPrice, maxPrice);
     }
 
     @Override
-    public List<Product> findAll(Map<String, String> params) {
+    public List<Product> findAllByParams(Map<String, String> params) {
         Specification<Product> specification = null;
         for (Map.Entry<String, String> entry : params.entrySet()) {
             Specification<Product> productSpecification
@@ -67,7 +58,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> getAllProducts() {
+    public List<Product> findAll() {
         return productRepository.findAll();
     }
 }

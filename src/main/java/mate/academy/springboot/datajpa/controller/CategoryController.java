@@ -31,7 +31,7 @@ public class CategoryController {
     @PostMapping
     public CategoryResponseDto create(@RequestBody CategoryRequestDto categoryRequestDto) {
         return categoryMapper
-                .toDto(categoryService.create(categoryMapper
+                .toDto(categoryService.save(categoryMapper
                         .toModel(categoryRequestDto)));
     }
 
@@ -50,6 +50,6 @@ public class CategoryController {
                                       @RequestBody CategoryRequestDto categoryRequestDto) {
         Category category = categoryMapper.toModel(categoryRequestDto);
         category.setId(id);
-        return categoryMapper.toDto(categoryService.update(category));
+        return categoryMapper.toDto(categoryService.save(category));
     }
 }

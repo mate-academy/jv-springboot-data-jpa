@@ -29,44 +29,44 @@ public class InjectController {
     public String injectData() {
         Category phonesCategory = new Category();
         phonesCategory.setName("PHONES");
-        categoryService.create(phonesCategory);
+        categoryService.save(phonesCategory);
 
         Category laptopsCategory = new Category();
         laptopsCategory.setName("LAPTOPS");
-        categoryService.create(laptopsCategory);
+        categoryService.save(laptopsCategory);
 
         Product asus = new Product();
         asus.setTitle("Asus Expert Book");
         asus.setPrice(BigDecimal.valueOf(1755));
         asus.setCategory(laptopsCategory);
-        productService.create(asus);
+        productService.save(asus);
 
         Product mac = new Product();
         mac.setTitle("Mac Pro M1");
         mac.setPrice(BigDecimal.valueOf(1755));
         mac.setCategory(laptopsCategory);
-        productService.create(mac);
+        productService.save(mac);
 
         Product iphone13 = new Product();
         iphone13.setTitle("iPhone 13Pro");
         iphone13.setPrice(BigDecimal.valueOf(1499));
         iphone13.setCategory(phonesCategory);
-        productService.create(iphone13);
+        productService.save(iphone13);
 
         Product iphone11 = new Product();
         iphone11.setTitle("iPhone 11");
         iphone11.setPrice(BigDecimal.valueOf(759));
         iphone11.setCategory(phonesCategory);
-        productService.create(iphone11);
+        productService.save(iphone11);
 
         Product iphone12Max = new Product();
         iphone12Max.setTitle("iPhone 12Max");
         iphone12Max.setPrice(BigDecimal.valueOf(1250));
         iphone12Max.setCategory(phonesCategory);
-        productService.create(iphone12Max);
+        productService.save(iphone12Max);
 
         List<Product> allBetweenPrice
-                = productService.getAllBetweenPrice(BigDecimal.valueOf(1100),
+                = productService.getAllWherePriceBetween(BigDecimal.valueOf(1100),
                 BigDecimal.valueOf(1700));
         System.out.println(allBetweenPrice);
         System.out.println("End: " + LocalDateTime.now()

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
-    private CategoryRepository categoryRepository;
+    private final CategoryRepository categoryRepository;
 
     @Autowired
     public CategoryServiceImpl(CategoryRepository categoryRepository) {
@@ -16,24 +16,17 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Category create(Category entity) {
-        return categoryRepository.save(entity);
+    public Category save(Category category) {
+        return categoryRepository.save(category);
     }
 
     @Override
     public Category getById(Long id) {
-        return categoryRepository.findById(id).get();
+        return categoryRepository.findById(id).orElseThrow();
     }
 
     @Override
     public void deleteById(Long id) {
         categoryRepository.deleteById(id);
-    }
-
-    @Override
-    public Category update(Category entity) {
-        Category currentCategory = categoryRepository.getById(entity.getId());
-        currentCategory.setName(entity.getName());
-        return categoryRepository.save(currentCategory);
     }
 }
