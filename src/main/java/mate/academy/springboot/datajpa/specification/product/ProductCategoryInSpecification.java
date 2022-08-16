@@ -10,18 +10,18 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ProductCategoryInSpecification implements SpecificationProvider<Product> {
-    private static final String FILTER_KEY = "category";
+    private static final String FILTER_KEY = "categoryIn";
     private static final String FILED_NAME = "name";
 
     @Override
     public Specification<Product> getSpecification(String[] params) {
-        return (root, query, cb) -> {
+        return (root, query, criteriaBuilder) -> {
             Join<Object, Object> join = root.join("category", JoinType.INNER);
-            CriteriaBuilder.In<String> predicate = cb.in(join.get(FILED_NAME));
+            CriteriaBuilder.In<String> predicate = criteriaBuilder.in(join.get(FILED_NAME));
             for (String param : params) {
                 predicate.value(param);
             }
-            return cb.and(predicate, predicate);
+            return criteriaBuilder.and(predicate, predicate);
         };
     }
 

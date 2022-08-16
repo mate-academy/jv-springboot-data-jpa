@@ -8,5 +8,4 @@ public interface CategoryService {
     Category getById(Long id);
 
     void deleteById(Long id);
-
 }

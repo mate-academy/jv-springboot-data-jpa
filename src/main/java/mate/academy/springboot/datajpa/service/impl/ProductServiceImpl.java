@@ -36,7 +36,7 @@ public class ProductServiceImpl implements ProductService {
         Specification<Product> specification = null;
         for (Map.Entry<String, String> entry : params.entrySet()) {
             Specification<Product> sp = productSpecificationManager.get(entry.getKey(),
-                    entry.getValue().split("\\s*,\\s*"));
+                    entry.getValue().split(","));
             specification = specification == null ? Specification.where(sp) :
                     specification.and(sp);
         }
