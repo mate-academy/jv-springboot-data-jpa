@@ -2,18 +2,16 @@ package mate.academy.springboot.datajpa.service.impl;
 
 import java.math.BigDecimal;
 import java.util.List;
+import lombok.RequiredArgsConstructor;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.repository.ProductRepository;
 import mate.academy.springboot.datajpa.service.ProductService;
 import org.springframework.stereotype.Service;
 
+@RequiredArgsConstructor
 @Service
 public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
-
-    public ProductServiceImpl(ProductRepository productRepository) {
-        this.productRepository = productRepository;
-    }
 
     @Override
     public Product save(Product product) {
@@ -21,12 +19,12 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product get(Long id) {
-        return null;
+    public Product getDyId(Long id) {
+        return productRepository.getById(id);
     }
 
     @Override
-    public void delete(Long id) {
+    public void deleteById(Long id) {
         productRepository.deleteById(id);
     }
 

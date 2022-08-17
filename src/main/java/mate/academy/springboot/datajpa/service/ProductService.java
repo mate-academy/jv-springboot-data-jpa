@@ -7,9 +7,9 @@ import mate.academy.springboot.datajpa.model.Product;
 public interface ProductService {
     Product save(Product product);
 
-    Product get(Long id);
+    Product getDyId(Long id);
 
-    void delete(Long id);
+    void deleteById(Long id);
 
     List<Product> findAllByPriceBetween(BigDecimal fromPrice, BigDecimal toPrice);
 

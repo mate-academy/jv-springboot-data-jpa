@@ -1,5 +1,6 @@
 package mate.academy.springboot.datajpa.controller;
 
+import lombok.RequiredArgsConstructor;
 import mate.academy.springboot.datajpa.dto.CategoryRequestDto;
 import mate.academy.springboot.datajpa.dto.CategoryResponseDto;
 import mate.academy.springboot.datajpa.model.Category;
@@ -15,22 +16,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/categories")
 public class CategoryController {
     private final CategoryService categoryService;
     private final ResponseDtoMapper<CategoryResponseDto, Category> categoryResponseMapper;
     private final RequestDtoMapper<CategoryRequestDto, Category> categoryRequestMapper;
-
-    public CategoryController(CategoryService categoryService,
-                              ResponseDtoMapper<CategoryResponseDto,
-                                      Category> categoryResponseMapper,
-                              RequestDtoMapper<CategoryRequestDto,
-            Category> categoryRequestMapper) {
-        this.categoryService = categoryService;
-        this.categoryResponseMapper = categoryResponseMapper;
-        this.categoryRequestMapper = categoryRequestMapper;
-    }
 
     @PostMapping
     public CategoryResponseDto create(@RequestBody CategoryRequestDto requestDto) {
@@ -52,6 +44,6 @@ public class CategoryController {
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
-        categoryService.delete(id);
+        categoryService.deleteById(id);
     }
 }

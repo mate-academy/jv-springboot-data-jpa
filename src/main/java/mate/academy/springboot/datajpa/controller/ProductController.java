@@ -3,6 +3,7 @@ package mate.academy.springboot.datajpa.controller;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
+import lombok.RequiredArgsConstructor;
 import mate.academy.springboot.datajpa.dto.ProductRequestDto;
 import mate.academy.springboot.datajpa.dto.ProductResponseDto;
 import mate.academy.springboot.datajpa.model.Product;
@@ -19,20 +20,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/products")
 public class ProductController {
     private final ProductService productService;
     private final ResponseDtoMapper<ProductResponseDto, Product> productResponseMapper;
     private final RequestDtoMapper<ProductRequestDto, Product> productRequestMapper;
-
-    public ProductController(ProductService productService, ResponseDtoMapper<ProductResponseDto,
-            Product> productResponseMapper, RequestDtoMapper<ProductRequestDto,
-            Product> productRequestMapper) {
-        this.productService = productService;
-        this.productResponseMapper = productResponseMapper;
-        this.productRequestMapper = productRequestMapper;
-    }
 
     @PostMapping
     public ProductResponseDto create(@RequestBody ProductRequestDto requestDto) {
@@ -42,7 +36,7 @@ public class ProductController {
 
     @GetMapping("/{id}")
     public ProductResponseDto get(@PathVariable Long id) {
-        return productResponseMapper.mapToDto(productService.get(id));
+        return productResponseMapper.mapToDto(productService.getDyId(id));
     }
 
     @GetMapping("/by-price")
@@ -70,6 +64,6 @@ public class ProductController {
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
-        productService.delete(id);
+        productService.deleteById(id);
     }
 }
