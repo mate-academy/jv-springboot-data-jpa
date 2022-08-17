@@ -1,5 +1,5 @@
 package mate.academy.springboot.datajpa.service.mapper;
 
 public interface ResponseDtoMapper<D, T> {
-    D mapToDto(T model);
+    D toDto(T model);
 }
