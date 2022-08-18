@@ -14,7 +14,7 @@ public class CategoryMapper {
         this.categoryRepository = categoryRepository;
     }
 
-    public CategoryResponseDto toResponseDto(Category category) {
+    public CategoryResponseDto toDto(Category category) {
         CategoryResponseDto categoryResponseDto = new CategoryResponseDto();
         categoryResponseDto.setId(category.getId());
         categoryResponseDto.setName(category.getName());

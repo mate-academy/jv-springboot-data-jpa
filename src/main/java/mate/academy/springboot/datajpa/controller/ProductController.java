@@ -37,7 +37,7 @@ public class ProductController {
         this.categoryService = categoryService;
     }
 
-    @GetMapping("/categories")
+    @GetMapping("/by-category")
     public List<ProductResponseDto> findAllInCategories(@RequestParam String categoriesId) {
         List<Category> categoriesSet = Arrays.stream(categoriesId.split(","))
                 .map(Long::valueOf)
@@ -47,7 +47,7 @@ public class ProductController {
                 .map(productMapper::toResponseDto).collect(Collectors.toList());
     }
 
-    @GetMapping("/prices")
+    @GetMapping("/by-price")
     public List<ProductResponseDto> findAllByPriceBetween(BigDecimal from,
                                                           BigDecimal to) {
         return productService.findAllByPriceBetween(from, to).stream()
