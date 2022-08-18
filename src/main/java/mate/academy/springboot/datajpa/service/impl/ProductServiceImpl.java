@@ -49,13 +49,12 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.findAllByPriceBetween(from, to);
     }
 
-    public List<Product> findAll(Map<String, String> params) {
+    public List<Product> findAllInCategories(Map<String, String> params) {
         Specification<Product> specification = null;
         for (Map.Entry<String, String> entry : params.entrySet()) {
             Specification<Product> spec = productSpecificationManager
                     .get(entry.getKey(), entry.getValue().split(","));
-            specification = specification == null
-                    ? Specification.where(spec) : specification.and(spec);
+            specification = Specification.where(spec);
         }
         return productRepository.findAll(specification);
     }

@@ -60,9 +60,10 @@ public class ProductController {
                 .collect(Collectors.toList());
     }
 
-    @GetMapping("/categoriesIn")
-    public List<ProductResponseDto> getProductsInPrice(@RequestParam Map<String, String> params) {
-        return productService.findAll(params).stream()
+    @GetMapping
+    public List<ProductResponseDto> getProductsInCategories(
+            @RequestParam Map<String, String> params) {
+        return productService.findAllInCategories(params).stream()
                 .map(productMapper::mapToDto)
                 .collect(Collectors.toList());
     }

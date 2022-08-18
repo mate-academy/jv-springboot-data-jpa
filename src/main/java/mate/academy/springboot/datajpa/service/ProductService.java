@@ -16,5 +16,5 @@ public interface ProductService {
 
     List<Product> getProductsBetween(BigDecimal from, BigDecimal to);
 
-    List<Product> findAll(Map<String, String> params);
+    List<Product> findAllInCategories(Map<String, String> params);
 }
