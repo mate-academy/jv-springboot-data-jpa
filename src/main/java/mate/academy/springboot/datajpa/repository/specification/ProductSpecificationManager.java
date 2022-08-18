@@ -12,8 +12,8 @@ import org.springframework.stereotype.Component;
 public class ProductSpecificationManager implements SpecificationManager<Product> {
     private final Map<String, SpecificationProvider<Product>> providersMap;
 
-    public ProductSpecificationManager(List<SpecificationProvider<Product>> productSpecification) {
-        this.providersMap = productSpecification.stream()
+    public ProductSpecificationManager(List<SpecificationProvider<Product>> productSpecifications) {
+        this.providersMap = productSpecifications.stream()
                 .collect(Collectors
                         .toMap(SpecificationProvider::getFilterKey, Function.identity()));
     }
