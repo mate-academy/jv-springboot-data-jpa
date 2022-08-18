@@ -1,5 +1,6 @@
 package mate.academy.springboot.datajpa.controller;
 
+import lombok.RequiredArgsConstructor;
 import mate.academy.springboot.datajpa.dto.requst.CategoryRequestDto;
 import mate.academy.springboot.datajpa.dto.response.CategoryResponseDto;
 import mate.academy.springboot.datajpa.model.Category;
@@ -16,24 +17,20 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/categories")
+@RequiredArgsConstructor
 public class CategoryController {
     private final CategoryService categoryService;
     private final CategoryMapper categoryMapper;
 
-    public CategoryController(CategoryMapper categoryMapper, CategoryService categoryService) {
-        this.categoryService = categoryService;
-        this.categoryMapper = categoryMapper;
-    }
-
     @PostMapping
     public CategoryResponseDto create(@RequestBody CategoryRequestDto requestDto) {
-        Category category = categoryMapper.mapToModel(requestDto);
-        return categoryMapper.mapToDto(categoryService.save(category));
+        Category category = categoryMapper.toModel(requestDto);
+        return categoryMapper.toDto(categoryService.save(category));
     }
 
     @GetMapping("/{id}")
     public CategoryResponseDto get(@PathVariable Long id) {
-        return categoryMapper.mapToDto(categoryService.get(id));
+        return categoryMapper.toDto(categoryService.get(id));
     }
 
     @DeleteMapping("/{id}")
@@ -44,8 +41,8 @@ public class CategoryController {
     @PutMapping("/{id}")
     public CategoryResponseDto update(@PathVariable Long id,
                                       @RequestBody CategoryRequestDto requestDto) {
-        Category category = categoryMapper.mapToModel(requestDto);
+        Category category = categoryMapper.toModel(requestDto);
         category.setId(id);
-        return categoryMapper.mapToDto(categoryService.save(category));
+        return categoryMapper.toDto(categoryService.save(category));
     }
 }
