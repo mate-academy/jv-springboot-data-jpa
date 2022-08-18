@@ -1,6 +1,8 @@
 package mate.academy.springboot.datajpa.service.impl;
 
-import mate.academy.springboot.datajpa.model.Category;
+import java.math.BigDecimal;
+import java.util.List;
+import java.util.Map;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.repository.ProductRepository;
 import mate.academy.springboot.datajpa.repository.specification.ProductSpecificationManager;
@@ -8,10 +10,6 @@ import mate.academy.springboot.datajpa.repository.specification.SpecificationMan
 import mate.academy.springboot.datajpa.service.ProductService;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
-
-import java.math.BigDecimal;
-import java.util.List;
-import java.util.Map;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -56,7 +54,8 @@ public class ProductServiceImpl implements ProductService {
         for (Map.Entry<String, String> entry : params.entrySet()) {
             Specification<Product> spec = productSpecificationManager
                     .get(entry.getKey(), entry.getValue().split(","));
-            specification = specification == null ? Specification.where(spec) : specification.and(spec);
+            specification = specification == null
+                    ? Specification.where(spec) : specification.and(spec);
         }
         return productRepository.findAll(specification);
     }
