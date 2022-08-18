@@ -2,6 +2,7 @@ package controller;
 
 import dto.request.CategoryRequestDto;
 import dto.response.CategoryResponseDto;
+import lombok.RequiredArgsConstructor;
 import model.Category;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +15,7 @@ import service.CategoryService;
 import service.mapper.RequestDtoMapper;
 import service.mapper.ResponseDtoMapper;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/categories")
 public class CategoryController {
@@ -21,22 +23,14 @@ public class CategoryController {
     private final RequestDtoMapper<CategoryRequestDto, Category> requestDtoMapper;
     private final ResponseDtoMapper<CategoryResponseDto, Category> responseDtoMapper;
 
-    public CategoryController(CategoryService categoryService,
-                              RequestDtoMapper<CategoryRequestDto, Category> requestDtoMapper,
-                              ResponseDtoMapper<CategoryResponseDto, Category> responseDtoMapper) {
-        this.categoryService = categoryService;
-        this.requestDtoMapper = requestDtoMapper;
-        this.responseDtoMapper = responseDtoMapper;
-    }
-
     @GetMapping
     public CategoryResponseDto create(@RequestBody CategoryRequestDto requestDto) {
-        return responseDtoMapper.mapToDto(requestDtoMapper.mapToModel(requestDto));
+        return responseDtoMapper.toDto(requestDtoMapper.toModel(requestDto));
     }
 
     @GetMapping("/{id}")
     public CategoryResponseDto getById(@PathVariable Long id) {
-        return responseDtoMapper.mapToDto(categoryService.getById(id));
+        return responseDtoMapper.toDto(categoryService.getById(id));
     }
 
     @DeleteMapping("/{id}")
@@ -47,8 +41,8 @@ public class CategoryController {
     @PutMapping
     public CategoryResponseDto update(@PathVariable Long id,
                                       @RequestBody CategoryRequestDto requestDto) {
-        Category category = requestDtoMapper.mapToModel(requestDto);
+        Category category = requestDtoMapper.toModel(requestDto);
         category.setId(id);
-        return responseDtoMapper.mapToDto(categoryService.save(category));
+        return responseDtoMapper.toDto(categoryService.save(category));
     }
 }

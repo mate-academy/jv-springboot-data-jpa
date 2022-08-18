@@ -9,14 +9,14 @@ import org.springframework.stereotype.Component;
 public class CategoryMapper implements RequestDtoMapper<CategoryRequestDto, Category>,
         ResponseDtoMapper<CategoryResponseDto, Category> {
     @Override
-    public Category mapToModel(CategoryRequestDto dto) {
+    public Category toModel(CategoryRequestDto dto) {
         Category category = new Category();
         category.setName(dto.getCategoryName());
         return category;
     }
 
     @Override
-    public CategoryResponseDto mapToDto(Category category) {
+    public CategoryResponseDto toDto(Category category) {
         CategoryResponseDto responseDto = new CategoryResponseDto();
         responseDto.setCategoryId(category.getId());
         responseDto.setCategoryName(category.getName());
