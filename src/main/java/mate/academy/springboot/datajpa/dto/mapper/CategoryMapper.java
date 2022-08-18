@@ -14,7 +14,7 @@ public class CategoryMapper {
         this.categoryService = categoryService;
     }
 
-    public CategoryResponseDto toDo(Category category) {
+    public CategoryResponseDto toResponseDto(Category category) {
         CategoryResponseDto responseDto = new CategoryResponseDto();
         responseDto.setId(category.getId());
         responseDto.setName(category.getName());

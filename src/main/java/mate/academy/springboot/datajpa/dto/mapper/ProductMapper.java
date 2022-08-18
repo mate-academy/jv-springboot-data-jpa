@@ -4,16 +4,13 @@ import mate.academy.springboot.datajpa.dto.product.ProductRequestDto;
 import mate.academy.springboot.datajpa.dto.product.ProductResponseDto;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.service.CategoryService;
-import mate.academy.springboot.datajpa.service.ProductService;
 import org.springframework.stereotype.Component;
 
 @Component
 public class ProductMapper {
-    private final ProductService productService;
     private final CategoryService categoryService;
 
-    public ProductMapper(ProductService productService, CategoryService categoryService) {
-        this.productService = productService;
+    public ProductMapper(CategoryService categoryService) {
         this.categoryService = categoryService;
     }
 
