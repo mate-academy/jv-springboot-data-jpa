@@ -3,24 +3,20 @@ package mate.academy.springboot.datajpa.service.impl;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
+import lombok.RequiredArgsConstructor;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.repository.ProductRepository;
-import mate.academy.springboot.datajpa.repository.specification.ProductSpecificationManager;
 import mate.academy.springboot.datajpa.repository.specification.SpecificationManager;
 import mate.academy.springboot.datajpa.service.ProductService;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+@RequiredArgsConstructor
 @Service
 public class ProductServiceImpl implements ProductService {
+    private static final String SPLITERATOR = ",";
     private final ProductRepository productRepository;
     private final SpecificationManager<Product> productSpecificationManager;
-
-    public ProductServiceImpl(ProductRepository productRepository,
-                              ProductSpecificationManager productSpecificationManager) {
-        this.productRepository = productRepository;
-        this.productSpecificationManager = productSpecificationManager;
-    }
 
     @Override
     public Product save(Product product) {
@@ -53,7 +49,7 @@ public class ProductServiceImpl implements ProductService {
         Specification<Product> specification = null;
         for (Map.Entry<String, String> entry : params.entrySet()) {
             Specification<Product> spec = productSpecificationManager
-                    .get(entry.getKey(), entry.getValue().split(","));
+                    .get(entry.getKey(), entry.getValue().split(SPLITERATOR));
             specification = Specification.where(spec);
         }
         return productRepository.findAll(specification);

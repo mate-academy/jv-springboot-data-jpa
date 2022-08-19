@@ -7,11 +7,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 @Entity
 @Table(name = "products")
 public class Product {
@@ -22,13 +20,4 @@ public class Product {
     private BigDecimal price;
     @ManyToOne
     private Category category;
-
-    @Override
-    public String toString() {
-        return "Product={id=" + id
-                + "/'title'=" + title
-                + "/price=" + price
-                + "/" + category
-                + "}";
-    }
 }

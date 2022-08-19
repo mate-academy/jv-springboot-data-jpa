@@ -28,40 +28,40 @@ public class ProductController {
     private final ProductMapper productMapper;
 
     @PostMapping
-    public ProductResponseDto createProduct(@RequestBody ProductRequestDto requestDto) {
-        Product product = productService.save(productMapper.mapToModel(requestDto));
-        return productMapper.mapToDto(product);
+    public ProductResponseDto create(@RequestBody ProductRequestDto requestDto) {
+        Product product = productService.save(productMapper.toModel(requestDto));
+        return productMapper.toDto(product);
     }
 
     @GetMapping("/{id}")
-    public ProductResponseDto getProduct(@PathVariable Long id) {
-        return productMapper.mapToDto(productService.findById(id));
+    public ProductResponseDto get(@PathVariable Long id) {
+        return productMapper.toDto(productService.findById(id));
     }
 
     @DeleteMapping("/{id}")
-    public void deleteProduct(@PathVariable Long id) {
+    public void delete(@PathVariable Long id) {
         productService.delete(id);
     }
 
     @PutMapping("/{id}")
-    public void updateProduct(@PathVariable Long id, @RequestBody ProductRequestDto requestDto) {
-        productService.update(id, productMapper.mapToModel(requestDto));
+    public void update(@PathVariable Long id, @RequestBody ProductRequestDto requestDto) {
+        productService.update(id, productMapper.toModel(requestDto));
     }
 
-    @GetMapping("/in-price-between")
+    @GetMapping("/by-price")
     public List<ProductResponseDto> getProductsInPrice(@RequestParam BigDecimal from,
                                                        @RequestParam BigDecimal to) {
         List<Product> products = productService.getProductsBetween(from, to);
         return products.stream()
-                .map(productMapper::mapToDto)
+                .map(productMapper::toDto)
                 .collect(Collectors.toList());
     }
 
-    @GetMapping
+    @GetMapping("/by-category")
     public List<ProductResponseDto> getProductsInCategories(
             @RequestParam Map<String, String> params) {
         return productService.findAllInCategories(params).stream()
-                .map(productMapper::mapToDto)
+                .map(productMapper::toDto)
                 .collect(Collectors.toList());
     }
 }
