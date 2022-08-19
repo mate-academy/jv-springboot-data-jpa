@@ -20,9 +20,6 @@ public class Product {
     @ManyToOne
     private Category category;
 
-    public Product() {
-    }
-
     public Long getId() {
         return id;
     }

@@ -44,31 +44,31 @@ public class ProductController {
                 .map(categoryService::getById)
                 .collect(Collectors.toList());
         return productService.findAllInCategories(categoriesSet).stream()
-                .map(productMapper::toResponseDto).collect(Collectors.toList());
+                .map(productMapper::toDto).collect(Collectors.toList());
     }
 
     @GetMapping("/by-price")
     public List<ProductResponseDto> findAllByPriceBetween(BigDecimal from,
                                                           BigDecimal to) {
         return productService.findAllByPriceBetween(from, to).stream()
-                .map(productMapper::toResponseDto)
+                .map(productMapper::toDto)
                 .collect(Collectors.toList());
     }
 
     @PostMapping
     public ProductResponseDto create(@RequestBody ProductRequestDto productRequestDto) {
         Product product = productService.save(productMapper.toModel(productRequestDto));
-        return productMapper.toResponseDto(product);
+        return productMapper.toDto(product);
     }
 
     @GetMapping("/{id}")
     public ProductResponseDto getById(@PathVariable Long id) {
-        return productMapper.toResponseDto(productService.getById(id));
+        return productMapper.toDto(productService.getById(id));
     }
 
     @DeleteMapping("/{id}")
     public ProductResponseDto delete(@PathVariable Long id) {
-        ProductResponseDto deletedProduct = productMapper.toResponseDto(productService.getById(id));
+        ProductResponseDto deletedProduct = productMapper.toDto(productService.getById(id));
         productService.delete(productService.getById(id));
         return deletedProduct;
     }
@@ -79,6 +79,6 @@ public class ProductController {
         Product product = productMapper.toModel(productRequestDto);
         product.setId(id);
         productService.update(product);
-        return productMapper.toResponseDto(product);
+        return productMapper.toDto(product);
     }
 }

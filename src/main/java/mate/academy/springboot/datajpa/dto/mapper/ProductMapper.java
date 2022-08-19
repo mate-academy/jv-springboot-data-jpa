@@ -14,7 +14,7 @@ public class ProductMapper {
         this.categoryRepository = categoryRepository;
     }
 
-    public ProductResponseDto toResponseDto(Product product) {
+    public ProductResponseDto toDto(Product product) {
         ProductResponseDto productResponseDto = new ProductResponseDto();
         productResponseDto.setId(product.getId());
         productResponseDto.setPrice(product.getPrice());
