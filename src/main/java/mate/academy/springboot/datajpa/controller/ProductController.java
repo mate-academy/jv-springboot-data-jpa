@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import lombok.RequiredArgsConstructor;
 import mate.academy.springboot.datajpa.dto.mapper.ProductMapper;
 import mate.academy.springboot.datajpa.dto.product.ProductRequestDto;
 import mate.academy.springboot.datajpa.dto.product.ProductResponseDto;
@@ -21,23 +22,19 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/products")
+@RequiredArgsConstructor
 public class ProductController {
     private final ProductService productService;
     private final ProductMapper productMapper;
 
-    public ProductController(ProductService productService, ProductMapper productMapper) {
-        this.productService = productService;
-        this.productMapper = productMapper;
-    }
-
     @PostMapping
     public ProductResponseDto create(@RequestBody ProductRequestDto requestDto) {
-        return productMapper.toResponseDto(productMapper.toModel(requestDto));
+        return productMapper.toDto(productMapper.toModel(requestDto));
     }
 
     @GetMapping("/{id}")
     public ProductResponseDto getById(@PathVariable Long id) {
-        return productMapper.toResponseDto(productService.get(id));
+        return productMapper.toDto(productService.get(id));
     }
 
     @DeleteMapping("/{id}")
@@ -50,7 +47,7 @@ public class ProductController {
                                      @PathVariable Long id) {
         Product product = productMapper.toModel(requestDto);
         product.setId(id);
-        return productMapper.toResponseDto(productService.save(product));
+        return productMapper.toDto(productService.save(product));
     }
 
     @GetMapping("/{from},{to}")
@@ -59,7 +56,7 @@ public class ProductController {
         return productService
                 .findAllByPriceBetween(BigDecimal.valueOf(from), BigDecimal.valueOf(to))
                 .stream()
-                .map(productMapper::toResponseDto)
+                .map(productMapper::toDto)
                 .collect(Collectors.toList());
     }
 
@@ -68,7 +65,7 @@ public class ProductController {
             @RequestParam Map<String, String> params) {
         return productService.findAll(params)
                 .stream()
-                .map(productMapper::toResponseDto)
+                .map(productMapper::toDto)
                 .collect(Collectors.toList());
     }
 }
