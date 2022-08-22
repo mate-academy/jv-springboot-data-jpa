@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ProductServiceImpl implements ProductService {
+    public static final String SPECIFICATION_DELIMITER = ",";
     private final ProductRepository productRepository;
     private final SpecificationManager<Product> specificationManager;
 
@@ -35,7 +36,7 @@ public class ProductServiceImpl implements ProductService {
         Specification<Product> specification = null;
         for (Map.Entry<String, String> entry : params.entrySet()) {
             Specification<Product> sp = specificationManager.get(entry.getKey(),
-                    entry.getValue().split(","));
+                    entry.getValue().split(SPECIFICATION_DELIMITER));
             specification = specification == null ? Specification.where(sp) : specification.and(sp);
         }
         return productRepository.findAll(specification);
