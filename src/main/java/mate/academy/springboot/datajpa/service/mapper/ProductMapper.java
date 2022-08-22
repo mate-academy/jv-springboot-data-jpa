@@ -14,7 +14,7 @@ public class ProductMapper implements ResponseDtoMapper<Product, ProductResponse
     private final CategoryService categoryService;
 
     @Override
-    public Product mapToModel(ProductRequestDto dto) {
+    public Product toModel(ProductRequestDto dto) {
         Product product = new Product();
         product.setPrice(dto.getPrice());
         product.setTitle(dto.getTitle());
@@ -23,7 +23,7 @@ public class ProductMapper implements ResponseDtoMapper<Product, ProductResponse
     }
 
     @Override
-    public ProductResponseDto mapToDto(Product model) {
+    public ProductResponseDto toDto(Product model) {
         ProductResponseDto responseDto = new ProductResponseDto();
         responseDto.setId(model.getId());
         responseDto.setPrice(model.getPrice());
