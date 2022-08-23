@@ -41,7 +41,7 @@ public class ProductServiceImpl implements ProductService {
         retrievedProduct.setTitle(product.getTitle());
         retrievedProduct.setPrice(product.getPrice());
         retrievedProduct.setCategory(product.getCategory());
-        return retrievedProduct;
+        return productRepository.save(retrievedProduct);
     }
 
     @Override
@@ -50,7 +50,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> findAllByCategoryIn(List<Long> categories) {
-        return productRepository.findAllByCategoryIn(categories);
+    public List<Product> findAllByCategoryIdIn(List<Long> categoriesId) {
+        return productRepository.findAllByCategoryIdIn(categoriesId);
     }
 }

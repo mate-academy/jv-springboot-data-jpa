@@ -38,6 +38,6 @@ public class CategoryServiceImpl implements CategoryService {
     public Category update(Category category) {
         Category retrievedCategory = categoryRepository.getById(category.getId());
         retrievedCategory.setName(category.getName());
-        return retrievedCategory;
+        return categoryRepository.save(retrievedCategory);
     }
 }
