@@ -26,7 +26,6 @@ public class CategoryServiceImpl implements CategoryService {
         return category
                 .orElseThrow(() -> new NoSuchElementException("Category with id "
                         + id + " not found"));
-
     }
 
     @Override
