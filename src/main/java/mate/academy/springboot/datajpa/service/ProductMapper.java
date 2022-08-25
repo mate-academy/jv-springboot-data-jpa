@@ -1,17 +1,15 @@
 package mate.academy.springboot.datajpa.service;
 
+import lombok.RequiredArgsConstructor;
 import mate.academy.springboot.datajpa.dto.ProductRequestDto;
 import mate.academy.springboot.datajpa.dto.ProductResponseDto;
 import mate.academy.springboot.datajpa.model.Product;
 import org.springframework.stereotype.Component;
 
+@RequiredArgsConstructor
 @Component
 public class ProductMapper {
     private final CategoryService categoryService;
-
-    public ProductMapper(CategoryService categoryService) {
-        this.categoryService = categoryService;
-    }
 
     public ProductResponseDto toDto(Product product) {
         ProductResponseDto responseDto = new ProductResponseDto();
