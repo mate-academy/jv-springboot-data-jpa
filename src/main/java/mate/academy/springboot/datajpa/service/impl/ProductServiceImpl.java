@@ -2,7 +2,6 @@ package mate.academy.springboot.datajpa.service.impl;
 
 import java.math.BigDecimal;
 import java.util.List;
-import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.repository.ProductRepository;
 import mate.academy.springboot.datajpa.service.ProductService;
@@ -38,6 +37,6 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> getAllByCategory(List<Long> categoriesId) {
-        return productRepository.findAllByCategory(categoriesId);
+        return productRepository.findAllByCategoryIdIn(categoriesId);
     }
 }

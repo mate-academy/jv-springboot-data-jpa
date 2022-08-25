@@ -9,7 +9,6 @@ import mate.academy.springboot.datajpa.mapper.request.DtoRequestMapper;
 import mate.academy.springboot.datajpa.mapper.request.ProductRequestMapper;
 import mate.academy.springboot.datajpa.mapper.response.DtoResponseMapper;
 import mate.academy.springboot.datajpa.mapper.response.ProductResponseMapper;
-import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.service.ProductService;
 import org.springframework.web.bind.annotation.DeleteMapping;
