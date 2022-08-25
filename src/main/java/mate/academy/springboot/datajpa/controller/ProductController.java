@@ -71,8 +71,8 @@ public class ProductController {
     }
 
     @GetMapping("/by-category")
-    public List<ProductResponseDto> getAllByCategory(@RequestParam Category category) {
-        return productService.getAllByCategory(category).stream()
+    public List<ProductResponseDto> getAllByCategory(@RequestParam List<Long> categoriesId) {
+        return productService.getAllByCategory(categoriesId).stream()
                 .map(responseMapper::toDto)
                 .collect(Collectors.toList());
     }

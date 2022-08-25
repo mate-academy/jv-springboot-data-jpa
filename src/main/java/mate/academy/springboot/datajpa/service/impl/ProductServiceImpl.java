@@ -37,7 +37,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> getAllByCategory(Category category) {
-        return productRepository.findAllByCategory(category);
+    public List<Product> getAllByCategory(List<Long> categoriesId) {
+        return productRepository.findAllByCategory(categoriesId);
     }
 }
