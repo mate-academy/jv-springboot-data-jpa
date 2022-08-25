@@ -3,12 +3,11 @@ package mate.academy.springboot.datajpa.controller;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
+import lombok.RequiredArgsConstructor;
 import mate.academy.springboot.datajpa.dto.request.ProductRequestDto;
 import mate.academy.springboot.datajpa.dto.response.ProductResponseDto;
 import mate.academy.springboot.datajpa.mapper.request.DtoRequestMapper;
-import mate.academy.springboot.datajpa.mapper.request.ProductRequestMapper;
 import mate.academy.springboot.datajpa.mapper.response.DtoResponseMapper;
-import mate.academy.springboot.datajpa.mapper.response.ProductResponseMapper;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.service.ProductService;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -21,20 +20,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/products")
 public class ProductController {
     private final ProductService productService;
     private final DtoResponseMapper<Product, ProductResponseDto> responseMapper;
     private final DtoRequestMapper<ProductRequestDto, Product> requestMapper;
-
-    public ProductController(ProductService productService,
-                             ProductResponseMapper responseMapper,
-                             ProductRequestMapper requestMapper) {
-        this.productService = productService;
-        this.responseMapper = responseMapper;
-        this.requestMapper = requestMapper;
-    }
 
     @PostMapping
     public ProductResponseDto create(@RequestBody ProductRequestDto requestDto) {
