@@ -1,18 +1,16 @@
 package mate.academy.springboot.datajpa.dto.mapper;
 
+import lombok.RequiredArgsConstructor;
 import mate.academy.springboot.datajpa.dto.ProductRequestDto;
 import mate.academy.springboot.datajpa.dto.ProductResponseDto;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.repository.CategoryRepository;
 import org.springframework.stereotype.Component;
 
+@RequiredArgsConstructor
 @Component
 public class ProductMapper {
     private final CategoryRepository categoryRepository;
-
-    public ProductMapper(CategoryRepository categoryRepository) {
-        this.categoryRepository = categoryRepository;
-    }
 
     public ProductResponseDto toDto(Product product) {
         ProductResponseDto productResponseDto = new ProductResponseDto();

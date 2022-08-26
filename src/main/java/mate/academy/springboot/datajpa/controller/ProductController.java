@@ -1,7 +1,6 @@
 package mate.academy.springboot.datajpa.controller;
 
 import java.math.BigDecimal;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -26,19 +25,18 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/products")
 public class ProductController {
-
     private final ProductService productService;
     private final ProductMapper productMapper;
     private final CategoryService categoryService;
 
     @GetMapping("/by-category")
-    public List<ProductResponseDto> findAllInCategories(@RequestParam String categoriesId) {
-        List<Category> categoriesSet = Arrays.stream(categoriesId.split(","))
-                .map(Long::valueOf)
+    public List<ProductResponseDto> findAllInCategories(@RequestParam List<Long> categoryIds) {
+        List<Category> categoriesSet = categoryIds.stream()
                 .map(categoryService::getById)
                 .collect(Collectors.toList());
         return productService.findAllInCategories(categoriesSet).stream()
-                .map(productMapper::toDto).collect(Collectors.toList());
+                .map(productMapper::toDto)
+                .collect(Collectors.toList());
     }
 
     @GetMapping("/by-price")
