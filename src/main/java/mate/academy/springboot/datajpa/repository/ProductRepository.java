@@ -4,11 +4,13 @@ import java.math.BigDecimal;
 import java.util.List;
 import mate.academy.springboot.datajpa.model.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ProductRepository extends JpaRepository<Product, Long> {
-    List<Product> getAllProductsWherePriceBetween(BigDecimal fromPrice, BigDecimal toPrice);
+public interface ProductRepository extends JpaRepository<Product, Long>,
+        JpaSpecificationExecutor<Product> {
+    List<Product> findAllByPriceBetween(BigDecimal fromPrice, BigDecimal toPrice);
 
-    List<Product> getAllProductsInCategories(List<Long> categoryIds);
+    List<Product> findAllByCategoryIdIn(List<Long> categoryIds);
 }

@@ -35,11 +35,11 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> getAllProductsWherePriceBetween(BigDecimal fromPrice, BigDecimal toPrice) {
-        return productRepository.getAllProductsWherePriceBetween(fromPrice, toPrice);
+        return productRepository.findAllByPriceBetween(fromPrice, toPrice);
     }
 
     @Override
     public List<Product> getAllProductsInCategories(List<Long> categoryIds) {
-        return productRepository.getAllProductsInCategories(categoryIds);
+        return productRepository.findAllByCategoryIdIn(categoryIds);
     }
 }
