@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,8 +28,9 @@ public class ProductController {
 
     @PostMapping
     public ProductResponseDto save(
-            @RequestParam ProductRequestDto requestDto) {
-        return mapper.toDto(productService.save(mapper.toModel(requestDto)));
+            @RequestBody ProductRequestDto requestDto) {
+        Product product = productService.save(mapper.toModel(requestDto));
+        return mapper.toDto(product);
     }
 
     @GetMapping("/{id}")
@@ -43,7 +45,7 @@ public class ProductController {
 
     @PutMapping("/{id}")
     public ProductResponseDto update(@PathVariable Long id,
-                                     @RequestParam ProductRequestDto requestDto) {
+                                     @RequestBody ProductRequestDto requestDto) {
         Product product = mapper.toModel(requestDto);
         product.setId(id);
         return mapper.toDto(productService.save(product));
