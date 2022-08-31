@@ -36,13 +36,13 @@ public class ProductController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ProductResponseDto save(@RequestBody @Valid ProductRequestDto requestDto) {
-        Product product = productService.save(productMapper.dtoToModel(requestDto));
-        return productMapper.modelToDto(product);
+        Product product = productService.save(productMapper.toModel(requestDto));
+        return productMapper.toDto(product);
     }
 
     @GetMapping("/{id}")
     public ProductResponseDto get(@PathVariable Long id) {
-        return productMapper.modelToDto(productService.get(id));
+        return productMapper.toDto(productService.get(id));
     }
 
     @DeleteMapping("/{id}")
@@ -54,7 +54,7 @@ public class ProductController {
     @PutMapping("/{id}")
     public ResponseEntity<Object> update(@PathVariable Long id,
                                          @RequestBody @Valid ProductRequestDto requestDto) {
-        Product product = productMapper.dtoToModel(requestDto);
+        Product product = productMapper.toModel(requestDto);
         product.setId(id);
         int result = productService.update(product);
         return result > 0 ? new ResponseEntity<>(HttpStatus.OK) :
@@ -64,8 +64,8 @@ public class ProductController {
     @GetMapping("/by-price")
     public List<ProductResponseDto> getAllProductsBetweenPrice(@RequestParam BigDecimal priceFrom,
                                                                @RequestParam BigDecimal priceTo) {
-        return productService.getAllBetweenPrice(priceFrom, priceTo).stream()
-               .map(productMapper::modelToDto)
+        return productService.getAllByPriceBetween(priceFrom, priceTo).stream()
+               .map(productMapper::toDto)
                .collect(Collectors.toList());
     }
 
@@ -73,7 +73,7 @@ public class ProductController {
     public List<ProductResponseDto> getAllProductsByCategories(
             @RequestParam List<Long> categories) {
         return productService.getAllProductsByCategories(categories).stream()
-                .map(productMapper::modelToDto)
+                .map(productMapper::toDto)
                 .collect(Collectors.toList());
     }
 }

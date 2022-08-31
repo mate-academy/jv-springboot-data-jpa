@@ -36,7 +36,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> getAllBetweenPrice(BigDecimal from, BigDecimal to) {
+    public List<Product> getAllByPriceBetween(BigDecimal from, BigDecimal to) {
         return productRepository.getAllByPriceBetween(from, to);
     }
 

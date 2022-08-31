@@ -16,16 +16,16 @@ public class ProductMapper {
         this.categoryService = categoryService;
     }
 
-    public ProductResponseDto modelToDto(Product product) {
+    public ProductResponseDto toDto(Product product) {
         ProductResponseDto dto = new ProductResponseDto();
         dto.setId(product.getId());
         dto.setTitle(product.getTitle());
-        dto.setCategory(categoryMapper.modelToDto(product.getCategory()));
+        dto.setCategory(categoryMapper.toDto(product.getCategory()));
         dto.setPrice(product.getPrice());
         return dto;
     }
 
-    public Product dtoToModel(ProductRequestDto dto) {
+    public Product toModel(ProductRequestDto dto) {
         Product product = new Product();
         product.setTitle(dto.getTitle());
         product.setPrice(dto.getPrice());
