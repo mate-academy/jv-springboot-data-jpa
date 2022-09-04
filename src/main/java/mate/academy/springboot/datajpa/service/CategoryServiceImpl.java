@@ -24,7 +24,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public void update(Category category) {
-        categoryRepository.update(category.getName(), category.getId());
+        categoryRepository.save(category);
     }
 
     @Override
