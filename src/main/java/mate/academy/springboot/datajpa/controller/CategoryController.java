@@ -34,8 +34,8 @@ public class CategoryController {
     }
 
     @PostMapping
-    public CategoryResponseDto create(CategoryRequestDto requestDto) {
-        Category category = categoryRequestMapper.fromDto(requestDto);
+    public CategoryResponseDto create(@RequestBody CategoryRequestDto requestDto) {
+        Category category = categoryService.save(categoryRequestMapper.fromDto(requestDto));
         return categoryResponseMapper.toDto(category);
     }
 
