@@ -1,17 +1,14 @@
 package mate.academy.springboot.datajpa.service;
 
-import java.util.Optional;
+import lombok.RequiredArgsConstructor;
 import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.repository.CategoryRepository;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class CategoryServiceImpl implements CategoryService {
     private final CategoryRepository categoryRepository;
-
-    public CategoryServiceImpl(CategoryRepository categoryRepository) {
-        this.categoryRepository = categoryRepository;
-    }
 
     @Override
     public Category save(Category category) {
@@ -19,8 +16,8 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Optional<Category> get(Long categoryId) {
-        return Optional.of(categoryRepository.getById(categoryId));
+    public Category get(Long categoryId) {
+        return categoryRepository.getById(categoryId);
     }
 
     @Override

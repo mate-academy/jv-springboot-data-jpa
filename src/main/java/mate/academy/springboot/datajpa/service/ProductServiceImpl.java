@@ -1,20 +1,15 @@
 package mate.academy.springboot.datajpa.service;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-import mate.academy.springboot.datajpa.model.Category;
+import lombok.RequiredArgsConstructor;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.repository.ProductRepository;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
-
-    public ProductServiceImpl(ProductRepository productRepository) {
-        this.productRepository = productRepository;
-    }
 
     @Override
     public Product save(Product product) {
@@ -22,8 +17,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Optional<Product> get(Long productId) {
-        return Optional.of(productRepository.getById(productId));
+    public Product get(Long productId) {
+        return productRepository.getById(productId);
     }
 
     @Override
@@ -42,10 +37,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Category> findAllInCategories(List<Long> ids) {
-        List<Product> products = productRepository.findAllById(ids);
-        return products.stream()
-                .map(Product::getCategory)
-                .collect(Collectors.toList());
+    public List<Product> findAllInCategories(List<Long> ids) {
+        return productRepository.findAllByCategoryIdIn(ids);
     }
 }

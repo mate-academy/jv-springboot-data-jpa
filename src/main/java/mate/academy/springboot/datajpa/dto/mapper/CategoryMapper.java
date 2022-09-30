@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class CategoryMapper implements DtoRequestMapper<CategoryRequestDto, Category>,
         DtoResponseMapper<CategoryResponseDto, Category> {
-
     @Override
     public Category fromDto(CategoryRequestDto object) {
         Category category = new Category();

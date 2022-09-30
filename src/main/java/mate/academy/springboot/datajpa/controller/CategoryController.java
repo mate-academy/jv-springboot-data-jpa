@@ -1,5 +1,6 @@
 package mate.academy.springboot.datajpa.controller;
 
+import lombok.RequiredArgsConstructor;
 import mate.academy.springboot.datajpa.dto.CategoryRequestDto;
 import mate.academy.springboot.datajpa.dto.CategoryResponseDto;
 import mate.academy.springboot.datajpa.dto.mapper.DtoRequestMapper;
@@ -13,25 +14,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/categories")
+@RequiredArgsConstructor
 public class CategoryController {
     private final CategoryService categoryService;
     private final DtoRequestMapper<CategoryRequestDto, Category> categoryRequestMapper;
     private final DtoResponseMapper<CategoryResponseDto, Category> categoryResponseMapper;
-
-    public CategoryController(CategoryService categoryService,
-                              DtoRequestMapper<CategoryRequestDto, Category>
-                                      categoryRequestMapper,
-                              DtoResponseMapper<CategoryResponseDto, Category>
-                                      categoryResponseMapper) {
-        this.categoryService = categoryService;
-        this.categoryRequestMapper = categoryRequestMapper;
-        this.categoryResponseMapper = categoryResponseMapper;
-    }
 
     @PostMapping
     public CategoryResponseDto create(@RequestBody CategoryRequestDto requestDto) {
@@ -39,10 +30,9 @@ public class CategoryController {
         return categoryResponseMapper.toDto(category);
     }
 
-    @GetMapping
-    public CategoryResponseDto getById(@RequestParam Long id) {
-        return categoryResponseMapper.toDto(categoryService.get(id)
-                .orElseThrow(RuntimeException::new));
+    @GetMapping("/{id}")
+    public CategoryResponseDto getById(@PathVariable Long id) {
+        return categoryResponseMapper.toDto(categoryService.get(id));
     }
 
     @DeleteMapping("/{id}")
