@@ -33,14 +33,14 @@ public class ProductController {
     @PostMapping
     public ResponseEntity<ProductResponseDto> create(
             @RequestBody @Valid ProductRequestDto requestDto) {
-        Product product = productService.save(productMapper.mapToModel(requestDto));
-        return ResponseEntity.status(HttpStatus.CREATED).body(productMapper.mapToDto(product));
+        Product product = productService.save(productMapper.toModel(requestDto));
+        return ResponseEntity.status(HttpStatus.CREATED).body(productMapper.toDto(product));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<ProductResponseDto> getById(@PathVariable Long id) {
         Product product = productService.getById(id);
-        return ResponseEntity.ok(productMapper.mapToDto(product));
+        return ResponseEntity.ok(productMapper.toDto(product));
     }
 
     @DeleteMapping("/{id}")
@@ -52,10 +52,10 @@ public class ProductController {
     @PutMapping("/{id}")
     public ResponseEntity<ProductResponseDto> update(
             @PathVariable Long id, @RequestBody @Valid ProductRequestDto requestDto) {
-        Product product = productMapper.mapToModel(requestDto);
+        Product product = productMapper.toModel(requestDto);
         product.setId(id);
         productService.save(product);
-        return ResponseEntity.ok(productMapper.mapToDto(product));
+        return ResponseEntity.ok(productMapper.toDto(product));
     }
 
     @GetMapping("/price")
@@ -63,17 +63,17 @@ public class ProductController {
             @RequestParam BigDecimal from, @RequestParam BigDecimal to) {
         List<Product> products = productService.getAllByPriceRange(from, to);
         List<ProductResponseDto> responseDtoList = products.stream()
-                .map(productMapper::mapToDto)
+                .map(productMapper::toDto)
                 .collect(Collectors.toList());
         return ResponseEntity.ok(responseDtoList);
     }
 
     @GetMapping
     public ResponseEntity<List<ProductResponseDto>> getAllByCategories(
-            @RequestParam("category") List<String> categories) {
-        List<Product> products = productService.getAllByCategories(categories);
+            @RequestParam("category") List<String> categoryNames) {
+        List<Product> products = productService.getAllByCategories(categoryNames);
         return ResponseEntity.ok(products.stream()
-                .map(productMapper::mapToDto)
+                .map(productMapper::toDto)
                 .collect(Collectors.toList()));
     }
 }

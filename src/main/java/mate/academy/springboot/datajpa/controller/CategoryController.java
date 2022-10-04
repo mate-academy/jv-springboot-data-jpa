@@ -29,23 +29,23 @@ public class CategoryController {
     @PostMapping
     public ResponseEntity<CategoryResponseDto> create(
             @RequestBody @Valid CategoryRequestDto requestDto) {
-        Category category = categoryService.save(categoryMapper.mapToModel(requestDto));
-        return ResponseEntity.status(HttpStatus.CREATED).body(categoryMapper.mapToDto(category));
+        Category category = categoryService.save(categoryMapper.toModel(requestDto));
+        return ResponseEntity.status(HttpStatus.CREATED).body(categoryMapper.toDto(category));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<CategoryResponseDto> getById(@PathVariable Long id) {
         Category category = categoryService.getById(id);
-        return ResponseEntity.status(HttpStatus.OK).body(categoryMapper.mapToDto(category));
+        return ResponseEntity.status(HttpStatus.OK).body(categoryMapper.toDto(category));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<CategoryResponseDto> update(
             @PathVariable Long id, @RequestBody @Valid CategoryRequestDto requestDto) {
-        Category category = categoryMapper.mapToModel(requestDto);
+        Category category = categoryMapper.toModel(requestDto);
         category.setId(id);
         categoryService.save(category);
-        return ResponseEntity.ok().body(categoryMapper.mapToDto(category));
+        return ResponseEntity.ok().body(categoryMapper.toDto(category));
     }
 
     @DeleteMapping("/{id}")

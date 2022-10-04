@@ -2,7 +2,10 @@ package mate.academy.springboot.datajpa.service.impl;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Collectors;
+import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.model.Product;
+import mate.academy.springboot.datajpa.repository.CategoryRepository;
 import mate.academy.springboot.datajpa.repository.ProductRepository;
 import mate.academy.springboot.datajpa.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +15,8 @@ import org.springframework.stereotype.Service;
 public class ProductServiceImpl implements ProductService {
     @Autowired
     private ProductRepository productRepository;
+    @Autowired
+    private CategoryRepository categoryRepository;
 
     @Override
     public Product save(Product product) {
@@ -20,7 +25,9 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product getById(Long id) {
-        return productRepository.getById(id);
+        return productRepository.findById(id).orElseThrow(
+                () -> new RuntimeException("Can't find product with id: " + id)
+        );
     }
 
     @Override
@@ -30,11 +37,15 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> getAllByPriceRange(BigDecimal from, BigDecimal to) {
-        return productRepository.getAllWherePriceBetween(from, to);
+        return productRepository.findAllByPriceIsBetween(from, to);
     }
 
     @Override
-    public List<Product> getAllByCategories(List<String> categories) {
-        return productRepository.getAllProductsByCategories(categories);
+    public List<Product> getAllByCategories(List<String> categoryNames) {
+        List<Category> categories = categoryNames.stream().map(
+                categoryName -> categoryRepository.findByName(categoryName).orElseThrow(
+                        () -> new RuntimeException("Can't find category: " + categoryName)))
+                .collect(Collectors.toList());
+        return productRepository.findAllByCategoryIn(categories);
     }
 }
