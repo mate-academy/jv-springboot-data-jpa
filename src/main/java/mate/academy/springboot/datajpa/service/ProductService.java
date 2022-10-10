@@ -6,7 +6,7 @@ import java.util.Map;
 import mate.academy.springboot.datajpa.model.Product;
 
 public interface ProductService extends CrudService<Product> {
-    List<Product> getProductsByPriceBetween(BigDecimal fromPrice, BigDecimal toPrice);
+    List<Product> getAllByPriceBetween(BigDecimal fromPrice, BigDecimal toPrice);
 
-    List<Product> getProductsByCategories(Map<String, String> params);
+    List<Product> getAllByCategories(Map<String, String> params);
 }

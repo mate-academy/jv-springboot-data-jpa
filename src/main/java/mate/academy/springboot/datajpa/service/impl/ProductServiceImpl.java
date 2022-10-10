@@ -28,7 +28,8 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product get(Long id) {
-        return productRepository.getById(id);
+        return productRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Can't get a product by id " + id));
     }
 
     @Override
@@ -37,12 +38,12 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> getProductsByPriceBetween(BigDecimal fromPrice, BigDecimal toPrice) {
+    public List<Product> getAllByPriceBetween(BigDecimal fromPrice, BigDecimal toPrice) {
         return productRepository.findAllByPriceBetween(fromPrice, toPrice);
     }
 
     @Override
-    public List<Product> getProductsByCategories(Map<String, String> params) {
+    public List<Product> getAllByCategories(Map<String, String> params) {
         Specification<Product> specification = null;
         for (Map.Entry<String, String> entry : params.entrySet()) {
             Specification<Product> ps = productSpecificationManager.get(entry.getKey(),
