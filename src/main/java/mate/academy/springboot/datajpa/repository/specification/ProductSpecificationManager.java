@@ -13,7 +13,7 @@ public class ProductSpecificationManager implements SpecificationManager<Product
     private final Map<String, SpecificationProvider<Product>> specificationProviderMap;
 
     public ProductSpecificationManager(List<SpecificationProvider<Product>> productSpecifications) {
-        this.specificationProviderMap = productSpecifications.stream()
+        specificationProviderMap = productSpecifications.stream()
                 .collect(Collectors.toMap(SpecificationProvider::getFilterKey,
                         Function.identity()));
     }

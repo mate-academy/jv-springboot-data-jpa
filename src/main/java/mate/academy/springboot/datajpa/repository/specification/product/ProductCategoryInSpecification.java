@@ -28,7 +28,7 @@ public class ProductCategoryInSpecification implements SpecificationProvider<Pro
         return (root, query, cb) -> {
             CriteriaBuilder.In<Category> predicate = cb.in(root.get((FIELD_NAME)));
             predicate.value(categoryService.findByName(categories));
-            return cb.and(predicate, predicate);
+            return cb.and(predicate);
         };
     }
 }
