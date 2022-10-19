@@ -5,13 +5,11 @@ import java.util.Map;
 import mate.academy.springboot.datajpa.model.Product;
 
 public interface ProductService {
-    Product add(Product product);
+    Product save(Product product);
 
     Product get(Long id);
 
     void delete(Long id);
-
-    Product update(Product product);
 
     List<Product> getAllBuThePriceBetween(Double from, Double to);
 
