@@ -12,7 +12,7 @@ public interface ProductService {
 
     void delete(Long id);
 
-    List<Product> getAllBuThePriceBetween(BigDecimal from, BigDecimal to);
+    List<Product> getAllByThePriceBetween(BigDecimal from, BigDecimal to);
 
     List<Product> getAllByTheCategoriesIn(Map<String, String> params);
 }

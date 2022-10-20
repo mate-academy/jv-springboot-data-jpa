@@ -36,13 +36,13 @@ public class ProductController {
     }
 
     @PostMapping
-    ProductResponseDto addProduct(@RequestBody ProductRequestDto requestDto) {
+    public ProductResponseDto addProduct(@RequestBody ProductRequestDto requestDto) {
         Product product = productService.save(requestDtoMapper.mapToModel(requestDto));
         return responseDtoMapper.mapToDto(product);
     }
 
     @GetMapping("/{id}")
-    ProductResponseDto getProduct(@PathVariable Long id) {
+    public ProductResponseDto getProduct(@PathVariable Long id) {
         return responseDtoMapper.mapToDto(productService.get(id));
     }
 
@@ -52,22 +52,23 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
-    ProductResponseDto update(@PathVariable Long id, @RequestBody ProductRequestDto requestDto) {
+    public ProductResponseDto update(@PathVariable Long id,
+                                     @RequestBody ProductRequestDto requestDto) {
         Product product = requestDtoMapper.mapToModel(requestDto);
         product.setId(id);
         return responseDtoMapper.mapToDto(productService.save(product));
     }
 
     @GetMapping("/price")
-    List<ProductResponseDto> getAllProductsByPriceBetween(@RequestParam BigDecimal fromPrice,
+    public List<ProductResponseDto> getAllProductsByPriceBetween(@RequestParam BigDecimal fromPrice,
                                                           @RequestParam BigDecimal toPrice) {
-        return productService.getAllBuThePriceBetween(fromPrice, toPrice).stream()
+        return productService.getAllByThePriceBetween(fromPrice, toPrice).stream()
                 .map(responseDtoMapper::mapToDto)
                 .collect(Collectors.toList());
     }
 
     @GetMapping("/categories")
-    List<ProductResponseDto> getAllProductsByCategoriesIn(@RequestParam Map<String,
+    public List<ProductResponseDto> getAllProductsByCategoriesIn(@RequestParam Map<String,
             String> params) {
         return productService.getAllByTheCategoriesIn(params).stream()
                 .map(responseDtoMapper::mapToDto)
