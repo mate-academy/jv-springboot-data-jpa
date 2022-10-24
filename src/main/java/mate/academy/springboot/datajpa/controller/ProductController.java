@@ -48,9 +48,11 @@ public class ProductController {
     }
 
     @PutMapping
-    public ProductResponseDto update(@RequestParam ProductRequestDto requestDto) {
-        Product product = productService.update(mapper.fromDto(requestDto));
-        return mapper.toDto(product);
+    public ProductResponseDto update(@PathVariable Long id,
+                                     @RequestParam ProductRequestDto requestDto) {
+        Product product = mapper.fromDto(requestDto);
+        product.setId(id);
+        return mapper.toDto(productService.update(product));
     }
 
     @GetMapping("/between-price")

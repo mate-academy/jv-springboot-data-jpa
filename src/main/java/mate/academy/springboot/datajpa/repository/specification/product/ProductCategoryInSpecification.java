@@ -13,12 +13,13 @@ import org.springframework.stereotype.Component;
 public class ProductCategoryInSpecification implements SpecificationProvider<Product> {
     private static final String FILTER_KEY = "categoryIn";
     private static final String FIELD_NAME = "category";
+    private static final String ENTITY_FIELD_NAME = "name";
 
     @Override
     public Specification<Product> getSpecification(String[] categories) {
         return ((root, query, cb) -> {
             Join<Product, Category> join = root.join(FIELD_NAME, JoinType.INNER);
-            CriteriaBuilder.In<String> predicate = cb.in(join.get(FIELD_NAME));
+            CriteriaBuilder.In<String> predicate = cb.in(join.get(ENTITY_FIELD_NAME));
             for (String value : categories) {
                 predicate.value(value);
             }

@@ -42,9 +42,11 @@ public class CategoryController {
         categoryService.delete(id);
     }
 
-    @PutMapping
-    public CategoryResponseDto update(@RequestBody CategoryRequestDto requestDto) {
-        Category category = categoryService.update(mapper.fromDto(requestDto));
-        return mapper.toDto(category);
+    @PutMapping("/{id}")
+    public CategoryResponseDto update(@PathVariable Long id,
+                                      @RequestBody CategoryRequestDto requestDto) {
+        Category category = mapper.fromDto(requestDto);
+        category.setId(id);
+        return mapper.toDto(categoryService.update(category));
     }
 }
