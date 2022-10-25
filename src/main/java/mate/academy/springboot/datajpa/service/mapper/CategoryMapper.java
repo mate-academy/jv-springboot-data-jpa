@@ -14,9 +14,9 @@ public class CategoryMapper {
         return categoryResponseDto;
     }
 
-    public Category fromDto(CategoryRequestDto categoryRequest) {
+    public Category fromDto(CategoryRequestDto categoryRequestDto) {
         Category category = new Category();
-        category.setName(categoryRequest.getName());
+        category.setName(categoryRequestDto.getName());
         return category;
     }
 }
