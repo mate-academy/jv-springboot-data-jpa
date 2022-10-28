@@ -26,9 +26,9 @@ public class CategoryController {
     }
 
     @PostMapping
-    public CategoryResponseDto create(@RequestBody CategoryRequestDto dto) {
+    public CategoryResponseDto save(@RequestBody CategoryRequestDto dto) {
         Category requestDto = categoryMapper.toModel(dto);
-        Category createdCategory = categoryService.create(requestDto);
+        Category createdCategory = categoryService.save(requestDto);
         return categoryMapper.toDto(createdCategory);
     }
 
@@ -42,7 +42,8 @@ public class CategoryController {
     public CategoryResponseDto update(@RequestBody CategoryRequestDto requestDto,
                                       @PathVariable Long id) {
         Category category = categoryMapper.toModel(requestDto);
-        Category updateCategory = categoryService.update(id, category);
+        category.setId(id);
+        Category updateCategory = categoryService.save(category);
         return categoryMapper.toDto(updateCategory);
     }
 

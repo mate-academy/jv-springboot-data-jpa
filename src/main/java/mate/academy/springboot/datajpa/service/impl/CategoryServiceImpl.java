@@ -15,13 +15,14 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Category create(Category category) {
+    public Category save(Category category) {
         return categoryRepository.save(category);
     }
 
     @Override
     public Category findById(Long id) {
-        return categoryRepository.findById(id).orElseThrow();
+        return categoryRepository.findById(id).orElseThrow(()
+                -> new NoSuchElementException("Can't find a category by id: " + id));
     }
 
     @Override
@@ -30,15 +31,8 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Category update(Long id, Category category) {
-        category.setId(id);
-        categoryRepository.save(category);
-        return category;
-    }
-
-    @Override
     public Category findByName(String name) {
         return categoryRepository.findByName(name).orElseThrow(() ->
-                new NoSuchElementException("This category doesn't exist"));
+                new NoSuchElementException("This category: " + name + " doesn't exist"));
     }
 }

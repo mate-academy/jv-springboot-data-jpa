@@ -3,6 +3,7 @@ package mate.academy.springboot.datajpa.service.impl;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import mate.academy.springboot.datajpa.domain.Product;
 import mate.academy.springboot.datajpa.repository.ProductRepository;
 import mate.academy.springboot.datajpa.repository.specification.ProductSpecificationManager;
@@ -22,19 +23,14 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product create(Product product) {
+    public Product save(Product product) {
         return productRepository.save(product);
     }
 
     @Override
     public Product findById(Long id) {
-        return productRepository.findById(id).orElseThrow();
-    }
-
-    @Override
-    public Product update(Long id, Product product) {
-        product.setId(id);
-        return productRepository.save(product);
+        return productRepository.findById(id).orElseThrow(()
+                -> new NoSuchElementException("Can't find product by id: " + id));
     }
 
     @Override

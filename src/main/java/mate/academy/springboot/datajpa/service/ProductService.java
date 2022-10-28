@@ -6,11 +6,9 @@ import java.util.Map;
 import mate.academy.springboot.datajpa.domain.Product;
 
 public interface ProductService {
-    Product create(Product product);
+    Product save(Product product);
 
     Product findById(Long id);
-
-    Product update(Long id, Product product);
 
     void deleteById(Long id);
 
