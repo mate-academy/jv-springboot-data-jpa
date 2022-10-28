@@ -1,4 +1,10 @@
 package mate.academy.springboot.datajpa.service;
 
-public class CategoryService {
+import mate.academy.springboot.datajpa.model.Category;
+
+import java.util.List;
+
+public interface CategoryService {
+   Category save(Category category);
+   List<Category> getAll();
 }
