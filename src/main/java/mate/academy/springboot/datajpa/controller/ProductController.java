@@ -2,10 +2,13 @@ package mate.academy.springboot.datajpa.controller;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Collectors;
 import mate.academy.springboot.datajpa.dto.request.ProductRequestDto;
+import mate.academy.springboot.datajpa.dto.request.ProductResponseDto;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.service.CategoryService;
 import mate.academy.springboot.datajpa.service.ProductService;
+import mate.academy.springboot.datajpa.service.mapper.ProductDtoMapperImpl;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,24 +24,28 @@ import org.springframework.web.bind.annotation.RestController;
 public class ProductController {
     private final ProductService productService;
     private final CategoryService categoryService;
+    private final ProductDtoMapperImpl productDtoMapper;
 
-    public ProductController(ProductService productService, CategoryService categoryService) {
+    public ProductController(ProductService productService, CategoryService categoryService,
+                             ProductDtoMapperImpl productDtoMapper) {
         this.productService = productService;
         this.categoryService = categoryService;
+        this.productDtoMapper = productDtoMapper;
     }
 
     @PostMapping
-    public Product create(@RequestBody ProductRequestDto productRequestDto) {
+    public ProductResponseDto create(@RequestBody ProductRequestDto productRequestDto) {
         Product product = new Product();
         product.setCategory(categoryService.getById(productRequestDto.getCategoryId()));
         product.setTitle(productRequestDto.getTitle());
         product.setPrice(productRequestDto.getPrice());
-        return productService.save(product);
+        return productDtoMapper
+                .mapToDto(productService.save(productDtoMapper.mapToModel(productRequestDto)));
     }
 
     @GetMapping
-    public Product findById(@RequestParam Long id) {
-        return productService.getById(id);
+    public ProductResponseDto findById(@RequestParam Long id) {
+        return productDtoMapper.mapToDto(productService.getById(id));
     }
 
     @DeleteMapping
@@ -47,15 +54,17 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
-    public Product updateById(@PathVariable Long id,
-                              @RequestBody Product product) {
-        product.setId(id);
-        return productService.update(product);
+    public ProductResponseDto updateById(@PathVariable Long id,
+                                         @RequestBody ProductRequestDto productRequestDto) {
+        Product product = productService.update(productDtoMapper.mapToModel(productRequestDto));
+        return productDtoMapper.mapToDto(product);
     }
 
     @GetMapping("/byPriceBetween")
-    public List<Product> findAllByPriceBetween(@RequestParam BigDecimal from,
+    public List<ProductResponseDto> findAllByPriceBetween(@RequestParam BigDecimal from,
                                            @RequestParam BigDecimal to) {
-        return productService.getAllByPriceBetween(from, to);
+        return productService.getAllByPriceBetween(from, to).stream()
+                .map(productDtoMapper::mapToDto)
+                .collect(Collectors.toList());
     }
 }

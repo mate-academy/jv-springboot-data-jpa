@@ -10,5 +10,5 @@ import org.springframework.stereotype.Repository;
 public interface CategoryRepository extends JpaRepository<Category, Long> {
     @Modifying
     @Query("UPDATE Category c SET c.name = ?1 WHERE c.id = ?2")
-    void update(String name, Long categoryId);
+    Category update(String name, Long categoryId);
 }

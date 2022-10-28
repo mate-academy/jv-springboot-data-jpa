@@ -1,9 +1,10 @@
-package mate.academy.springboot.datajpa.service;
+package mate.academy.springboot.datajpa.service.impl;
 
 import java.math.BigDecimal;
 import java.util.List;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.repository.ProductRepository;
+import mate.academy.springboot.datajpa.service.ProductService;
 import org.springframework.stereotype.Repository;
 
 @Repository

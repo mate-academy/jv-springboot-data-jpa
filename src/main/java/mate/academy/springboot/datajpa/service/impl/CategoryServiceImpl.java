@@ -1,7 +1,8 @@
-package mate.academy.springboot.datajpa.service;
+package mate.academy.springboot.datajpa.service.impl;
 
 import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.repository.CategoryRepository;
+import mate.academy.springboot.datajpa.service.CategoryService;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -28,7 +29,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public void update(Category category) {
-        categoryRepository.update(category.getName(), category.getId());
+    public Category update(Category category) {
+        return categoryRepository.update(category.getName(), category.getId());
     }
 }
