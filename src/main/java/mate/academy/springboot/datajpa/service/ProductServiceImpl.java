@@ -2,6 +2,7 @@ package mate.academy.springboot.datajpa.service;
 
 import java.math.BigDecimal;
 import java.util.List;
+import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.repository.ProductRepository;
 import org.springframework.stereotype.Service;
@@ -21,7 +22,8 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product get(Long id) {
-        return productRepository.getById(id);
+        return productRepository.getProductById(id)
+                .orElseThrow(() -> new RuntimeException("Can't get Product with id " + id));
     }
 
     @Override
@@ -37,5 +39,10 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<Product> findAllByPriceBetween(BigDecimal from, BigDecimal to) {
         return productRepository.findAllByPriceBetween(from, to);
+    }
+
+    @Override
+    public List<Product> findAllByCategoryIn(List<Category> categories) {
+        return productRepository.findAllByCategoryIn(categories);
     }
 }

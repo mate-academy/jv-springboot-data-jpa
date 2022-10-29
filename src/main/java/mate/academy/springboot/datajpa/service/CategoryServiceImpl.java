@@ -19,7 +19,8 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category get(Long id) {
-        return categoryRepository.getById(id);
+        return categoryRepository.getCategoryById(id)
+                .orElseThrow(() -> new RuntimeException("Can't get Category with id " + id));
     }
 
     @Override

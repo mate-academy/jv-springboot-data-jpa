@@ -33,12 +33,12 @@ public class InjectController {
         bmw.setCategory(car);
         bmw = productService.save(bmw);
         Product audi = new Product();
-        audi.setPrice(BigDecimal.valueOf(100));
+        audi.setPrice(BigDecimal.valueOf(200));
         audi.setTitle("audi");
         audi.setCategory(car);
         audi = productService.save(audi);
         Product volvo = new Product();
-        volvo.setPrice(BigDecimal.valueOf(100));
+        volvo.setPrice(BigDecimal.valueOf(3001));
         volvo.setTitle("volvo");
         volvo.setCategory(truck);
         volvo = productService.save(volvo);

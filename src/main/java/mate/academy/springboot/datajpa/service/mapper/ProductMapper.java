@@ -18,10 +18,10 @@ public class ProductMapper implements ResponseDtoMapper<ProductResponseDto, Prod
     @Override
     public ProductResponseDto mapToDto(Product product) {
         ProductResponseDto productResponseDto = new ProductResponseDto();
-        productResponseDto.setCategoryId(product.getId());
+        productResponseDto.setId(product.getId());
         productResponseDto.setTitle(product.getTitle());
         productResponseDto.setPrice(product.getPrice());
-        productResponseDto.setCategoryId(productResponseDto.getCategoryId());
+        productResponseDto.setCategoryId(product.getCategory().getId());
         return productResponseDto;
     }
 
