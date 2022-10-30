@@ -29,7 +29,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Category update(Category category) {
-        return categoryRepository.update(category.getName(), category.getId());
+    public void update(Category category) {
+        categoryRepository.update(category.getName(), category.getId());
     }
 }

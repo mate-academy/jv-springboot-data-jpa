@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class CategoryDtoMapper implements RequestDtoMapper<CategoryRequestDto, Category>,
-ResponseDtoMapper<CategoryResponseDto, Category> {
+        ResponseDtoMapper<CategoryResponseDto, Category> {
 
     @Override
     public Category mapToModel(CategoryRequestDto dto) {

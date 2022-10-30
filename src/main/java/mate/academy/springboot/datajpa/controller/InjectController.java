@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class injectController {
+public class InjectController {
     private final ProductRepository productController;
     private final CategoryRepository categoryRepository;
 
-    public injectController(ProductRepository productController,
+    public InjectController(ProductRepository productController,
                             CategoryRepository categoryRepository) {
         this.productController = productController;
         this.categoryRepository = categoryRepository;

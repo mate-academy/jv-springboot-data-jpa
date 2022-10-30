@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ProductDtoMapperImpl implements RequestDtoMapper<ProductRequestDto, Product>,
-        ResponseDtoMapper<ProductResponseDto, Product>{
+        ResponseDtoMapper<ProductResponseDto, Product> {
 
     private final CategoryService categoryService;
 

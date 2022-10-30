@@ -11,7 +11,7 @@ public interface ProductService {
 
     void deleteById(Long id);
 
-    Product update(Product product);
+    void update(Product product);
 
     List<Product> getAllByPriceBetween(BigDecimal from, BigDecimal to);
 }

@@ -31,10 +31,10 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product update(Product product) {
-        return productRepository.update(product.getPrice(),
+    public void update(Product product) {
+        productRepository.update(product.getPrice(),
                                         product.getTitle(),
-                                        product.getCategory().getId(),
+                                        product.getCategory(),
                                         product.getId());
     }
 
