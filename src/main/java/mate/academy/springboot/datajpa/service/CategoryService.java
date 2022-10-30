@@ -2,9 +2,15 @@ package mate.academy.springboot.datajpa.service;
 
 import mate.academy.springboot.datajpa.model.Category;
 
-import java.util.List;
-
 public interface CategoryService {
-   Category save(Category category);
-   List<Category> getAll();
+    //TODO delete not needed
+    Category save(Category category);
+
+    Category getById(Long id);
+
+    Category update(Category category);
+
+    void delete(Long id);
+
+    //   List<Category> getAll();
 }

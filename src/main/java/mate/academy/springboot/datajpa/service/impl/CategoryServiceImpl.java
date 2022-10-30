@@ -5,7 +5,6 @@ import mate.academy.springboot.datajpa.repository.CategoryRepository;
 import mate.academy.springboot.datajpa.service.CategoryService;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 @Service
 public class CategoryServiceImpl implements CategoryService {
     private final CategoryRepository categoryRepository;
@@ -13,14 +12,24 @@ public class CategoryServiceImpl implements CategoryService {
     public CategoryServiceImpl(CategoryRepository categoryRepository) {
         this.categoryRepository = categoryRepository;
     }
-    //TODO
+
     @Override
     public Category save(Category category) {
-        return null;
+        return categoryRepository.save(category);
     }
 
     @Override
-    public List<Category> getAll() {
-        return null;
+    public Category getById(Long id) {
+        return categoryRepository.getById(id);
+    }
+
+    @Override
+    public Category update(Category category) {
+        return categoryRepository.save(category);
+    }
+
+    @Override
+    public void delete(Long id) {
+        categoryRepository.deleteById(id);
     }
 }
