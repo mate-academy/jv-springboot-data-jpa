@@ -5,7 +5,6 @@ import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.repository.ProductRepository;
 import mate.academy.springboot.datajpa.service.ProductService;
 import java.util.List;
-import java.util.Map;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -43,7 +42,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> findAllByCategory(Map<String, String> param) {
-        return null;
+    public List<Product> findAllByCategory(List<String> categories) {
+        return productRepository.findAllByCategory(categories);
     }
 }

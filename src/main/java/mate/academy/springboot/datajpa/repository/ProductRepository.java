@@ -11,4 +11,7 @@ import org.springframework.stereotype.Repository;
 public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query("FROM Product p WHERE p.price BETWEEN ?1 AND ?2")
     List<Product> findAllByPriceBetween(BigDecimal from, BigDecimal to);
+
+    @Query("FROM Product p WHERE p.category.name IN (?1)")
+    List<Product> findAllByCategory(List<String> categories);
 }
