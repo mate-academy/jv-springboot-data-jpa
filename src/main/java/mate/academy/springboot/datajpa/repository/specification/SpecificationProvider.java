@@ -6,5 +6,4 @@ public interface SpecificationProvider<T> {
     Specification<T> getSpecification(String[] name);
 
     String getFilterKey();
-
 }
