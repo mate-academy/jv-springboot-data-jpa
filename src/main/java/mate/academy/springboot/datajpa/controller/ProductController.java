@@ -1,10 +1,14 @@
 package mate.academy.springboot.datajpa.controller;
 
+import java.math.BigDecimal;
 import mate.academy.springboot.datajpa.dto.request.ProductRequestDto;
 import mate.academy.springboot.datajpa.dto.response.ProductResponseDto;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.service.ProductService;
 import mate.academy.springboot.datajpa.service.mapper.ProductMapper;
+import java.util.List;
+import java.util.stream.Collectors;
+import javax.validation.Valid;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,7 +32,7 @@ public class ProductController {
     }
 
     @PostMapping
-    public ProductResponseDto add(@RequestBody ProductRequestDto requestDto) {
+    public ProductResponseDto add(@RequestBody @Valid ProductRequestDto requestDto) {
         Product product = productService.save(productMapper.mapToModel(requestDto));
         return productMapper.mapToDto(product);
     }
@@ -41,7 +45,7 @@ public class ProductController {
 
     @PutMapping("/{id}")
     public ProductResponseDto update(@PathVariable Long id,
-                                     @RequestBody ProductRequestDto requestDto) {
+                                     @RequestBody @Valid ProductRequestDto requestDto) {
         Product product = productMapper.mapToModel(requestDto);
         product.setId(id);
         return productMapper.mapToDto(productService.update(product));
@@ -52,6 +56,12 @@ public class ProductController {
         productService.delete(id);
     }
 
-
-
+    @GetMapping("/price")
+    public List<ProductResponseDto> findAllByPriceBetween(@RequestParam BigDecimal from,
+                                               @RequestParam BigDecimal to) {
+        List<Product> allByPriceBetween = productService.findAllByPriceBetween(from, to);
+        return allByPriceBetween.stream()
+                .map(productMapper::mapToDto)
+                .collect(Collectors.toList());
+    }
 }

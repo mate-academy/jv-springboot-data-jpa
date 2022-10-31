@@ -10,6 +10,6 @@ public interface ProductService {
     Product get(Long id);
     Product update(Product product);
     void delete(Long id);
-    Product findAllByPriceBetween(BigDecimal from, BigDecimal to);
+    List<Product> findAllByPriceBetween(BigDecimal from, BigDecimal to);
     List<Product> findAllByCategory(Map<String, String> param);
 }

@@ -38,8 +38,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product findAllByPriceBetween(BigDecimal from, BigDecimal to) {
-        return null;
+    public List<Product> findAllByPriceBetween(BigDecimal from, BigDecimal to) {
+        return productRepository.findAllByPriceBetween(from, to);
     }
 
     @Override
