@@ -18,9 +18,8 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Category get(Long id) {
-        return categoryRepository.getCategoryById(id)
-                .orElseThrow(() -> new RuntimeException("Can't get Category with id " + id));
+    public Category getById(Long id) {
+        return categoryRepository.getById(id);
     }
 
     @Override
@@ -30,6 +29,6 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category update(Category category) {
-        return categoryRepository.saveAndFlush(category);
+        return categoryRepository.save(category);
     }
 }

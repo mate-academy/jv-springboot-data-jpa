@@ -21,9 +21,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product get(Long id) {
-        return productRepository.getProductById(id)
-                .orElseThrow(() -> new RuntimeException("Can't get Product with id " + id));
+    public Product getById(Long id) {
+        return productRepository.getById(id);
     }
 
     @Override
@@ -33,7 +32,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product update(Product product) {
-        return productRepository.saveAndFlush(product);
+        return productRepository.save(product);
     }
 
     @Override

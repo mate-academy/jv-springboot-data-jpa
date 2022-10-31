@@ -16,7 +16,7 @@ public class ProductMapper implements ResponseDtoMapper<ProductResponseDto, Prod
     }
 
     @Override
-    public ProductResponseDto mapToDto(Product product) {
+    public ProductResponseDto toDto(Product product) {
         ProductResponseDto productResponseDto = new ProductResponseDto();
         productResponseDto.setId(product.getId());
         productResponseDto.setTitle(product.getTitle());
@@ -26,11 +26,11 @@ public class ProductMapper implements ResponseDtoMapper<ProductResponseDto, Prod
     }
 
     @Override
-    public Product mapToModel(ProductRequestDto dto) {
+    public Product toModel(ProductRequestDto dto) {
         Product product = new Product();
         product.setTitle(dto.getTitle());
         product.setPrice(dto.getPrice());
-        product.setCategory(categoryService.get(dto.getCategoryId()));
+        product.setCategory(categoryService.getById(dto.getCategoryId()));
         return product;
     }
 }

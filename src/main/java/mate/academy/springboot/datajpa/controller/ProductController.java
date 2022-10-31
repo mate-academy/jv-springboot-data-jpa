@@ -39,15 +39,15 @@ public class ProductController {
 
     @PostMapping
     public ProductResponseDto create(@RequestBody ProductRequestDto requestDto) {
-        Product product = productMapper.mapToModel(requestDto);
+        Product product = productMapper.toModel(requestDto);
         product = productService.save(product);
-        return productMapper.mapToDto(product);
+        return productMapper.toDto(product);
     }
 
     @GetMapping("/{productId}")
-    public ProductResponseDto get(@PathVariable Long productId) {
-        Product product = productService.get(productId);
-        return productMapper.mapToDto(product);
+    public ProductResponseDto getById(@PathVariable Long productId) {
+        Product product = productService.getById(productId);
+        return productMapper.toDto(product);
     }
 
     @DeleteMapping("/{productId}")
@@ -59,9 +59,9 @@ public class ProductController {
     @PutMapping("/{productId}")
     public ProductResponseDto update(@PathVariable Long productId,
                                      @RequestBody ProductRequestDto requestDto) {
-        Product product = productMapper.mapToModel(requestDto);
+        Product product = productMapper.toModel(requestDto);
         product.setId(productId);
-        return productMapper.mapToDto(productService.update(product));
+        return productMapper.toDto(productService.update(product));
     }
 
     @GetMapping(params = {"from", "to"})
@@ -69,7 +69,7 @@ public class ProductController {
                                                        @RequestParam BigDecimal to) {
         List<Product> products = productService.findAllByPriceBetween(from, to);
         return products.stream()
-                .map(productMapper::mapToDto)
+                .map(productMapper::toDto)
                 .collect(Collectors.toList());
     }
 
@@ -77,11 +77,11 @@ public class ProductController {
     public List<ProductResponseDto> getAllInCategories(@RequestParam String category) {
         List<Category> categories = Arrays.stream(category.split(","))
                 .map(Long::parseLong)
-                .map(categoryService::get)
+                .map(categoryService::getById)
                 .collect(Collectors.toList());
         List<Product> products = productService.findAllByCategoryIn(categories);
         return products.stream()
-                .map(productMapper::mapToDto)
+                .map(productMapper::toDto)
                 .collect(Collectors.toList());
     }
 }
