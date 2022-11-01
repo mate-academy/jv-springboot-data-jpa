@@ -25,18 +25,10 @@ public class CategoryController {
         this.categoryMapper = categoryMapper;
     }
 
-    @PostMapping()
+    @PostMapping
     public CategoryResponseDto create(@RequestBody CategoryRequestDto requestDto) {
         Category category = categoryMapper.toModel(requestDto);
         return categoryMapper.toResponseDto(categoryService.save(category));
-    }
-
-    @GetMapping("/inject")
-    public String inject() {
-        Category category = new Category();
-        category.setName("Leggins");
-        categoryService.save(category);
-        return "Done!";
     }
 
     @PutMapping("/{id}")

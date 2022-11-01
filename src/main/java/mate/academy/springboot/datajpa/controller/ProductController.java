@@ -56,8 +56,8 @@ public class ProductController {
     }
 
     @GetMapping("/categories")
-    public List<ProductResponseDto> getAllByCategory(@RequestParam Map<String,
-            String> params) {
+    public List<ProductResponseDto> getAllByCategory(
+            @RequestParam Map<String, String> params) {
         return productService.findByCategory(params)
                 .stream()
                 .map(productMapper::toResponseDto)
