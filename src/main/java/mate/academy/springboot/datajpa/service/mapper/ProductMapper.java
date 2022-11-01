@@ -7,13 +7,15 @@ import mate.academy.springboot.datajpa.service.CategoryService;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ProductMapper {
+public class ProductMapper implements ResponseDtoMapper<ProductResponseDto, Product>,
+        RequestDtoMapper<ProductRequestDto, Product> {
     private final CategoryService categoryService;
 
     public ProductMapper(CategoryService categoryService) {
         this.categoryService = categoryService;
     }
 
+    @Override
     public ProductResponseDto mapToDto(Product product) {
         ProductResponseDto responseDto = new ProductResponseDto();
         responseDto.setId(product.getId());
@@ -23,11 +25,12 @@ public class ProductMapper {
         return responseDto;
     }
 
+    @Override
     public Product mapToModel(ProductRequestDto requestDto) {
         Product product = new Product();
         product.setTitle(requestDto.getTitle());
         product.setPrice(requestDto.getPrice());
-        product.setCategory(categoryService.get(requestDto.getCategoryId()));
+        product.setCategory(categoryService.getById(requestDto.getCategoryId()));
         return product;
     }
 }

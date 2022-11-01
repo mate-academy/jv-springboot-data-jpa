@@ -1,6 +1,5 @@
 package mate.academy.springboot.datajpa.model;
 
-
 import java.math.BigDecimal;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
