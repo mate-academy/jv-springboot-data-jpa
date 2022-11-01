@@ -4,7 +4,8 @@ import java.math.BigDecimal;
 import lombok.Getter;
 import lombok.Setter;
 
-@Setter @Getter
+@Setter
+@Getter
 public class ProductResponseDto {
     private Long id;
     private String title;
