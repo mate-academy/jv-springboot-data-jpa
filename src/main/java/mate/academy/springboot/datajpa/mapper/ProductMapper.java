@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ProductMapper implements RequestDtoMapper<RequestProductDto, Product>,
-        ResponseDtoMapper <ResponseProductDto, Product> {
+        ResponseDtoMapper<ResponseProductDto, Product> {
     private final CategoryService categoryService;
 
     public ProductMapper(CategoryService categoryService) {
@@ -26,7 +26,7 @@ public class ProductMapper implements RequestDtoMapper<RequestProductDto, Produc
 
     @Override
     public ResponseProductDto mapToDto(Product product) {
-        ResponseProductDto responseProductDto= new ResponseProductDto();
+        ResponseProductDto responseProductDto = new ResponseProductDto();
         responseProductDto.setId(product.getId());
         responseProductDto.setPrice(product.getPrice());
         responseProductDto.setTitle(product.getTitle());
