@@ -1,11 +1,11 @@
 package mate.academy.springboot.datajpa.controller;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import mate.academy.springboot.datajpa.dto.ProductRequestDto;
 import mate.academy.springboot.datajpa.dto.ProductResponseDto;
 import mate.academy.springboot.datajpa.dto.mapper.ProductMapper;
-import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.service.ProductService;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -60,8 +61,8 @@ public class ProductController {
     }
 
     @GetMapping("/categories")
-    public List<ProductResponseDto> getAllInCategory(@RequestBody Category category) {
-        return productService.findAllByCategory(category)
+    public List<ProductResponseDto> getAllInCategory(@RequestParam Map<String, String> params) {
+        return productService.findAllByCategory(params)
                 .stream()
                 .map(productMapper::toResponseDto)
                 .collect(Collectors.toList());

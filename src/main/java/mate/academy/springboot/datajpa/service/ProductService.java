@@ -2,7 +2,7 @@ package mate.academy.springboot.datajpa.service;
 
 import java.math.BigDecimal;
 import java.util.List;
-import mate.academy.springboot.datajpa.model.Category;
+import java.util.Map;
 import mate.academy.springboot.datajpa.model.Product;
 
 public interface ProductService {
@@ -16,7 +16,7 @@ public interface ProductService {
 
     List<Product> findAllByPriceBetween(BigDecimal from, BigDecimal to);
 
-    List<Product> findAllByCategory(Category category);
+    List<Product> findAllByCategory(Map<String, String> params);
 
     Product update(Long id, Product product);
 
