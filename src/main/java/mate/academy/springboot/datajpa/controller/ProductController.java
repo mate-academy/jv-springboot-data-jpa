@@ -39,7 +39,7 @@ public class ProductController {
         return productMapper.toResponseDto(productService.getById(id));
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
         productService.deleteById(id);
     }
@@ -51,7 +51,7 @@ public class ProductController {
         return productMapper.toResponseDto(product);
     }
 
-    @GetMapping("/products-all")
+    @GetMapping
     public List<ProductResponseDto> getAll() {
         return productService.findAll()
                 .stream()
@@ -59,7 +59,7 @@ public class ProductController {
                 .collect(Collectors.toList());
     }
 
-    @GetMapping("products-in-category")
+    @GetMapping("/categories")
     public List<ProductResponseDto> getAllInCategory(@RequestBody Category category) {
         return productService.findAllByCategory(category)
                 .stream()
