@@ -1,7 +1,10 @@
 package model;
 
+import lombok.Data;
+
 import javax.persistence.*;
 
+@Data
 @Entity
 @Table(name = "categories")
 public class Category {
