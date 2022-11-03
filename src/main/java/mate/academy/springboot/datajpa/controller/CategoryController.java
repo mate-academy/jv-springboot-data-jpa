@@ -43,7 +43,7 @@ public class CategoryController {
         categoryService.deleteById(id);
     }
 
-    @GetMapping("/categories-all")
+    @GetMapping
     public List<CategoryResponseDto> getAll() {
         return categoryService.findAll()
                 .stream()
