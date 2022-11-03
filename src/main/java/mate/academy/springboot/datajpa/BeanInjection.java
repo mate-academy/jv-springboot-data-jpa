@@ -9,12 +9,12 @@ import mate.academy.springboot.datajpa.service.ProductService;
 import org.springframework.stereotype.Component;
 
 @Component
-public class InjectBean {
+public class BeanInjection {
     private final ProductService productService;
     private final CategoryService categoryService;
 
-    public InjectBean(ProductService productService,
-                      CategoryService categoryService) {
+    public BeanInjection(ProductService productService,
+                         CategoryService categoryService) {
         this.productService = productService;
         this.categoryService = categoryService;
     }

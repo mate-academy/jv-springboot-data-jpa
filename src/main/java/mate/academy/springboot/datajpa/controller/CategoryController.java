@@ -30,7 +30,7 @@ public class CategoryController {
 
     @GetMapping("/{id}")
     public CategoryResponseDto getById(@PathVariable Long id) {
-        return categoryMapper.toDto(categoryService.get(id));
+        return categoryMapper.toDto(categoryService.getById(id));
     }
 
     @DeleteMapping("/{id}")

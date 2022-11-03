@@ -24,7 +24,7 @@ public class ProductMapper {
 
     public Product toModel(ProductRequestDto productRequestDto) {
         Product product = new Product();
-        product.setCategory(categoryService.get(productRequestDto.getCategoryId()));
+        product.setCategory(categoryService.getById(productRequestDto.getCategoryId()));
         product.setId(productRequestDto.getId());
         product.setPrice(productRequestDto.getPrice());
         product.setTitle(productRequestDto.getTitle());

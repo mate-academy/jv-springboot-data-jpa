@@ -47,7 +47,7 @@ public class ProductController {
 
     @GetMapping("/{id}")
     public ProductResponseDto getById(@PathVariable Long id) {
-        return productMapper.toDto(productService.get(id));
+        return productMapper.toDto(productService.getById(id));
     }
 
     @DeleteMapping("/{id}")
@@ -58,10 +58,10 @@ public class ProductController {
     @PutMapping("/{id}")
     public void update(@RequestBody ProductRequestDto productRequestDto) {
         Product product = productMapper.toModel(productRequestDto);
-        Product byId = productService.get(product.getId());
+        Product byId = productService.getById(product.getId());
         byId.setPrice(productRequestDto.getPrice());
         byId.setTitle(productRequestDto.getTitle());
-        byId.setCategory(categoryService.get(productRequestDto.getCategoryId()));
+        byId.setCategory(categoryService.getById(productRequestDto.getCategoryId()));
         productService.add(byId);
     }
 
@@ -76,7 +76,7 @@ public class ProductController {
     @GetMapping
     public List<ProductResponseDto> getAllByCategory(@RequestParam("c") List<Long> categoryIds) {
         List<Category> collect = categoryIds.stream()
-                .map(i -> categoryService.get(i))
+                .map(i -> categoryService.getById(i))
                 .collect(Collectors.toList());
         return productService.getAllByCategory(collect).stream()
                 .map(p -> productMapper.toDto(p))
