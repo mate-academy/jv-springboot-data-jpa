@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
-
     private final CategoryRepository repository;
 
     public CategoryServiceImpl(CategoryRepository repository) {
