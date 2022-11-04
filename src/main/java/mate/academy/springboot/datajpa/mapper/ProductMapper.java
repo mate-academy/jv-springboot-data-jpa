@@ -4,8 +4,9 @@ import mate.academy.springboot.datajpa.dto.ProductRequestDto;
 import mate.academy.springboot.datajpa.dto.ProductResponseDto;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.service.CategoryService;
-import mate.academy.springboot.datajpa.service.ProductService;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ProductMapper {
     private CategoryService categoryService;
 
