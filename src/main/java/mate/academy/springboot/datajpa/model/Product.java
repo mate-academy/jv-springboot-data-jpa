@@ -1,6 +1,8 @@
-package model;
+package mate.academy.springboot.datajpa.model;
 
 import lombok.Data;
+import mate.academy.springboot.datajpa.model.Category;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;

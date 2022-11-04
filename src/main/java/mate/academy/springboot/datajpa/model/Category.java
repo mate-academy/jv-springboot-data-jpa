@@ -1,4 +1,4 @@
-package model;
+package mate.academy.springboot.datajpa.model;
 
 import lombok.Data;
 
