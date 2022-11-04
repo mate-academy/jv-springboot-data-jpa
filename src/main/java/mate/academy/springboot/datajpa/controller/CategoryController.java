@@ -1,5 +1,6 @@
 package mate.academy.springboot.datajpa.controller;
 
+import mate.academy.springboot.datajpa.mapper.CategoryMapper;
 import mate.academy.springboot.datajpa.repository.CategoryRepository;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
