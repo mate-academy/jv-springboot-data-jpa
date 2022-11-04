@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 import mate.academy.springboot.datajpa.mapper.ProductMapper;
-import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.model.dto.product.ProductRequestDto;
 import mate.academy.springboot.datajpa.model.dto.product.ProductResponseDto;
@@ -70,10 +69,7 @@ public class ProductController {
 
     @GetMapping("/categories")
     public List<ProductResponseDto> getAllByCategoriesIn(@RequestParam List<Long> categoriesIds) {
-        List<Category> categories = categoriesIds.stream()
-                .map(categoryService::getById)
-                .collect(Collectors.toList());
-        return productService.getAllByCategoriesIn(categories).stream()
+        return productService.getAllByCategoriesIdIn(categoriesIds).stream()
                 .map(productMapper::toResponseDto)
                 .collect(Collectors.toList());
     }

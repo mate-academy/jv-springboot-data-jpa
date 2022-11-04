@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ProductMapper {
-    private CategoryRepository categoryRepository;
+    private final CategoryRepository categoryRepository;
 
     public ProductMapper(CategoryRepository categoryRepository) {
         this.categoryRepository = categoryRepository;
@@ -19,7 +19,7 @@ public class ProductMapper {
         responseDto.setId(product.getId());
         responseDto.setTitle(product.getTitle());
         responseDto.setPrice(product.getPrice());
-        responseDto.setCategoryName(product.getCategory().getName());
+        responseDto.setCategoryId(product.getCategory().getId());
         return responseDto;
     }
 
