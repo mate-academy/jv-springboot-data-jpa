@@ -31,6 +31,4 @@ public class ProductMapper {
         responseDto.setCategoryId(responseDto.getCategoryId());
         return responseDto;
     }
-
-
 }

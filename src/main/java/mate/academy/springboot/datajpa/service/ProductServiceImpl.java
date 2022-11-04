@@ -1,5 +1,7 @@
 package mate.academy.springboot.datajpa.service;
 
+import java.math.BigDecimal;
+import java.util.List;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,5 +34,12 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product update(Product product) {
         return productRepository.save(update(product));
+    }
+
+    @Override
+    public List<Product> findAllByPriceBetween(
+            BigDecimal fromPrice, BigDecimal toPrice) {
+        return productRepository.findAllByPriceBetween(
+                fromPrice, toPrice);
     }
 }
