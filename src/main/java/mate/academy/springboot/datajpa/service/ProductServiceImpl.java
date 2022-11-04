@@ -2,8 +2,6 @@ package mate.academy.springboot.datajpa.service;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.stream.Collectors;
-import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.repository.ProductRepository;
 import org.springframework.stereotype.Service;
@@ -33,11 +31,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void update(Product product) {
-        Product byId = productRepository.getById(product.getId());
-        byId.setTitle(product.getTitle());
-        byId.setCategory(product.getCategory());
-        byId.setPrice(product.getPrice());
-        productRepository.save(byId);
+        productRepository.save(product);
     }
 
     @Override
@@ -46,11 +40,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> getAllByCategory(List<Category> categories) {
-        return categories.stream()
-                .map(c -> productRepository.getAllByCategory(c))
-                .flatMap(p -> p.stream())
-                .distinct()
-                .collect(Collectors.toList());
+    public List<Product> getAllByCategoryIdIn(List<Long> categories) {
+        return productRepository.getAllByCategoryIdIn(categories);
     }
 }

@@ -7,7 +7,6 @@ import mate.academy.springboot.datajpa.dto.ProductRequestDto;
 import mate.academy.springboot.datajpa.dto.ProductResponseDto;
 import mate.academy.springboot.datajpa.mapper.CategoryMapper;
 import mate.academy.springboot.datajpa.mapper.ProductMapper;
-import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.service.CategoryService;
 import mate.academy.springboot.datajpa.service.ProductService;
@@ -56,13 +55,10 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
-    public void update(@RequestBody ProductRequestDto productRequestDto) {
+    public void update(@PathVariable Long id, @RequestBody ProductRequestDto productRequestDto) {
         Product product = productMapper.toModel(productRequestDto);
-        Product byId = productService.getById(product.getId());
-        byId.setPrice(productRequestDto.getPrice());
-        byId.setTitle(productRequestDto.getTitle());
-        byId.setCategory(categoryService.getById(productRequestDto.getCategoryId()));
-        productService.add(byId);
+        product.setId(id);
+        productService.add(product);
     }
 
     @GetMapping("/price")
@@ -74,11 +70,8 @@ public class ProductController {
     }
 
     @GetMapping
-    public List<ProductResponseDto> getAllByCategory(@RequestParam("c") List<Long> categoryIds) {
-        List<Category> collect = categoryIds.stream()
-                .map(i -> categoryService.getById(i))
-                .collect(Collectors.toList());
-        return productService.getAllByCategory(collect).stream()
+    public List<ProductResponseDto> getAllByCategory(@RequestParam List<Long> categoryIds) {
+        return productService.getAllByCategoryIdIn(categoryIds).stream()
                 .map(p -> productMapper.toDto(p))
                 .collect(Collectors.toList());
     }

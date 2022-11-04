@@ -38,8 +38,8 @@ public class CategoryController {
         categoryService.delete(id);
     }
 
-    @PutMapping
-    public void update(@RequestBody CategoryRequestDto categoryRequestDto) {
+    @PutMapping("/{id}")
+    public void update(@PathVariable Long id, @RequestBody CategoryRequestDto categoryRequestDto) {
         Category category = categoryMapper.toModel(categoryRequestDto);
         categoryService.update(category);
     }

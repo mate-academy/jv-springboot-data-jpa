@@ -27,8 +27,6 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     public void update(Category category) {
-        Category byId = categoryRepository.getById(category.getId());
-        byId.setName(category.getName());
-        categoryRepository.save(byId);
+        categoryRepository.save(category);
     }
 }
