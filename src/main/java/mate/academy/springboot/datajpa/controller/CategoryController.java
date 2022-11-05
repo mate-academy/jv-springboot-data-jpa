@@ -47,7 +47,7 @@ public class CategoryController {
     }
 
     @DeleteMapping
-    public void deleteById(@RequestParam Long categoryId) {
+    public void deleteById(@RequestParam(name = "category_id") Long categoryId) {
         categoryService.delete(categoryId);
     }
 
