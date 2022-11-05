@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.math.BigDecimal;
@@ -18,7 +19,7 @@ public class Product {
     private String title;
     private BigDecimal price;
     @OneToOne
-    @Column(name = "category_id")
+    @JoinColumn(name = "category_id")
     private Category category;
 
     public Long getId() {
@@ -51,5 +52,15 @@ public class Product {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{"
+                + "id=" + id
+                + ", title='" + title + '\''
+                + ", price=" + price
+                + ", category=" + category
+                + '}';
     }
 }
