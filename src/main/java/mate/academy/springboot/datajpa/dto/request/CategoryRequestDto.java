@@ -1,6 +1,6 @@
 package mate.academy.springboot.datajpa.dto.request;
 
-public class RequestCategoryDto {
+public class CategoryRequestDto {
     private String name;
 
     public String getName() {

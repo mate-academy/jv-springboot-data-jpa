@@ -9,5 +9,5 @@ public interface CategoryService {
 
     void delete(Long id);
 
-    Category update(Category category);
+    void update(Long id, String category);
 }

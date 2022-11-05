@@ -5,7 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -16,7 +16,7 @@ public class Product {
     private Long id;
     private String title;
     private BigDecimal price;
-    @OneToOne
+    @ManyToOne
     private Category category;
 
     public Long getId() {

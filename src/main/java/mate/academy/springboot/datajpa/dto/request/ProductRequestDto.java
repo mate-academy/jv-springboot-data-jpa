@@ -1,20 +1,11 @@
-package mate.academy.springboot.datajpa.dto.response;
+package mate.academy.springboot.datajpa.dto.request;
 
 import java.math.BigDecimal;
 
-public class ResponseProductDto {
-    private Long id;
+public class ProductRequestDto {
     private String title;
     private BigDecimal price;
     private Long categoryId;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getTitle() {
         return title;

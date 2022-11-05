@@ -1,6 +1,6 @@
 package mate.academy.springboot.datajpa.dto.response;
 
-public class ResponseCategoryDto {
+public class CategoryResponseDto {
     private Long id;
     private String name;
 
