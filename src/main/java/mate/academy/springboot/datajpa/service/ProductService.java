@@ -13,7 +13,7 @@ public interface ProductService {
 
     void delete(Long id);
 
-    void update(Long id, String title, BigDecimal price);
+    void update(Long id, Product product);
 
     List<Product> findAllByPriceBetween(BigDecimal from, BigDecimal to);
 

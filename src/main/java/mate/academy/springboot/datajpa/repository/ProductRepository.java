@@ -16,9 +16,9 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query(value = "update Product p set p.title = ?2, p.price = ?3 where p.id = ?1")
     void update(Long id, String title, BigDecimal price);
 
-    @Query(value = "from Product p where p.price between ?1 and ?2")
+    @Query(value = "from Product p where p.price between :from and :to")
     List<Product> findAllByPriceBetween(BigDecimal from, BigDecimal to);
 
-    @Query(value = "from Product p where p.category.id = ?1")
+    @Query(value = "from Product p where p.category.id in (?1)")
     List<Product> findAllByCategoryIdIn(List<Long> categoryId);
 }

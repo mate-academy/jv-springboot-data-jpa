@@ -28,7 +28,8 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public void update(Long id, String name) {
-        categoryRepository.update(id, name);
+    public void update(Long id, Category category) {
+        category.setId(id);
+        categoryRepository.update(category.getId(), category.getName());
     }
 }
