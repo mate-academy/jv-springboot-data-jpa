@@ -1,5 +1,6 @@
 package mate.academy.springboot.datajpa.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,11 +14,12 @@ import java.math.BigDecimal;
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
-    String title;
-    BigDecimal price;
+    private Long id;
+    private String title;
+    private BigDecimal price;
     @OneToOne
-    Category category;
+    @Column(name = "category_id")
+    private Category category;
 
     public Long getId() {
         return id;
