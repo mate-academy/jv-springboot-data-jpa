@@ -1,5 +1,5 @@
 package mate.academy.springboot.datajpa.mapper;
 
-public interface RequestDto<D, M> {
+public interface RequestDtoMapper<D, M> {
     M toModel(D data);
 }

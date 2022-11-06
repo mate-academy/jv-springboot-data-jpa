@@ -1,13 +1,13 @@
 package mate.academy.springboot.datajpa.mapper.impl;
 
-import mate.academy.springboot.datajpa.mapper.RequestDto;
+import mate.academy.springboot.datajpa.mapper.RequestDtoMapper;
 import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.model.dto.request.ProductRequestDto;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ProductRequestDtoMapper implements RequestDto<ProductRequestDto, Product> {
+public class ProductRequestDtoMapper implements RequestDtoMapper<ProductRequestDto, Product> {
     @Override
     public Product toModel(ProductRequestDto data) {
         Product product = new Product();

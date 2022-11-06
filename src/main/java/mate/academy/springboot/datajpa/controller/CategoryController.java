@@ -1,7 +1,7 @@
 package mate.academy.springboot.datajpa.controller;
 
-import mate.academy.springboot.datajpa.mapper.impl.CategoryRequestDtoMapper;
-import mate.academy.springboot.datajpa.mapper.impl.CategoryResponseDtoMapper;
+import mate.academy.springboot.datajpa.mapper.RequestDtoMapper;
+import mate.academy.springboot.datajpa.mapper.ResponseDtoMapper;
 import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.model.dto.request.CategoryRequestDto;
 import mate.academy.springboot.datajpa.model.dto.response.CategoryResponseDto;
@@ -20,13 +20,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/categories")
 public class CategoryController {
     private final CategoryService categoryService;
-    private final CategoryResponseDtoMapper categoryResponseDtoMapper;
-    private final CategoryRequestDtoMapper categoryRequestDtoMapper;
+    private final ResponseDtoMapper<CategoryResponseDto, Category> categoryResponseDtoMapper;
+    private final RequestDtoMapper<CategoryRequestDto, Category> categoryRequestDtoMapper;
 
     @Autowired
-    public CategoryController(CategoryService categoryService,
-                              CategoryResponseDtoMapper categoryResponseDtoMapper,
-                              CategoryRequestDtoMapper categoryRequestDtoMapper) {
+    public CategoryController(
+            CategoryService categoryService,
+            ResponseDtoMapper<CategoryResponseDto, Category> categoryResponseDtoMapper,
+            RequestDtoMapper<CategoryRequestDto, Category> categoryRequestDtoMapper) {
         this.categoryService = categoryService;
         this.categoryResponseDtoMapper = categoryResponseDtoMapper;
         this.categoryRequestDtoMapper = categoryRequestDtoMapper;

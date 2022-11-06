@@ -4,8 +4,8 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import mate.academy.springboot.datajpa.mapper.impl.ProductRequestDtoMapper;
-import mate.academy.springboot.datajpa.mapper.impl.ProductResponseDtoMapper;
+import mate.academy.springboot.datajpa.mapper.RequestDtoMapper;
+import mate.academy.springboot.datajpa.mapper.ResponseDtoMapper;
 import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.model.dto.request.ProductRequestDto;
@@ -28,13 +28,15 @@ import org.springframework.web.bind.annotation.RestController;
 public class ProductController {
     private final CategoryService categoryService;
     private final ProductService productService;
-    private final ProductResponseDtoMapper productResponseDtoMapper;
-    private final ProductRequestDtoMapper productRequestDtoMapper;
+    private final ResponseDtoMapper<ProductResponseDto, Product> productResponseDtoMapper;
+    private final RequestDtoMapper<ProductRequestDto, Product> productRequestDtoMapper;
 
     @Autowired
-    public ProductController(CategoryService categoryService, ProductService productService,
-                             ProductResponseDtoMapper productResponseDtoMapper,
-                             ProductRequestDtoMapper productRequestDtoMapper) {
+    public ProductController(
+            CategoryService categoryService,
+            ProductService productService,
+            ResponseDtoMapper<ProductResponseDto, Product> productResponseDtoMapper,
+            RequestDtoMapper<ProductRequestDto, Product> productRequestDtoMapper) {
         this.categoryService = categoryService;
         this.productService = productService;
         this.productResponseDtoMapper = productResponseDtoMapper;
