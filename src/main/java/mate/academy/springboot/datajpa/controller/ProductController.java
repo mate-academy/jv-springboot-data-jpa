@@ -55,9 +55,11 @@ public class ProductController {
     }
 
     @GetMapping
-    public List<Product> getAllProductsBetweenPrice(@RequestParam BigDecimal from,
+    public List<ProductResponseDto> getAllProductsBetweenPrice(@RequestParam BigDecimal from,
                                                     @RequestParam BigDecimal to) {
-        return productService.findAllByPriceBetween(from, to);
+        return productService.findAllByPriceBetween(from, to).stream()
+                .map(productMapper::toResponseDto)
+                .collect(Collectors.toList());
     }
 
     @GetMapping("/sort")
