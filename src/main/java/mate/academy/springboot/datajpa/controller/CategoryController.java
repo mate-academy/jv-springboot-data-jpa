@@ -11,9 +11,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController("/category")
+@RestController
+@RequestMapping("/categories")
 public class CategoryController {
     private final CategoryService categoryService;
     private final CategoryMapper categoryMapper;
@@ -24,8 +26,9 @@ public class CategoryController {
     }
 
     @PostMapping
-    public CategoryResponseDto create(@RequestBody Category category) {
-        return categoryMapper.toResponseDto(categoryService.save(category));
+    public CategoryResponseDto create(@RequestBody CategoryRequestDto requestDto) {
+        return categoryMapper
+                .toResponseDto(categoryService.save(categoryMapper.toModel(requestDto)));
     }
 
     @GetMapping("/{id}")
@@ -38,7 +41,7 @@ public class CategoryController {
         categoryService.deleteById(id);
     }
 
-    @PutMapping("{id}")
+    @PutMapping("/{id}")
     public CategoryResponseDto update(@PathVariable Long id,
                                       @RequestBody CategoryRequestDto requestDto) {
         Category category = categoryMapper.toModel(requestDto);

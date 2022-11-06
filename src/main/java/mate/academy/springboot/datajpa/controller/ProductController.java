@@ -15,10 +15,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController("/product")
+@RestController
+@RequestMapping("/products")
 public class ProductController {
     private final ProductService productService;
     private final ProductMapper productMapper;
@@ -43,7 +45,7 @@ public class ProductController {
         productService.deleteById(id);
     }
 
-    @PutMapping("{id}")
+    @PutMapping("/{id}")
     public ProductResponseDto update(@PathVariable Long id,
                                      @RequestBody ProductRequestDto requestDto) {
         Product product = productMapper.toModel(requestDto);
@@ -54,14 +56,16 @@ public class ProductController {
     @GetMapping("/price")
     public List<ProductResponseDto> getAllPriceBetweenValues(@RequestParam BigDecimal firstPrice,
                                                   @RequestParam BigDecimal twoPrice) {
-        return productService.findAllPriceBetweenValues(firstPrice, twoPrice).stream()
+        return productService.findAllPriceBetweenValues(firstPrice, twoPrice)
+                .stream()
                 .map(productMapper::toResponseDto)
                 .collect(Collectors.toList());
     }
 
     @GetMapping("/categories")
     public List<ProductResponseDto> getAllByCategory(@RequestParam Map<String, String> params) {
-        return productService.findAllByCategories(params).stream()
+        return productService.findAllByCategories(params)
+                .stream()
                 .map(productMapper::toResponseDto)
                 .collect(Collectors.toList());
     }
