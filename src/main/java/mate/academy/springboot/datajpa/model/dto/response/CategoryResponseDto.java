@@ -6,6 +6,6 @@ import lombok.experimental.Accessors;
 @Data
 @Accessors(chain = true)
 public class CategoryResponseDto {
-    Long id;
-    String name;
+    private Long id;
+    private String name;
 }

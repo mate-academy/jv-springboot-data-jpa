@@ -1,5 +1,9 @@
 package mate.academy.springboot.datajpa.controller;
 
+import java.math.BigDecimal;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 import mate.academy.springboot.datajpa.mapper.impl.ProductRequestDtoMapper;
 import mate.academy.springboot.datajpa.mapper.impl.ProductResponseDtoMapper;
 import mate.academy.springboot.datajpa.model.Category;
@@ -18,10 +22,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import java.math.BigDecimal;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/products")
@@ -73,7 +73,8 @@ public class ProductController {
     }
 
     @GetMapping("/price")
-    public List<ProductResponseDto> findAll(@RequestParam BigDecimal from, @RequestParam BigDecimal to) {
+    public List<ProductResponseDto> findAll(@RequestParam BigDecimal from,
+                                            @RequestParam BigDecimal to) {
         return productService.findAll(from, to).stream()
                 .map(productResponseDtoMapper::toDto)
                 .collect(Collectors.toList());

@@ -4,5 +4,5 @@ import lombok.Getter;
 
 @Getter
 public class CategoryRequestDto {
-    String name;
+    private String name;
 }

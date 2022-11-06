@@ -40,7 +40,7 @@ public class CategoryController {
     }
 
     @GetMapping
-    public CategoryResponseDto getById(@RequestParam(name = "category_id") Long categoryId){
+    public CategoryResponseDto getById(@RequestParam(name = "category_id") Long categoryId) {
         return categoryResponseDtoMapper.toDto(
                 categoryService.getById(categoryId)
         );
