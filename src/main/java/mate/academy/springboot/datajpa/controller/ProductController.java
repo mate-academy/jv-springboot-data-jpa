@@ -49,7 +49,7 @@ public class ProductController {
         productService.getById(id);
     }
 
-    @GetMapping("/price")
+    @GetMapping("/by-price")
     public List<ProductResponseDto> getByPriceBetween(@RequestParam BigDecimal from,
             @RequestParam BigDecimal to) {
         return productService.getByPriceBetween(from, to).stream()
