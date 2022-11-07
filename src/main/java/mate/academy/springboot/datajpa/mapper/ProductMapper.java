@@ -7,30 +7,30 @@ import mate.academy.springboot.datajpa.service.CategoryService;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ProductMapper {
+public class ProductMapper implements RequestDtoMapper<ProductRequestDto, Product>,
+        ResponseDtoMapper<ProductResponseDto, Product> {
     private final CategoryService categoryService;
-    private final CategoryMapper categoryMapper;
 
-    public ProductMapper(CategoryService categoryService,
-                         CategoryMapper categoryMapper) {
+    public ProductMapper(CategoryService categoryService) {
         this.categoryService = categoryService;
-        this.categoryMapper = categoryMapper;
     }
 
-    public Product toModel(ProductRequestDto requestDto) {
-        Product product = new Product();
-        product.setTitle(requestDto.getTitle());
-        product.setPrice(requestDto.getPrice());
-        product.setCategory(categoryService.findById(requestDto.getCategoryId()));
-        return product;
+    @Override
+    public Product mapToModel(ProductRequestDto dto) {
+        Product model = new Product();
+        model.setTitle(dto.getTitle());
+        model.setPrice(dto.getPrice());
+        model.setCategory(categoryService.findById(dto.getCategoryId()));
+        return model;
     }
 
-    public ProductResponseDto toDto(Product product) {
-        ProductResponseDto responseDto = new ProductResponseDto();
-        responseDto.setId(product.getId());
-        responseDto.setTitle(product.getTitle());
-        responseDto.setPrice(product.getPrice());
-        responseDto.setCategory(categoryMapper.toDto(product.getCategory()));
-        return responseDto;
+    @Override
+    public ProductResponseDto mapToDto(Product model) {
+        ProductResponseDto dto = new ProductResponseDto();
+        dto.setId(model.getId());
+        dto.setTitle(model.getTitle());
+        dto.setPrice(model.getPrice());
+        dto.setCategoryId(model.getCategory().getId());
+        return dto;
     }
 }
