@@ -1,11 +1,13 @@
 package mate.academy.springboot.datajpa.controller;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import mate.academy.springboot.datajpa.dto.request.ProductRequestDto;
 import mate.academy.springboot.datajpa.dto.response.ProductResponseDto;
 import mate.academy.springboot.datajpa.mapper.ProductMapper;
+import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.service.CategoryService;
 import mate.academy.springboot.datajpa.service.ProductService;
@@ -47,8 +49,8 @@ public class ProductController {
     }
 
     @DeleteMapping("/{id}")
-    public ProductResponseDto deleteById(@PathVariable Long id) {
-        return productMapper.toResponseDto(productService.deleteById(id));
+    public void deleteById(@PathVariable Long id) {
+        productService.deleteById(id);
     }
 
     @PutMapping("/{id}")
@@ -56,7 +58,7 @@ public class ProductController {
                                      @RequestBody ProductRequestDto requestDto) {
         Product product = productMapper.toModel(requestDto);
         product.setId(id);
-        return productMapper.toResponseDto(productService.update(product));
+        return productMapper.toResponseDto(productService.save(product));
     }
 
     @GetMapping("/price")
@@ -68,8 +70,13 @@ public class ProductController {
     }
 
     @GetMapping("/categories")
-    public List<ProductResponseDto> getAllByCategoriesIn(@RequestParam List<Long> categoriesIds) {
-        return productService.getAllByCategoriesIdIn(categoriesIds).stream()
+    public List<ProductResponseDto> getAllByCategoriesIn(@RequestParam String category) {
+        List<Category> categories = Arrays.stream(category.split(","))
+                .map(Long::parseLong)
+                .map(categoryService::getById)
+                .collect(Collectors.toList());
+        List<Product> products = productService.getAllByCategoriesIn(categories);
+        return products.stream()
                 .map(productMapper::toResponseDto)
                 .collect(Collectors.toList());
     }

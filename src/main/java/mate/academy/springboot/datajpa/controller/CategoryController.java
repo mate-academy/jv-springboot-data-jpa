@@ -39,8 +39,8 @@ public class CategoryController {
     }
 
     @DeleteMapping("/{id}")
-    public CategoryResponseDto deleteById(@PathVariable Long id) {
-        return categoryMapper.toResponseDto(categoryService.deleteById(id));
+    public void deleteById(@PathVariable Long id) {
+        categoryService.deleteById(id);
     }
 
     @PutMapping("/{id}")
@@ -48,6 +48,6 @@ public class CategoryController {
                                       @RequestBody CategoryRequestDto requestDto) {
         Category category = categoryMapper.toModel(requestDto);
         category.setId(id);
-        return categoryMapper.toResponseDto(categoryService.update(category));
+        return categoryMapper.toResponseDto(categoryService.save(category));
     }
 }
