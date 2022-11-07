@@ -1,6 +1,5 @@
 package mate.academy.springboot.datajpa.controller;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -49,16 +48,8 @@ public class ProductController {
         productService.getById(id);
     }
 
-    @GetMapping("/by-price")
-    public List<ProductResponseDto> getByPriceBetween(@RequestParam BigDecimal from,
-            @RequestParam BigDecimal to) {
-        return productService.getByPriceBetween(from, to).stream()
-                .map(responseDtoMapper::mapToDto)
-                .collect(Collectors.toList());
-    }
-
     @GetMapping
-    public List<ProductResponseDto> getByCategory(@RequestParam Map<String, String> parameters) {
+    public List<ProductResponseDto> getByParameters(@RequestParam Map<String, String> parameters) {
         return productService.getAllByCategory(parameters).stream()
                 .map(responseDtoMapper::mapToDto)
                 .collect(Collectors.toList());

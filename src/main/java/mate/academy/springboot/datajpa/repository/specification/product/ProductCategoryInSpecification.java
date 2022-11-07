@@ -7,9 +7,9 @@ import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.repository.specification.SpecificationProvider;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
-@Component
+@Repository
 public class ProductCategoryInSpecification implements SpecificationProvider<Product> {
     public static final String FILTER_KEY = "categoryIn";
     public static final String FIELD_NAME = "name";
