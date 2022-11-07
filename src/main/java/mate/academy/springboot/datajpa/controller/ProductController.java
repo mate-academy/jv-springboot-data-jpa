@@ -1,7 +1,6 @@
 package mate.academy.springboot.datajpa.controller;
 
 import java.math.BigDecimal;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import mate.academy.springboot.datajpa.dto.request.ProductRequestDto;
@@ -11,7 +10,6 @@ import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.service.CategoryService;
 import mate.academy.springboot.datajpa.service.ProductService;
 import mate.academy.springboot.datajpa.service.mapper.impl.ProductMapper;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,7 +18,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -41,31 +38,29 @@ public class ProductController {
     @PostMapping
     public ProductResponseDto create(@RequestBody ProductRequestDto requestDto) {
         Product product = productMapper.mapToModel(requestDto);
-        product = productService.save(product);
+        return productMapper.mapToDto(productService.save(product));
+    }
+
+    @GetMapping("/{id}")
+    public ProductResponseDto getById(@PathVariable Long id) {
+        Product product = productService.getById(id);
         return productMapper.mapToDto(product);
     }
 
-    @GetMapping("/{productId}")
-    public ProductResponseDto getById(@PathVariable Long productId) {
-        Product product = productService.getById(productId);
-        return productMapper.mapToDto(product);
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id) {
+        productService.delete(id);
     }
 
-    @DeleteMapping("/{productId}")
-    @ResponseStatus(HttpStatus.ACCEPTED)
-    public void delete(@PathVariable Long productId) {
-        productService.delete(productId);
-    }
-
-    @PutMapping("/{productId}")
-    public ProductResponseDto update(@PathVariable Long productId,
+    @PutMapping("/{id}")
+    public ProductResponseDto update(@PathVariable Long id,
                                      @RequestBody ProductRequestDto requestDto) {
         Product product = productMapper.mapToModel(requestDto);
-        product.setId(productId);
-        return productMapper.mapToDto(productService.update(product));
+        product.setId(id);
+        return productMapper.mapToDto(productService.save(product));
     }
 
-    @GetMapping(params = {"from", "to"})
+    @GetMapping
     public List<ProductResponseDto> getAllPriceBetween(@RequestParam BigDecimal from,
                                                        @RequestParam BigDecimal to) {
         List<Product> products = productService.findAllByPericeBetween(from, to);
@@ -75,9 +70,8 @@ public class ProductController {
     }
 
     @GetMapping(params = {"category"})
-    public List<ProductResponseDto> getAllInCategories(@RequestParam String category) {
-        List<Category> categories = Arrays.stream(category.split(","))
-                .map(Long::parseLong)
+    public List<ProductResponseDto> getAllInCategories(@RequestParam List<Long> categoriesId) {
+        List<Category> categories = categoriesId.stream()
                 .map(categoryService::getById)
                 .collect(Collectors.toList());
         List<Product> products = productService.findAllByCategoryIn(categories);
