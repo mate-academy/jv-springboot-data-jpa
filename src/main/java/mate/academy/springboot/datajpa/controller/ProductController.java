@@ -50,7 +50,7 @@ public class ProductController {
 
     @GetMapping
     public List<ProductResponseDto> getByParameters(@RequestParam Map<String, String> parameters) {
-        return productService.getAllByCategory(parameters).stream()
+        return productService.getAllByParameters(parameters).stream()
                 .map(responseDtoMapper::mapToDto)
                 .collect(Collectors.toList());
     }

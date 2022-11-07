@@ -1,6 +1,5 @@
 package mate.academy.springboot.datajpa.service.impl;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 import mate.academy.springboot.datajpa.model.Product;
@@ -39,11 +38,7 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.save(product);
     }
 
-    public List<Product> getByPriceBetween(BigDecimal fromPrice, BigDecimal toPrice) {
-        return productRepository.findAllByPriceBetween(fromPrice, toPrice);
-    }
-
-    public List<Product> getAllByCategory(Map<String, String> parameters) {
+    public List<Product> getAllByParameters(Map<String, String> parameters) {
         Specification<Product> specification = null;
         for (Map.Entry<String, String> entry : parameters.entrySet()) {
             Specification<Product> productSpecification = productSpecificationManager
