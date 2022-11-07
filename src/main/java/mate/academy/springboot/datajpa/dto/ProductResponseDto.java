@@ -8,5 +8,5 @@ public class ProductResponseDto {
     private Long id;
     private String title;
     private BigDecimal price;
-    private CategoryResponseDto category;
+    private Long categoryId;
 }
