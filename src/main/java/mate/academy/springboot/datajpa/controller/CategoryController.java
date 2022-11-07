@@ -34,23 +34,23 @@ public class CategoryController {
         return categoryMapper.toDto(category);
     }
 
-    @GetMapping("/{categoryId}")
-    public CategoryResponseDto getById(@PathVariable Long categoryId) {
-        Category category = categoryService.getById(categoryId);
+    @GetMapping("/{id}")
+    public CategoryResponseDto getById(@PathVariable Long id) {
+        Category category = categoryService.getById(id);
         return categoryMapper.toDto(category);
     }
 
-    @DeleteMapping("/{categoryId}")
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public void delete(@PathVariable Long categoryId) {
-        categoryService.deleteById(categoryId);
+    public void delete(@PathVariable Long id) {
+        categoryService.deleteById(id);
     }
 
-    @PutMapping("/{categoryId}")
-    public CategoryResponseDto update(@PathVariable Long categoryId,
+    @PutMapping("/{id}")
+    public CategoryResponseDto update(@PathVariable Long id,
                                       @RequestBody CategoryRequestDto requestDto) {
         Category category = categoryMapper.toModel(requestDto);
-        category.setId(categoryId);
+        category.setId(id);
         return categoryMapper.toDto(categoryService.update(category));
     }
 }
