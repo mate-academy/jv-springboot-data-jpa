@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import mate.academy.springboot.datajpa.dto.request.ProductRequestDto;
 import mate.academy.springboot.datajpa.dto.response.ProductResponseDto;
-import mate.academy.springboot.datajpa.mapper.ProductMapper;
+import mate.academy.springboot.datajpa.mapper.ProductDtoMapper;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.service.CategoryService;
 import mate.academy.springboot.datajpa.service.ProductService;
@@ -23,11 +23,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/products")
 public class ProductController {
     private final ProductService productService;
-    private final ProductMapper productMapper;
+    private final ProductDtoMapper productMapper;
     private final CategoryService categoryService;
 
     public ProductController(ProductService productService,
-                             ProductMapper productMapper, CategoryService categoryService) {
+                             ProductDtoMapper productMapper, CategoryService categoryService) {
         this.productService = productService;
         this.productMapper = productMapper;
         this.categoryService = categoryService;
@@ -54,15 +54,16 @@ public class ProductController {
     @PutMapping("/{id}")
     public ProductResponseDto update(@PathVariable Long id,
                                      @RequestParam ProductRequestDto requestDto) {
-        productService.update(id, requestDto.getTitle(), requestDto.getPrice());
-        return productMapper.mapToDto(productService.getById(id));
+        Product product = productMapper.mapToModel(requestDto);
+        product.setId(id);
+        productService.update(product);
+        return productMapper.mapToDto(product);
     }
 
     @GetMapping
     public List<ProductResponseDto> getAllPriceBetween(@RequestParam BigDecimal from,
                                                        @RequestParam BigDecimal to) {
-        List<Product> products = productService.getByPriceBetween(from, to);
-        return products.stream()
+        return productService.getByPriceBetween(from, to).stream()
                 .map(productMapper::mapToDto)
                 .collect(Collectors.toList());
     }
