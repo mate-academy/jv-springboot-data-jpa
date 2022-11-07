@@ -36,14 +36,6 @@ public class ProductController {
         return productMapper.toResponseDto(product);
     }
 
-    @GetMapping
-    public List<ProductResponseDto> getAll() {
-        return productService.getAll()
-                .stream()
-                .map(productMapper::toResponseDto)
-                .collect(Collectors.toList());
-    }
-
     @GetMapping("/{id}")
     public ProductResponseDto get(@PathVariable Long id) {
         return productMapper.toResponseDto(productService.get(id));
@@ -62,7 +54,7 @@ public class ProductController {
         return productMapper.toResponseDto(productService.update(product));
     }
 
-    @GetMapping("/prices")
+    @GetMapping("/by-price")
     public List<ProductResponseDto> findAllInPriceBetween(@RequestParam BigDecimal from,
                                                           @RequestParam BigDecimal to) {
         return productService.findAllByPriceBetween(from,to)
@@ -71,7 +63,7 @@ public class ProductController {
                 .collect(Collectors.toList());
     }
 
-    @GetMapping("/categories")
+    @GetMapping("/by-categories")
     private List<ProductResponseDto> findAllInCategories(@RequestParam Map<String, String> params) {
         return productService.findAllByCategories(params)
                 .stream()

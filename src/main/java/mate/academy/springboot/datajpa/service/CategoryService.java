@@ -1,6 +1,5 @@
 package mate.academy.springboot.datajpa.service;
 
-import java.util.List;
 import mate.academy.springboot.datajpa.model.Category;
 
 public interface CategoryService {
@@ -8,9 +7,7 @@ public interface CategoryService {
 
     Category get(Long id);
 
-    Category delete(Long id);
+    void delete(Long id);
 
     Category update(Category category);
-
-    List<Category> getAll();
 }

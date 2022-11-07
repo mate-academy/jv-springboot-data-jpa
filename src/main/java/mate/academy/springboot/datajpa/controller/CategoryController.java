@@ -1,7 +1,5 @@
 package mate.academy.springboot.datajpa.controller;
 
-import java.util.List;
-import java.util.stream.Collectors;
 import mate.academy.springboot.datajpa.dto.CategoryRequestDto;
 import mate.academy.springboot.datajpa.dto.CategoryResponseDto;
 import mate.academy.springboot.datajpa.dto.mapper.CategoryMapper;
@@ -31,14 +29,6 @@ public class CategoryController {
     public CategoryResponseDto create(@RequestBody CategoryRequestDto requestDto) {
         Category category = categoryService.save(categoryMapper.toModel(requestDto));
         return categoryMapper.toResponseDto(category);
-    }
-
-    @GetMapping()
-    public List<CategoryResponseDto> getAll() {
-        return categoryService.getAll()
-                .stream()
-                .map(categoryMapper::toResponseDto)
-                .collect(Collectors.toList());
     }
 
     @GetMapping("/{id}")

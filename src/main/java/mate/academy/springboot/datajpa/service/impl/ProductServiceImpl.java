@@ -27,25 +27,19 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> getAll() {
-        return productRepository.findAll();
-    }
-
-    @Override
     public List<Product> findAllByPriceBetween(BigDecimal from, BigDecimal to) {
         return productRepository.findAllByPriceBetween(from, to);
     }
 
     @Override
     public Product get(Long id) {
-        return productRepository.getById(id);
+        return productRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Can`t find product by id: " + id));
     }
 
     @Override
-    public Product delete(Long id) {
-        Product deleteProduct = productRepository.getById(id);
+    public void delete(Long id) {
         productRepository.deleteById(id);
-        return deleteProduct;
     }
 
     @Override
