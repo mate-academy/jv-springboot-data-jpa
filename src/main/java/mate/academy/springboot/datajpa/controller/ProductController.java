@@ -29,7 +29,7 @@ public class ProductController {
 
     @PostMapping
     public ProductResponseDto create(@RequestBody ProductRequestDto requestDto) {
-        Product product = productService.save(productRequestMapper.fromDto(requestDto));
+        Product product = productService.save(productRequestMapper.toModel(requestDto));
         return productResponseMapper.toDto(product);
     }
 
@@ -46,7 +46,7 @@ public class ProductController {
     @PutMapping("/{id}")
     public ProductResponseDto update(@PathVariable Long id,
                                      @RequestBody ProductRequestDto requestDto) {
-        Product product = productRequestMapper.fromDto(requestDto);
+        Product product = productRequestMapper.toModel(requestDto);
         product.setId(id);
         productService.update(product);
         return productResponseMapper.toDto(product);
@@ -63,7 +63,7 @@ public class ProductController {
 
     @GetMapping("/by-categories")
     public List<ProductResponseDto> getAllInCategories(@RequestParam List<Long> categoriesIds) {
-        List<Product> allInCategories = productService.findAllInCategories(categoriesIds);
+        List<Product> allInCategories = productService.findAllByCategoryIdIn(categoriesIds);
         return allInCategories.stream()
                 .map(productResponseMapper::toDto)
                 .collect(Collectors.toList());

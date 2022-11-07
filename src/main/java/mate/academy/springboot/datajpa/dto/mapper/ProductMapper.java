@@ -14,21 +14,21 @@ public class ProductMapper implements DtoRequestMapper<ProductRequestDto, Produc
     private final CategoryService categoryService;
 
     @Override
-    public Product fromDto(ProductRequestDto object) {
-        Product product = new Product();
-        product.setTitle(object.getTitle());
-        product.setPrice(object.getPrice());
-        product.setCategory(categoryService.get(object.getCategoryId()));
-        return product;
+    public Product toModel(ProductRequestDto dto) {
+        Product model = new Product();
+        model.setTitle(dto.getTitle());
+        model.setPrice(dto.getPrice());
+        model.setCategory(categoryService.get(dto.getCategoryId()));
+        return model;
     }
 
     @Override
-    public ProductResponseDto toDto(Product object) {
-        ProductResponseDto responseDto = new ProductResponseDto();
-        responseDto.setTitle(object.getTitle());
-        responseDto.setPrice(object.getPrice());
-        responseDto.setId(object.getId());
-        responseDto.setCategoryId(object.getCategory().getId());
-        return responseDto;
+    public ProductResponseDto toDto(Product dto) {
+        ProductResponseDto model = new ProductResponseDto();
+        model.setTitle(dto.getTitle());
+        model.setPrice(dto.getPrice());
+        model.setId(dto.getId());
+        model.setCategoryId(dto.getCategory().getId());
+        return model;
     }
 }

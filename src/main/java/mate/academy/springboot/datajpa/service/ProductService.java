@@ -14,5 +14,5 @@ public interface ProductService {
 
     List<Product> findAllByPriceBetween(int from, int to);
 
-    List<Product> findAllInCategories(List<Long> ids);
+    List<Product> findAllByCategoryIdIn(List<Long> ids);
 }
