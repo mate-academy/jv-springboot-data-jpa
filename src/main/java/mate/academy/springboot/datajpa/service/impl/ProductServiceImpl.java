@@ -27,13 +27,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> findByPriceBetween(BigDecimal from, BigDecimal to) {
-        return productRepository.findAllByPriceBetween(from, to);
-    }
-
-    @Override
-    public List<Product> findByCategory(List<Category> categories) {
-        return productRepository.findAllByCategory(categories);
+    public void deleteById(Long id) {
+        productRepository.deleteById(id);
     }
 
     @Override
@@ -42,7 +37,12 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void deleteById(Long id) {
-        productRepository.deleteById(id);
+    public List<Product> findAllByPriceBetween(BigDecimal from, BigDecimal to) {
+        return productRepository.findAllByPriceBetween(from, to);
+    }
+
+    @Override
+    public List<Product> findAllByCategory(List<Category> categories) {
+        return productRepository.findAllByCategory(categories);
     }
 }

@@ -10,11 +10,11 @@ public interface ProductService {
 
     Product getById(Long id);
 
-    List<Product> findByPriceBetween(BigDecimal from, BigDecimal to);
-
-    List<Product> findByCategory(List<Category> categories);
+    void deleteById(Long id);
 
     Product update(Product product);
 
-    void deleteById(Long id);
+    List<Product> findAllByPriceBetween(BigDecimal from, BigDecimal to);
+
+    List<Product> findAllByCategory(List<Category> categories);
 }
