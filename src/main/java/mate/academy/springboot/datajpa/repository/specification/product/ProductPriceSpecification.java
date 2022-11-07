@@ -10,14 +10,17 @@ import org.springframework.stereotype.Repository;
 public class ProductPriceSpecification implements SpecificationProvider<Product> {
     public static final String FILTER_KEY = "priceBetween";
     public static final String FIELD_NAME = "price";
+    public static final int FROM_PRICE_INDEX = 0;
+    public static final int TO_PRICE_INDEX = 1;
 
     @Override
     public Specification<Product> getSpecification(String[] categories) {
         return (root, query, criteriaBuilder) -> {
             CriteriaBuilder.In<String> predicate = criteriaBuilder.in(root.get(FIELD_NAME));
-            int from = Integer.parseInt(categories[0].split("-")[0]);
-            int to = Integer.parseInt(categories[0].split("-")[1]);
-            return criteriaBuilder.between(root.get(FIELD_NAME), from, to);
+            String[] priceBetween = categories[0].split("-");
+            int fromPrice = Integer.parseInt(priceBetween[FROM_PRICE_INDEX]);
+            int toPrice = Integer.parseInt(priceBetween[TO_PRICE_INDEX]);
+            return criteriaBuilder.between(root.get(FIELD_NAME), fromPrice, toPrice);
         };
     }
 
