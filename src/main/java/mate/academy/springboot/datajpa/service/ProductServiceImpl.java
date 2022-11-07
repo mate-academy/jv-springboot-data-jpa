@@ -30,17 +30,17 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void update(Long id, String name, BigDecimal price) {
-        productRepository.update(id, name, price);
+    public void update(Product product) {
+        productRepository.save(product);
     }
 
     @Override
     public List<Product> getByPriceBetween(BigDecimal from, BigDecimal to) {
-        return productRepository.findAllByPriceBetween(from, to);
+        return productRepository.getAllByPriceBetween(from, to);
     }
 
     @Override
     public List<Product> getAllWithCategoryIdIn(List<Long> categoryIds) {
-        return productRepository.findAllByCategoryIdIn(categoryIds);
+        return productRepository.getAllByCategoryIdIn(categoryIds);
     }
 }
