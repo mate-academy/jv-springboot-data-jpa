@@ -69,11 +69,11 @@ public class ProductController {
                 .collect(Collectors.toList());
     }
 
-    @GetMapping
+    @GetMapping("/categories")
     public List<ProductResponseDto> getAllInCategories(@RequestParam List<Category> categories) {
-        List<Product> products = productService.getAllByCategoriesIn(categories);
-        return products.stream()
-                .map(productMapper::mapToDto)
-                .collect(Collectors.toList());
+            List<Product> products = productService.findAllByCategoryIn(categories);
+            return products.stream()
+                    .map(productMapper::mapToDto)
+                    .collect(Collectors.toList());
     }
 }
