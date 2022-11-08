@@ -21,7 +21,7 @@ public class InjectController {
     }
 
     @GetMapping
-    public void inject() {
+    public String inject() {
         Category categoryToy = new Category();
         categoryToy.setName("Toy");
         categoryService.create(categoryToy);
@@ -49,5 +49,6 @@ public class InjectController {
         productCar.setCategory(categoryToy);
         productCar.setPrice(BigDecimal.valueOf(200));
         productService.create(productCar);
+        return "Completed!";
     }
 }
