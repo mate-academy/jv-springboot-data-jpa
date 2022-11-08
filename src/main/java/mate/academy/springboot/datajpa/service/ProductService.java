@@ -12,8 +12,6 @@ public interface ProductService {
 
     void delete(Product product);
 
-    Product update(Product product);
-
     List<Product> findAll(BigDecimal from, BigDecimal to);
 
     List<Product> findAll(Map<String, String> params);

@@ -1,5 +1,6 @@
 package mate.academy.springboot.datajpa.service.impl;
 
+import mate.academy.springboot.datajpa.exception.DataProcessingException;
 import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.repository.CategoryRepository;
 import mate.academy.springboot.datajpa.service.CategoryService;
@@ -22,17 +23,13 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category getById(Long id) {
-        return categoryRepository.getById(id);
+        return categoryRepository.findById(id)
+                .orElseThrow(() -> new DataProcessingException("Category not found by id " + id));
     }
 
     @Override
     public void delete(Category category) {
         categoryRepository.delete(category);
-    }
-
-    @Override
-    public Category update(Category category) {
-        return categoryRepository.save(category);
     }
 
     @Override

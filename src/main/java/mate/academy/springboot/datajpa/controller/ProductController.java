@@ -6,7 +6,6 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import mate.academy.springboot.datajpa.mapper.RequestDtoMapper;
 import mate.academy.springboot.datajpa.mapper.ResponseDtoMapper;
-import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.model.dto.request.ProductRequestDto;
 import mate.academy.springboot.datajpa.model.dto.response.ProductResponseDto;
@@ -15,6 +14,7 @@ import mate.academy.springboot.datajpa.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -45,35 +45,30 @@ public class ProductController {
     @PostMapping
     public ProductResponseDto create(@RequestBody ProductRequestDto productRequestDto) {
         Product product = productRequestDtoMapper.toModel(productRequestDto);
-        Category category = categoryService.getByName(product.getCategory().getName());
-        category = category != null ? category : product.getCategory();
-        product.setCategory(categoryService.save(category));
+        product.setCategory(categoryService.save(product.getCategory()));
         return productResponseDtoMapper.toDto(productService.save(product));
     }
 
-    @GetMapping
-    public ProductResponseDto getById(@RequestParam(name = "product_id") Long productId) {
+    @GetMapping("/{id}")
+    public ProductResponseDto getById(@PathVariable(name = "id") Long productId) {
         return productResponseDtoMapper.toDto(productService.getById(productId));
     }
 
-    @DeleteMapping
-    public void deleteById(@RequestParam(name = "product_id") Long productId) {
+    @DeleteMapping("/{id}")
+    public void deleteById(@PathVariable(name = "id") Long productId) {
         productService.delete(productService.getById(productId));
     }
 
-    @PutMapping
-    public ProductResponseDto update(@RequestParam(name = "product_id") Long productId,
+    @PutMapping("/{id}")
+    public ProductResponseDto update(@PathVariable(name = "id") Long productId,
                                      @RequestBody ProductRequestDto productRequestDto) {
         Product product = productRequestDtoMapper.toModel(productRequestDto);
         product.setId(productId);
-        Category category = categoryService.getByName(product.getCategory().getName());
-        category = category != null ? category : product.getCategory();
-        category.setName(product.getCategory().getName());
-        product.setCategory(categoryService.update(category));
-        return productResponseDtoMapper.toDto(productService.update(product));
+        product.setCategory(categoryService.save(product.getCategory()));
+        return productResponseDtoMapper.toDto(productService.save(product));
     }
 
-    @GetMapping("/price")
+    @GetMapping("/by-price")
     public List<ProductResponseDto> findAll(@RequestParam BigDecimal from,
                                             @RequestParam BigDecimal to) {
         return productService.findAll(from, to).stream()
@@ -81,7 +76,7 @@ public class ProductController {
                 .collect(Collectors.toList());
     }
 
-    @GetMapping("/filter")
+    @GetMapping("/by-categories")
     public List<ProductResponseDto> findAll(@RequestParam Map<String, String> params) {
         return productService.findAll(params).stream()
                 .map(productResponseDtoMapper::toDto)

@@ -9,7 +9,5 @@ public interface CategoryService {
 
     void delete(Category category);
 
-    Category update(Category category);
-
     Category getByName(String name);
 }

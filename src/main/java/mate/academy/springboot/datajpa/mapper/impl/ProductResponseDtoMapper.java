@@ -8,12 +8,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class ProductResponseDtoMapper implements ResponseDtoMapper<ProductResponseDto, Product> {
     @Override
-    public ProductResponseDto toDto(Product entity) {
+    public ProductResponseDto toDto(Product product) {
         ProductResponseDto productResponseDto = new ProductResponseDto();
-        productResponseDto.setId(entity.getId());
-        productResponseDto.setTitle(entity.getTitle());
-        productResponseDto.setPrice(entity.getPrice());
-        productResponseDto.setCategoryName(entity.getCategory().getName());
+        productResponseDto.setId(product.getId());
+        productResponseDto.setTitle(product.getTitle());
+        productResponseDto.setPrice(product.getPrice());
+        productResponseDto.setCategoryName(product.getCategory().getName());
         return productResponseDto;
     }
 }
