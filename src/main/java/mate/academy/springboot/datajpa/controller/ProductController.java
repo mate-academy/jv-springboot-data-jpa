@@ -69,12 +69,9 @@ public class ProductController {
                 .collect(Collectors.toList());
     }
 
-    @GetMapping(params = {"category"})
-    public List<ProductResponseDto> getAllInCategories(@RequestParam List<Long> categoriesId) {
-        List<Category> categories = categoriesId.stream()
-                .map(categoryService::getById)
-                .collect(Collectors.toList());
-        List<Product> products = productService.findAllByCategoryIn(categories);
+    @GetMapping
+    public List<ProductResponseDto> getAllInCategories(@RequestParam List<Category> categories) {
+        List<Product> products = productService.getAllByCategoriesIn(categories);
         return products.stream()
                 .map(productMapper::mapToDto)
                 .collect(Collectors.toList());

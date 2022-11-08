@@ -28,6 +28,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public List<Product> getAllByCategoriesIn(List<Category> categories) {
+        return productRepository.findAllByCategoryIn(categories);
+    }
+
+    @Override
     public void delete(Long id) {
         productRepository.deleteById(id);
     }
