@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import mate.academy.springboot.datajpa.dto.request.CategoryRequestDto;
 import mate.academy.springboot.datajpa.dto.response.CategoryResponseDto;
 import mate.academy.springboot.datajpa.model.Category;
+import mate.academy.springboot.datajpa.services.CategoryService;
+import mate.academy.springboot.datajpa.services.mapper.CategoryMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,11 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import mate.academy.springboot.datajpa.services.CategoryService;
-import mate.academy.springboot.datajpa.services.mapper.CategoryMapper;
 
 @RestController
 @RequestMapping("/category")

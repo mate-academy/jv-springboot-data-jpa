@@ -1,13 +1,16 @@
 package mate.academy.springboot.datajpa.controller;
 
-import lombok.RequiredArgsConstructor;
-import mate.academy.springboot.datajpa.dto.request.ProductRequestDto;
-import mate.academy.springboot.datajpa.dto.response.ProductResponseDto;
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import lombok.RequiredArgsConstructor;
+import mate.academy.springboot.datajpa.dto.request.ProductRequestDto;
+import mate.academy.springboot.datajpa.dto.response.ProductResponseDto;
 import mate.academy.springboot.datajpa.model.Product;
+import mate.academy.springboot.datajpa.services.CategoryService;
+import mate.academy.springboot.datajpa.services.ProductService;
+import mate.academy.springboot.datajpa.services.mapper.ProductMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,9 +22,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import mate.academy.springboot.datajpa.services.CategoryService;
-import mate.academy.springboot.datajpa.services.ProductService;
-import mate.academy.springboot.datajpa.services.mapper.ProductMapper;
 
 @RestController
 @RequestMapping("/products")

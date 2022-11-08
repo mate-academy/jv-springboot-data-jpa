@@ -1,8 +1,8 @@
 package mate.academy.springboot.datajpa.services;
 
 import mate.academy.springboot.datajpa.model.Category;
-import org.springframework.stereotype.Service;
 import mate.academy.springboot.datajpa.repository.CategoryRepository;
+import org.springframework.stereotype.Service;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {

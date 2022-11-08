@@ -4,8 +4,8 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 import mate.academy.springboot.datajpa.model.Product;
-import org.springframework.stereotype.Service;
 import mate.academy.springboot.datajpa.repository.ProductRepository;
+import org.springframework.stereotype.Service;
 
 @Service
 public class ProductServiceImpl implements ProductService {

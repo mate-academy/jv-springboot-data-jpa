@@ -1,14 +1,13 @@
 package mate.academy.springboot.datajpa.controller;
 
+import java.math.BigDecimal;
 import lombok.RequiredArgsConstructor;
 import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.model.Product;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
 import mate.academy.springboot.datajpa.services.CategoryService;
 import mate.academy.springboot.datajpa.services.ProductService;
-
-import java.math.BigDecimal;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
