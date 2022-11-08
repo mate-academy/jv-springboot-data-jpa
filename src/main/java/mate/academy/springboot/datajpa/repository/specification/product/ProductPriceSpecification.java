@@ -1,5 +1,6 @@
 package mate.academy.springboot.datajpa.repository.specification.product;
 
+import java.math.BigDecimal;
 import javax.persistence.criteria.CriteriaBuilder;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.repository.specification.SpecificationProvider;
@@ -18,8 +19,8 @@ public class ProductPriceSpecification implements SpecificationProvider<Product>
         return (root, query, criteriaBuilder) -> {
             CriteriaBuilder.In<String> predicate = criteriaBuilder.in(root.get(FIELD_NAME));
             String[] priceBetween = categories[0].split("-");
-            int fromPrice = Integer.parseInt(priceBetween[FROM_PRICE_INDEX]);
-            int toPrice = Integer.parseInt(priceBetween[TO_PRICE_INDEX]);
+            BigDecimal fromPrice = new BigDecimal(priceBetween[FROM_PRICE_INDEX]);
+            BigDecimal toPrice = new BigDecimal(priceBetween[TO_PRICE_INDEX]);
             return criteriaBuilder.between(root.get(FIELD_NAME), fromPrice, toPrice);
         };
     }
