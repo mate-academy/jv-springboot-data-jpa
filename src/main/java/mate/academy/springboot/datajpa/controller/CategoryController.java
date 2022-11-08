@@ -37,8 +37,8 @@ public class CategoryController {
     }
 
     @DeleteMapping("/{id}")
-    public CategoryResponseDto deleteById(@PathVariable Long id) {
-        return categoryMapper.mapToDto(categoryService.deleteById(id));
+    public void delete(@PathVariable Long id) {
+        categoryService.delete(id);
     }
 
     @PutMapping("/{id}")

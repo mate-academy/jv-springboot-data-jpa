@@ -16,10 +16,10 @@ public class CategoryMapper implements ResponseDtoMapper<CategoryResponseDto, Ca
     }
 
     @Override
-    public CategoryResponseDto mapToDto(Category category) {
-        CategoryResponseDto categoryResponseDto = new CategoryResponseDto();
-        categoryResponseDto.setName(category.getName());
-        categoryResponseDto.setId(category.getId());
-        return categoryResponseDto;
+    public CategoryResponseDto mapToDto(Category model) {
+        CategoryResponseDto dto = new CategoryResponseDto();
+        dto.setName(model.getName());
+        dto.setId(model.getId());
+        return dto;
     }
 }

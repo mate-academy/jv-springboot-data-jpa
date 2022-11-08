@@ -9,11 +9,11 @@ public interface ProductService {
 
     Product getById(Long id);
 
-    Product deleteById(Long id);
+    void delete(Long id);
 
     Product update(Product product);
 
     List<Product> findAllByPriceBetween(BigDecimal from, BigDecimal to);
 
-    public List<Product> findAllByCategoryIdIn(List<Long> categories);
+    List<Product> findAllByCategoryIdIn(List<Long> categories);
 }

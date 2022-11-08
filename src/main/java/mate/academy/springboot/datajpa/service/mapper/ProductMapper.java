@@ -17,12 +17,12 @@ public class ProductMapper implements ResponseDtoMapper<ProductResponseDto, Prod
 
     @Override
     public ProductResponseDto mapToDto(Product product) {
-        ProductResponseDto productResponseDto = new ProductResponseDto();
-        productResponseDto.setId(product.getId());
-        productResponseDto.setTitle(product.getTitle());
-        productResponseDto.setPrice(product.getPrice());
-        productResponseDto.setCategoryId(product.getCategory().getId());
-        return productResponseDto;
+        ProductResponseDto dto = new ProductResponseDto();
+        dto.setId(product.getId());
+        dto.setTitle(product.getTitle());
+        dto.setPrice(product.getPrice());
+        dto.setCategoryId(product.getCategory().getId());
+        return dto;
     }
 
     @Override
