@@ -22,10 +22,8 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category getById(Long id) {
-        if (categoryRepository.getById(id) == null) {
-            throw new RuntimeException("Can't find user by id: " + id);
-        }
-        return categoryRepository.getById(id);
+        return categoryRepository.findById(id).orElseThrow(() ->
+                new RuntimeException("Can't find category by id: " + id));
     }
 
     @Override
