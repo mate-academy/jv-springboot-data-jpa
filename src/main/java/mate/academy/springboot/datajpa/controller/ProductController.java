@@ -1,7 +1,6 @@
 package mate.academy.springboot.datajpa.controller;
 
 import java.math.BigDecimal;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -40,7 +39,7 @@ public class ProductController {
 
     @GetMapping("/{id}")
     public ProductResponseDto getById(@PathVariable Long id) {
-        return productMapper.toDto(productService.getByID(id));
+        return productMapper.toDto(productService.getById(id));
     }
 
     @DeleteMapping("/{id}")
@@ -52,28 +51,23 @@ public class ProductController {
     @PutMapping("/{id}")
     public ProductResponseDto update(@PathVariable Long id,
                                      @RequestBody ProductRequestDto productRequestDto) {
-        Product product = productService.getByID(id);
-        product.setTitle(productRequestDto.getTitle());
-        product.setCategory(categoryService.getById(productRequestDto.getCategoryId()));
-        product.setPrice(productRequestDto.getPrice());
+        Product product = productMapper.toModel(productRequestDto);
+        product.setId(id);
         return productMapper.toDto(productService.update(product));
     }
 
-    @GetMapping("/price")
+    @GetMapping("/by-price")
     public List<ProductResponseDto> getAllProductBetween(@RequestParam BigDecimal from,
                                                          @RequestParam BigDecimal to) {
-        return productService.getAllBetween(from, to).stream()
+        return productService.findAllByPriceBetween(from, to).stream()
                 .map(p -> productMapper.toDto(p))
                 .collect(Collectors.toList());
     }
 
-    @GetMapping("/category")
-    public List<ProductResponseDto> getAllWithCategory(@RequestParam String category) {
-        List<Long> categories = Arrays.stream(category.split(","))
-                .map(Long::parseLong)
-                .collect(Collectors.toList());
-        return productService.getAllWithCategories(categories).stream()
-                .map(p -> productMapper.toDto(p))
+    @GetMapping("/by-categories")
+    public List<ProductResponseDto> getAllWithCategory(@RequestParam List<Long> category) {
+        return productService.getAllWithCategories(category).stream()
+                .map(productMapper::toDto)
                 .collect(Collectors.toList());
     }
 }

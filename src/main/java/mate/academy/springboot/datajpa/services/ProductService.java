@@ -7,13 +7,13 @@ import mate.academy.springboot.datajpa.model.Product;
 public interface ProductService {
     Product create(Product product);
 
-    Product getByID(Long id);
+    Product getById(Long id);
 
     void deleteById(Long id);
 
     Product update(Product product);
 
-    List<Product> getAllBetween(BigDecimal from, BigDecimal to);
+    List<Product> findAllByPriceBetween(BigDecimal from, BigDecimal to);
 
     List<Product> getAllWithCategories(List<Long> categoryId);
 }
