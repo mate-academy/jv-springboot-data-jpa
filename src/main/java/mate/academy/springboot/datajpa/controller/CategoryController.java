@@ -12,11 +12,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/category")
+@RequestMapping("/categories")
 public class CategoryController {
     private final CategoryService categoryService;
     private final CategoryMapper categoryMapper;
@@ -45,10 +44,9 @@ public class CategoryController {
 
     @PutMapping("/{id}")
     public CategoryResponseDto update(@PathVariable Long id,
-                                      @RequestParam CategoryRequestDto requestDto) {
+                                      @RequestBody CategoryRequestDto requestDto) {
         Category category = categoryMapper.toModel(requestDto);
         category.setId(id);
-        categoryService.update(category);
-        return categoryMapper.toDto(category);
+        return categoryMapper.toDto(categoryService.save(category));
     }
 }
