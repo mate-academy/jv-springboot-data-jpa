@@ -39,7 +39,7 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public ProductResponseDto getBiId(@PathVariable Long id) {
+    public ProductResponseDto getById(@PathVariable Long id) {
         return responseDtoMapper.mapToDto(productService.getById(id));
     }
 
