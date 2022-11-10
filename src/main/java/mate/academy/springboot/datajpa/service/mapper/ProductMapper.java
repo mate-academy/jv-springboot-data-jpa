@@ -1,19 +1,17 @@
 package mate.academy.springboot.datajpa.service.mapper;
 
+import lombok.AllArgsConstructor;
 import mate.academy.springboot.datajpa.dto.request.ProductRequestDto;
 import mate.academy.springboot.datajpa.dto.response.ProductResponseDto;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.service.CategoryService;
 import org.springframework.stereotype.Component;
 
+@AllArgsConstructor
 @Component
 public class ProductMapper implements ResponseDtoMapper<ProductResponseDto, Product>,
         RequestDtoMapper<ProductRequestDto, Product> {
     private final CategoryService categoryService;
-
-    public ProductMapper(CategoryService categoryService) {
-        this.categoryService = categoryService;
-    }
 
     @Override
     public ProductResponseDto toDto(Product product) {

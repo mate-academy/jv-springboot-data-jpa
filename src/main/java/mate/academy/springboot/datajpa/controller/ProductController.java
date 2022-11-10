@@ -3,13 +3,12 @@ package mate.academy.springboot.datajpa.controller;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
+import lombok.AllArgsConstructor;
 import mate.academy.springboot.datajpa.dto.request.ProductRequestDto;
 import mate.academy.springboot.datajpa.dto.response.ProductResponseDto;
 import mate.academy.springboot.datajpa.model.Product;
-import mate.academy.springboot.datajpa.service.CategoryService;
 import mate.academy.springboot.datajpa.service.ProductService;
 import mate.academy.springboot.datajpa.service.mapper.ProductMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,20 +19,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+@AllArgsConstructor
 @RestController
 @RequestMapping("/products")
 public class ProductController {
     private ProductService productService;
     private ProductMapper productMapper;
-    private CategoryService categoryService;
-
-    @Autowired
-    public ProductController(ProductService productService, ProductMapper productMapper,
-                             CategoryService categoryService) {
-        this.productService = productService;
-        this.productMapper = productMapper;
-        this.categoryService = categoryService;
-    }
 
     @PostMapping
     public ProductResponseDto create(@RequestBody ProductRequestDto requestDto) {
@@ -59,7 +50,7 @@ public class ProductController {
         return productMapper.toDto(productService.update(product));
     }
 
-    @GetMapping("/by-price") // price between
+    @GetMapping("/by-price")
     public List<ProductResponseDto> getAllByPriceBetween(@RequestParam BigDecimal from,
                                                          @RequestParam BigDecimal to) {
         return productService.findAllByPriceBetween(from, to).stream()
