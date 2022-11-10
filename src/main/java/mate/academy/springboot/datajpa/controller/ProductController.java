@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -53,5 +54,12 @@ public class ProductController {
         return productService.getAllByParameters(parameters).stream()
                 .map(responseDtoMapper::mapToDto)
                 .collect(Collectors.toList());
+    }
+
+    @PutMapping("/{id}")
+    public ProductResponseDto update(@PathVariable Long id, @RequestBody ProductRequestDto dto) {
+        Product product = requestDtoMapper.mapToModel(dto);
+        product.setId(id);
+        return responseDtoMapper.mapToDto(productService.update(product));
     }
 }

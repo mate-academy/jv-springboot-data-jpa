@@ -47,7 +47,8 @@ public class CategoryController {
 
     @PutMapping("/{id}")
     public CategoryResponseDto update(@PathVariable Long id, @RequestBody CategoryRequestDto dto) {
-        return responseDtoMapper.mapToDto(categoryService.update(id,
-                requestDtoMapper.mapToModel(dto)));
+        Category category = requestDtoMapper.mapToModel(dto);
+        category.setId(id);
+        return responseDtoMapper.mapToDto(categoryService.update(category));
     }
 }
