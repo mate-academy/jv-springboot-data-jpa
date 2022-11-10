@@ -8,4 +8,6 @@ public interface CategoryService {
     Category getById(Long id);
 
     void delete(Long id);
+
+    Category findProductByCategory_Name(String categoryName);
 }
