@@ -22,12 +22,8 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product getById(Long id) {
-        return productRepository.getById(id);
-    }
-
-    @Override
-    public Product update(Product product) {
-        return productRepository.save(product);
+        return productRepository.findById(id).orElseThrow(() ->
+                new RuntimeException("Can't fined product by id: " + id));
     }
 
     @Override

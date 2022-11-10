@@ -5,7 +5,6 @@ import mate.academy.springboot.datajpa.dto.response.CategoryResponseDto;
 import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.service.CategoryService;
 import mate.academy.springboot.datajpa.service.mapper.CategoryMapper;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController()
@@ -30,18 +28,16 @@ public class CategoryController {
     @PostMapping
     public CategoryResponseDto create(@RequestBody CategoryRequestDto requestDto) {
         Category category = categoryMapper.toModel(requestDto);
-        category = categoryService.save(category);
-        return categoryMapper.toDto(category);
+        return categoryMapper.toDto(categoryService.save(category));
     }
 
-    @GetMapping("/{categoryId}")
+    @GetMapping("/{id}")
     public CategoryResponseDto getById(@PathVariable Long categoryId) {
         Category category = categoryService.getById(categoryId);
         return categoryMapper.toDto(category);
     }
 
     @DeleteMapping("/{categoryId}")
-    @ResponseStatus(HttpStatus.ACCEPTED)
     public void delete(@PathVariable Long categoryId) {
         categoryService.delete(categoryId);
     }
@@ -51,6 +47,6 @@ public class CategoryController {
                                       @RequestBody CategoryRequestDto requestDto) {
         Category category = categoryMapper.toModel(requestDto);
         category.setId(categoryId);
-        return categoryMapper.toDto(categoryService.update(category));
+        return categoryMapper.toDto(categoryService.save(category));
     }
 }
