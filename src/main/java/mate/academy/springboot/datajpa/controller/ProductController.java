@@ -3,12 +3,13 @@ package mate.academy.springboot.datajpa.controller;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
+import lombok.AllArgsConstructor;
 import mate.academy.springboot.datajpa.dto.product.ProductRequestDto;
 import mate.academy.springboot.datajpa.dto.product.ProductResponseDto;
 import mate.academy.springboot.datajpa.mapper.ProductMapper;
 import mate.academy.springboot.datajpa.model.Product;
+import mate.academy.springboot.datajpa.repository.CategoryRepository;
 import mate.academy.springboot.datajpa.service.ProductService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,17 +20,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+@AllArgsConstructor
 @RestController
 @RequestMapping("/products")
 public class ProductController {
     private final ProductMapper productMapper;
     private final ProductService productService;
-
-    @Autowired
-    public ProductController(ProductMapper productMapper, ProductService productService) {
-        this.productMapper = productMapper;
-        this.productService = productService;
-    }
+    private final CategoryRepository categoryRepository;
 
     @PostMapping
     public ProductResponseDto save(@RequestBody ProductRequestDto productRequestDto) {
@@ -55,7 +52,7 @@ public class ProductController {
         return productMapper.toDto(productService.update(product));
     }
 
-    @GetMapping("/price")
+    @GetMapping("/by-price")
     public List<ProductResponseDto> getAllByPriceBetween(@RequestParam BigDecimal from,
                                                          @RequestParam BigDecimal to) {
         return productService.findAllByPriceBetween(from, to).stream()
