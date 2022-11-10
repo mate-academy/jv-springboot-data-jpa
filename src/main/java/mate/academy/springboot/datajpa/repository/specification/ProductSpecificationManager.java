@@ -14,8 +14,8 @@ public class ProductSpecificationManager implements SpecificationManager<Product
     private Map<String, SpecificationProvider<Product>> providerMap;
 
     @Autowired
-    public ProductSpecificationManager(List<SpecificationProvider<Product>> pruductSpecification) {
-        this.providerMap = pruductSpecification.stream()
+    public ProductSpecificationManager(List<SpecificationProvider<Product>> productSpecification) {
+        this.providerMap = productSpecification.stream()
                 .collect(Collectors.toMap(SpecificationProvider::getFilterKey,
                         Function.identity()));
     }
