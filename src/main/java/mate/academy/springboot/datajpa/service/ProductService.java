@@ -12,9 +12,7 @@ public interface ProductService {
 
     void delete(Long id);
 
-    Product update(Product product);
-
     List<Product> getAllBetween(BigDecimal from, BigDecimal to);
 
-    List<Product> getAllInCategories(Category category);
+    List<Product> getAllInCategories(List<Category> categories);
 }

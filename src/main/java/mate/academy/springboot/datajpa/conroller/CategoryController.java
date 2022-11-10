@@ -43,8 +43,10 @@ public class CategoryController {
     }
 
     @PutMapping
-    public CategoryResponseDto update(@RequestBody CategoryRequestDto categoryRequestDto) {
-        Category category = categoryService.update(categoryMapper.toModel(categoryRequestDto));
-        return categoryMapper.toDto(category);
+    public CategoryResponseDto update(@PathVariable Long id,
+                                      @RequestBody CategoryRequestDto requestDto) {
+        Category category = categoryMapper.toModel(requestDto);
+        category.setId(id);
+        return categoryMapper.toDto(categoryService.create(category));
     }
 }

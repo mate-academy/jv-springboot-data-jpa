@@ -23,18 +23,14 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product getById(Long id) {
-        return productRepository.getById(id);
+        return productRepository.findById(id).orElseThrow(() ->
+                new RuntimeException("Can't fined product by id: " + id));
     }
 
     @Override
     public void delete(Long id) {
-        productRepository.delete(getById(id));
+        productRepository.deleteById(id);
 
-    }
-
-    @Override
-    public Product update(Product product) {
-        return productRepository.save(product);
     }
 
     @Override
@@ -43,7 +39,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> getAllInCategories(Category category) {
-        return productRepository.getAllByCategory(category);
+    public List<Product> getAllInCategories(List<Category> categories) {
+        return productRepository.getAllByCategoryIn(categories);
     }
 }
