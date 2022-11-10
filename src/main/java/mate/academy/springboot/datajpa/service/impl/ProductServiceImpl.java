@@ -33,8 +33,7 @@ public class ProductServiceImpl implements ProductService {
         productRepository.deleteById(id);
     }
 
-    public Product update(Long id, Product product) {
-        product.setId(id);
+    public Product update(Product product) {
         return productRepository.save(product);
     }
 
