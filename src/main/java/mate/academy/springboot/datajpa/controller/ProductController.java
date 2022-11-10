@@ -8,7 +8,6 @@ import mate.academy.springboot.datajpa.dto.product.ProductRequestDto;
 import mate.academy.springboot.datajpa.dto.product.ProductResponseDto;
 import mate.academy.springboot.datajpa.mapper.ProductMapper;
 import mate.academy.springboot.datajpa.model.Product;
-import mate.academy.springboot.datajpa.repository.CategoryRepository;
 import mate.academy.springboot.datajpa.service.ProductService;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,7 +25,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class ProductController {
     private final ProductMapper productMapper;
     private final ProductService productService;
-    private final CategoryRepository categoryRepository;
 
     @PostMapping
     public ProductResponseDto save(@RequestBody ProductRequestDto productRequestDto) {
