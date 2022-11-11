@@ -38,12 +38,12 @@ public class ProductController {
     public ProductResponseDto create(@RequestBody ProductRequestDto requestDto) {
         Product product = productMapper.toModel(requestDto);
         product.setCategory(categoryService.get(requestDto.getCategoryId()));
-        return productMapper.toResponseDto(productService.save(product));
+        return productMapper.toDto(productService.save(product));
     }
 
     @GetMapping("/{productId}")
     public ProductResponseDto getById(@PathVariable Long productId) {
-        return productMapper.toResponseDto(productService.get(productId));
+        return productMapper.toDto(productService.get(productId));
     }
 
     @PutMapping("/{id}")
@@ -63,7 +63,7 @@ public class ProductController {
     public List<ProductResponseDto> findAll(@RequestParam Map<String, String> params) {
         return productService.findAll(params)
               .stream()
-              .map(productMapper::toResponseDto)
+              .map(productMapper::toDto)
               .collect(Collectors.toList());
     }
 
@@ -72,7 +72,7 @@ public class ProductController {
             @RequestParam BigDecimal to) {
         return productService.findAllByPriceBetween(from, to)
               .stream()
-              .map(productMapper::toResponseDto)
+              .map(productMapper::toDto)
               .collect(Collectors.toList());
     }
 }

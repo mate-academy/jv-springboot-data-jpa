@@ -30,12 +30,12 @@ public class CategoryController {
     @PostMapping
     public CategoryResponseDto create(@RequestBody CategoryRequestDto requestDto) {
         Category category = categoryService.save(categoryMapper.toModel(requestDto));
-        return categoryMapper.toResponseDto(category);
+        return categoryMapper.toDto(category);
     }
 
     @GetMapping("/{categoryId}")
     public CategoryResponseDto getById(@PathVariable Long categoryId) {
-        return categoryMapper.toResponseDto(categoryService.get(categoryId));
+        return categoryMapper.toDto(categoryService.get(categoryId));
     }
 
     @PutMapping("/{id}")
@@ -55,7 +55,7 @@ public class CategoryController {
     public List<CategoryResponseDto> getAll() {
         return categoryService.findAll()
               .stream()
-              .map(categoryMapper::toResponseDto)
+              .map(categoryMapper::toDto)
               .collect(Collectors.toList());
     }
 }
