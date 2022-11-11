@@ -53,12 +53,12 @@ public class ProductController {
                                      @RequestBody ProductRequestDto productRequestDto) {
         Product product = productMapper.toModel(productRequestDto);
         product.setId(id);
-        return productMapper.toDto(productService.update(product));
+        return productMapper.toDto(productService.create(product));
     }
 
     @GetMapping("/by-price")
-    public List<ProductResponseDto> getAllProductBetween(@RequestParam BigDecimal from,
-                                                         @RequestParam BigDecimal to) {
+    public List<ProductResponseDto> getAllProductsWithPriceBetween(@RequestParam BigDecimal from,
+                                                                   @RequestParam BigDecimal to) {
         return productService.findAllByPriceBetween(from, to).stream()
                 .map(p -> productMapper.toDto(p))
                 .collect(Collectors.toList());

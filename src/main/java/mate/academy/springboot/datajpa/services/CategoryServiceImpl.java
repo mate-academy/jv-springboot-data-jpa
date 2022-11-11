@@ -19,20 +19,12 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category getById(Long id) {
-        try {
-            return categoryRepository.getById(id);
-        } catch (Exception e) {
-            throw new RuntimeException("Can`t find category with id: " + id);
-        }
+        return categoryRepository.findById(id).orElseThrow(
+                () -> new RuntimeException("Can`t find category with id: " + id));
     }
 
     @Override
     public void deleteById(Long id) {
         categoryRepository.deleteById(id);
-    }
-
-    @Override
-    public Category update(Category category) {
-        return categoryRepository.save(category);
     }
 }

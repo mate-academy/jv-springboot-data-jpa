@@ -36,7 +36,7 @@ public class CategoryController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteCategoryById(@PathVariable Long id) {
+    public void deleteById(@PathVariable Long id) {
         categoryService.deleteById(id);
     }
 
@@ -45,7 +45,6 @@ public class CategoryController {
                                       @RequestBody CategoryRequestDto categoryRequestDto) {
         Category category = categoryService.getById(id);
         category.setName(categoryRequestDto.getName());
-        return categoryMapper.toDto(categoryService.update(category));
+        return categoryMapper.toDto(categoryService.create(category));
     }
-
 }
