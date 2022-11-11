@@ -1,5 +1,6 @@
 package mate.academy.springboot.datajpa.services;
 
+import java.util.List;
 import mate.academy.springboot.datajpa.model.Category;
 
 public interface CategoryService {
@@ -9,4 +10,5 @@ public interface CategoryService {
 
     void deleteById(Long id);
 
+    List<Category> getCategoriesByNameIn(List<String> names);
 }

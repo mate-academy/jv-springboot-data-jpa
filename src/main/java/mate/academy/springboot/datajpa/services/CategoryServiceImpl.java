@@ -1,5 +1,6 @@
 package mate.academy.springboot.datajpa.services;
 
+import java.util.List;
 import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.repository.CategoryRepository;
 import org.springframework.stereotype.Service;
@@ -26,5 +27,10 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public void deleteById(Long id) {
         categoryRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Category> getCategoriesByNameIn(List<String> names) {
+        return categoryRepository.getCategoriesByNameIn(names);
     }
 }
