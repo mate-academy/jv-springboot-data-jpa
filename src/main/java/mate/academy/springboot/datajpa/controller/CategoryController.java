@@ -1,5 +1,6 @@
 package mate.academy.springboot.datajpa.controller;
 
+import lombok.RequiredArgsConstructor;
 import mate.academy.springboot.datajpa.dto.mapper.CategoryMapper;
 import mate.academy.springboot.datajpa.dto.requestdto.CategoryRequestDto;
 import mate.academy.springboot.datajpa.dto.responsedto.CategoryResponseDto;
@@ -15,34 +16,30 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/category")
+@RequiredArgsConstructor
 public class CategoryController {
     private final CategoryService categoryService;
     private final CategoryMapper categoryMapper;
 
-    public CategoryController(CategoryService categoryService, CategoryMapper categoryMapper) {
-        this.categoryService = categoryService;
-        this.categoryMapper = categoryMapper;
-    }
-
     @PostMapping
-    public void addCategory(@RequestBody CategoryRequestDto categoryRequestDto) {
+    public void add(@RequestBody CategoryRequestDto categoryRequestDto) {
         categoryService.addCategory(categoryMapper.toModel(categoryRequestDto));
     }
 
     @PutMapping
     public CategoryResponseDto update(@RequestBody CategoryRequestDto requestDto) {
-        return categoryMapper.toResponseDto(
+        return categoryMapper.toDto(
                         categoryService.updateCategory(
                                 categoryMapper.toModel(requestDto)));
     }
 
     @GetMapping("/{id}")
-    public CategoryResponseDto getCategoryById(@PathVariable Long id) {
-        return categoryMapper.toResponseDto(categoryService.findCategoryById(id));
+    public CategoryResponseDto get(@PathVariable Long id) {
+        return categoryMapper.toDto(categoryService.findCategoryById(id));
     }
 
     @DeleteMapping("/{id}")
-    public void deleteCategoryById(@PathVariable Long id) {
+    public void delete(@PathVariable Long id) {
         categoryService.deleteCategoryById(id);
     }
 }

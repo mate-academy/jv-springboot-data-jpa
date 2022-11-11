@@ -3,6 +3,7 @@ package mate.academy.springboot.datajpa.controller;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
+import lombok.RequiredArgsConstructor;
 import mate.academy.springboot.datajpa.dto.mapper.ProductMapper;
 import mate.academy.springboot.datajpa.dto.requestdto.ProductRequestDto;
 import mate.academy.springboot.datajpa.dto.responsedto.ProductResponseDto;
@@ -20,60 +21,56 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/products")
+@RequiredArgsConstructor
 public class ProductController {
     private final ProductService productService;
     private final ProductMapper productMapper;
 
-    public ProductController(ProductService productService, ProductMapper productMapper) {
-        this.productService = productService;
-        this.productMapper = productMapper;
-    }
-
     @GetMapping("/{id}")
-    public ProductResponseDto getProductById(@PathVariable Long id) {
-        return productMapper.toResponseDto(productService.findProductById(id));
+    public ProductResponseDto get(@PathVariable Long id) {
+        return productMapper.toDto(productService.findProductById(id));
     }
 
     @PostMapping
-    public void addProduct(@RequestBody ProductRequestDto productRequestDto) {
+    public void create(@RequestBody ProductRequestDto productRequestDto) {
         productService.addProduct(productMapper.toModel(productRequestDto));
     }
 
     @PutMapping
-    public ProductResponseDto updateProduct(@RequestBody ProductRequestDto productRequestDto) {
-        return productMapper.toResponseDto(
+    public ProductResponseDto update(@RequestBody ProductRequestDto productRequestDto) {
+        return productMapper.toDto(
                 productService.updateProduct(
                         productMapper.toModel(productRequestDto)));
     }
 
     @GetMapping
-    public List<ProductResponseDto> getAllProducts() {
+    public List<ProductResponseDto> getAll() {
         return productService.findAllProducts()
                 .stream()
-                .map(productMapper::toResponseDto)
+                .map(productMapper::toDto)
                 .collect(Collectors.toList());
     }
 
     @GetMapping("/price")
-    public List<ProductResponseDto> getProductsByPrice(
+    public List<ProductResponseDto> getByPrice(
             @RequestParam BigDecimal from,
             @RequestParam BigDecimal to) {
-        return productService.findProductsByPrice(from, to)
+        return productService.findAllByPriceBetween(from, to)
                 .stream()
-                .map(productMapper:: toResponseDto)
+                .map(productMapper:: toDto)
                 .collect(Collectors.toList());
     }
 
     @GetMapping("/categories")
-    public List<ProductResponseDto> getProductsByCategory(@RequestParam List<Category> categories) {
-        return productService.findProductsByCategory(categories)
+    public List<ProductResponseDto> getByCategory(@RequestParam List<Category> categories) {
+        return productService.findAllByCategory(categories)
                 .stream()
-                .map(productMapper:: toResponseDto)
+                .map(productMapper:: toDto)
                 .collect(Collectors.toList());
     }
 
     @DeleteMapping("/{id}")
-    public void deleteProductById(@PathVariable Long id) {
+    public void delete(@PathVariable Long id) {
         productService.deleteProductById(id);
     }
 }

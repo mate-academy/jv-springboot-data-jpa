@@ -8,9 +8,9 @@ import mate.academy.springboot.datajpa.model.Product;
 public interface ProductService {
     void deleteProductById(Long id);
 
-    List<Product> findProductsByCategory(List<Category> categoriesId);
+    List<Product> findAllByCategory(List<Category> categoriesId);
 
-    List<Product> findProductsByPrice(BigDecimal from, BigDecimal to);
+    List<Product> findAllByPriceBetween(BigDecimal from, BigDecimal to);
 
     Product updateProduct(Product toModel);
 

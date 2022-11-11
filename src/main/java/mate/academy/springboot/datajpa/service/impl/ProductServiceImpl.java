@@ -22,12 +22,12 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> findProductsByCategory(List<Category> categories) {
+    public List<Product> findAllByCategory(List<Category> categories) {
         return productRepository.getAllByCategoryIn(categories);
     }
 
     @Override
-    public List<Product> findProductsByPrice(BigDecimal from, BigDecimal to) {
+    public List<Product> findAllByPriceBetween(BigDecimal from, BigDecimal to) {
         return productRepository.findAllByPriceBetween(from, to);
     }
 
