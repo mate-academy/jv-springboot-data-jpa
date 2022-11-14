@@ -3,6 +3,7 @@ package mate.academy.springboot.datajpa.controller;
 import mate.academy.springboot.datajpa.dto.mapper.CategoryMapper;
 import mate.academy.springboot.datajpa.dto.request.CategoryRequestDto;
 import mate.academy.springboot.datajpa.dto.response.CategoryResponseDto;
+import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.service.CategoryService;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,7 +45,8 @@ public class CategoryController {
     @PutMapping("/{id}")
     public CategoryResponseDto update(@PathVariable Long id,
                                       @RequestBody CategoryRequestDto requestDto) {
-        return categoryMapper.toResponseDto(
-                categoryService.update(id, categoryMapper.toModel(requestDto)));
+        Category category = categoryMapper.toModel(requestDto);
+        category.setId(id);
+        return categoryMapper.toResponseDto(categoryService.create(category));
     }
 }
