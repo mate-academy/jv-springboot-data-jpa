@@ -37,12 +37,12 @@ public class CategoryController {
         return categoryMapper.toDto(category);
     }
 
-    @DeleteMapping("/{categoryId}")
+    @DeleteMapping("/{id}")
     public void delete(@PathVariable Long categoryId) {
         categoryService.delete(categoryId);
     }
 
-    @PutMapping("/{categoryId}")
+    @PutMapping("/{id}")
     public CategoryResponseDto update(@PathVariable Long categoryId,
                                       @RequestBody CategoryRequestDto requestDto) {
         Category category = categoryMapper.toModel(requestDto);
