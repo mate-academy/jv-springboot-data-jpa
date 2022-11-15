@@ -7,9 +7,7 @@ import lombok.AllArgsConstructor;
 import mate.academy.springboot.datajpa.dto.request.ProductRequestDto;
 import mate.academy.springboot.datajpa.dto.response.ProductResponseDto;
 import mate.academy.springboot.datajpa.mapper.ProductMapper;
-import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.model.Product;
-import mate.academy.springboot.datajpa.service.CategoryService;
 import mate.academy.springboot.datajpa.service.ProductService;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,7 +25,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class ProductController {
     private final ProductService productService;
     private final ProductMapper productMapper;
-    private final CategoryService categoryService;
 
     @PostMapping
     public ProductResponseDto create(@RequestBody ProductRequestDto requestDto) {
@@ -64,10 +61,7 @@ public class ProductController {
 
     @GetMapping("/categories")
     public List<ProductResponseDto> getAllByCategoriesIn(@RequestParam List<Long> ids) {
-        List<Category> categories = ids.stream()
-                .map(categoryService::getById)
-                .collect(Collectors.toList());
-        List<Product> products = productService.getAllByCategoriesIn(categories);
+        List<Product> products = productService.getAllByCategoryIdIn(ids);
         return products.stream()
                 .map(productMapper::mapToDto)
                 .collect(Collectors.toList());
