@@ -6,17 +6,17 @@ import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.model.Product;
 
 public interface ProductService {
-    void deleteProductById(Long id);
+    void deleteById(Long id);
 
     List<Product> findAllByCategory(List<Category> categoriesId);
 
     List<Product> findAllByPriceBetween(BigDecimal from, BigDecimal to);
 
-    Product updateProduct(Product toModel);
+    Product update(Product toModel);
 
-    void addProduct(Product toModel);
+    void create(Product toModel);
 
-    List<Product> findAllProducts();
+    List<Product> findAll();
 
-    Product findProductById(Long id);
+    Product findById(Long id);
 }

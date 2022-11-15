@@ -5,8 +5,8 @@ import mate.academy.springboot.datajpa.model.Category;
 
 @Data
 public class ProductResponseDto {
-    private long id;
+    private Long id;
     private String title;
-    private double price;
+    private Double price;
     private Category category;
 }

@@ -13,17 +13,17 @@ import javax.persistence.Table;
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     private String title;
-    private double price;
+    private Double price;
     @ManyToOne
     private Category category;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -35,11 +35,11 @@ public class Product {
         this.title = title;
     }
 
-    public double getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
@@ -60,7 +60,7 @@ public class Product {
             return false;
         }
         Product product = (Product) o;
-        return id == product.id
+        return id.equals(product.id)
                 && Double.compare(product.price, price) == 0
                 && Objects.equals(title, product.title)
                 && Objects.equals(category, product.category);

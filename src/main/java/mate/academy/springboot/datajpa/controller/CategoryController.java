@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/category")
+@RequestMapping("/categories")
 @RequiredArgsConstructor
 public class CategoryController {
     private final CategoryService categoryService;
@@ -23,23 +23,23 @@ public class CategoryController {
 
     @PostMapping
     public void add(@RequestBody CategoryRequestDto categoryRequestDto) {
-        categoryService.addCategory(categoryMapper.toModel(categoryRequestDto));
+        categoryService.create(categoryMapper.toModel(categoryRequestDto));
     }
 
     @PutMapping
     public CategoryResponseDto update(@RequestBody CategoryRequestDto requestDto) {
         return categoryMapper.toDto(
-                        categoryService.updateCategory(
+                        categoryService.update(
                                 categoryMapper.toModel(requestDto)));
     }
 
     @GetMapping("/{id}")
     public CategoryResponseDto get(@PathVariable Long id) {
-        return categoryMapper.toDto(categoryService.findCategoryById(id));
+        return categoryMapper.toDto(categoryService.findById(id));
     }
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
-        categoryService.deleteCategoryById(id);
+        categoryService.deleteById(id);
     }
 }

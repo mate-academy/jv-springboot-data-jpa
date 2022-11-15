@@ -28,24 +28,24 @@ public class ProductController {
 
     @GetMapping("/{id}")
     public ProductResponseDto get(@PathVariable Long id) {
-        return productMapper.toDto(productService.findProductById(id));
+        return productMapper.toDto(productService.findById(id));
     }
 
     @PostMapping
     public void create(@RequestBody ProductRequestDto productRequestDto) {
-        productService.addProduct(productMapper.toModel(productRequestDto));
+        productService.create(productMapper.toModel(productRequestDto));
     }
 
     @PutMapping
     public ProductResponseDto update(@RequestBody ProductRequestDto productRequestDto) {
         return productMapper.toDto(
-                productService.updateProduct(
+                productService.update(
                         productMapper.toModel(productRequestDto)));
     }
 
     @GetMapping
     public List<ProductResponseDto> getAll() {
-        return productService.findAllProducts()
+        return productService.findAll()
                 .stream()
                 .map(productMapper::toDto)
                 .collect(Collectors.toList());
@@ -57,7 +57,7 @@ public class ProductController {
             @RequestParam BigDecimal to) {
         return productService.findAllByPriceBetween(from, to)
                 .stream()
-                .map(productMapper:: toDto)
+                .map(productMapper::toDto)
                 .collect(Collectors.toList());
     }
 
@@ -65,12 +65,12 @@ public class ProductController {
     public List<ProductResponseDto> getByCategory(@RequestParam List<Category> categories) {
         return productService.findAllByCategory(categories)
                 .stream()
-                .map(productMapper:: toDto)
+                .map(productMapper::toDto)
                 .collect(Collectors.toList());
     }
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
-        productService.deleteProductById(id);
+        productService.deleteById(id);
     }
 }

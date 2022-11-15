@@ -3,11 +3,11 @@ package mate.academy.springboot.datajpa.service;
 import mate.academy.springboot.datajpa.model.Category;
 
 public interface CategoryService {
-    void deleteCategoryById(Long id);
+    void deleteById(Long id);
 
-    Category findCategoryById(Long id);
+    Category findById(Long id);
 
-    Category updateCategory(Category toModel);
+    Category update(Category toModel);
 
-    void addCategory(Category toModel);
+    void create(Category toModel);
 }
