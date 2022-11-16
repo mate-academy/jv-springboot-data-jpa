@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import mate.academy.springboot.datajpa.dto.ProductRequestDto;
 import mate.academy.springboot.datajpa.dto.ProductResponseDto;
 import mate.academy.springboot.datajpa.mapper.ProductMapper;
+import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.service.ProductService;
 import org.springframework.http.HttpStatus;
@@ -68,4 +69,13 @@ public class ProductController {
                 .map(productMapper::toDto)
                 .collect(Collectors.toList());
     }
+
+    @GetMapping("/categories")
+    public List<ProductResponseDto> getAllInCategories(@RequestParam List<Category> categories) {
+        List<Product> products = productService.findAllByCategoryIn(categories);
+        return products.stream()
+                .map(productMapper::toDto)
+                .collect(Collectors.toList());
+    }
+
 }
