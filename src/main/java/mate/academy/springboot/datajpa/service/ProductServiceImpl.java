@@ -3,22 +3,18 @@ package mate.academy.springboot.datajpa.service;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
-
-import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.repository.ProductRepository;
 import mate.academy.springboot.datajpa.specification.SpecificationManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ProductServiceImpl implements ProductService {
-    private  final ProductRepository productRepository;
+    private final ProductRepository productRepository;
     private final SpecificationManager<Product> specificationManager;
-
 
     @Autowired
     public ProductServiceImpl(ProductRepository productRepository,
