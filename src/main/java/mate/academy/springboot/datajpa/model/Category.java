@@ -1,10 +1,9 @@
 package mate.academy.springboot.datajpa.model;
 
-import lombok.Data;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import lombok.Data;
 
 @Data
 @Entity

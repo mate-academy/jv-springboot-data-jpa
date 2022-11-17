@@ -1,5 +1,7 @@
 package mate.academy.springboot.datajpa.controller;
 
+import java.util.List;
+import java.util.stream.Collectors;
 import mate.academy.springboot.datajpa.dto.mapper.ProductMapper;
 import mate.academy.springboot.datajpa.dto.product.ProductRequestDto;
 import mate.academy.springboot.datajpa.dto.product.ProductResponseDto;
@@ -14,9 +16,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/products")

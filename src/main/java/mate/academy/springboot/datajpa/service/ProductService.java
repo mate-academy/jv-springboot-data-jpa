@@ -1,8 +1,7 @@
 package mate.academy.springboot.datajpa.service;
 
-import mate.academy.springboot.datajpa.model.Product;
-
 import java.util.List;
+import mate.academy.springboot.datajpa.model.Product;
 
 public interface ProductService {
 
@@ -17,6 +16,5 @@ public interface ProductService {
     List<Product> getAllByPriceBetween(int from, int to);
 
     List<Product> getAllByCategoriesIn(List<Long> categoriesIds);
-
 
 }
