@@ -20,11 +20,11 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/products")
-public class productController {
+public class ProductController {
     private final ProductService productService;
     private ProductMapper productMapper;
 
-    public productController(ProductService productService) {
+    public ProductController(ProductService productService) {
         this.productService = productService;
     }
 
@@ -42,8 +42,7 @@ public class productController {
 
     @DeleteMapping("/{id}")
     public ProductResponseDto deleteById(@PathVariable Long id) {
-        productService.deleteById(id);
-        return productMapper.toDto(productService.getById(id));
+        return productMapper.toDto(productService.deleteById(id));
     }
 
     @PutMapping("/{id}")
