@@ -26,29 +26,29 @@ public class CategoryController {
         this.categoryMapper = categoryMapper;
     }
 
-    @PostMapping("/create")
+    @PostMapping
     public CategoryResponseDto create(CategoryRequestDto requestDto) {
         Category category = categoryMapper.toModel(requestDto);
         return categoryMapper.toDto(categoryRepository.save(category));
     }
 
-    @GetMapping("/{categoryId}")
-    public CategoryResponseDto getById(@PathVariable Long categoryId) {
-        Category category = categoryRepository.getById(categoryId);
+    @GetMapping("/{id}")
+    public CategoryResponseDto getById(@PathVariable Long id) {
+        Category category = categoryRepository.getById(id);
         return categoryMapper.toDto(category);
     }
 
-    @DeleteMapping("/{categoryId}")
-    public void delete(@PathVariable Long categoryId) {
-        categoryRepository.deleteById(categoryId);
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id) {
+        categoryRepository.deleteById(id);
     }
 
-    @PutMapping("/{categoryId}")
-    public CategoryResponseDto update(@PathVariable Long categoryId,
+    @PutMapping("/{id}")
+    public CategoryResponseDto update(@PathVariable Long id,
                                       @RequestParam
                                       CategoryRequestDto requestDto) {
         Category category = categoryMapper.toModel(requestDto);
-        category.setId(categoryId);
+        category.setId(id);
         return categoryMapper.toDto(category);
     }
 }

@@ -2,6 +2,7 @@ package mate.academy.springboot.datajpa.controller;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import mate.academy.springboot.datajpa.dto.ProductRequestDto;
 import mate.academy.springboot.datajpa.dto.ProductResponseDto;
@@ -32,30 +33,30 @@ public class ProductController {
         this.productMapper = productMapper;
     }
 
-    @PostMapping("/create")
+    @PostMapping
     public ProductResponseDto create(ProductRequestDto requestDto) {
         Product product = productMapper.toModel(requestDto);
         return productMapper.toDto(productService.create(product));
     }
 
-    @GetMapping("/{productId}")
-    public ProductResponseDto findById(@PathVariable Long productId) {
-        Product product = productService.getById(productId);
+    @GetMapping("/{id}")
+    public ProductResponseDto findById(@PathVariable Long id) {
+        Product product = productService.getById(id);
         return productMapper.toDto(product);
     }
 
-    @DeleteMapping("/{productId}")
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public void deleteById(@PathVariable Long productId) {
-        productService.delete(productId);
+    public void deleteById(@PathVariable Long id) {
+        productService.delete(id);
     }
 
-    @PutMapping("/{productId}")
-    public ProductResponseDto update(@PathVariable Long productId,
+    @PutMapping("/{id}")
+    public ProductResponseDto update(@PathVariable Long id,
                                      @RequestParam
                                      ProductRequestDto requestDto) {
         Product product = productMapper.toModel(requestDto);
-        product.setId(productId);
+        product.setId(id);
         return productMapper.toDto(productService.update(product));
     }
 
@@ -71,11 +72,9 @@ public class ProductController {
     }
 
     @GetMapping("/categories")
-    public List<ProductResponseDto> getAllInCategories(@RequestParam List<Category> categories) {
-        List<Product> products = productService.findAllByCategoryIn(categories);
-        return products.stream()
+    public List<ProductResponseDto> getAllInCategories(@RequestParam Map<String, String> params) {
+        return productService.findAllByCategoryIn(params).stream()
                 .map(productMapper::toDto)
                 .collect(Collectors.toList());
     }
-
 }
