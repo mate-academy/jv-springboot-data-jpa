@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class CategoryController {
     private final CategoryService categoryService;
     private final DtoResponseMapper<CategoryResponseDto, Category> categoryResponseDto;
-    private final DtoRequestMapper<CategoryRequestDto,Category> categoryRequestDto;
+    private final DtoRequestMapper<CategoryRequestDto, Category> categoryRequestDto;
 
     public CategoryController(CategoryService categoryService,
                               DtoResponseMapper<CategoryResponseDto, Category> categoryResponseDto,
@@ -44,7 +44,6 @@ public class CategoryController {
 
     @PutMapping("/{id}")
     public CategoryResponseDto update(@PathVariable Long id, @RequestBody CategoryRequestDto dto) {
-
         Category category = categoryService.get(id);
         category.setName(dto.getName());
         categoryService.update(category);

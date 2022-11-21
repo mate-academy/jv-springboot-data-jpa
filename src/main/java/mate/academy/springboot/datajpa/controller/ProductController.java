@@ -28,7 +28,7 @@ public class ProductController {
     private final ProductService productService;
     private final CategoryService categoryService;
     private final DtoResponseMapper<ProductResponseDto, Product> productResponseDto;
-    private final DtoRequestMapper<ProductRequestDto,Product> productRequestDto;
+    private final DtoRequestMapper<ProductRequestDto, Product> productRequestDto;
 
     public ProductController(ProductService productService,
                              CategoryService categoryService,
@@ -42,7 +42,7 @@ public class ProductController {
 
     @GetMapping("/price")
     public List<ProductResponseDto> getAllByPrice(@RequestParam BigDecimal from, BigDecimal to) {
-        return productService.findAllByPriceBetween(from,to).stream()
+        return productService.findAllByPriceBetween(from, to).stream()
                 .map(productResponseDto::toDto)
                 .collect(Collectors.toList());
     }
@@ -53,7 +53,6 @@ public class ProductController {
         ids.forEach((id) -> {
             categoryList.add(categoryService.get(id));
         });
-
         return productService.findAllByCategory(categoryList).stream()
                 .map(productResponseDto::toDto)
                 .collect(Collectors.toList());
@@ -73,7 +72,6 @@ public class ProductController {
 
     @PutMapping("/{id}")
     public ProductResponseDto update(@PathVariable Long id, @RequestBody ProductRequestDto dto) {
-
         Product product = productService.get(id);
         product.setTitle(dto.getTitle());
         product.setPrice(dto.getPrice());
