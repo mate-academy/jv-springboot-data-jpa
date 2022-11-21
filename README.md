@@ -5,12 +5,12 @@ Your task is:
 - use H2 DB
 - enable H2 console
 - enable generated SQL statement logging
-- create model `Product` with fields
+- create mate.academy.springboot.datajpa.model `Product` with fields
     - id
     - title
     - price
     - category (one product can have one category)
-- create model `Category` with fields
+- create mate.academy.springboot.datajpa.model `Category` with fields
     - id
     - name
 - create `ProductRepository` and `CategoryRepository`
