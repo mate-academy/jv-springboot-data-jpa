@@ -5,6 +5,7 @@ import mate.academy.springboot.datajpa.dto.CategoryResponseDto;
 import mate.academy.springboot.datajpa.mapper.CategoryMapper;
 import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.repository.CategoryRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +19,7 @@ public class CategoryController {
     private CategoryRepository categoryRepository;
     private CategoryMapper categoryMapper;
 
+    @Autowired
     public CategoryController(CategoryRepository categoryRepository,
                               CategoryMapper categoryMapper) {
         this.categoryRepository = categoryRepository;

@@ -9,6 +9,7 @@ import mate.academy.springboot.datajpa.dto.ProductResponseDto;
 import mate.academy.springboot.datajpa.mapper.ProductMapper;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.service.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,6 +24,7 @@ public class ProductController {
     private ProductService productService;
     private ProductMapper productMapper;
 
+    @Autowired
     public ProductController(ProductService productService,
                              ProductMapper productMapper) {
         this.productService = productService;
