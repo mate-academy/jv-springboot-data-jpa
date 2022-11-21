@@ -21,16 +21,12 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category getById(Long id) {
-        return categoryRepository.getById(id);
+        return categoryRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Can`t find category by id: " + id));
     }
 
     @Override
     public void deleteById(Long id) {
         categoryRepository.deleteById(id);
-    }
-
-    @Override
-    public Category update(Category category) {
-        return categoryRepository.save(category);
     }
 }

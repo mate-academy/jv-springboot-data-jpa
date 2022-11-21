@@ -4,12 +4,14 @@ import mate.academy.springboot.datajpa.dto.ProductRequestDto;
 import mate.academy.springboot.datajpa.dto.ProductResponseDto;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.service.CategoryService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class ProductMapper {
     private CategoryService categoryService;
 
+    @Autowired
     public ProductMapper(CategoryService categoryService) {
         this.categoryService = categoryService;
     }
@@ -18,7 +20,7 @@ public class ProductMapper {
         Product product = new Product();
         product.setPrice(requestDto.getPrice());
         product.setTitle(requestDto.getTitle());
-        product.setCategory(
+        product.setCategories(
                 categoryService.getById(requestDto.getCategoryId()));
         return product;
     }

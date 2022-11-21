@@ -9,15 +9,12 @@ import mate.academy.springboot.datajpa.dto.ProductResponseDto;
 import mate.academy.springboot.datajpa.mapper.ProductMapper;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.service.ProductService;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -45,21 +42,11 @@ public class ProductController {
     }
 
     @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.ACCEPTED)
     public void deleteById(@PathVariable Long id) {
         productService.delete(id);
     }
 
-    @PutMapping("/{id}")
-    public ProductResponseDto update(@PathVariable Long id,
-                                     @RequestParam
-                                     ProductRequestDto requestDto) {
-        Product product = productMapper.toModel(requestDto);
-        product.setId(id);
-        return productMapper.toDto(productService.update(product));
-    }
-
-    @GetMapping("/price")
+    @GetMapping("/by-price")
     public List<ProductResponseDto> getAllByPriceBetween(@RequestParam
                                                          BigDecimal from,
                                                          @RequestParam
@@ -70,7 +57,7 @@ public class ProductController {
                 .collect(Collectors.toList());
     }
 
-    @GetMapping("/categories")
+    @GetMapping("/by-categories")
     public List<ProductResponseDto> getAllInCategories(@RequestParam Map<String, String> params) {
         return productService.findAllByCategoryIn(params).stream()
                 .map(productMapper::toDto)
