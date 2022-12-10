@@ -2,16 +2,20 @@ package mate.academy.springboot.datajpa.service.impl;
 
 import java.math.BigDecimal;
 import java.util.List;
-import lombok.AllArgsConstructor;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.repository.ProductRepository;
 import mate.academy.springboot.datajpa.service.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@AllArgsConstructor
 @Service
 public class ProductServiceImpl implements ProductService {
     private final ProductRepository repository;
+
+    @Autowired
+    public ProductServiceImpl(ProductRepository repository) {
+        this.repository = repository;
+    }
 
     @Override
     public Product save(Product product) {
@@ -35,6 +39,6 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> getAllByCategoryId(List<Long> categoriesId) {
-        return repository.findAllByCategoryId(categoriesId);
+        return repository.findAllByCategoryIn(categoriesId);
     }
 }
