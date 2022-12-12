@@ -53,7 +53,7 @@ public class ProductController {
         return productMapper.mapToDto(productService.save(product));
     }
 
-    @GetMapping("/{price}")
+    @GetMapping("/{by-price}")
     public List<ProductResponseDto> getAllByPriceBetween(@RequestParam BigDecimal from,
                                                          @RequestParam BigDecimal to) {
         return productService.getAllProductWherePriceBetweenTwoValue(from, to).stream()
