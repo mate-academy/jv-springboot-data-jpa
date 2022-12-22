@@ -13,7 +13,7 @@ public class ProductResponseMapper implements DtoResponseMapper<ProductResponseD
         responseDto.setId(product.getId());
         responseDto.setTitle(product.getTitle());
         responseDto.setPrice(product.getPrice());
-        responseDto.setCategoryId(product.getId());
+        responseDto.setCategoryId(product.getCategory().getId());
         return responseDto;
     }
 }
