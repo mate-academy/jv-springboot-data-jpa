@@ -1,14 +1,8 @@
 package mate.academy.springboot.datajpa.dto.request;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
 
-@Getter
-@Setter
-@EqualsAndHashCode
-@ToString
+@Data
 public class CategoryResponseDto {
     private Long id;
     private String name;
