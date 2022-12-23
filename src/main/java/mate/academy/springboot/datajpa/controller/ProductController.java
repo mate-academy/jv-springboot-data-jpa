@@ -6,7 +6,6 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import mate.academy.springboot.datajpa.dto.request.ProductResponseDto;
 import mate.academy.springboot.datajpa.dto.response.ProductRequestDto;
-import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.service.CategoryService;
 import mate.academy.springboot.datajpa.service.ProductService;
@@ -40,43 +39,6 @@ public class ProductController {
     public ProductResponseDto create(@RequestBody ProductRequestDto productRequestDto) {
         Product product = productService.save(productMapper.mapToModel(productRequestDto));
         return productMapper.mapToDto(product);
-    }
-
-    @GetMapping("/inject")
-    public String saveProducts() {
-        Category category1 = new Category();
-        category1.setName("Phone");
-        categoryService.save(category1);
-
-        Category category2 = new Category();
-        category2.setName("TV");
-        categoryService.save(category2);
-
-        Product product1 = new Product();
-        product1.setPrice(BigDecimal.valueOf(1999));
-        product1.setTitle("Samsung Galaxy a20");
-        product1.setCategory(category1);
-        productService.save(product1);
-
-        Product product2 = new Product();
-        product2.setPrice(BigDecimal.valueOf(3000));
-        product2.setTitle("Samsung S19");
-        product2.setCategory(category1);
-        productService.save(product2);
-
-        Product product3 = new Product();
-        product3.setPrice(BigDecimal.valueOf(4000));
-        product3.setTitle("iPhone 14");
-        product3.setCategory(category1);
-        productService.save(product3);
-
-        Product product4 = new Product();
-        product4.setPrice(BigDecimal.valueOf(3000));
-        product4.setTitle("SAMSUNG LED ULTRA 999");
-        product4.setCategory(category2);
-        productService.save(product4);
-
-        return "Done!";
     }
 
     @PutMapping("/{id}")
