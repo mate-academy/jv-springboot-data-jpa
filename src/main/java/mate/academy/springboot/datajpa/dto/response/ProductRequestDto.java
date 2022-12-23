@@ -1,15 +1,9 @@
 package mate.academy.springboot.datajpa.dto.response;
 
 import java.math.BigDecimal;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
 
-@Getter
-@Setter
-@EqualsAndHashCode
-@ToString
+@Data
 public class ProductRequestDto {
     private String title;
     private BigDecimal price;
