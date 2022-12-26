@@ -1,14 +1,9 @@
 package mate.academy.springboot.datajpa.service.impl;
 
-import mate.academy.springboot.datajpa.dto.CategoryRequestDto;
-import mate.academy.springboot.datajpa.dto.CategoryResponseDto;
 import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.repository.CategoryRepository;
 import mate.academy.springboot.datajpa.service.CategoryService;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {

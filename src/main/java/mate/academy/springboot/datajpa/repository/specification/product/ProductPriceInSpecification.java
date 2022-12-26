@@ -1,12 +1,11 @@
 package mate.academy.springboot.datajpa.repository.specification.product;
 
 import jakarta.persistence.criteria.CriteriaBuilder;
+import java.math.BigDecimal;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.repository.specification.SpecificationProvider;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
-import java.math.BigDecimal;
-import java.util.Arrays;
 
 @Component
 public class ProductPriceInSpecification implements SpecificationProvider<Product> {
