@@ -6,7 +6,6 @@ import lombok.ToString;
 
 @Getter
 @Setter
-@ToString
 public class CategoryResponseDto {
     private Long id;
     private String name;
