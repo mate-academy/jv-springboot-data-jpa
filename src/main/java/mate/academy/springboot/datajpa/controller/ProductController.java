@@ -48,6 +48,14 @@ public class ProductController {
                 .map(productMapper::toDto).collect(Collectors.toList());
     }
 
+    @GetMapping
+    public List<ProductResponseDto> findAll(@RequestParam Map<String, String> params) {
+        return productService.findAll(params)
+                .stream()
+                .map(productMapper::toDto)
+                .collect(Collectors.toList());
+    }
+
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
         productService.delete(id);
