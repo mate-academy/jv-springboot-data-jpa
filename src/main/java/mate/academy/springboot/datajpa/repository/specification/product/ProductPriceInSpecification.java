@@ -5,6 +5,8 @@ import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.repository.specification.SpecificationProvider;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
+import java.math.BigDecimal;
+import java.util.Arrays;
 
 @Component
 public class ProductPriceInSpecification implements SpecificationProvider<Product> {
@@ -13,9 +15,13 @@ public class ProductPriceInSpecification implements SpecificationProvider<Produc
 
     @Override
     public Specification<Product> getSpecification(String[] prices) {
+        BigDecimal[] values = new BigDecimal[prices.length];
+        for (int i = 0; i < prices.length; i++) {
+            values[i] = BigDecimal.valueOf(Long.parseLong(prices[i]));
+        }
         return (root, query, cb) -> {
-            CriteriaBuilder.In<String> predicate = cb.in(root.get(FIELD_NAME));
-            for (String value : prices) {
+            CriteriaBuilder.In<BigDecimal> predicate = cb.in(root.get(FIELD_NAME));
+            for (BigDecimal value : values) {
                 predicate.value(value);
             }
             return cb.and(predicate, predicate);
