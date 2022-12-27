@@ -23,7 +23,7 @@ public class ProductPriceInSpecification implements SpecificationProvider<Produc
             for (BigDecimal value : values) {
                 predicate.value(value);
             }
-            return cb.and(predicate, predicate);
+            return cb.and(predicate);
         };
     }
 

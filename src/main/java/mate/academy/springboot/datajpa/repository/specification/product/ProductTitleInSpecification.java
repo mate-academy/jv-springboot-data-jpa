@@ -18,7 +18,7 @@ public class ProductTitleInSpecification implements SpecificationProvider<Produc
             for (String value : titles) {
                 predicate.value(value);
             }
-            return cb.and(predicate, predicate);
+            return cb.and(predicate);
         };
     }
 
