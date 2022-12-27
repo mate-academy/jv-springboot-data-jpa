@@ -2,21 +2,23 @@ package mate.academy.springboot.datajpa.service.impl;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 import mate.academy.springboot.datajpa.model.Product;
-import mate.academy.springboot.datajpa.repository.CategoryRepository;
 import mate.academy.springboot.datajpa.repository.ProductRepository;
+import mate.academy.springboot.datajpa.repository.specification.SpecificationManager;
 import mate.academy.springboot.datajpa.service.ProductService;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
-    private final CategoryRepository categoryRepository;
+    private final SpecificationManager<Product> productSpecificationManager;
 
     public ProductServiceImpl(ProductRepository productRepository,
-                              CategoryRepository categoryRepository) {
+                              SpecificationManager<Product> productSpecificationManager) {
         this.productRepository = productRepository;
-        this.categoryRepository = categoryRepository;
+        this.productSpecificationManager = productSpecificationManager;
     }
 
     @Override
@@ -45,8 +47,14 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> getAllInCategories(List<String> categories) {
-        return productRepository.getProductsByCategoryIn(
-                categoryRepository.getAllByNameIn(categories));
+    public List<Product> getAll(Map<String, String> params) {
+        Specification<Product> specification = null;
+        for (Map.Entry<String, String> entry : params.entrySet()) {
+            Specification<Product> sp = productSpecificationManager
+                    .get(entry.getKey(), entry.getValue().split(","));
+            specification = specification == null
+                    ? Specification.where(sp) : specification.and(sp);
+        }
+        return productRepository.findAll(specification);
     }
 }
