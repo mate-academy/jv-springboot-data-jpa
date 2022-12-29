@@ -60,7 +60,7 @@ public class ProductController {
         return productResponseDtoMapper.mapToDto(productService.update(product));
     }
 
-    @GetMapping("byPrice")
+    @GetMapping("/byPrice")
     public List<ProductResponseDto> getAllByPrice(@RequestParam BigDecimal from,
                                                   @RequestParam BigDecimal to) {
         return productService.getAllByPrice(from, to)
@@ -69,7 +69,7 @@ public class ProductController {
                 .collect(Collectors.toList());
     }
 
-    @GetMapping()
+    @GetMapping
     public List<ProductResponseDto> getAll(@RequestParam Map<String, String> params) {
         return productService.getAll(params)
                 .stream()
