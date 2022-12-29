@@ -35,7 +35,7 @@ public class ProductController {
         this.categoryService = categoryService;
     }
 
-    @PostMapping()
+    @PostMapping
     public ProductResponseDto create(@RequestBody ProductRequestDto productRequestDto) {
         Product product = productService.save(productMapper.mapToModel(productRequestDto));
         return productMapper.mapToDto(product);

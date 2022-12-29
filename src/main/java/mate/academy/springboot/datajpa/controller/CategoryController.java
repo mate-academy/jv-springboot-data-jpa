@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("")
+@RequestMapping("/categories")
 public class CategoryController {
     private final CategoryMapper categoryMapper;
     private final CategoryService categoryService;
@@ -36,7 +36,7 @@ public class CategoryController {
                 .collect(Collectors.toList());
     }
 
-    @PostMapping()
+    @PostMapping
     public CategoryResponseDto create(@RequestBody CategoryRequestDto categoryRequestDto) {
         Category category = categoryService.save(categoryMapper.mapToModel(categoryRequestDto));
         return categoryMapper.mapToDto(category);
