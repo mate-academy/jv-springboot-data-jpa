@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import mate.academy.springboot.datajpa.dto.request.ProductRequestDto;
 import mate.academy.springboot.datajpa.dto.response.ProductResponseDto;
 import mate.academy.springboot.datajpa.model.Category;
+import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.service.CategoryService;
 import mate.academy.springboot.datajpa.service.ProductService;
 import mate.academy.springboot.datajpa.service.mapper.request.CategoryRequestDtoMapper;
@@ -70,10 +71,12 @@ public class ProductController {
         productService.delete(id);
     }
 
-    @PutMapping
-    public ProductResponseDto update(@RequestBody ProductRequestDto requestDto) {
-        return responseDtoMapper.mapToDto(productService.update(requestDtoMapper
-                    .mapToModel(requestDto)));
+    @PutMapping("/{id}")
+    public ProductResponseDto update(@PathVariable Long id,
+                    @RequestBody ProductRequestDto requestDto) {
+        Product product = requestDtoMapper.mapToModel(requestDto);
+        product.setId(id);
+        return responseDtoMapper.mapToDto(productService.update(product));
     }
 
     @GetMapping("/price")
