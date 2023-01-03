@@ -1,11 +1,8 @@
 package mate.academy.springboot.datajpa.dto;
 
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.Setter;
+import lombok.Getter;
 
-@Data
-@Setter(AccessLevel.NONE)
+@Getter
 public class CategoryRequestDto {
     private String name;
 }
