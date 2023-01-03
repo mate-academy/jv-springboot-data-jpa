@@ -1,10 +1,11 @@
-package mate.academy.springboot.model.dto.request;
+package mate.academy.springboot.datajpa.model.dto.request;
 
+import java.math.BigDecimal;
 import lombok.Data;
 
 @Data
 public class ProductRequestDto {
     private String title;
-    private Double price;
+    private BigDecimal price;
     private String category;
 }

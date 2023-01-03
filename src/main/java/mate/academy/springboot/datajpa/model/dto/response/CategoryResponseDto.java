@@ -1,4 +1,4 @@
-package mate.academy.springboot.model.dto.response;
+package mate.academy.springboot.datajpa.model.dto.response;
 
 import lombok.Data;
 

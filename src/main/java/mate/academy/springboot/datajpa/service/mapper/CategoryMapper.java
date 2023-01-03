@@ -1,8 +1,8 @@
-package mate.academy.springboot.service.mapper;
+package mate.academy.springboot.datajpa.service.mapper;
 
-import mate.academy.springboot.model.Category;
-import mate.academy.springboot.model.dto.request.CategoryRequestDto;
-import mate.academy.springboot.model.dto.response.CategoryResponseDto;
+import mate.academy.springboot.datajpa.model.Category;
+import mate.academy.springboot.datajpa.model.dto.request.CategoryRequestDto;
+import mate.academy.springboot.datajpa.model.dto.response.CategoryResponseDto;
 import org.springframework.stereotype.Service;
 
 @Service

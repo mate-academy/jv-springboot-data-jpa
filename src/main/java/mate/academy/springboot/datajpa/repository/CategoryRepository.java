@@ -1,6 +1,6 @@
-package mate.academy.springboot.repository;
+package mate.academy.springboot.datajpa.repository;
 
-import mate.academy.springboot.model.Category;
+import mate.academy.springboot.datajpa.model.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

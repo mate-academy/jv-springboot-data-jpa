@@ -1,6 +1,6 @@
-package mate.academy.springboot.service;
+package mate.academy.springboot.datajpa.service;
 
-import mate.academy.springboot.model.Category;
+import mate.academy.springboot.datajpa.model.Category;
 
 public interface CategoryService {
     Category add(Category category);
