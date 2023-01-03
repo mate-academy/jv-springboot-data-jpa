@@ -20,7 +20,7 @@ public class ProductCategoryInSpecification implements SpecificationProvider<Pro
         return (root, query, criteriaBuilder) -> {
             Join<Product, Category> join = root.join(CATEGORY, JoinType.INNER);
             CriteriaBuilder.In<String> predicate = criteriaBuilder.in(join.get(FIELD));
-            for (String value: categories) {
+            for (String value : categories) {
                 predicate.value(value);
             }
             return criteriaBuilder.and(predicate, predicate);
