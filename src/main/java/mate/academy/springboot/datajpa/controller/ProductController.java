@@ -1,13 +1,12 @@
 package mate.academy.springboot.datajpa.controller;
 
 import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 import mate.academy.springboot.datajpa.dto.request.ProductRequestDto;
 import mate.academy.springboot.datajpa.dto.response.ProductResponseDto;
-import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.model.Product;
-import mate.academy.springboot.datajpa.service.CategoryService;
 import mate.academy.springboot.datajpa.service.ProductService;
 import mate.academy.springboot.datajpa.service.mapper.request.CategoryRequestDtoMapper;
 import mate.academy.springboot.datajpa.service.mapper.request.ProductRequestDtoMapper;
@@ -29,28 +28,23 @@ public class ProductController {
     private ProductResponseDtoMapper responseDtoMapper;
     private ProductRequestDtoMapper requestDtoMapper;
     private CategoryRequestDtoMapper categoryRequestDtoMapper;
-    private CategoryService categoryService;
 
     public ProductController(ProductService productService,
                              ProductResponseDtoMapper responseDtoMapper,
                              ProductRequestDtoMapper requestDtoMapper,
-                             CategoryRequestDtoMapper categoryRequestDtoMapper,
-                             CategoryService categoryService) {
+                             CategoryRequestDtoMapper categoryRequestDtoMapper) {
         this.productService = productService;
         this.responseDtoMapper = responseDtoMapper;
         this.requestDtoMapper = requestDtoMapper;
         this.categoryRequestDtoMapper = categoryRequestDtoMapper;
-        this.categoryService = categoryService;
     }
 
-    @GetMapping()
+    @GetMapping
     public List<ProductResponseDto> getAllWhereCategoriesIn(
             @RequestParam List<String> category) {
-        List<Category> categories = category.stream()
-                .map(categoryService::getCategoryByName)
-                .collect(Collectors.toList());
-        return productService.getAllProductsInCategories(categories)
-                .stream()
+        return category.stream()
+                .map(cat -> productService.getAllProductsInCategory(cat))
+                .flatMap(Collection::stream)
                 .map(responseDtoMapper::mapToDto)
                 .collect(Collectors.toList());
     }
