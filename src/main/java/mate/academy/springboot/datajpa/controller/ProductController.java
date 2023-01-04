@@ -53,7 +53,7 @@ public class ProductController {
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
-        productService.delete(id);
+        productService.deleteById(id);
     }
 
     @GetMapping
@@ -69,6 +69,8 @@ public class ProductController {
     public List<ProductResponseDto> findAllByPriceBetween(@RequestParam BigDecimal from,
                                                           @RequestParam BigDecimal to) {
         List<Product> allByPriceBetween = productService.findAllByPriceBetween(from, to);
-        return allByPriceBetween.stream().map(productMapper::toDto).collect(Collectors.toList());
+        return allByPriceBetween.stream()
+                .map(productMapper::toDto)
+                .collect(Collectors.toList());
     }
 }
