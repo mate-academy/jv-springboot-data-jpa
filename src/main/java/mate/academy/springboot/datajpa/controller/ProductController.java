@@ -64,9 +64,9 @@ public class ProductController {
     }
 
     @GetMapping("/by-price")
-    public List<ProductResponseDto> getByPriceBetween(@RequestParam BigDecimal mix,
+    public List<ProductResponseDto> getByPriceBetween(@RequestParam BigDecimal min,
                                            @RequestParam BigDecimal max) {
-        return productService.getByPriceBetween(mix, max).stream()
+        return productService.getByPriceBetween(min, max).stream()
                 .map(dtoResponseMapper::toDto)
                 .toList();
     }
