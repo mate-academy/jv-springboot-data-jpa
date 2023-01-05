@@ -59,7 +59,8 @@ public class ProductController {
                                      @RequestBody ProductRequestDto productRequestDto) {
         Product product = productMapper.toModel(productRequestDto);
         product.setId(id);
-        return productMapper.toDto(productService.update(product));
+        Product update = productService.update(product);
+        return productMapper.toDto(update);
     }
 
     @GetMapping("/by-categories")

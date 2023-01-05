@@ -24,6 +24,7 @@ public class Product {
     private Long id;
     private String title;
     private BigDecimal price;
+    @ToString.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     private Category category;
