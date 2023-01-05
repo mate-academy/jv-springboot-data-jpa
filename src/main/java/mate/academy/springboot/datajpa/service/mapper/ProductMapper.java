@@ -15,7 +15,7 @@ public class ProductMapper implements RequestDtoMapper<ProductRequestDto,Product
         this.categoryService = categoryService;
     }
 
-    public Product mapToModel(ProductRequestDto productRequestDto) {
+    public Product toModel(ProductRequestDto productRequestDto) {
         Product product = new Product();
         product.setTitle(productRequestDto.getTitle());
         product.setPrice(productRequestDto.getPrice());
@@ -23,7 +23,7 @@ public class ProductMapper implements RequestDtoMapper<ProductRequestDto,Product
         return product;
     }
 
-    public ProductResponseDto mapToDto(Product product) {
+    public ProductResponseDto toDto(Product product) {
         ProductResponseDto productResponseDto = new ProductResponseDto();
         productResponseDto.setId(product.getId());
         productResponseDto.setTitle(product.getTitle());
