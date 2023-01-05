@@ -7,7 +7,9 @@ import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.repository.specification.SpecificationProvider;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ProductCategoryInSpecification implements SpecificationProvider<Product> {
     private static final String FILTER_KEY = "categoryIn";
     private static final String DEPENDENT_ENTITY_NAME = "category";
