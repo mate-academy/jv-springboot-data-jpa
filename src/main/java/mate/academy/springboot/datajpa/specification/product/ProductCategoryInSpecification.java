@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class ProductCategoryInSpecification implements SpecificationProvider<Product> {
     private static final String FILTER_KEY = "categoryIn";
-    private static final String ATTRIBUTE_NAME = "categoryIn";
+    private static final String ATTRIBUTE_NAME = "category";
     private static final String FIELD_NAME = "name";
 
     @Override
