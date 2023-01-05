@@ -6,7 +6,6 @@ import java.util.List;
 import mate.academy.springboot.datajpa.dto.ProductRequestDto;
 import mate.academy.springboot.datajpa.dto.ProductResponseDto;
 import mate.academy.springboot.datajpa.dto.mapper.ProductMapper;
-import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.service.CategoryService;
 import mate.academy.springboot.datajpa.service.ProductService;
@@ -70,10 +69,7 @@ public class ProductController {
 
     @GetMapping("/categories")
     public List<ProductResponseDto> findAllByCategoryIn(@RequestParam Collection<Long> id) {
-        List<Category> categories = id.stream()
-                .map(categoryService::findById)
-                .toList();
-        return productService.findAllByCategoryIn(categories).stream()
+        return productService.findAllByCategoryIdIn(id).stream()
                 .map(productMapper::toDto)
                 .toList();
     }

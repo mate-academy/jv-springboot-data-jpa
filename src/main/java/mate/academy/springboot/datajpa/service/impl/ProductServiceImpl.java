@@ -3,7 +3,6 @@ package mate.academy.springboot.datajpa.service.impl;
 import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.List;
-import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.repository.ProductRepository;
 import mate.academy.springboot.datajpa.service.ProductService;
@@ -30,7 +29,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product update(Product product) {
-        return productRepository.saveAndFlush(product);
+        return productRepository.save(product);
     }
 
     @Override
@@ -39,12 +38,12 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> findAllByPriceBetween(BigDecimal price1, BigDecimal price2) {
-        return productRepository.findAllByPriceBetween(price1, price2);
+    public List<Product> findAllByPriceBetween(BigDecimal priceFrom, BigDecimal priceTo) {
+        return productRepository.findAllByPriceBetween(priceFrom, priceTo);
     }
 
     @Override
-    public List<Product> findAllByCategoryIn(Collection<Category> categories) {
-        return productRepository.findAllByCategoryIn(categories);
+    public List<Product> findAllByCategoryIdIn(Collection<Long> categoryIds) {
+        return productRepository.findAllByCategoryIdIn(categoryIds);
     }
 }
