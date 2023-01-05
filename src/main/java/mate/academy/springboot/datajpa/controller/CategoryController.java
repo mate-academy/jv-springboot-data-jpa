@@ -57,5 +57,4 @@ public class CategoryController {
         categoryService.update(category);
         return categoryResponseDtoMapper.mapToDto(category);
     }
-
 }
