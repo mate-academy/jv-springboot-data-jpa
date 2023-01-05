@@ -57,7 +57,7 @@ public class ProductController {
                                      @RequestBody ProductRequestDto productRequestDto) {
         Product product = requestDtoMapper.mapToModel(productRequestDto);
         product.setId(id);
-        Product updatedProduct = productService.update(product);
+        Product updatedProduct = productService.save(product);
         return responseDtoMapper.mapToDto(updatedProduct);
     }
 

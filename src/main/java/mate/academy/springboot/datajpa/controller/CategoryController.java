@@ -52,7 +52,7 @@ public class CategoryController {
                                       @RequestBody CategoryRequestDto categoryRequestDto) {
         Category category = requestDtoMapper.mapToModel(categoryRequestDto);
         category.setId(id);
-        Category updatesCategory = categoryService.update(category);
+        Category updatesCategory = categoryService.save(category);
         return responseDtoMapper.mapToDto(updatesCategory);
     }
 }
