@@ -40,7 +40,7 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.findAllByPriceBetween(from, to);
     }
 
-    public List<Product> findAllByCategories(String categoryName) {
-        return productRepository.findAllByCategoryName(categoryName);
+    public List<Product> findAllByCategoryNameIn(List<String> categories) {
+        return productRepository.findAllByCategoryNameIn(categories);
     }
 }
