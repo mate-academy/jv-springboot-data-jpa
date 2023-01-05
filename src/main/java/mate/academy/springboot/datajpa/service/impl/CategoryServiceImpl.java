@@ -20,7 +20,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Category getByID(Long id) {
+    public Category getById(Long id) {
         return categoryRepository.findById(id).orElseThrow(
                 () -> new EntityNotFoundException("Couldn't find category by id:" + id));
     }
@@ -32,7 +32,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category update(Category category) {
-        Category categoryFromDb = getByID(category.getId());
+        Category categoryFromDb = getById(category.getId());
         categoryFromDb.setName(category.getName());
         return categoryRepository.save(categoryFromDb);
     }
