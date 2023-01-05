@@ -12,6 +12,7 @@ public class CategoryMapper implements
     @Override
     public CategoryResponseDto mapToDto(Category category) {
         CategoryResponseDto categoryResponseDto = new CategoryResponseDto();
+        categoryResponseDto.setId(category.getId());
         categoryResponseDto.setName(category.getName());
         return categoryResponseDto;
     }
