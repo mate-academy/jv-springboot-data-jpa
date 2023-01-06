@@ -1,15 +1,15 @@
 package mate.academy.springboot.datajpa.service.impl;
 
-import mate.academy.springboot.datajpa.model.Category;
-import mate.academy.springboot.datajpa.model.Product;
-import mate.academy.springboot.datajpa.repository.ProductRepository;
-import mate.academy.springboot.datajpa.service.ProductService;
-import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import mate.academy.springboot.datajpa.model.Category;
+import mate.academy.springboot.datajpa.model.Product;
+import mate.academy.springboot.datajpa.repository.ProductRepository;
+import mate.academy.springboot.datajpa.service.ProductService;
+import org.springframework.stereotype.Service;
 
 @Service
 public class ProductServiceImpl implements ProductService {

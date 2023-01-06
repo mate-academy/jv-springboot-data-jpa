@@ -1,5 +1,7 @@
 package mate.academy.springboot.datajpa.controller;
 
+import java.math.BigDecimal;
+import java.util.List;
 import mate.academy.springboot.datajpa.dto.ProductRequestDto;
 import mate.academy.springboot.datajpa.dto.ProductResponseDto;
 import mate.academy.springboot.datajpa.dto.mapper.ProductMapper;
@@ -16,8 +18,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import java.math.BigDecimal;
-import java.util.List;
 
 @RestController
 @RequestMapping("/products")

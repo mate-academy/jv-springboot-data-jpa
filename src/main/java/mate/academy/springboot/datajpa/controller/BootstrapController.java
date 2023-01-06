@@ -1,12 +1,12 @@
 package mate.academy.springboot.datajpa.controller;
 
+import java.math.BigDecimal;
 import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.service.CategoryService;
 import mate.academy.springboot.datajpa.service.ProductService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import java.math.BigDecimal;
 
 @RestController
 public class BootstrapController {

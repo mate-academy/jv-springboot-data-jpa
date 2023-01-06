@@ -2,7 +2,6 @@ package mate.academy.springboot.datajpa.controller;
 
 import mate.academy.springboot.datajpa.dto.CategoryRequestDto;
 import mate.academy.springboot.datajpa.dto.CategoryResponseDto;
-import mate.academy.springboot.datajpa.dto.ProductResponseDto;
 import mate.academy.springboot.datajpa.dto.mapper.CategoryMapper;
 import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.service.CategoryService;
@@ -13,10 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import java.math.BigDecimal;
-import java.util.List;
 
 @RestController
 @RequestMapping("/categories")
@@ -46,7 +42,8 @@ public class CategoryController {
     }
 
     @PutMapping("/{id}")
-    public CategoryResponseDto update(@RequestBody CategoryRequestDto requestDto, @PathVariable Long id) {
+    public CategoryResponseDto update(@RequestBody CategoryRequestDto requestDto,
+                                      @PathVariable Long id) {
         Category category = categoryService.getById(id);
         category.setName(requestDto.getName());
         return categoryMapper.mapToDto(categoryService.update(category));
