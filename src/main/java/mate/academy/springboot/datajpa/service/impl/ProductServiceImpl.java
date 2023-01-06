@@ -13,7 +13,7 @@ import java.util.Optional;
 
 @Service
 public class ProductServiceImpl implements ProductService {
-    private ProductRepository productRepository;
+    private final ProductRepository productRepository;
 
     public ProductServiceImpl(ProductRepository productRepository) {
         this.productRepository = productRepository;
@@ -58,7 +58,7 @@ public class ProductServiceImpl implements ProductService {
     public List<Product> getAllByCategoriesIn(List<Category> categories) {
         List<Product> products = new ArrayList<>();
         for (Category category : categories) {
-            products.addAll(productRepository.getAllByCategoryIn(category));
+            products.addAll(productRepository.getAllByCategory(category));
         }
         return products;
     }

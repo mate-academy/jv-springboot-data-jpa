@@ -35,9 +35,9 @@ public class CategoryServiceImpl implements CategoryService {
     public Category update(Category category) {
         Optional<Category> optionalCategory = categoryRepository.findById(category.getId());
         if (optionalCategory.isPresent()) {
-            Category oldCategory = optionalCategory.get();
-            oldCategory.setName(category.getName());
-            return categoryRepository.save(oldCategory);
+            Category categoryFromDb = optionalCategory.get();
+            categoryFromDb.setName(category.getName());
+            return categoryRepository.save(categoryFromDb);
         } else {
             throw new NoSuchElementException("There is no such category " + category);
         }
