@@ -25,8 +25,9 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Optional<Product> getById(Long id) {
-        return productRepository.findById(id);
+    public Product getById(Long id) {
+        return productRepository.findById(id).orElseThrow(
+                () -> new NoSuchElementException("Can't get a product by id: " + id));
     }
 
     @Override

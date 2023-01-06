@@ -21,8 +21,9 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Optional<Category> getById(Long id) {
-        return categoryRepository.findById(id);
+    public Category getById(Long id) {
+        return categoryRepository.findById(id).orElseThrow(
+                () -> new NoSuchElementException("Can't get a category by id: " + id));
     }
 
     @Override
