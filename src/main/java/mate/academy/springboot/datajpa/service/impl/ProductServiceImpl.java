@@ -41,11 +41,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product update(Product product) {
-        Product productFromDb = getById(product.getId());
-        productFromDb.setTitle(product.getTitle());
-        productFromDb.setCategory(product.getCategory());
-        productFromDb.setPrice(product.getPrice());
-        return productRepository.save(productFromDb);
+        return productRepository.save(product);
     }
 
     @Override
