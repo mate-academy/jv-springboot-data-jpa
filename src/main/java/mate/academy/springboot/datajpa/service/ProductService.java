@@ -11,5 +11,5 @@ public interface ProductService {
     void deleteById(Long id);
     Product update(Product product);
     List<Product> getAllByPriceBetween(BigDecimal from, BigDecimal to);
-    List<Product> getAllByCategoriesIn(List<Category> categories);
+    List<Product> getAllByCategories(List<Category> categories);
 }

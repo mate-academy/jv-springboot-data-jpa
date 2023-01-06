@@ -2,6 +2,7 @@ package mate.academy.springboot.datajpa.controller;
 
 import mate.academy.springboot.datajpa.dto.CategoryRequestDto;
 import mate.academy.springboot.datajpa.dto.CategoryResponseDto;
+import mate.academy.springboot.datajpa.dto.ProductResponseDto;
 import mate.academy.springboot.datajpa.dto.mapper.CategoryMapper;
 import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.service.CategoryService;
@@ -12,7 +13,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import java.math.BigDecimal;
+import java.util.List;
 
 @RestController
 @RequestMapping("/categories")
@@ -32,17 +36,17 @@ public class CategoryController {
     }
 
     @GetMapping("/{id}")
-    CategoryResponseDto getById(@PathVariable Long id) {
+    public CategoryResponseDto getById(@PathVariable Long id) {
         return categoryMapper.mapToDto(categoryService.getById(id));
     }
 
     @DeleteMapping("/{id}")
-    void deleteById(@PathVariable Long id) {
+    public void deleteById(@PathVariable Long id) {
         categoryService.deleteById(id);
     }
 
     @PutMapping("/{id}")
-    CategoryResponseDto update(@RequestBody CategoryRequestDto requestDto, @PathVariable Long id) {
+    public CategoryResponseDto update(@RequestBody CategoryRequestDto requestDto, @PathVariable Long id) {
         Category category = categoryService.getById(id);
         category.setName(requestDto.getName());
         return categoryMapper.mapToDto(categoryService.update(category));
