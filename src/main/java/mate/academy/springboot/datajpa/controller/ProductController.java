@@ -35,7 +35,7 @@ public class ProductController {
 
     @PostMapping
     public ProductResponseDto create(@RequestBody ProductRequestDto requestDto) {
-        return productMapper.mapToDto(productService.create(
+        return productMapper.mapToDto(productService.save(
                 productMapper.mapToModel(requestDto)));
     }
 
@@ -50,12 +50,11 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
-    ProductResponseDto update(@RequestBody ProductRequestDto requestDto, @PathVariable Long id) {
-        Product product = productService.getById(id);
-        product.setPrice(requestDto.getPrice());
-        product.setTitle(requestDto.getTitle());
-        product.setCategory(categoryService.getById(requestDto.getCategoryId()));
-        return productMapper.mapToDto(productService.update(product));
+    public ProductResponseDto update(@RequestBody ProductRequestDto requestDto,
+                                     @PathVariable Long id) {
+        Product product = productMapper.mapToModel(requestDto);
+        product.setId(id);
+        return productMapper.mapToDto(productService.save(product));
     }
 
     @GetMapping("/price-between")

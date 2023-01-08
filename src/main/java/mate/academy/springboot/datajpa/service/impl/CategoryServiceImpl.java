@@ -1,7 +1,6 @@
 package mate.academy.springboot.datajpa.service.impl;
 
 import java.util.NoSuchElementException;
-import java.util.Optional;
 import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.repository.CategoryRepository;
 import mate.academy.springboot.datajpa.service.CategoryService;
@@ -16,7 +15,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Category create(Category category) {
+    public Category save(Category category) {
         return categoryRepository.save(category);
     }
 
@@ -29,17 +28,5 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public void deleteById(Long id) {
         categoryRepository.deleteById(id);
-    }
-
-    @Override
-    public Category update(Category category) {
-        Optional<Category> optionalCategory = categoryRepository.findById(category.getId());
-        if (optionalCategory.isPresent()) {
-            Category categoryFromDb = optionalCategory.get();
-            categoryFromDb.setName(category.getName());
-            return categoryRepository.save(categoryFromDb);
-        } else {
-            throw new NoSuchElementException("There is no such category " + category);
-        }
     }
 }

@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.repository.ProductRepository;
@@ -20,7 +19,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product create(Product product) {
+    public Product save(Product product) {
         return productRepository.save(product);
     }
 
@@ -33,20 +32,6 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void deleteById(Long id) {
         productRepository.deleteById(id);
-    }
-
-    @Override
-    public Product update(Product product) {
-        Optional<Product> optionalProduct = productRepository.findById(product.getId());
-        if (optionalProduct.isPresent()) {
-            Product oldProduct = optionalProduct.get();
-            oldProduct.setPrice(product.getPrice());
-            oldProduct.setTitle(product.getTitle());
-            oldProduct.setCategory(product.getCategory());
-            return productRepository.save(oldProduct);
-        } else {
-            throw new NoSuchElementException("There is no such product " + product);
-        }
     }
 
     @Override

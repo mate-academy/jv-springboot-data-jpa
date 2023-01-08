@@ -22,40 +22,40 @@ public class BootstrapController {
     public void bootstrapData() {
         Category phoneCategory = new Category();
         phoneCategory.setName("phones");
-        categoryService.create(phoneCategory);
+        categoryService.save(phoneCategory);
 
         Category carCategory = new Category();
         carCategory.setName("cars");
-        categoryService.create(carCategory);
+        categoryService.save(carCategory);
 
         Product phone1 = new Product();
         phone1.setTitle("iPhone");
         phone1.setPrice(BigDecimal.valueOf(300));
         phone1.setCategory(phoneCategory);
-        productService.create(phone1);
+        productService.save(phone1);
 
         Product phone2 = new Product();
         phone2.setTitle("Samsung");
         phone2.setPrice(BigDecimal.valueOf(250));
         phone2.setCategory(phoneCategory);
-        productService.create(phone2);
+        productService.save(phone2);
 
         Product phone3 = new Product();
         phone3.setTitle("Sony");
         phone3.setPrice(BigDecimal.valueOf(350));
         phone3.setCategory(phoneCategory);
-        productService.create(phone3);
+        productService.save(phone3);
 
         Product car1 = new Product();
         car1.setTitle("Skoda");
         car1.setPrice(BigDecimal.valueOf(25000));
         car1.setCategory(carCategory);
-        productService.create(car1);
+        productService.save(car1);
 
         Product car2 = new Product();
         car2.setTitle("Volvo");
         car2.setPrice(BigDecimal.valueOf(45000));
         car2.setCategory(carCategory);
-        productService.create(car2);
+        productService.save(car2);
     }
 }
