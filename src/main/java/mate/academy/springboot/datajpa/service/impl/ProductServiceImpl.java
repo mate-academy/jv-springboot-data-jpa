@@ -3,7 +3,6 @@ package mate.academy.springboot.datajpa.service.impl;
 import jakarta.persistence.EntityNotFoundException;
 import java.math.BigDecimal;
 import java.util.List;
-import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.persistance.ProductRepository;
 import mate.academy.springboot.datajpa.service.ProductService;
@@ -50,7 +49,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> getByCategories(List<Category> categories) {
-        return productRepository.findAllByCategoryIn(categories);
+    public List<Product> getByCategoriesNames(List<String> categories) {
+        return productRepository.findAllByCategoryNameIn(categories);
     }
 }

@@ -1,7 +1,6 @@
 package mate.academy.springboot.datajpa.service.impl;
 
 import jakarta.persistence.EntityNotFoundException;
-import java.util.List;
 import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.persistance.CategoryRepository;
 import mate.academy.springboot.datajpa.service.CategoryService;
@@ -36,11 +35,6 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public Category update(Category category) {
         return categoryRepository.save(category);
-    }
-
-    @Override
-    public List<Category> getByNames(List<String> name) {
-        return categoryRepository.findAllByNameIn(name);
     }
 
     @Override
