@@ -23,10 +23,6 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product getById(Long id) {
-        return getOrThrowException(id);
-    }
-
-    private Product getOrThrowException(Long id) {
         return productRepository.findById(id).orElseThrow(
                 () -> new EntityNotFoundException(
                         "Product not found by id: " + id));
@@ -39,7 +35,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void delete(Long id) {
-        Product product = getOrThrowException(id);
+        Product product = getById(id);
         productRepository.delete(product);
     }
 
