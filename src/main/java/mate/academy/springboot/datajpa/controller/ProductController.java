@@ -41,7 +41,7 @@ public class ProductController {
     @PostMapping
     public ProductResponseDto addProduct(@RequestBody ProductRequestDto requestDto) {
         Product product = productService.save(
-                dtoRequestMapper.fromDto(requestDto));
+                dtoRequestMapper.toModel(requestDto));
         return dtoResponseMapper.toDto(product);
     }
 
@@ -53,7 +53,7 @@ public class ProductController {
     @PutMapping("/{id}")
     public ProductResponseDto updateProduct(@PathVariable Long id,
                                             @RequestBody ProductRequestDto requestDto) {
-        Product product = dtoRequestMapper.fromDto(requestDto);
+        Product product = dtoRequestMapper.toModel(requestDto);
         product.setId(id);
         return dtoResponseMapper.toDto(productService.update(product));
     }

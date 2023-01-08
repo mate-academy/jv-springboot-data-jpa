@@ -16,7 +16,7 @@ public class ProductDtoRequestMapper
     }
 
     @Override
-    public Product fromDto(ProductRequestDto requestDto) {
+    public Product toModel(ProductRequestDto requestDto) {
         Product product = new Product();
         product.setTitle(requestDto.getTitle());
         product.setPrice(requestDto.getPrice());

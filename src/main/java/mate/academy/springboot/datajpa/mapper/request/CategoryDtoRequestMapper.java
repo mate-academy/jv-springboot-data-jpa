@@ -10,7 +10,7 @@ public class CategoryDtoRequestMapper
         implements DtoRequestMapper<CategoryRequestDto, Category> {
 
     @Override
-    public Category fromDto(CategoryRequestDto requestDto) {
+    public Category toModel(CategoryRequestDto requestDto) {
         Category category = new Category();
         category.setName(requestDto.getName());
         return category;
