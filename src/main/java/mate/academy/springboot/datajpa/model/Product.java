@@ -16,7 +16,6 @@ import lombok.ToString;
 @Table(name = "products")
 @Getter
 @Setter
-@ToString
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
