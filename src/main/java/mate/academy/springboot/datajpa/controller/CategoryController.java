@@ -33,7 +33,7 @@ public class CategoryController {
         return categoryService.findAll()
                 .stream()
                 .map(categoryMapper::toDto)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @PostMapping
