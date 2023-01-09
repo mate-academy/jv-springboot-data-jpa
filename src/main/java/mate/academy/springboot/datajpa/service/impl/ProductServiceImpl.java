@@ -1,10 +1,8 @@
 package mate.academy.springboot.datajpa.service.impl;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
-import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.repository.ProductRepository;
 import mate.academy.springboot.datajpa.service.ProductService;
@@ -40,11 +38,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> getAllByCategories(List<Category> categories) {
-        List<Product> products = new ArrayList<>();
-        for (Category category : categories) {
-            products.addAll(productRepository.getAllByCategory(category));
-        }
-        return products;
+    public List<Product> getAllByCategories(List<Long> categoryIds) {
+        return productRepository.getAllByCategories(categoryIds);
     }
 }

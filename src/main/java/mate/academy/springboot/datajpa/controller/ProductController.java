@@ -5,7 +5,6 @@ import java.util.List;
 import mate.academy.springboot.datajpa.dto.ProductRequestDto;
 import mate.academy.springboot.datajpa.dto.ProductResponseDto;
 import mate.academy.springboot.datajpa.dto.mapper.ProductMapper;
-import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.service.CategoryService;
 import mate.academy.springboot.datajpa.service.ProductService;
@@ -67,10 +66,7 @@ public class ProductController {
 
     @GetMapping("/categories")
     public List<ProductResponseDto> getAllByCategories(@RequestParam List<Long> ids) {
-        List<Category> categories = ids.stream()
-                .map(categoryService::getById)
-                .toList();
-        return productService.getAllByCategories(categories).stream()
+        return productService.getAllByCategories(ids).stream()
                 .map(productMapper::mapToDto)
                 .toList();
     }
