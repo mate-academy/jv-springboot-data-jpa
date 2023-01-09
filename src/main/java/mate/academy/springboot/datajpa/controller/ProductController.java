@@ -3,7 +3,6 @@ package mate.academy.springboot.datajpa.controller;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 import mate.academy.springboot.datajpa.dto.ProductRequestDto;
 import mate.academy.springboot.datajpa.dto.ProductResponseDto;
 import mate.academy.springboot.datajpa.dto.mapper.ProductMapper;
@@ -46,7 +45,7 @@ public class ProductController {
                 .findAll()
                 .stream()
                 .map(productMapper::toResponseDto)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @GetMapping("/{id}")
@@ -80,7 +79,7 @@ public class ProductController {
                 .findAllByPriceBetween(from, to)
                 .stream()
                 .map(productMapper::toResponseDto)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @GetMapping("/by-category")
@@ -90,6 +89,6 @@ public class ProductController {
                 .findAllBy(categories)
                 .stream()
                 .map(productMapper::toResponseDto)
-                .collect(Collectors.toList());
+                .toList();
     }
 }
