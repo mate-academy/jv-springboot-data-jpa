@@ -21,7 +21,7 @@ public class ProductMapper implements RequestDtoMapper<ProductRequestDto, Produc
         Product product = new Product();
         product.setPrice(dto.getPrice());
         product.setTitle(dto.getTitle());
-        Category category = categoryService.getReferenceById(dto.getCategoryId());
+        Category category = categoryService.getById(dto.getCategoryId());
         product.setCategory(category);
         return product;
     }

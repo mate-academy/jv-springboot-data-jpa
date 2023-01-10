@@ -1,6 +1,5 @@
 package mate.academy.springboot.datajpa.service.impl;
 
-import jakarta.persistence.EntityNotFoundException;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
@@ -30,8 +29,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product getById(Long id) {
-        return productRepository.findById(id).orElseThrow(
-                () -> new EntityNotFoundException("Can't get product by id: " + id));
+        return productRepository.getReferenceById(id);
     }
 
     @Override

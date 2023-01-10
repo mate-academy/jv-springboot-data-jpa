@@ -19,7 +19,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Category getReferenceById(Long id) {
+    public Category getById(Long id) {
         return categoryRepository.getReferenceById(id);
     }
 
