@@ -1,4 +1,4 @@
-package mate.academy.springboot.datajpa.dto.controller;
+package mate.academy.springboot.datajpa.controller;
 
 import mate.academy.springboot.datajpa.dto.mapper.CategoryMapper;
 import mate.academy.springboot.datajpa.dto.request.CategoryRequestDto;

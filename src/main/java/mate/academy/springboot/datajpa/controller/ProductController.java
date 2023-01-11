@@ -1,4 +1,4 @@
-package mate.academy.springboot.datajpa.dto.controller;
+package mate.academy.springboot.datajpa.controller;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -29,7 +29,6 @@ public class ProductController {
 
     @PostMapping
     public ProductResponseDto create(@RequestBody ProductRequestDto requestDto) {
-
         return productMapper.mapToDto(productService.add(productMapper.mapToModel(requestDto)));
     }
 
