@@ -29,7 +29,7 @@ public class ProductController {
         this.productMapper = productMapper;
     }
 
-    @PostMapping("/add")
+    @PostMapping
     public ProductResponseDto create(@RequestBody ProductRequestDto productRequestDto) {
         return productMapper
                 .toResponseDto(productService
@@ -37,9 +37,7 @@ public class ProductController {
                                 .toModel(productRequestDto)));
     }
 
-    //@GetMapping("/{id]")
-
-    @GetMapping("")
+    @GetMapping
     public List<ProductResponseDto> getAll() {
         return productService
                 .findAll()

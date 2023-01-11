@@ -26,7 +26,7 @@ public class CategoryController {
         this.categoryMapper = categoryMapper;
     }
 
-    @PostMapping("/add")
+    @PostMapping
     public CategoryResponseDto add(@RequestBody CategoryRequestDto categoryRequestDto) {
         return categoryMapper
                 .toResponseDto(categoryService
