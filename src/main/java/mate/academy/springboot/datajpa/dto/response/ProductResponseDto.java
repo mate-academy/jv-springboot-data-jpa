@@ -1,10 +1,12 @@
 package mate.academy.springboot.datajpa.dto.response;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 public class ProductResponseDto {
-    private long id;
+    private Long id;
     private String title;
     private float price;
     private Long categoryId;
