@@ -1,13 +1,10 @@
 package mate.academy.springboot.datajpa.dto;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Setter
+@Getter
 public class CategoryRequestDto {
     private String name;
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getName() {
-        return name;
-    }
 }
