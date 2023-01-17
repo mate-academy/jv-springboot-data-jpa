@@ -17,7 +17,7 @@ public class ProductCategorySpecification implements SpecificationProvider<Produ
     @Override
     public Specification<Product> getSpecification(String[] categories) {
         return ((root, query, criteriaBuilder) -> {
-            Join<Product, Category> join = root.join("category", JoinType.INNER);
+            Join<Product, Category> join = root.join(FIELD_NAME, JoinType.INNER);
             CriteriaBuilder.In<String> predicate = criteriaBuilder.in(join.get(FIELD_NAME));
             for (String value : categories) {
                 predicate.value(value);

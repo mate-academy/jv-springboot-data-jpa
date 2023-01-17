@@ -1,5 +1,6 @@
 package mate.academy.springboot.datajpa.controller;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -33,7 +34,6 @@ public class ProductController {
     @PostMapping
     public ProductResponseDto saveProduct(@RequestBody
                                               ProductRequestDto productRequestDto) {
-
         Product product = productService.save(productMapper.toModel(productRequestDto));
         return productMapper.toDto(product);
     }
@@ -53,14 +53,13 @@ public class ProductController {
     }
 
     @DeleteMapping("/{id}")
-    public String deleteProduct(@PathVariable Long id) {
+    public void deleteProduct(@PathVariable Long id) {
         productService.delete(id);
-        return String.format("Product with id={%s} was successfully deleted", id);
     }
 
     @GetMapping("/by-price")
-    public List<ProductResponseDto> getProductsByPriceFiltering(@RequestParam Double from,
-                                      @RequestParam Double to) {
+    public List<ProductResponseDto> getProductsByPriceFiltering(@RequestParam BigDecimal from,
+                                      @RequestParam BigDecimal to) {
         return productService.getByPriceBetween(from, to)
                 .stream()
                 .map(productMapper::toDto)
@@ -74,5 +73,4 @@ public class ProductController {
                 .map(productMapper::toDto)
                 .collect(Collectors.toList());
     }
-
 }

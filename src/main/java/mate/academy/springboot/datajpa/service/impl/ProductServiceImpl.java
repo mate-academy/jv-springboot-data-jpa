@@ -1,12 +1,12 @@
 package mate.academy.springboot.datajpa.service.impl;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.repository.ProductRepository;
 import mate.academy.springboot.datajpa.repository.specification.ProductSpecificationManager;
 import mate.academy.springboot.datajpa.service.ProductService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +15,6 @@ public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
     private final ProductSpecificationManager productSpecificationManager;
 
-    @Autowired
     public ProductServiceImpl(ProductRepository productRepository,
                               ProductSpecificationManager productSpecificationManager) {
         this.productRepository = productRepository;
@@ -43,7 +42,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> getByPriceBetween(double from, double to) {
+    public List<Product> getByPriceBetween(BigDecimal from, BigDecimal to) {
         return productRepository.findAllByPriceBetween(from, to);
     }
 
