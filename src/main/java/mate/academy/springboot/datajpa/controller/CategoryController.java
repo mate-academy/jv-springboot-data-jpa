@@ -17,9 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/categories")
 public class CategoryController {
-
     private final CategoryService categoryService;
-
     private final CategoryMapper categoryMapper;
 
     public CategoryController(CategoryService categoryService, CategoryMapper categoryMapper) {
@@ -34,17 +32,17 @@ public class CategoryController {
     }
 
     @GetMapping("/{id}")
-    public CategoryResponseDto getById(@PathVariable Integer id) {
+    public CategoryResponseDto getById(@PathVariable Long id) {
         return categoryMapper.toResponseDto(categoryService.getById(id));
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Integer id) {
+    public void delete(@PathVariable Long id) {
         categoryService.deleteById(id);
     }
 
     @PutMapping("/{id}")
-    public CategoryResponseDto update(@PathVariable Integer id,
+    public CategoryResponseDto update(@PathVariable Long id,
                                       @RequestBody CategoryRequestDto categoryRequestDto) {
         Category category = categoryMapper.toModel(categoryRequestDto);
         category.setId(id);

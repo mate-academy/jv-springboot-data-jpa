@@ -19,12 +19,12 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public void deleteById(Integer id) {
+    public void deleteById(Long id) {
         categoryRepository.deleteById(id);
     }
 
     @Override
-    public Category getById(Integer id) {
+    public Category getById(Long id) {
         return categoryRepository.getById(id);
     }
 

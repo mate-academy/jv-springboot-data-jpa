@@ -1,19 +1,23 @@
 package mate.academy.springboot.datajpa.service;
 
 import java.math.BigDecimal;
-import java.util.Collection;
 import java.util.List;
-import mate.academy.springboot.datajpa.model.Category;
+import java.util.Map;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.repository.ProductRepository;
+import mate.academy.springboot.datajpa.repository.specification.ProductSpecificationManager;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
+    private final ProductSpecificationManager productSpecificationManager;
 
-    public ProductServiceImpl(ProductRepository productRepository) {
+    public ProductServiceImpl(ProductRepository productRepository,
+                              ProductSpecificationManager productSpecificationManager) {
         this.productRepository = productRepository;
+        this.productSpecificationManager = productSpecificationManager;
     }
 
     @Override
@@ -27,11 +31,6 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> findAll() {
-        return productRepository.findAll();
-    }
-
-    @Override
     public Product getById(Long id) {
         return productRepository.getById(id);
     }
@@ -42,7 +41,19 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> findAllByCategoryIn(Collection<Category> categories) {
-        return productRepository.findAllByCategoryIn(categories);
+    public List<Product> findAll() {
+        return productRepository.findAll();
+    }
+
+    @Override
+    public List<Product> findAll(Map<String, String> params) {
+        Specification<Product> specification = null;
+        for (Map.Entry<String, String> entry: params.entrySet()) {
+            Specification<Product> sp = productSpecificationManager.get(entry.getKey(),
+                    entry.getValue().split(","));
+            specification = specification == null
+                    ? Specification.where(sp) : specification.and(sp);
+        }
+        return productRepository.findAll(specification);
     }
 }
