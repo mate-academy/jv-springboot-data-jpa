@@ -1,13 +1,13 @@
 package mate.academy.springboot.datajpa.repository;
 
-import java.util.List;
-import java.util.Map;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
+import java.util.List;
+import java.util.Map;
 import mate.academy.springboot.datajpa.model.Product;
 import org.springframework.stereotype.Repository;
 

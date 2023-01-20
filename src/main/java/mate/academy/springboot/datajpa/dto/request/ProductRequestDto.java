@@ -1,8 +1,8 @@
 package mate.academy.springboot.datajpa.dto.request;
 
-import java.math.BigDecimal;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import java.math.BigDecimal;
 import lombok.Data;
 
 @Data
