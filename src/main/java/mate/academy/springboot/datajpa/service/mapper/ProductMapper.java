@@ -7,8 +7,7 @@ import mate.academy.springboot.datajpa.service.CategoryService;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ProductMapper implements RequestDtoMapper<ProductRequestDto, Product>,
-        ResponseDtoMapper<ProductResponseDto, Product> {
+public class ProductMapper implements DtoMapper<ProductRequestDto, ProductResponseDto, Product> {
     private final CategoryService categoryService;
 
     public ProductMapper(CategoryService categoryService) {

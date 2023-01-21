@@ -7,8 +7,7 @@ import mate.academy.springboot.datajpa.dto.request.ProductRequestDto;
 import mate.academy.springboot.datajpa.dto.response.ProductResponseDto;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.service.ProductService;
-import mate.academy.springboot.datajpa.service.mapper.RequestDtoMapper;
-import mate.academy.springboot.datajpa.service.mapper.ResponseDtoMapper;
+import mate.academy.springboot.datajpa.service.mapper.DtoMapper;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,29 +22,25 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/products")
 public class ProductController {
     private final ProductService productService;
-    private final RequestDtoMapper<ProductRequestDto, Product> productRequestDtoMapper;
-    private final ResponseDtoMapper<ProductResponseDto, Product> productResponseDtoMapper;
+    private final DtoMapper<ProductRequestDto, ProductResponseDto, Product> productDtoMapper;
 
     public ProductController(ProductService productService,
-                             RequestDtoMapper<ProductRequestDto,
-                                     Product> productRequestDtoMapper,
-                             ResponseDtoMapper<ProductResponseDto,
-                                     Product> productResponseDtoMapper) {
+                             DtoMapper<ProductRequestDto, ProductResponseDto,
+                                     Product> productDtoMapper) {
         this.productService = productService;
-        this.productRequestDtoMapper = productRequestDtoMapper;
-        this.productResponseDtoMapper = productResponseDtoMapper;
+        this.productDtoMapper = productDtoMapper;
     }
 
     @PostMapping
     public ProductResponseDto add(@RequestBody ProductRequestDto productRequestDto) {
         Product product =
-                productService.add(productRequestDtoMapper.mapToModel(productRequestDto));
-        return productResponseDtoMapper.mapToDto(product);
+                productService.add(productDtoMapper.mapToModel(productRequestDto));
+        return productDtoMapper.mapToDto(product);
     }
 
     @GetMapping("/{id}")
     public ProductResponseDto get(@PathVariable Long id) {
-        return productResponseDtoMapper.mapToDto(productService.get(id));
+        return productDtoMapper.mapToDto(productService.get(id));
     }
 
     @DeleteMapping("/{id}")
@@ -56,23 +51,23 @@ public class ProductController {
     @PutMapping("/{id}")
     public ProductResponseDto update(@PathVariable Long id,
                                      @RequestBody ProductRequestDto productRequestDto) {
-        Product product = productRequestDtoMapper.mapToModel(productRequestDto);
+        Product product = productDtoMapper.mapToModel(productRequestDto);
         product.setId(id);
-        return productResponseDtoMapper.mapToDto(productService.update(product));
+        return productDtoMapper.mapToDto(productService.update(product));
     }
 
     @GetMapping("/price")
     public List<ProductResponseDto> getAllByPrice(@RequestParam BigDecimal from,
                                                   @RequestParam BigDecimal to) {
         return productService.findAllByPriceBetween(from, to).stream()
-                .map(productResponseDtoMapper::mapToDto)
+                .map(productDtoMapper::mapToDto)
                 .toList();
     }
 
     @GetMapping
     public List<ProductResponseDto> getAll(@RequestParam Map<String, String> params) {
         return productService.getAll(params).stream()
-                .map(productResponseDtoMapper::mapToDto)
+                .map(productDtoMapper::mapToDto)
                 .toList();
     }
 }

@@ -4,8 +4,7 @@ import mate.academy.springboot.datajpa.dto.request.CategoryRequestDto;
 import mate.academy.springboot.datajpa.dto.response.CategoryResponseDto;
 import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.service.CategoryService;
-import mate.academy.springboot.datajpa.service.mapper.RequestDtoMapper;
-import mate.academy.springboot.datajpa.service.mapper.ResponseDtoMapper;
+import mate.academy.springboot.datajpa.service.mapper.DtoMapper;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,29 +18,25 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/categories")
 public class CategoryController {
     private final CategoryService categoryService;
-    private final RequestDtoMapper<CategoryRequestDto, Category> categoryRequestDtoMapper;
-    private final ResponseDtoMapper<CategoryResponseDto, Category> categoryResponseDtoMapper;
+    private final DtoMapper<CategoryRequestDto, CategoryResponseDto, Category> categoryDtoMapper;
 
     public CategoryController(CategoryService categoryService,
-                              RequestDtoMapper<CategoryRequestDto,
-                                      Category> categoryRequestDtoMapper,
-                              ResponseDtoMapper<CategoryResponseDto,
-                                      Category> categoryResponseDtoMapper) {
+                              DtoMapper<CategoryRequestDto, CategoryResponseDto,
+                                      Category> categoryDtoMapper) {
         this.categoryService = categoryService;
-        this.categoryRequestDtoMapper = categoryRequestDtoMapper;
-        this.categoryResponseDtoMapper = categoryResponseDtoMapper;
+        this.categoryDtoMapper = categoryDtoMapper;
     }
 
     @PostMapping
     public CategoryResponseDto add(@RequestBody CategoryRequestDto categoryRequestDto) {
         Category category =
-                categoryService.add(categoryRequestDtoMapper.mapToModel(categoryRequestDto));
-        return categoryResponseDtoMapper.mapToDto(category);
+                categoryService.add(categoryDtoMapper.mapToModel(categoryRequestDto));
+        return categoryDtoMapper.mapToDto(category);
     }
 
     @GetMapping("/{id}")
     public CategoryResponseDto get(@PathVariable Long id) {
-        return categoryResponseDtoMapper.mapToDto(categoryService.get(id));
+        return categoryDtoMapper.mapToDto(categoryService.get(id));
     }
 
     @DeleteMapping("/{id}")
@@ -52,8 +47,8 @@ public class CategoryController {
     @PutMapping("/{id}")
     public CategoryResponseDto update(@PathVariable Long id,
                                       @RequestBody CategoryRequestDto categoryRequestDto) {
-        Category category = categoryRequestDtoMapper.mapToModel(categoryRequestDto);
+        Category category = categoryDtoMapper.mapToModel(categoryRequestDto);
         category.setId(id);
-        return categoryResponseDtoMapper.mapToDto(categoryService.update(category));
+        return categoryDtoMapper.mapToDto(categoryService.update(category));
     }
 }
