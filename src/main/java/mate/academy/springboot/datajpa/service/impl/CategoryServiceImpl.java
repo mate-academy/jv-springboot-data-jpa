@@ -21,7 +21,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category findById(Long id) {
-        return categoryRepository.findById(id).orElseThrow(NoSuchElementException::new);
+        return categoryRepository.findById(id).orElseThrow();
     }
 
     @Override
