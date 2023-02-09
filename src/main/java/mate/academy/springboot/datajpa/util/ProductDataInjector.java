@@ -1,8 +1,8 @@
 package mate.academy.springboot.datajpa.util;
 
+import jakarta.annotation.PostConstruct;
 import java.math.BigDecimal;
 import java.util.Random;
-import jakarta.annotation.PostConstruct;
 import lombok.AllArgsConstructor;
 import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.model.Product;
