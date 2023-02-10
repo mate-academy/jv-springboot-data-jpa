@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 @Service
 @AllArgsConstructor
 public class ProductServiceImpl implements ProductService {
+    private static final String VALUE_SEPARATOR = ",";
     private final ProductRepository productRepository;
     private final SpecificationManager<Product> productSpecificationManager;
 
@@ -45,7 +46,7 @@ public class ProductServiceImpl implements ProductService {
         Specification<Product> specification = null;
         for (Map.Entry<String, String> entry : params.entrySet()) {
             Specification<Product> sp = productSpecificationManager.get(entry.getKey(),
-                    entry.getValue().split(","));
+                    entry.getValue().split(VALUE_SEPARATOR));
             specification = specification == null
                     ? Specification.where(sp)
                     : specification.and(sp);

@@ -13,7 +13,8 @@ import org.springframework.stereotype.Component;
 @Component
 @AllArgsConstructor
 public class ProductDataInjector {
-    private static final int count = 150;
+    private static final int COUNT = 150;
+    private static final Long MAX_PRICE = 500L;
     private static final String[] categories = {
             "Grocery",
             "Alcohol",
@@ -33,10 +34,10 @@ public class ProductDataInjector {
             categoryService.save(Category.builder()
                     .name(category).build());
         }
-        for (int i = 1; i <= count; i++) {
+        for (int i = 1; i <= COUNT; i++) {
             productService.save(Product.builder()
                     .title("Product#" + i)
-                    .price(BigDecimal.valueOf(new Random().nextLong(500L) + 1L))
+                    .price(BigDecimal.valueOf(new Random().nextLong(MAX_PRICE) + 1L))
                     .category(categoryService.findById(new Random()
                             .nextLong(categories.length) + 1L))
                     .build());
