@@ -41,18 +41,18 @@ public class ProductController {
         return responseMapper.toDto(product);
     }
 
-    @GetMapping(value = "/{id}")
+    @GetMapping("/{id}")
     public ProductResponseDto get(@PathVariable Long id) {
         Product product = productService.get(id);
         return responseMapper.toDto(product);
     }
 
-    @DeleteMapping(value = "/{id}")
+    @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
         productService.delete(id);
     }
 
-    @PutMapping(value = "/{id}")
+    @PutMapping("/{id}")
     public ProductResponseDto update(@RequestBody ProductRequestDto requestDto,
                                       @PathVariable Long id) {
         Product product = requestMapper.toModel(requestDto);
@@ -60,7 +60,7 @@ public class ProductController {
         return responseMapper.toDto(productService.update(product));
     }
 
-    @GetMapping(value = "/price")
+    @GetMapping("/price")
     public List<ProductResponseDto> getAllByPriceBetween(@RequestParam BigDecimal from,
                                            @RequestParam BigDecimal to) {
         return productService.getAllByPriceBetween(from, to).stream()
