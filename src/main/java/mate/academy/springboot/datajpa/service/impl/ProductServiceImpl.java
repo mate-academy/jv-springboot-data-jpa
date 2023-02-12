@@ -2,23 +2,17 @@ package mate.academy.springboot.datajpa.service.impl;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Map;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.repository.ProductRepository;
-import mate.academy.springboot.datajpa.repository.specification.SpecificationManager;
 import mate.academy.springboot.datajpa.service.ProductService;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
-    private final SpecificationManager<Product> specificationManager;
 
-    public ProductServiceImpl(ProductRepository productRepository,
-                              SpecificationManager<Product> specificationManager) {
+    public ProductServiceImpl(ProductRepository productRepository) {
         this.productRepository = productRepository;
-        this.specificationManager = specificationManager;
     }
 
     @Override
@@ -44,18 +38,12 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> getAllByPriceBetween(BigDecimal from, BigDecimal to) {
+    public List<Product> findAllByPriceBetween(BigDecimal from, BigDecimal to) {
         return productRepository.findAllByPriceBetween(from, to);
     }
 
     @Override
-    public List<Product> getAllByCategories(Map<String, String> params) {
-        Specification<Product> specification = null;
-        for (Map.Entry<String, String> entry : params.entrySet()) {
-            Specification<Product> sp = specificationManager.get(entry.getKey(),
-                    entry.getValue().split(","));
-            specification = specification == null ? Specification.where(sp) : specification.and(sp);
-        }
-        return productRepository.findAll(specification);
+    public List<Product> findAllByCategoryNameIn(List<String> categories) {
+        return productRepository.findAllByCategoryNameIn(categories);
     }
 }
