@@ -5,13 +5,11 @@ import java.util.List;
 import mate.academy.springboot.datajpa.model.Product;
 
 public interface ProductService {
-    Product add(Product category);
+    Product save(Product category);
 
     Product get(Long id);
 
     void delete(Long id);
-
-    Product update(Product category);
 
     List<Product> findAllByPriceBetween(BigDecimal from, BigDecimal to);
 

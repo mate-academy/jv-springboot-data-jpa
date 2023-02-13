@@ -14,7 +14,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Category add(Category category) {
+    public Category save(Category category) {
         return categoryRepository.save(category);
     }
 
@@ -28,10 +28,5 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public void delete(Long id) {
         categoryRepository.deleteById(id);
-    }
-
-    @Override
-    public Category update(Category category) {
-        return categoryRepository.save(category);
     }
 }

@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/product")
+@RequestMapping("/products")
 public class ProductController {
     private final ProductService productService;
     private final RequestDtoMapper<ProductRequestDto, Product> requestMapper;
@@ -36,7 +36,7 @@ public class ProductController {
 
     @PostMapping
     public ProductResponseDto add(@RequestBody ProductRequestDto requestDto) {
-        Product product = productService.add(requestMapper.toModel(requestDto));
+        Product product = productService.save(requestMapper.toModel(requestDto));
         return responseMapper.toDto(product);
     }
 
@@ -56,7 +56,7 @@ public class ProductController {
                                       @PathVariable Long id) {
         Product product = requestMapper.toModel(requestDto);
         product.setId(id);
-        return responseMapper.toDto(productService.update(product));
+        return responseMapper.toDto(productService.save(product));
     }
 
     @GetMapping("/by-price")
@@ -68,8 +68,8 @@ public class ProductController {
     }
 
     @GetMapping("/by-category")
-    public List<ProductResponseDto> getAllByCategoryIn(@RequestParam List<String> name) {
-        return productService.findAllByCategoryNameIn(name).stream()
+    public List<ProductResponseDto> getAllByCategoryIn(@RequestParam List<String> categories) {
+        return productService.findAllByCategoryNameIn(categories).stream()
                 .map(responseMapper::toDto)
                 .collect(Collectors.toList());
     }

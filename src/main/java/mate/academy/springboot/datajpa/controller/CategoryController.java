@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/category")
+@RequestMapping("/categories")
 public class CategoryController {
     private final CategoryService categoryService;
     private final RequestDtoMapper<CategoryRequestDto, Category> requestMapper;
@@ -32,7 +32,7 @@ public class CategoryController {
 
     @PostMapping
     public CategoryResponseDto add(@RequestBody CategoryRequestDto requestDto) {
-        Category category = categoryService.add(requestMapper.toModel(requestDto));
+        Category category = categoryService.save(requestMapper.toModel(requestDto));
         return responseMapper.toDto(category);
     }
 
@@ -52,6 +52,6 @@ public class CategoryController {
                                       @PathVariable Long id) {
         Category category = requestMapper.toModel(requestDto);
         category.setId(id);
-        return responseMapper.toDto(categoryService.update(category));
+        return responseMapper.toDto(categoryService.save(category));
     }
 }

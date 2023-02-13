@@ -16,7 +16,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product add(Product category) {
+    public Product save(Product category) {
         return productRepository.save(category);
     }
 
@@ -30,11 +30,6 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void delete(Long id) {
         productRepository.deleteById(id);
-    }
-
-    @Override
-    public Product update(Product category) {
-        return productRepository.save(category);
     }
 
     @Override
