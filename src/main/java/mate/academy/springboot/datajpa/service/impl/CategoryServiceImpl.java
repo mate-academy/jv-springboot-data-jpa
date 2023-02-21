@@ -1,9 +1,9 @@
-package mate.academy.springboot.datajpa.service;
+package mate.academy.springboot.datajpa.service.impl;
 
 import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.repository.CategoryRepository;
+import mate.academy.springboot.datajpa.service.CategoryService;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
@@ -14,19 +14,14 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Category add(Category category) {
+    public Category save(Category category) {
         return categoryRepository.save(category);
     }
 
-    @Transactional
     @Override
-    public void update(Category category) {
-        categoryRepository.updateCategory(category.getId(), category.getName());
-    }
-
-    @Override
-    public Category get(Long id) {
-        return categoryRepository.getReferenceById(id);
+    public Category getById(Long id) {
+        return categoryRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Didn't find category with id " + id));
     }
 
     @Override

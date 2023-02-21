@@ -1,4 +1,4 @@
-package mate.academy.springboot.datajpa.service;
+package mate.academy.springboot.datajpa.service.impl;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -6,9 +6,9 @@ import java.util.Map;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.repository.ProductRepository;
 import mate.academy.springboot.datajpa.repository.specification.SpecificationManager;
+import mate.academy.springboot.datajpa.service.ProductService;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -22,20 +22,14 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product add(Product product) {
+    public Product save(Product product) {
         return repository.save(product);
     }
 
-    @Transactional
     @Override
-    public void update(Product product) {
-        repository.updateProduct(product.getId(), product.getTitle(),
-                product.getPrice(), product.getCategory().getId());
-    }
-
-    @Override
-    public Product get(Long id) {
-        return repository.getReferenceById(id);
+    public Product getById(Long id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Didn't find product with id " + id));
     }
 
     @Override

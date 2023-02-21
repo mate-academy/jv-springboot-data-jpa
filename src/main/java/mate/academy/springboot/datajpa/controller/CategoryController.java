@@ -1,10 +1,10 @@
 package mate.academy.springboot.datajpa.controller;
 
-import mate.academy.springboot.datajpa.dto.CategoryRequestDto;
-import mate.academy.springboot.datajpa.dto.CategoryResponseDto;
 import mate.academy.springboot.datajpa.dto.mapper.CategoryMapper;
+import mate.academy.springboot.datajpa.dto.request.CategoryRequestDto;
+import mate.academy.springboot.datajpa.dto.response.CategoryResponseDto;
 import mate.academy.springboot.datajpa.model.Category;
-import mate.academy.springboot.datajpa.service.CategoryServiceImpl;
+import mate.academy.springboot.datajpa.service.impl.CategoryServiceImpl;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,21 +26,22 @@ public class CategoryController {
     }
 
     @PostMapping
-    public CategoryResponseDto create(@RequestBody CategoryRequestDto categoryDto) {
-        Category category = categoryService.add(categoryMapper.toModel(categoryDto));
+    public CategoryResponseDto save(@RequestBody CategoryRequestDto categoryDto) {
+        Category category = categoryService.save(categoryMapper.toModel(categoryDto));
         return categoryMapper.toResponseDto(category);
     }
 
     @PutMapping("/{id}")
-    public void update(@PathVariable Long id, @RequestBody CategoryRequestDto categoryDto) {
-        Category category = categoryMapper.toModel(categoryDto);
-        category.setId(id);
-        categoryService.update(category);
+    public CategoryResponseDto update(@PathVariable Long id,
+                                      @RequestBody CategoryRequestDto categoryDto) {
+        Category category = categoryService.getById(id);
+        category.setName(categoryDto.getName());
+        return categoryMapper.toResponseDto(categoryService.save(category));
     }
 
     @GetMapping("/{id}")
     public CategoryResponseDto getById(@PathVariable Long id) {
-        return categoryMapper.toResponseDto(categoryService.get(id));
+        return categoryMapper.toResponseDto(categoryService.getById(id));
     }
 
     @DeleteMapping("/{id}")

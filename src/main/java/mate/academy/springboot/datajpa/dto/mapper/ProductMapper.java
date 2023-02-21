@@ -1,7 +1,7 @@
 package mate.academy.springboot.datajpa.dto.mapper;
 
-import mate.academy.springboot.datajpa.dto.ProductRequestDto;
-import mate.academy.springboot.datajpa.dto.ProductResponseDto;
+import mate.academy.springboot.datajpa.dto.request.ProductRequestDto;
+import mate.academy.springboot.datajpa.dto.response.ProductResponseDto;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.service.CategoryService;
 import org.springframework.stereotype.Component;
@@ -27,7 +27,7 @@ public class ProductMapper {
         Product product = new Product();
         product.setPrice(requestDto.getPrice());
         product.setTitle(requestDto.getTitle());
-        product.setCategory(categoryService.get(requestDto.getCategoryId()));
+        product.setCategory(categoryService.getById(requestDto.getCategoryId()));
         return product;
     }
 }

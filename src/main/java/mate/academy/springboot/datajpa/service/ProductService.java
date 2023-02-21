@@ -6,11 +6,9 @@ import java.util.Map;
 import mate.academy.springboot.datajpa.model.Product;
 
 public interface ProductService {
-    Product add(Product product);
+    Product save(Product product);
 
-    void update(Product product);
-
-    Product get(Long id);
+    Product getById(Long id);
 
     void remove(Long id);
 
