@@ -1,24 +1,19 @@
 package mate.academy.springboot.datajpa.model.mapper;
 
 import mate.academy.springboot.datajpa.model.Product;
-import mate.academy.springboot.datajpa.model.dto.ProductRequestDto;
 import mate.academy.springboot.datajpa.model.dto.ProductResponseDto;
 import org.springframework.stereotype.Component;
 
 @Component
 public class ProductMapper {
-    public ProductRequestDto fromModelToRequestDto(Product product) {
-        return new ProductRequestDto(product.getTitle(), product.getPrice(), product.getCategory());
-    }
-
-    public ProductResponseDto fromModelToResponseDto(Product product) {
+    public ProductResponseDto toDto(Product product) {
         return new ProductResponseDto(product.getId(),
                                           product.getTitle(),
                                           product.getPrice(),
                                           product.getCategory());
     }
 
-    public Product fromResponseDtoToModel(ProductResponseDto productResponseDto) {
+    public Product ToModel(ProductResponseDto productResponseDto) {
         Product product = new Product();
         product.setId(productResponseDto.getId());
         product.setTitle(productResponseDto.getTitle());
