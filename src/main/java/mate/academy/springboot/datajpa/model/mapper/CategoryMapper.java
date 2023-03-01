@@ -11,7 +11,7 @@ public class CategoryMapper {
         return new CategoryRequestDto(category.getName());
     }
 
-    public CategoryResponseDto fromModelToResponseDto(Category category) {
+    public CategoryResponseDto ToDto(Category category) {
         return new CategoryResponseDto(category.getId(), category.getName());
     }
 
