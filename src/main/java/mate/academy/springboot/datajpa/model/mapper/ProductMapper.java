@@ -13,7 +13,7 @@ public class ProductMapper {
                                           product.getCategory());
     }
 
-    public Product ToModel(ProductResponseDto productResponseDto) {
+    public Product toModel(ProductResponseDto productResponseDto) {
         Product product = new Product();
         product.setId(productResponseDto.getId());
         product.setTitle(productResponseDto.getTitle());
