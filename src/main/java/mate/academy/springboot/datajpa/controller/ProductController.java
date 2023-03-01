@@ -1,6 +1,9 @@
 package mate.academy.springboot.datajpa.controller;
 
 import jakarta.websocket.server.PathParam;
+import java.math.BigDecimal;
+import java.util.List;
+import java.util.Optional;
 import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.service.ProductService;
@@ -11,10 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.math.BigDecimal;
-import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/product")
@@ -50,7 +49,6 @@ public class ProductController {
     public void deleteById(@PathVariable Long id) {
         productService.deleteById(id);
     }
-
 
     @GetMapping("/price")
     public List<Product> getByPriceBetween(@PathParam("price")BigDecimal from,
