@@ -52,7 +52,7 @@ public class ProductController {
     }
 
     @GetMapping("/price")
-    public List<Product> getByPriceBetween(@PathParam("price")BigDecimal from,
+    public List<Product> getByPriceBetween(@PathParam("price") BigDecimal from,
                                            @PathParam("price") BigDecimal to) {
         return productService.getAllBetweenPrice(from, to);
     }

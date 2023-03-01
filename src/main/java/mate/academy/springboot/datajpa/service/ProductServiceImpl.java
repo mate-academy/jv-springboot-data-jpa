@@ -27,6 +27,18 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public void update(Product product) {
+        Optional<Product> productOptional = productRepository.findById(product.getId());
+        if (productOptional.isPresent()) {
+            Product productNew = productOptional.get();
+            productNew.setTitle(product.getTitle());
+            productNew.setPrice(product.getPrice());
+            productNew.setCategory(product.getCategory());
+            productRepository.save(productNew);
+        }
+    }
+
+    @Override
     public List<Product> getAll() {
         return productRepository
                 .findAll(org.springframework.data.domain.Sort.by("id"));
@@ -40,14 +52,6 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void deleteById(Long id) {
         productRepository.deleteById(id);
-    }
-
-    @Override
-    public void update(Product product) {
-        productRepository.update(product.getId(),
-                                     product.getTitle(),
-                                     product.getPrice(),
-                                     product.getCategory());
     }
 
     @Override
