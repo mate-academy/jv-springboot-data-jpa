@@ -23,16 +23,13 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category get(Long id) {
-        return categoryRepository.getReferenceById(id);
+        return categoryRepository.findById(id).orElseThrow(
+                () -> new RuntimeException("Couldn't get category by id: " + id)
+        );
     }
 
     @Override
     public void delete(Long id) {
         categoryRepository.deleteById(id);
-    }
-
-    @Override
-    public Category update(Category category) {
-        return categoryRepository.save(category);
     }
 }

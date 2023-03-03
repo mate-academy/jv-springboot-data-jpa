@@ -3,8 +3,6 @@ package mate.academy.springboot.datajpa.service.impl;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
-
-import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.repository.ProductRepository;
 import mate.academy.springboot.datajpa.repository.specification.SpecificationManager;
@@ -33,17 +31,14 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product get(Long id) {
-        return productRepository.getReferenceById(id);
+        return productRepository.findById(id).orElseThrow(
+                () -> new RuntimeException("Couldn't get product by id: " + id)
+        );
     }
 
     @Override
-    public Product update(Product product) {
-        return productRepository.save(product);
-    }
-
-    @Override
-    public List<Product> findAllByCategory(Category category) {
-        return productRepository.findAllByCategory(category);
+    public void delete(Long id) {
+        productRepository.delete(productRepository.getReferenceById(id));
     }
 
     @Override
@@ -59,10 +54,5 @@ public class ProductServiceImpl implements ProductService {
             specification = specification == null ? Specification.where(sp) : specification.and(sp);
         }
         return productRepository.findAll((Sort) specification);
-    }
-
-    @Override
-    public List<Product> findAll() {
-        return productRepository.findAll();
     }
 }
