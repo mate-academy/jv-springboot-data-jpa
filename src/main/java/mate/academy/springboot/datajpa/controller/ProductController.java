@@ -60,7 +60,7 @@ public class ProductController {
         return productMapper.toResponseDto(productService.save(product));
     }
 
-    @GetMapping( "/category")
+    @GetMapping("/category")
     public List<ProductResponseDto> getAllByCategory(@RequestParam Map<String, String> category) {
         return productService.findAllByParams(category)
                 .stream()
