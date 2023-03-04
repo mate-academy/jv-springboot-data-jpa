@@ -2,15 +2,12 @@ package mate.academy.springboot.datajpa.controller;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 import mate.academy.springboot.datajpa.dto.ProductRequestDto;
 import mate.academy.springboot.datajpa.dto.ProductResponseDto;
 import mate.academy.springboot.datajpa.dto.mapper.ProductMapper;
 import mate.academy.springboot.datajpa.model.Product;
-import mate.academy.springboot.datajpa.service.CategoryService;
 import mate.academy.springboot.datajpa.service.ProductService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,7 +25,6 @@ public class ProductController {
     private final ProductMapper productMapper;
 
     public ProductController(ProductService productService,
-                             CategoryService categoryService,
                              ProductMapper productMapper) {
         this.productService = productService;
         this.productMapper = productMapper;
@@ -61,7 +57,7 @@ public class ProductController {
 
     @GetMapping("/by-category")
     public List<ProductResponseDto> getAllByCategory(@RequestParam List<String> categories) {
-        return productService.findAllByParams(categories)
+        return productService.findAllByCategoryParams(categories)
                 .stream()
                 .map(productMapper::toResponseDto)
                 .collect(Collectors.toList());
