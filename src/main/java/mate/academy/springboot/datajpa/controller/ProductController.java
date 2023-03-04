@@ -27,7 +27,6 @@ public class ProductController {
     private final ProductService productService;
     private final ProductMapper productMapper;
 
-    @Autowired
     public ProductController(ProductService productService,
                              CategoryService categoryService,
                              ProductMapper productMapper) {
@@ -60,15 +59,15 @@ public class ProductController {
         return productMapper.toResponseDto(productService.save(product));
     }
 
-    @GetMapping("/category")
-    public List<ProductResponseDto> getAllByCategory(@RequestParam Map<String, String> category) {
-        return productService.findAllByParams(category)
+    @GetMapping("/by-category")
+    public List<ProductResponseDto> getAllByCategory(@RequestParam List<String> categories) {
+        return productService.findAllByParams(categories)
                 .stream()
                 .map(productMapper::toResponseDto)
                 .collect(Collectors.toList());
     }
 
-    @GetMapping("/price")
+    @GetMapping("/by-price")
     public List<ProductResponseDto> getAllByPriceBetween(@RequestParam BigDecimal from,
                                                          @RequestParam BigDecimal to) {
         return productService.findAllByPriceBetween(from, to)
