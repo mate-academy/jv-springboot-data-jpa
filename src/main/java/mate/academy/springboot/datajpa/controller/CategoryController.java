@@ -38,9 +38,8 @@ public class CategoryController {
     }
 
     @DeleteMapping("/{id}")
-    public String delete(@PathVariable Long id) {
+    public void delete(@PathVariable Long id) {
         categoryService.delete(id);
-        return String.format("Category with id %d was deleted", id);
     }
 
     @PutMapping("/{id}")
