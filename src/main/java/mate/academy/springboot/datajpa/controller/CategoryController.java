@@ -47,7 +47,7 @@ public class CategoryController {
 
     @PutMapping("/{id}")
     CategoryResponseDto update(@PathVariable Long id,
-                              @RequestBody @Valid CategoryRequestDto categoryRequestDto) {
+                               @RequestBody @Valid CategoryRequestDto categoryRequestDto) {
         Category category = categoryMapper.toModel(categoryRequestDto);
         category.setId(id);
         Category updatedCategory = categoryService.saveOrUpdate(category);
