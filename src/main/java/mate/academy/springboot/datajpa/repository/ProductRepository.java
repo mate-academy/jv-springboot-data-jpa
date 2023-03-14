@@ -1,7 +1,6 @@
 package mate.academy.springboot.datajpa.repository;
 
 import java.math.BigDecimal;
-import java.util.Collection;
 import java.util.List;
 import mate.academy.springboot.datajpa.model.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,5 +12,5 @@ public interface ProductRepository extends JpaRepository<Product, Long>,
         JpaSpecificationExecutor<Product> {
     List<Product> findAllByPriceBetween(BigDecimal from, BigDecimal to);
 
-    List<Product> findAllByCategoryNameIn(Collection<String> categories);
+    List<Product> findAllByCategoryNameIn(List<String> categories);
 }
