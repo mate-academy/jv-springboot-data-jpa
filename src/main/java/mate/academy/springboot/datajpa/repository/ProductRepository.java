@@ -12,5 +12,5 @@ public interface ProductRepository extends JpaRepository<Product, Long>,
         JpaSpecificationExecutor<Product> {
     List<Product> findAllByPriceBetween(BigDecimal from, BigDecimal to);
 
-    List<Product> findAllByCategoryNameIn(List<String> categories);
+    List<Product> findAllByCategoryNameIn(List<String> categoryNames);
 }
