@@ -25,7 +25,9 @@ public class CategoryController {
 
     @GetMapping("/{id}")
     CategoryResponseDto getById(@PathVariable Long id) {
-        Category category = categoryService.get(id);
+        Category category = categoryService.find(id)
+                .orElseThrow(()
+                        -> new RuntimeException("Can't get category by id " + id));
         return categoryMapper.toDto(category);
     }
 
@@ -37,7 +39,7 @@ public class CategoryController {
     @PostMapping
     CategoryResponseDto save(@RequestBody @Valid CategoryRequestDto categoryRequestDto) {
         Category category = categoryMapper.toModel(categoryRequestDto);
-        Category savedcategory = categoryService.saveOrUpdate(category);
+        Category savedcategory = categoryService.save(category);
         return categoryMapper.toDto(savedcategory);
     }
 
@@ -46,7 +48,7 @@ public class CategoryController {
                                @RequestBody @Valid CategoryRequestDto categoryRequestDto) {
         Category category = categoryMapper.toModel(categoryRequestDto);
         category.setId(id);
-        Category updatedCategory = categoryService.saveOrUpdate(category);
+        Category updatedCategory = categoryService.save(category);
         return categoryMapper.toDto(updatedCategory);
     }
 }

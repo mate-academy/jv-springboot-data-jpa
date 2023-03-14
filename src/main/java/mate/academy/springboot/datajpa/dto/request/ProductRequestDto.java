@@ -1,16 +1,11 @@
 package mate.academy.springboot.datajpa.dto.request;
 
 import java.math.BigDecimal;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-import lombok.Data;
+import lombok.Getter;
 
-@Data
+@Getter
 public class ProductRequestDto {
-    @NotNull
     private String title;
-    @Min(0)
     private BigDecimal price;
-    @Min(0)
     private Long categoryId;
 }

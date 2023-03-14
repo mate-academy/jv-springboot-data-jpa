@@ -23,33 +23,33 @@ public class DataController {
 
     @GetMapping
     public String inject() {
-        Category category1 = new Category();
-        category1.setName("Birds");
-        final Category birdsCategory = categoryService.saveOrUpdate(category1);
-        Category category2 = new Category();
-        category2.setName("Cats");
-        final Category catsCategory = categoryService.saveOrUpdate(category2);
+        Category birds = new Category();
+        birds.setName("Birds");
+        final Category birdsCategory = categoryService.save(birds);
+        Category cats = new Category();
+        cats.setName("Cats");
+        final Category catsCategory = categoryService.save(cats);
 
-        Product product1 = new Product();
-        product1.setTitle("Pigeon");
-        product1.setPrice(BigDecimal.valueOf(10L));
-        product1.setCategory(birdsCategory);
-        productService.saveOrUpdate(product1);
-        Product product2 = new Product();
-        product2.setTitle("Ara");
-        product2.setPrice(BigDecimal.valueOf(1000L));
-        product2.setCategory(birdsCategory);
-        productService.saveOrUpdate(product2);
-        Product product3 = new Product();
-        product3.setTitle("Siamese");
-        product3.setPrice(BigDecimal.valueOf(3000L));
-        product3.setCategory(catsCategory);
-        productService.saveOrUpdate(product3);
-        Product product4 = new Product();
-        product4.setTitle("Sphinx");
-        product4.setPrice(BigDecimal.valueOf(4000L));
-        product4.setCategory(catsCategory);
-        productService.saveOrUpdate(product4);
+        Product pigeon = new Product();
+        pigeon.setTitle("Pigeon");
+        pigeon.setPrice(BigDecimal.valueOf(10L));
+        pigeon.setCategory(birdsCategory);
+        productService.save(pigeon);
+        Product ara = new Product();
+        ara.setTitle("Ara");
+        ara.setPrice(BigDecimal.valueOf(1000L));
+        ara.setCategory(birdsCategory);
+        productService.save(ara);
+        Product siamese = new Product();
+        siamese.setTitle("Siamese");
+        siamese.setPrice(BigDecimal.valueOf(3000L));
+        siamese.setCategory(catsCategory);
+        productService.save(siamese);
+        Product sphinx = new Product();
+        sphinx.setTitle("Sphinx");
+        sphinx.setPrice(BigDecimal.valueOf(4000L));
+        sphinx.setCategory(catsCategory);
+        productService.save(sphinx);
 
         return "Deployed test data";
     }
