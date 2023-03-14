@@ -38,7 +38,7 @@ public class CategoryController {
                                       @RequestParam CategoryRequestDto requestDto) {
         Category category = categoryMapper.mapToModel(requestDto);
         category.setId(id);
-        categoryService.update(category);
+        categoryService.save(category);
         return categoryMapper.mapToDto(category);
     }
 

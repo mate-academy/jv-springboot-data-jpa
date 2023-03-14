@@ -27,11 +27,6 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product update(Product product) {
-        return productRepository.save(product);
-    }
-
-    @Override
     public Product getById(Long id) {
         return productRepository.getById(id);
     }
@@ -47,9 +42,9 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> findAll(Map<String, String> params) {
+    public List<Product> findAllByParameters(Map<String, String> parameters) {
         Specification<Product> specification = null;
-        for (Map.Entry<String, String> entry : params.entrySet()) {
+        for (Map.Entry<String, String> entry : parameters.entrySet()) {
             Specification<Product> sp = productSpecificationManager.get(entry.getKey(),
                     entry.getValue().split((",")));
             specification = specification == null
