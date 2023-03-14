@@ -1,7 +1,6 @@
 package mate.academy.springboot.datajpa.controller;
 
 import java.math.BigDecimal;
-import java.util.Collection;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import mate.academy.springboot.datajpa.dto.mapper.RequestDtoMapper;
@@ -36,7 +35,7 @@ public class ProductController {
 
     @GetMapping("/{id}")
     public ProductResponseDto get(@PathVariable Long id) {
-        return responseMapper.toDto(productService.get(id));
+        return responseMapper.toDto(productService.findById(id));
     }
 
     @DeleteMapping("/{id}")
@@ -65,8 +64,8 @@ public class ProductController {
 
     @GetMapping("/by-categories")
     public List<ProductResponseDto> findAllByCategoriesNameIn(
-            @RequestParam Collection<String> names) {
-        return productService.findAllByCategoryNameIn(names).stream()
+            @RequestParam List<String> categoryNames) {
+        return productService.findAllByCategoryNameIn(categoryNames).stream()
                 .map(responseMapper::toDto)
                 .toList();
     }

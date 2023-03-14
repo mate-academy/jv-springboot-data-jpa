@@ -1,7 +1,6 @@
 package mate.academy.springboot.datajpa.service.impl;
 
 import java.math.BigDecimal;
-import java.util.Collection;
 import java.util.List;
 import java.util.NoSuchElementException;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +20,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product get(Long id) {
+    public Product findById(Long id) {
         return productRepository.findById(id).orElseThrow(
                 () -> new NoSuchElementException("Can't find product with id " + id)
         );
@@ -43,7 +42,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> findAllByCategoryNameIn(Collection<String> categories) {
-        return productRepository.findAllByCategoryNameIn(categories);
+    public List<Product> findAllByCategoryNameIn(List<String> categoryNames) {
+        return productRepository.findAllByCategoryNameIn(categoryNames);
     }
 }
