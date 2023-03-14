@@ -34,7 +34,7 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public ProductResponseDto get(@PathVariable Long id) {
+    public ProductResponseDto findById(@PathVariable Long id) {
         return responseMapper.toDto(productService.findById(id));
     }
 

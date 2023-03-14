@@ -31,7 +31,7 @@ public class CategoryController {
     }
 
     @GetMapping("{id}")
-    public CategoryResponseDto get(@PathVariable Long id) {
+    public CategoryResponseDto findById(@PathVariable Long id) {
         Category category = categoryService.findById(id);
         return responseMapper.toDto(category);
     }
