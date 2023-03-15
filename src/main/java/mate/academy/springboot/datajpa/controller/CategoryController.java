@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("categories")
+@RequestMapping("/categories")
 public class CategoryController {
     private final CategoryMapperDto categoryMapperDto;
     private final CategoryService categoryService;
@@ -32,12 +32,12 @@ public class CategoryController {
     }
 
     @GetMapping("/{id}")
-    public CategoryResponseDto getById(@PathVariable Long id) {
+    public CategoryResponseDto findById(@PathVariable Long id) {
         return categoryMapperDto.mapToDto(categoryService.findById(id));
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
+    public void deleteById(@PathVariable Long id) {
         categoryService.deleteById(id);
     }
 

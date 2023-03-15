@@ -3,7 +3,6 @@ package mate.academy.springboot.datajpa.service;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.NoSuchElementException;
-import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.repository.ProductRepository;
 import org.springframework.stereotype.Service;
@@ -27,8 +26,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> findAllByCategoryIn(List<Category> categories) {
-        return productRepository.findAllByCategoryIn(categories);
+    public List<Product> findAllByCategoryNameIn(List<String> categoryName) {
+        return productRepository.findAllByCategoryNameIn(categoryName);
     }
 
     @Override
