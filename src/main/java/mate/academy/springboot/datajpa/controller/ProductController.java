@@ -2,13 +2,11 @@ package mate.academy.springboot.datajpa.controller;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
-import mate.academy.springboot.datajpa.dto.CategoryRequestDto;
 import mate.academy.springboot.datajpa.dto.ProductRequestDto;
 import mate.academy.springboot.datajpa.dto.ProductResponseDto;
-import mate.academy.springboot.datajpa.dto.mapper.CategoryMapper;
 import mate.academy.springboot.datajpa.dto.mapper.ProductMapper;
-import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,15 +25,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class ProductController {
     private final ProductService productService;
     private final ProductMapper productMapper;
-    private final CategoryMapper categoryMapper;
 
     @Autowired
     public ProductController(ProductService productService,
-                             ProductMapper productMapper,
-                             CategoryMapper categoryMapper) {
+                             ProductMapper productMapper) {
         this.productService = productService;
         this.productMapper = productMapper;
-        this.categoryMapper = categoryMapper;
     }
 
     @PostMapping
@@ -46,7 +41,7 @@ public class ProductController {
 
     @GetMapping("/{id}")
     public ProductResponseDto getById(@PathVariable("id") Long id) {
-        return productMapper.toResponseDto(productService.findById(id));
+        return productMapper.toResponseDto(productService.getById(id));
     }
 
     @DeleteMapping("/{id}")
@@ -73,13 +68,8 @@ public class ProductController {
 
     @GetMapping("/category")
     public List<ProductResponseDto> getAllByCategory(@RequestParam(value = "category")
-                                                     List<String> categories) {
-        List<Category> categoriesList = categories
-                .stream()
-                .map(cat -> new CategoryRequestDto())
-                .map(categoryMapper::toModel)
-                .collect(Collectors.toList());
-        return productService.getAllProductsWithCategories(categoriesList)
+                                                     Map<String, String> params) {
+        return productService.getAllProductsWithCategories(params)
                 .stream()
                 .map(productMapper::toResponseDto)
                 .collect(Collectors.toList());

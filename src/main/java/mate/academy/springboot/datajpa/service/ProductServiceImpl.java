@@ -2,18 +2,23 @@ package mate.academy.springboot.datajpa.service;
 
 import java.math.BigDecimal;
 import java.util.List;
-import mate.academy.springboot.datajpa.model.Category;
+import java.util.Map;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.repository.ProductRepository;
+import mate.academy.springboot.datajpa.repository.specification.SpecificationManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ProductServiceImpl implements ProductService {
+    private final SpecificationManager<Product> productSpecificationManager;
     private final ProductRepository productRepository;
 
     @Autowired
-    public ProductServiceImpl(ProductRepository productRepository) {
+    public ProductServiceImpl(SpecificationManager<Product> productSpecificationManager,
+                              ProductRepository productRepository) {
+        this.productSpecificationManager = productSpecificationManager;
         this.productRepository = productRepository;
     }
 
@@ -23,7 +28,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product findById(Long id) {
+    public Product getById(Long id) {
         return productRepository.findById(id).orElseThrow(
                 () -> new RuntimeException("Product not found! Params: id = " + id)
         );
@@ -48,7 +53,14 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> getAllProductsWithCategories(List<Category> categories) {
-        return productRepository.findAllByCategoryContains(categories);
+    public List<Product> getAllProductsWithCategories(Map<String, String> params) {
+        Specification<Product> specification = null;
+        for (Map.Entry<String, String> entry : params.entrySet()) {
+            Specification<Product> spec = productSpecificationManager.get(entry.getKey(),
+                    entry.getValue().split(","));
+            specification = specification == null ? Specification.where(spec)
+                    : specification.and(spec);
+        }
+        return productRepository.findAll(specification);
     }
 }
