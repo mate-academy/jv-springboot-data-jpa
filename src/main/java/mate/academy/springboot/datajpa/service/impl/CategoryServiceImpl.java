@@ -27,11 +27,6 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Category update(Category product) {
-        return categoryRepository.save(product);
-    }
-
-    @Override
     public void deleteById(Long id) {
         categoryRepository.deleteById(id);
     }

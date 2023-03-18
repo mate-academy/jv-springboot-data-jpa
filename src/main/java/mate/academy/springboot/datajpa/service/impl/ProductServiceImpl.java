@@ -34,11 +34,6 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product update(Product product) {
-        return productRepository.save(product);
-    }
-
-    @Override
     public void deleteById(Long id) {
         productRepository.deleteById(id);
     }
@@ -49,9 +44,9 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> findAll(Map<String, String> products) {
+    public List<Product> findAllByCategories(Map<String, String> params) {
         Specification<Product> specification = null;
-        for (Map.Entry<String, String> entry: products.entrySet()) {
+        for (Map.Entry<String, String> entry: params.entrySet()) {
             Specification<Product> sp = productSpecificationManager.get(entry.getKey(),
                     entry.getValue().split(","));
             specification = specification == null ? Specification.where(sp) : specification.and(sp);
