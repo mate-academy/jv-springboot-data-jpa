@@ -9,7 +9,7 @@ Your task is:
     - id
     - title
     - price
-    - category (one product can have one category)
+    - category (one product can have one category but the category can have multiple products)
 - create model `Category` with fields
     - id
     - name
