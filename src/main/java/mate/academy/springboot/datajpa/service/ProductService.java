@@ -11,8 +11,6 @@ public interface ProductService {
 
     void delete(Long id);
 
-    List<Product> findAll();
-
     List<Product> findAllByPriceBetween(BigDecimal from, BigDecimal to);
 
     List<Product> findAllByCategoryNameIn(List<String> categoryNames);
