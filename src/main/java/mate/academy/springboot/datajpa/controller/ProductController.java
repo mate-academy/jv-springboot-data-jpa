@@ -44,9 +44,9 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
-    public ProductResponseDto update(@PathVariable Long id,
-                                     @RequestBody ProductRequestDto requestDto
-    ) {
+    public ProductResponseDto update(
+            @PathVariable Long id,
+            @RequestBody ProductRequestDto requestDto) {
         Product product = requestMapper.toModel(requestDto);
         product.setId(id);
         return responseMapper.toDto(productService.save(product));
@@ -55,8 +55,7 @@ public class ProductController {
     @GetMapping("/by-price")
     public List<ProductResponseDto> findAllByPriceBetween(
             @RequestParam BigDecimal from,
-            @RequestParam BigDecimal to
-    ) {
+            @RequestParam BigDecimal to) {
         return productService.findAllByPriceBetween(from, to).stream()
                 .map(responseMapper::toDto)
                 .toList();
