@@ -2,10 +2,8 @@ package mate.academy.springboot.datajpa.service.impl;
 
 import java.util.List;
 import java.util.Map;
-import mate.academy.springboot.datajpa.exception.DataProcessingException;
 import mate.academy.springboot.datajpa.model.Product;
-import mate.academy.springboot.datajpa.repository.ProductRepository;
-import mate.academy.springboot.datajpa.repository.specification.ProductSpecificationManager;
+import mate.academy.springboot.datajpa.repository.GeneralRepository;
 import mate.academy.springboot.datajpa.repository.specification.SpecificationManager;
 import mate.academy.springboot.datajpa.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,31 +11,14 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ProductServiceImpl implements ProductService {
-    private final ProductRepository repository;
+public class ProductServiceImpl extends GeneralServiceImpl<Product, Long> implements ProductService {
     private final SpecificationManager<Product> specificationManager;
 
     @Autowired
-    public ProductServiceImpl(ProductRepository repository,
+    public ProductServiceImpl(GeneralRepository<Product, Long> repository,
                               SpecificationManager<Product> specificationManager) {
-        this.repository = repository;
+        super(repository);
         this.specificationManager = specificationManager;
-    }
-
-    @Override
-    public Product save(Product product) {
-        return repository.save(product);
-    }
-
-    @Override
-    public Product get(Long id) {
-        return repository.findById(id)
-                .orElseThrow(() -> new DataProcessingException("No product with " + id + "."));
-    }
-
-    @Override
-    public void delete(Long id) {
-        repository.deleteById(id);
     }
 
     @Override
