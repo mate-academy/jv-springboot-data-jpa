@@ -19,5 +19,4 @@ public class CategoryMapper {
         category.setName(dto.getName());
         return category;
     }
-
 }
