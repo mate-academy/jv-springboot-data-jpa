@@ -18,6 +18,6 @@ public class Product {
     private Long id;
     private String title;
     private BigDecimal price;
-    @ManyToOne()
+    @ManyToOne
     private Category category;
 }
