@@ -1,9 +1,9 @@
 package mate.academy.springboot.datajpa.repository.specification.product;
 
+import jakarta.persistence.criteria.Predicate;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import jakarta.persistence.criteria.Predicate;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.repository.specification.SpecificationProvider;
 import org.springframework.data.jpa.domain.Specification;
@@ -20,7 +20,8 @@ public class ProductPriceBelowSpecification implements SpecificationProvider<Pro
         return (root, query, cb) -> {
             List<Predicate> predicates = new ArrayList<>();
             for (String value : prices) {
-                Predicate predicate = cb.lessThan(root.get(FIELD_NAME).as(BigDecimal.class),
+                Predicate predicate = cb.lessThanOrEqualTo(root.get(FIELD_NAME)
+                                .as(BigDecimal.class),
                         BigDecimal.valueOf(Long.parseLong(value)));
                 predicates.add(predicate);
             }

@@ -1,6 +1,7 @@
 package mate.academy.springboot.datajpa.repository.specification.product;
 
 import jakarta.persistence.criteria.CriteriaBuilder;
+import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.repository.specification.SpecificationProvider;
 import org.springframework.data.jpa.domain.Specification;
@@ -14,9 +15,9 @@ public class ProductCategoryInSpecification implements SpecificationProvider<Pro
     @Override
     public Specification<Product> getSpecification(String[] categories) {
         return (root, query, cb) -> {
-            CriteriaBuilder.In<String> predicate = cb.in(root.get(FIELD_NAME));
+            CriteriaBuilder.In<Category.Name> predicate = cb.in(root.get(FIELD_NAME).get("name"));
             for (String value : categories) {
-                predicate.value(value);
+                predicate.value(Enum.valueOf(Category.Name.class, value));
             }
             return cb.and(predicate, predicate);
         };
