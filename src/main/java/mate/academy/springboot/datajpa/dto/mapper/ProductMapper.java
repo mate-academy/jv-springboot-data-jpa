@@ -14,7 +14,7 @@ public class ProductMapper {
         this.categoryService = categoryService;
     }
 
-    public ProductResponseDto productResponseDto(Product product) {
+    public ProductResponseDto toDto(Product product) {
         ProductResponseDto productResponseDto = new ProductResponseDto();
         productResponseDto.setId(product.getId());
         productResponseDto.setTitle(product.getTitle());
