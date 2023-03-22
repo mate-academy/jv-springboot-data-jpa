@@ -5,7 +5,12 @@ import java.util.Map;
 import mate.academy.springboot.datajpa.model.Product;
 
 public interface ProductService {
-    List<Product> findAll(Map<String, String> params);
+    Product save(Product entity);
 
+    Product get(Long id);
+
+    void delete(Long id);
+
+    List<Product> findAll(Map<String, String> params);
 
 }
