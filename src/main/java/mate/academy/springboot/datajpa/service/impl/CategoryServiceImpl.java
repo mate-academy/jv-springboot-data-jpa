@@ -1,5 +1,6 @@
 package mate.academy.springboot.datajpa.service.impl;
 
+import java.util.NoSuchElementException;
 import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.repository.CategoryRepository;
 import mate.academy.springboot.datajpa.service.CategoryService;
@@ -20,7 +21,8 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category getById(Long id) {
-        return categoryRepository.getById(id);
+        return categoryRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Can`t find category by id " + id));
     }
 
     @Override

@@ -19,7 +19,7 @@ public class ProductMapper {
         productResponseDto.setId(product.getId());
         productResponseDto.setTitle(product.getTitle());
         productResponseDto.setPrice(product.getPrice());
-        productResponseDto.setCategoryId(product.getCategory().getId());
+        productResponseDto.setCategory(product.getCategory());
         return productResponseDto;
     }
 

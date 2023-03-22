@@ -1,6 +1,5 @@
 package mate.academy.springboot.datajpa.controller;
 
-import jakarta.persistence.Id;
 import mate.academy.springboot.datajpa.dto.CategoryRequestDto;
 import mate.academy.springboot.datajpa.dto.CategoryResponseDto;
 import mate.academy.springboot.datajpa.dto.mapper.CategoryMapper;
@@ -25,6 +24,7 @@ public class CategoryController {
         this.categoryService = categoryService;
         this.categoryMapper = categoryMapper;
     }
+
     @PostMapping
     CategoryResponseDto create(@RequestBody CategoryRequestDto categoryRequestDto) {
         Category category = categoryService.create(categoryMapper.toModel(categoryRequestDto));
