@@ -8,13 +8,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class ProductPriceBeforeOrEqualsSpecification implements SpecificationProvider<Product> {
     private static final String FILTER_KEY = "priceBefore";
-    private static final String FIELD_NAME = "price";
+    private static final String FIELD_KEY = "price";
 
     @Override
     public Specification<Product> getSpecification(String[] params) {
-        return ((root, query, cb) -> {
-            return cb.lessThanOrEqualTo(root.get(FIELD_NAME), params[0]);
-        });
+        return ((root, query, cb) -> cb.lessThanOrEqualTo(root.get(FIELD_KEY), params[0]));
     }
 
     @Override

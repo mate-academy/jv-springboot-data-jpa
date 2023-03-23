@@ -22,7 +22,7 @@ public class ProductCategoriesInSpecification implements SpecificationProvider<P
             for (String param : params) {
                 predicate.value(param);
             }
-            return cb.and(predicate, predicate);
+            return cb.and(predicate);
         });
     }
 

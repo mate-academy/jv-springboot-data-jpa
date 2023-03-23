@@ -1,6 +1,5 @@
 package mate.academy.springboot.datajpa.repository.specification.product;
 
-import jakarta.persistence.criteria.Predicate;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.repository.specification.SpecificationProvider;
 import org.springframework.data.jpa.domain.Specification;
@@ -13,10 +12,7 @@ public class ProductPriceFromOrEqualsSpecification implements SpecificationProvi
 
     @Override
     public Specification<Product> getSpecification(String[] params) {
-        return ((root, query, cb) -> {
-            Predicate predicate = cb.greaterThanOrEqualTo(root.get(FIELD_KEY), params[0]);
-            return cb.and(predicate, predicate);
-        });
+        return ((root, query, cb) -> cb.greaterThanOrEqualTo(root.get(FIELD_KEY), params[0]));
     }
 
     @Override
