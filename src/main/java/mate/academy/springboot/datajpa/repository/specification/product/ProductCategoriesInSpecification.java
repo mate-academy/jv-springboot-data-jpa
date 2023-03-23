@@ -6,7 +6,6 @@ import jakarta.persistence.criteria.JoinType;
 import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.repository.specification.SpecificationProvider;
-import mate.academy.springboot.datajpa.service.CategoryService;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 
@@ -14,7 +13,6 @@ import org.springframework.stereotype.Component;
 public class ProductCategoriesInSpecification implements SpecificationProvider<Product> {
     private static final String FILTER_KEY = "categoryIn";
     private static final String FIELD_NAME = "name";
-    private CategoryService categoryService;
 
     @Override
     public Specification<Product> getSpecification(String[] params) {
