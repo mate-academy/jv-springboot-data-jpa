@@ -9,14 +9,11 @@ import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.repository.CategoryRepository;
 import mate.academy.springboot.datajpa.repository.ProductRepository;
 import mate.academy.springboot.datajpa.service.ProductService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ProductServiceImpl implements ProductService {
-    @Autowired
     private  final ProductRepository productRepository;
-    @Autowired
     private  final CategoryRepository categoryRepository;
 
     public ProductServiceImpl(ProductRepository productRepository,
