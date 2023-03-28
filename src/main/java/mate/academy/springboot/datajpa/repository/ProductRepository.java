@@ -9,7 +9,9 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ProductRepository extends JpaRepository<Product, Long>, JpaSpecificationExecutor<Long> {
+public interface ProductRepository extends JpaRepository<Product, Long>,
+        JpaSpecificationExecutor<Long> {
     List<Product> findAllByPriceBetween(BigDecimal from, BigDecimal to);
+
     List<Product> findByCategoryIn(List<Category> categoryList);
 }
