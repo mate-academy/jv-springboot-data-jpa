@@ -32,12 +32,12 @@ public class CategoryController {
                 .save(mapper.mapToModel(categoryRequestDto)));
     }
 
-    @GetMapping("/{$id}")
+    @GetMapping("/{id}")
     public CategoryResponseDto getById(@PathVariable Long id) {
         return mapper.modelToMap(categoryService.gteCategoryById(id));
     }
 
-    @DeleteMapping("/{$id}")
+    @DeleteMapping("/{id}")
     public void deleteById(@PathVariable Long id) {
         categoryService.deleteCategoryById(id);
     }
