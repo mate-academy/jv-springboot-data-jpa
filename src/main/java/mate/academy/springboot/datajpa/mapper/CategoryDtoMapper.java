@@ -16,7 +16,7 @@ public class CategoryDtoMapper {
 
     public Category toModel(CategoryRequestDto dto) {
         Category category = new Category();
-        category.setName(Enum.valueOf(Category.Name.class, dto.getName()));
+        category.setName(dto.getName());
         return category;
     }
 }

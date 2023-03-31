@@ -2,7 +2,7 @@ package mate.academy.springboot.datajpa.service.impl;
 
 import java.util.List;
 import java.util.Map;
-import mate.academy.springboot.datajpa.exception.DataProcessingException;
+import java.util.NoSuchElementException;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.repository.ProductRepository;
 import mate.academy.springboot.datajpa.repository.specification.SpecificationManager;
@@ -32,7 +32,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product get(Long id) {
         return repository.findById(id)
-                .orElseThrow(() -> new DataProcessingException("No product with " + id + "."));
+                .orElseThrow(() -> new NoSuchElementException("No product with " + id + "."));
     }
 
     @Override

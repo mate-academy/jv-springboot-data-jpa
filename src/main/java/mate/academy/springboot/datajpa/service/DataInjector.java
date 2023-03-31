@@ -1,29 +1,25 @@
-package mate.academy.springboot.datajpa.controller;
+package mate.academy.springboot.datajpa.service;
 
+import jakarta.annotation.PostConstruct;
 import java.math.BigDecimal;
 import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.model.Product;
-import mate.academy.springboot.datajpa.service.CategoryService;
-import mate.academy.springboot.datajpa.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Service;
 
-@RestController
-@RequestMapping("/inject")
-public class DataInjectController {
+@Service
+public class DataInjector {
     private final CategoryService categoryService;
     private final ProductService productService;
 
     @Autowired
-    public DataInjectController(CategoryService categoryService,
-                                ProductService productService) {
+    public DataInjector(CategoryService categoryService,
+                        ProductService productService) {
         this.categoryService = categoryService;
         this.productService = productService;
     }
 
-    @GetMapping
+    @PostConstruct
     public String inject() {
         Category laptop = new Category();
         laptop.setName(Category.Name.LAPTOP);

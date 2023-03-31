@@ -44,7 +44,7 @@ public class ProductController {
         return String.format("Product with id:%d has been deleted", id);
     }
 
-    @GetMapping("/findAllWith")
+    @GetMapping("/search")
     List<ProductResponseDto> findAll(@RequestParam Map<String, String> params) {
         return service.findAll(params).stream()
                 .map(mapper::toResponseDto)

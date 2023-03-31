@@ -1,6 +1,6 @@
 package mate.academy.springboot.datajpa.service.impl;
 
-import mate.academy.springboot.datajpa.exception.DataProcessingException;
+import java.util.NoSuchElementException;
 import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.repository.CategoryRepository;
 import mate.academy.springboot.datajpa.service.CategoryService;
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
-    private CategoryRepository repository;
+    private final CategoryRepository repository;
 
     @Autowired
     public CategoryServiceImpl(CategoryRepository repository) {
@@ -24,7 +24,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public Category get(Long id) {
         return repository.findById(id)
-                .orElseThrow(() -> new DataProcessingException("No category with " + id + "."));
+                .orElseThrow(() -> new NoSuchElementException("No category with " + id + "."));
     }
 
     @Override
