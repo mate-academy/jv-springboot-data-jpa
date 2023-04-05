@@ -1,7 +1,6 @@
 package mate.academy.springboot.datajpa.repository.specification.product;
 
 import jakarta.persistence.criteria.CriteriaBuilder;
-import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.repository.specification.SpecificationProvider;
 import org.springframework.data.jpa.domain.Specification;
