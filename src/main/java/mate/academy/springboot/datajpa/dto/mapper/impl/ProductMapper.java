@@ -32,7 +32,7 @@ public class ProductMapper implements RequestDtoMapper<ProductRequestDto, Produc
         Product product = new Product();
         product.setTitle(requestDto.getTitle());
         product.setPrice(requestDto.getPrice());
-        product.setCategory(categoryService.get(requestDto.getCategoryId()));
+        product.setCategory(categoryService.findById(requestDto.getCategoryId()));
         return product;
     }
 }

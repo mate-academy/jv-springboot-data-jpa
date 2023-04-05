@@ -41,8 +41,8 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public ProductResponseDto get(@PathVariable Long id) {
-        Product product = productService.get(id);
+    public ProductResponseDto findById(@PathVariable Long id) {
+        Product product = productService.findById(id);
         return responseMapper.toDto(product);
     }
 
@@ -60,15 +60,15 @@ public class ProductController {
     }
 
     @GetMapping("/by-price")
-    public List<ProductResponseDto> getAllByPrice(@RequestParam BigDecimal from,
-                                           @RequestParam BigDecimal to) {
+    public List<ProductResponseDto> getAllByPriceBetween(@RequestParam BigDecimal from,
+                                                         @RequestParam BigDecimal to) {
         return productService.findAllByPriceBetween(from, to).stream()
                 .map(responseMapper::toDto)
                 .collect(Collectors.toList());
     }
 
     @GetMapping("/by-category")
-    public List<ProductResponseDto> getAllByCategoryIn(@RequestParam List<String> categories) {
+    public List<ProductResponseDto> getAllByCategoryNameIn(@RequestParam List<String> categories) {
         return productService.findAllByCategoryNameIn(categories).stream()
                 .map(responseMapper::toDto)
                 .collect(Collectors.toList());
