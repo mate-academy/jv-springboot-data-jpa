@@ -13,7 +13,7 @@ public class ProductDtoMapper {
         productResponseDto.setId(product.getId());
         productResponseDto.setTitle(product.getTitle());
         productResponseDto.setPrice(product.getPrice());
-        productResponseDto.setCategory(product.getCategory().getName().name());
+        productResponseDto.setCategoryId(product.getCategory().getId());
         return productResponseDto;
     }
 

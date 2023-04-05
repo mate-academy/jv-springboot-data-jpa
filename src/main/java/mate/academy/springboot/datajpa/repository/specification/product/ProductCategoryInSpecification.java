@@ -15,11 +15,11 @@ public class ProductCategoryInSpecification implements SpecificationProvider<Pro
     @Override
     public Specification<Product> getSpecification(String[] categories) {
         return (root, query, cb) -> {
-            CriteriaBuilder.In<Category.Name> predicate = cb.in(root.get(FIELD_NAME).get("name"));
+            CriteriaBuilder.In<Long> predicate = cb.in(root.get(FIELD_NAME).get("id"));
             for (String value : categories) {
-                predicate.value(Enum.valueOf(Category.Name.class, value));
+                predicate.value(Long.valueOf(value));
             }
-            return cb.and(predicate, predicate);
+            return cb.and(predicate);
         };
     }
 
