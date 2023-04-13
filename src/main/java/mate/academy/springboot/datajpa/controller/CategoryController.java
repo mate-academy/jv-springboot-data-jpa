@@ -30,18 +30,18 @@ public class CategoryController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    CategoryResponseDto add(@RequestBody CategoryRequestDto categoryRequestDto) {
+    public CategoryResponseDto add(@RequestBody CategoryRequestDto categoryRequestDto) {
         return mapper.toDto(categoryService.create(mapper.toModel(categoryRequestDto)));
     }
 
     @GetMapping("/{id}")
-    CategoryResponseDto getById(@PathVariable Long id) {
+    public CategoryResponseDto getById(@PathVariable Long id) {
 
         return mapper.toDto(categoryService.getById(id));
     }
 
     @PutMapping("/{id}")
-    CategoryResponseDto update(@PathVariable Long id,
+    public CategoryResponseDto update(@PathVariable Long id,
                                @RequestBody CategoryRequestDto categoryRequestDto) {
         Category category = mapper.toModel(categoryRequestDto);
         category.setId(id);

@@ -36,17 +36,18 @@ public class ProductController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    ProductResponseDto add(@RequestBody ProductRequestDto productRequestDto) {
+    public ProductResponseDto add(@RequestBody ProductRequestDto productRequestDto) {
         return mapper.toDto(productService.create(mapper.toModel(productRequestDto)));
     }
 
     @GetMapping("/{id}")
-    ProductResponseDto getById(@PathVariable Long id) {
+    public ProductResponseDto getById(@PathVariable Long id) {
+
         return mapper.toDto(productService.getById(id));
     }
 
     @PutMapping("/{id}")
-    ProductResponseDto update(@PathVariable Long id,
+    public ProductResponseDto update(@PathVariable Long id,
                               @RequestBody ProductRequestDto productRequestDto) {
         Product product = mapper.toModel(productRequestDto);
         product.setId(id);
@@ -54,19 +55,19 @@ public class ProductController {
     }
 
     @DeleteMapping("/{id}")
-    void delete(@PathVariable Long id) {
+    public void delete(@PathVariable Long id) {
         productService.delete(id);
     }
 
     @GetMapping("/by-price")
-    List<ProductResponseDto> findAllByPriceBetween(@RequestParam BigDecimal from,
+    public List<ProductResponseDto> findAllByPriceBetween(@RequestParam BigDecimal from,
                                                    @RequestParam BigDecimal to) {
         List<Product> products = productService.findAllByPriceBetween(from, to);
         return products.stream().map(mapper::toDto).toList();
     }
 
     @GetMapping("/by-category/{ids}")
-    List<ProductResponseDto> findAllByCategoryIds(@PathVariable List<Long> ids) {
+    public List<ProductResponseDto> findAllByCategoryIds(@PathVariable List<Long> ids) {
         List<Product> products = productService.findAllByCategoryIds(ids);
         return products.stream().map(mapper::toDto).toList();
     }
