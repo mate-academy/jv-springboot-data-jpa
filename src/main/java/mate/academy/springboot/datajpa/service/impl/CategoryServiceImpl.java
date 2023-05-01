@@ -34,10 +34,11 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category update(Category category) {
-        categoryRepository.findById(category.getId()).orElseThrow(
-                () -> new EntityNotFoundException(
-                        "Can't find category by id = %s".formatted(category.getId())));
-        return categoryRepository.save(category);
+        return categoryRepository.findById(category.getId())
+                .map(categoryRepository::save)
+                .orElseThrow(
+                        () -> new EntityNotFoundException(
+                                "Can't find category by id = %s".formatted(category.getId())));
     }
 
     @Override

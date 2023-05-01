@@ -32,10 +32,11 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product update(Product product) {
-        productRepository.findById(product.getId()).orElseThrow(
-                () -> new EntityNotFoundException(
-                        "Can't find product by id = %s".formatted(product.getId())));
-        return productRepository.save(product);
+        return productRepository.findById(product.getId())
+                .map(productRepository::save)
+                .orElseThrow(
+                        () -> new EntityNotFoundException(
+                                "Can't find product by id = %s".formatted(product.getId())));
     }
 
     @Override
