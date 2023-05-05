@@ -30,12 +30,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category update(Category category) {
-        return categoryRepository.findById(category.getId())
-                .map(existingCategory -> {
-                    existingCategory.setName(category.getName());
-                    return categoryRepository.save(existingCategory);
-                })
-                .orElseThrow(EntityNotFoundException::new);
+        return categoryRepository.save(category);
     }
 
     @Override

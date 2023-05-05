@@ -31,13 +31,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product update(Product product) {
-        return productRepository.findById(product.getId())
-                .map(existingProduct -> {
-                    existingProduct.setCategory(product.getCategory());
-                    existingProduct.setTitle(product.getTitle());
-                    existingProduct.setPrice(product.getPrice());
-                    return existingProduct;
-                }).orElseThrow(EntityNotFoundException::new);
+        return productRepository.save(product);
     }
 
     @Override

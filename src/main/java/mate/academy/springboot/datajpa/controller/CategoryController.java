@@ -22,7 +22,7 @@ public class CategoryController {
     private final CategoryService categoryService;
     private final CategoryMapper categoryMapper;
 
-    @PostMapping("/create")
+    @PostMapping()
     public CategoryResponseDto create(@RequestBody CategoryRequestDto requestDto) {
         Category category = categoryMapper.toCategoryModel(requestDto);
         return categoryMapper.toCategoryResponseDto(categoryService.save(category));
