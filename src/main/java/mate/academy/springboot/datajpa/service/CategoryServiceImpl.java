@@ -38,4 +38,11 @@ public class CategoryServiceImpl implements CategoryService {
     public List<Category> findAll() {
         return categoryRepository.findAll();
     }
+
+    @Override
+    public Category findById(Long id) {
+        return categoryRepository.findById(id)
+                                 .orElseThrow(() -> new EntityNotFoundException("Category with "
+                                                                        + id + " not found"));
+    }
 }
