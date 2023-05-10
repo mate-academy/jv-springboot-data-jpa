@@ -9,11 +9,11 @@ import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.service.CategoryService;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -34,8 +34,8 @@ public class CategoryController {
         return categoryMapper.toResponseDto(category);
     }
 
-    @GetMapping
-    public CategoryResponseDto getById(@RequestParam Long id) {
+    @GetMapping("/{id}")
+    public CategoryResponseDto getById(@PathVariable("id") Long id) {
         return categoryMapper.toResponseDto(categoryService.findById(id));
     }
 
@@ -47,13 +47,16 @@ public class CategoryController {
                              .collect(Collectors.toList());
     }
 
-    @PatchMapping
-    public CategoryResponseDto update(@RequestBody Category category) {
-        return categoryMapper.toResponseDto(categoryService.update(category));
+    @PutMapping("/{id}")
+    public CategoryResponseDto update(@PathVariable("id") Long id,
+                                      @RequestBody CategoryRequestDto requestDto) {
+        return categoryMapper.toResponseDto(categoryService
+                                                    .update(id,
+                                                            categoryMapper.toModel(requestDto)));
     }
 
-    @DeleteMapping
-    public void delete(@RequestParam Long id) {
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable("id") Long id) {
         categoryService.delete(id);
     }
 }
