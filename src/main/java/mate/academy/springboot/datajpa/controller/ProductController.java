@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import mate.academy.springboot.datajpa.dto.ProductRequestDto;
 import mate.academy.springboot.datajpa.dto.ProductResponseDto;
-import mate.academy.springboot.datajpa.dto.mapper.ProductMapper;
+import mate.academy.springboot.datajpa.dto.mapper.DtoMapper;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.service.ProductService;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -22,31 +22,34 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/products")
 public class ProductController {
     private final ProductService productService;
-    private final ProductMapper productMapper;
+    private final DtoMapper<ProductRequestDto, ProductResponseDto, Product> productMapper;
 
-    public ProductController(ProductService productService, ProductMapper productMapper) {
+    public ProductController(ProductService productService,
+                             DtoMapper<ProductRequestDto,
+                                     ProductResponseDto,
+                                     Product> productMapper) {
         this.productService = productService;
         this.productMapper = productMapper;
     }
 
-    @PostMapping("/add")
-    ProductResponseDto add(@RequestBody ProductRequestDto productRequestDto) {
+    @PostMapping
+    public ProductResponseDto add(@RequestBody ProductRequestDto productRequestDto) {
         Product product = productService.add(productMapper.mapToModel(productRequestDto));
         return productMapper.mapToDto(product);
     }
 
     @GetMapping("/{id}")
-    ProductResponseDto get(@PathVariable Long id) {
+    public ProductResponseDto get(@PathVariable Long id) {
         return productMapper.mapToDto(productService.getById(id));
     }
 
     @DeleteMapping("/{id}")
-    void delete(@PathVariable Long id) {
+    public void delete(@PathVariable Long id) {
         productService.delete(id);
     }
 
     @PutMapping("/{id}")
-    void update(@PathVariable Long id,
+    public void update(@PathVariable Long id,
                 @RequestBody ProductRequestDto productRequestDto) {
         Product product = productMapper.mapToModel(productRequestDto);
         product.setId(id);
