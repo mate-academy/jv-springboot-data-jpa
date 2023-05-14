@@ -27,7 +27,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class ProductController {
     private final ProductMapper productMapper;
     private final ProductService productService;
-    private final CategoryService categoryService;
 
     @PostMapping
     public ProductResponseDto create(@RequestBody ProductRequestDto productRequestDto) {
