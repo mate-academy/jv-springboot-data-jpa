@@ -7,9 +7,9 @@ import java.util.stream.Collectors;
 import mate.academy.springboot.datajpa.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Component;
 
-@Repository
+@Component
 public class ProductSpecificationManager implements SpecificationManager<Product> {
     private final Map<String, SpecificationProvider<Product>> providerMap;
 

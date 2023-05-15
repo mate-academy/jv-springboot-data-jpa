@@ -7,12 +7,12 @@ import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.repository.specification.SpecificationProvider;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Component;
 
-@Repository
+@Component
 public class GetAllProductByCategory implements SpecificationProvider<Product> {
     private static final String FILTER_KEY = "categoryId";
-    private static final String FILTER_NAME = "category";
+    private static final String FILTER_NAME = "categoryIn";
 
     @Override
     public Specification<Product> getSpecification(String[] params) {

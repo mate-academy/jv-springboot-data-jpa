@@ -50,7 +50,7 @@ public class ProductController {
         productService.update(product);
     }
 
-    @GetMapping
+    @GetMapping("/products")
     public List<ProductResponseDto> findAll(@RequestParam Map<String, String> params) {
         return productService.findAll(params).stream()
                 .map(productMapper::mapToDto)
