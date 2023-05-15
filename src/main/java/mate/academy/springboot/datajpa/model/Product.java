@@ -22,4 +22,14 @@ public class Product {
     private BigDecimal price;
     @ManyToOne
     private Category category;
+
+    @Override
+    public String toString() {
+        return "Product{"
+                + "id=" + id
+                + ", title='" + title + '\''
+                + ", price=" + price
+                + ", category=" + category
+                + '}';
+    }
 }

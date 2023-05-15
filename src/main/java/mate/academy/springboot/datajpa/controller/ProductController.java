@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import lombok.AllArgsConstructor;
 import mate.academy.springboot.datajpa.dto.ProductRequestDto;
 import mate.academy.springboot.datajpa.dto.ProductResponseDto;
 import mate.academy.springboot.datajpa.model.Product;
@@ -22,18 +23,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/products")
+@AllArgsConstructor
 public class ProductController {
     private final ProductService productService;
     private final ResponseDtoMapper<ProductResponseDto, Product> responseDtoMapper;
     private final RequestDtoMapper<ProductRequestDto, Product> requestDtoMapper;
-
-    public ProductController(ProductService productService,
-                             ResponseDtoMapper<ProductResponseDto, Product> responseDtoMapper,
-                             RequestDtoMapper<ProductRequestDto, Product> requestDtoMapper) {
-        this.productService = productService;
-        this.responseDtoMapper = responseDtoMapper;
-        this.requestDtoMapper = requestDtoMapper;
-    }
 
     @PostMapping
     public ProductResponseDto save(@RequestBody ProductRequestDto requestDto) {
