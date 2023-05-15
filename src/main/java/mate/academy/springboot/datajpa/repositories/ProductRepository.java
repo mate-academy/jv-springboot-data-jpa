@@ -14,5 +14,5 @@ public interface ProductRepository extends JpaRepository<Product, Long>,
     List<Product> findAllByPriceBetween(BigDecimal from, BigDecimal to);
 
     @Query("FROM Product p join fetch Category c WHERE c.name IN(?1)")
-    List<Product> findAllByCategories(List<String>categories);
+    List<Product> findAllByCategories(List<String> categories);
 }
