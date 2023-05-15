@@ -21,7 +21,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public Category findById(Long id) {
         return categoryRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Couldn't find category bu id " + id));
+                .orElseThrow(() -> new RuntimeException("Couldn't find category by id " + id));
     }
 
     @Override
@@ -32,7 +32,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public Category update(Category category) {
         Category newCategory = categoryRepository.findById(category.getId())
-                .orElseThrow(() -> new RuntimeException("Couldn't find category bu id "
+                .orElseThrow(() -> new RuntimeException("Couldn't find category by id "
                         + category.getId()));
         newCategory.setName(category.getName());
         categoryRepository.save(newCategory);

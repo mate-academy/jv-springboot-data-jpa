@@ -23,7 +23,7 @@ public class ProductCategoryInSpecification implements
             for (String category :categories) {
                 predicate.value(category);
             }
-            return cb.and(predicate, predicate);
+            return cb.and(predicate);
         };
     }
 

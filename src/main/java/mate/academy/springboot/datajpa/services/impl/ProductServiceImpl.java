@@ -9,6 +9,7 @@ import mate.academy.springboot.datajpa.repositories.specification.SpecificationM
 import mate.academy.springboot.datajpa.services.ProductService;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -50,8 +51,14 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> findAllByPricePriceBetween(BigDecimal from, BigDecimal to) {
+    public List<Product> findAllByPriceBetween(@RequestParam BigDecimal from,
+                                               @RequestParam BigDecimal to) {
         return productRepository.findAllByPriceBetween(from, to);
+    }
+
+    @Override
+    public List<Product> findAllByCategories(List<String> categories) {
+        return productRepository.findAllByCategories(categories);
     }
 
     @Override

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,23 +25,9 @@ public class CategoryController {
         this.mapper = mapper;
     }
 
-    @GetMapping("/inject")
-    public void create() {
-        Category category = new Category();
-        category.setName("milk");
-        categoryService.save(category);
-
-        Category category1 = new Category();
-        category1.setName("fruits");
-        categoryService.save(category1);
-
-        Category category2 = new Category();
-        category2.setName("vegetables");
-        categoryService.save(category2);
-    }
-
     @PostMapping
-    public CategoryResponseDto create(CategoryRequestDto requestDto) {
+    public CategoryResponseDto create(@RequestBody
+                                          CategoryRequestDto requestDto) {
         Category category = mapper.toModel(requestDto);
         return mapper.toResponseDto(categoryService
                 .save(category));
@@ -58,6 +45,7 @@ public class CategoryController {
 
     @PutMapping("/{id}")
     public CategoryResponseDto update(@PathVariable Long id,
+                                      @RequestBody
                                       CategoryRequestDto requestDto) {
         Category category = mapper.toModel(requestDto);
         category.setId(id);
