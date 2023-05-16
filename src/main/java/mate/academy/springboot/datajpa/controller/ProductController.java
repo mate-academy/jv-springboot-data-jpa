@@ -51,7 +51,7 @@ public class ProductController {
         productService.update(product);
     }
 
-    @GetMapping("/")
+    @GetMapping("/all")
     public List<ProductResponseDto> findAll(@RequestParam Map<String, String> params) {
         return productService.findAll(params).stream()
                 .map(productMapper::mapToDto)
@@ -59,7 +59,7 @@ public class ProductController {
     }
 
     @GetMapping("/range")
-    public List<ProductResponseDto> findPriceByRange(@RequestParam String from,
+    public List<ProductResponseDto> findByPriceRange(@RequestParam String from,
                                                      @RequestParam String to) {
         return productService.findAllByPriceBetween(
                 new BigDecimal(from.trim()), new BigDecimal(to.trim()))
