@@ -3,6 +3,8 @@ package mate.academy.springboot.datajpa.services.impl;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
+import lombok.RequiredArgsConstructor;
+import mate.academy.springboot.datajpa.exception.NoSuchProductException;
 import mate.academy.springboot.datajpa.models.Product;
 import mate.academy.springboot.datajpa.repositories.ProductRepository;
 import mate.academy.springboot.datajpa.repositories.specification.SpecificationManager;
@@ -12,15 +14,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Service
+@RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
     private final SpecificationManager<Product> productSpecificationManager;
-
-    public ProductServiceImpl(ProductRepository productRepository,
-                              SpecificationManager<Product> productSpecificationManager) {
-        this.productRepository = productRepository;
-        this.productSpecificationManager = productSpecificationManager;
-    }
 
     @Override
     public Product save(Product product) {
@@ -30,7 +27,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product findById(Long id) {
         return productRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Couldn't find product by id " + id));
+                .orElseThrow(() -> new NoSuchProductException("Couldn't find product by id " + id));
     }
 
     @Override
@@ -40,14 +37,17 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product update(Product product) {
-        Product newProduct = productRepository.findById(product.getId())
-                .orElseThrow(() -> new RuntimeException("Couldn't find product by id "
-                        + product.getId()));
-        newProduct.setCategory(product.getCategory());
-        newProduct.setTitle(product.getTitle());
-        newProduct.setPrice(product.getPrice());
-        productRepository.save(newProduct);
-        return newProduct;
+        if (product != null) {
+            Product newProduct = productRepository.findById(product.getId())
+                    .orElseThrow(() -> new NoSuchProductException("Couldn't find product by id "
+                            + product.getId()));
+            newProduct.setCategory(product.getCategory());
+            newProduct.setTitle(product.getTitle());
+            newProduct.setPrice(product.getPrice());
+            productRepository.save(newProduct);
+            return newProduct;
+        }
+        throw new NoSuchProductException("Product can't be null");
     }
 
     @Override
