@@ -29,17 +29,4 @@ public class CategoryServiceImpl implements CategoryService {
     public void delete(Long id) {
         categoryRepository.deleteById(id);
     }
-
-    @Override
-    public Category update(Category category) {
-        return categoryRepository.findById(category.getId())
-                .map(categoryRepository::save)
-                .orElseThrow(() -> new EntityNotFoundException(
-                                "can't update category be id: " + category.getId()));
-    }
-
-    @Override
-    public Category findByName(String name) {
-        return categoryRepository.findByName(name);
-    }
 }
