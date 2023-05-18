@@ -1,17 +1,15 @@
 package mate.academy.springboot.datajpa.service.impl;
 
+import lombok.AllArgsConstructor;
 import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.repository.CategoryRepository;
 import mate.academy.springboot.datajpa.service.CategoryService;
 import org.springframework.stereotype.Service;
 
+@AllArgsConstructor
 @Service
 public class CategoryServiceImpl implements CategoryService {
     private final CategoryRepository categoryRepository;
-
-    public CategoryServiceImpl(CategoryRepository categoryRepository) {
-        this.categoryRepository = categoryRepository;
-    }
 
     @Override
     public Category save(Category category) {
@@ -33,10 +31,5 @@ public class CategoryServiceImpl implements CategoryService {
         Category categoryFromDb = categoryRepository.getReferenceById(category.getId());
         categoryFromDb.setName(category.getName());
         return categoryRepository.save(categoryFromDb);
-    }
-
-    @Override
-    public Category findCategoryByName(String name) {
-        return categoryRepository.findCategoryByName(name);
     }
 }
