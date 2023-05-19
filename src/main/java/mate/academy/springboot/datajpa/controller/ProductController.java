@@ -28,6 +28,13 @@ public class ProductController {
     private final RequestDtoMapper<ProductRequestDto, Product> productRequestDtoMapper;
     private final ResponseDtoMapper<ProductResponseDto, Product> productResponseDtoMapper;
 
+    @PostMapping
+    public ProductResponseDto save(@RequestBody @Valid ProductRequestDto productRequestDto) {
+        return productResponseDtoMapper.mapToDto(
+                productService.save(
+                        productRequestDtoMapper.mapToModel(productRequestDto)));
+    }
+
     @GetMapping("/{id}")
     public ProductResponseDto get(@PathVariable Long id) {
         return productResponseDtoMapper.mapToDto(productService.get(id));
@@ -50,20 +57,13 @@ public class ProductController {
                 .collect(Collectors.toList());
     }
 
-    @PostMapping
-    public ProductResponseDto create(@RequestBody @Valid ProductRequestDto productRequestDto) {
-        return productResponseDtoMapper.mapToDto(
-                productService.create(
-                        productRequestDtoMapper.mapToModel(productRequestDto)));
-    }
-
     @PutMapping("/{id}")
     public ProductResponseDto update(@PathVariable Long id,
-            @RequestBody ProductRequestDto productRequestDto) {
+            @RequestBody @Valid ProductRequestDto productRequestDto) {
         Product product = productRequestDtoMapper.mapToModel(productRequestDto);
         product.setId(id);
         return productResponseDtoMapper.mapToDto(
-                productService.update(product));
+                productService.save(product));
     }
 
     @DeleteMapping("/{id}")

@@ -1,6 +1,5 @@
 package mate.academy.springboot.datajpa.service;
 
-import jakarta.validation.constraints.NotNull;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import mate.academy.springboot.datajpa.model.Product;
@@ -10,11 +9,10 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 @Service
 public class ProductServiceImpl implements ProductService {
-    @NotNull
     private final ProductRepository productRepository;
 
     @Override
-    public Product create(Product product) {
+    public Product save(Product product) {
         return productRepository.save(product);
     }
 
@@ -27,16 +25,6 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void delete(Product product) {
         productRepository.delete(product);
-    }
-
-    @Override
-    public Product update(Product product) {
-        long id = product.getId();
-        if (productRepository.findById(id).isEmpty()) {
-            throw new RuntimeException("There is no product found for id " + id);
-        }
-        productRepository.save(product);
-        return product;
     }
 
     @Override
