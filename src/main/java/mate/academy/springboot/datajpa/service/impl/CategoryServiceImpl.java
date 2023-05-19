@@ -1,17 +1,15 @@
 package mate.academy.springboot.datajpa.service.impl;
 
+import lombok.AllArgsConstructor;
 import mate.academy.springboot.datajpa.dao.CategoryRepository;
 import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.service.CategoryService;
 import org.springframework.stereotype.Service;
 
 @Service
+@AllArgsConstructor
 public class CategoryServiceImpl implements CategoryService {
     private final CategoryRepository repository;
-
-    public CategoryServiceImpl(CategoryRepository repository) {
-        this.repository = repository;
-    }
 
     @Override
     public Category add(Category category) {
