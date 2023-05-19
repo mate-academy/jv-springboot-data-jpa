@@ -1,7 +1,6 @@
 package mate.academy.springboot.datajpa.controller;
 
 import java.math.BigDecimal;
-import java.util.Arrays;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import mate.academy.springboot.datajpa.model.Product;
@@ -60,9 +59,8 @@ public class ProductController {
     }
 
     @GetMapping("/by-category")
-    public List<ResponseProductDto> findAllByCategory(@RequestParam String categoryIn) {
-        List<Product> productsByCategories =
-                productService.findAllByCategoryIn(Arrays.asList(categoryIn.split(",")));
+    public List<ResponseProductDto> findAllByCategory(@RequestParam List<String> category) {
+        List<Product> productsByCategories = productService.findAllByCategoryIn(category);
         return convertListToDto(productsByCategories);
     }
 

@@ -5,6 +5,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,6 +13,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@EqualsAndHashCode
 @Entity
 @Table(name = "categories")
 public class Category {
@@ -22,5 +24,12 @@ public class Category {
 
     public Category(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "Category{"
+                + "id=" + id
+                + ", name='" + name + '\'' + '}';
     }
 }
