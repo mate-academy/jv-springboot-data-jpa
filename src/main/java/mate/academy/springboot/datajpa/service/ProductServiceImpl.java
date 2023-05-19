@@ -1,5 +1,6 @@
 package mate.academy.springboot.datajpa.service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import mate.academy.springboot.datajpa.model.Product;
@@ -28,7 +29,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> findProductsByPriceBetween(Long from, Long to) {
+    public List<Product> findProductsByPriceBetween(BigDecimal from, BigDecimal to) {
         return productRepository.findProductsByPriceBetween(from, to);
     }
 

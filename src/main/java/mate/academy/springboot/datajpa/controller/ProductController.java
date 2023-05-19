@@ -1,6 +1,7 @@
 package mate.academy.springboot.datajpa.controller;
 
 import jakarta.validation.Valid;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -49,8 +50,8 @@ public class ProductController {
     }
 
     @GetMapping("/by-price-between")
-    public List<ProductResponseDto> getByPriceBetween(@RequestParam Long from,
-                                                      @RequestParam Long to) {
+    public List<ProductResponseDto> getByPriceBetween(@RequestParam BigDecimal from,
+                                                      @RequestParam BigDecimal to) {
         return productService.findProductsByPriceBetween(from, to)
                 .stream()
                 .map(productResponseDtoMapper::mapToDto)
