@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class ProductMapper implements RequestDtoMapper<ProductRequestDto, Product>,
         ResponseDtoMapper<ProductResponseDto, Product> {
-
     @Override
     public Product mapToModel(ProductRequestDto dto) {
         Product product = new Product();

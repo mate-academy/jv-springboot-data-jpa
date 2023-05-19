@@ -1,12 +1,10 @@
 package mate.academy.springboot.datajpa.controller;
 
-import jakarta.validation.constraints.NotNull;
-import java.util.List;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import mate.academy.springboot.datajpa.dto.CategoryRequestDto;
 import mate.academy.springboot.datajpa.dto.CategoryResponseDto;
 import mate.academy.springboot.datajpa.model.Category;
-import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.service.CategoryService;
 import mate.academy.springboot.datajpa.service.ProductService;
 import mate.academy.springboot.datajpa.service.mapper.RequestDtoMapper;
@@ -24,13 +22,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/categories")
 public class CategoryController {
-    @NotNull
     private final ProductService productService;
-    @NotNull
     private final CategoryService categoryService;
-    @NotNull
     private final RequestDtoMapper<CategoryRequestDto, Category> categoryRequestDtoMapper;
-    @NotNull
     private final ResponseDtoMapper<CategoryResponseDto, Category> categoryResponseDtoMapper;
 
     @GetMapping("/{id}")
@@ -39,7 +33,7 @@ public class CategoryController {
     }
 
     @PostMapping
-    public CategoryResponseDto create(@RequestBody CategoryRequestDto categoryRequestDto) {
+    public CategoryResponseDto create(@RequestBody @Valid CategoryRequestDto categoryRequestDto) {
         return categoryResponseDtoMapper.mapToDto(
                 categoryService.create(
                         categoryRequestDtoMapper.mapToModel(categoryRequestDto)));
@@ -56,12 +50,6 @@ public class CategoryController {
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
-        List<Product> products = productService.findProductsByCategoryName(
-                List.of(categoryService.get(id).getName())
-        );
-        for (Product product : products) {
-            productService.delete(product);
-        }
         categoryService.delete(categoryService.get(id));
     }
 }

@@ -1,13 +1,12 @@
 package mate.academy.springboot.datajpa.controller;
 
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import mate.academy.springboot.datajpa.dto.ProductRequestDto;
 import mate.academy.springboot.datajpa.dto.ProductResponseDto;
 import mate.academy.springboot.datajpa.model.Product;
-import mate.academy.springboot.datajpa.service.CategoryService;
 import mate.academy.springboot.datajpa.service.ProductService;
 import mate.academy.springboot.datajpa.service.mapper.RequestDtoMapper;
 import mate.academy.springboot.datajpa.service.mapper.ResponseDtoMapper;
@@ -25,13 +24,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/products")
 public class ProductController {
-    @NotNull
     private final ProductService productService;
-    @NotNull
-    private final CategoryService categoryService;
-    @NotNull
     private final RequestDtoMapper<ProductRequestDto, Product> productRequestDtoMapper;
-    @NotNull
     private final ResponseDtoMapper<ProductResponseDto, Product> productResponseDtoMapper;
 
     @GetMapping("/{id}")
@@ -57,7 +51,7 @@ public class ProductController {
     }
 
     @PostMapping
-    public ProductResponseDto create(@RequestBody ProductRequestDto productRequestDto) {
+    public ProductResponseDto create(@RequestBody @Valid ProductRequestDto productRequestDto) {
         return productResponseDtoMapper.mapToDto(
                 productService.create(
                         productRequestDtoMapper.mapToModel(productRequestDto)));
