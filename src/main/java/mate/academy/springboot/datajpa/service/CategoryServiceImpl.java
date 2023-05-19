@@ -1,24 +1,22 @@
 package mate.academy.springboot.datajpa.service;
 
+import jakarta.validation.constraints.NotNull;
+import lombok.RequiredArgsConstructor;
 import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.repository.CategoryRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
+@RequiredArgsConstructor
 @Service
 public class CategoryServiceImpl implements CategoryService {
+    @NotNull
     private final CategoryRepository categoryRepository;
-
-    public CategoryServiceImpl(CategoryRepository categoryRepository) {
-        this.categoryRepository = categoryRepository;
-    }
 
     @Override
     public Category create(Category category) {
         return categoryRepository.save(category);
     }
 
-    @Transactional
     @Override
     public Category get(Long id) {
         return categoryRepository.findById(id)
@@ -26,17 +24,17 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public boolean delete(Category category) {
+    public void delete(Category category) {
         categoryRepository.delete(category);
-        return true;
     }
 
     @Override
     public Category update(Category category) {
-        categoryRepository.update(
-                category.getId(),
-                category.getName()
-        );
+        long id = category.getId();
+        if (categoryRepository.findById(id).isEmpty()) {
+            throw new RuntimeException("There is no category found for id " + id);
+        }
+        categoryRepository.save(category);
         return category;
     }
 }

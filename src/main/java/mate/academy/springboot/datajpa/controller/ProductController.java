@@ -1,7 +1,9 @@
 package mate.academy.springboot.datajpa.controller;
 
+import jakarta.validation.constraints.NotNull;
 import java.util.List;
 import java.util.stream.Collectors;
+import lombok.RequiredArgsConstructor;
 import mate.academy.springboot.datajpa.dto.ProductRequestDto;
 import mate.academy.springboot.datajpa.dto.ProductResponseDto;
 import mate.academy.springboot.datajpa.model.Product;
@@ -11,6 +13,7 @@ import mate.academy.springboot.datajpa.service.mapper.RequestDtoMapper;
 import mate.academy.springboot.datajpa.service.mapper.ResponseDtoMapper;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,63 +21,27 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/products")
 public class ProductController {
+    @NotNull
     private final ProductService productService;
+    @NotNull
     private final CategoryService categoryService;
+    @NotNull
     private final RequestDtoMapper<ProductRequestDto, Product> productRequestDtoMapper;
+    @NotNull
     private final ResponseDtoMapper<ProductResponseDto, Product> productResponseDtoMapper;
 
-    public ProductController(ProductService productService,
-                             CategoryService categoryService,
-                             RequestDtoMapper<ProductRequestDto, Product>
-                                     productRequestDtoMapper,
-                             ResponseDtoMapper<ProductResponseDto, Product>
-                                     productResponseDtoMapper) {
-        this.productService = productService;
-        this.categoryService = categoryService;
-        this.productRequestDtoMapper = productRequestDtoMapper;
-        this.productResponseDtoMapper = productResponseDtoMapper;
-    }
-
-    @GetMapping("/inject")
-    public String injectProducts() {
-        Product apple = new Product();
-        apple.setTitle("apple");
-        apple.setPrice(1L);
-        apple.setCategory(categoryService.get(1L));
-        productService.create(apple);
-
-        Product meat = new Product();
-        meat.setTitle("meat");
-        meat.setPrice(2L);
-        meat.setCategory(categoryService.get(1L));
-        productService.create(meat);
-
-        Product spoon = new Product();
-        spoon.setTitle("spoon");
-        spoon.setPrice(1L);
-        spoon.setCategory(categoryService.get(2L));
-        productService.create(spoon);
-
-        Product fork = new Product();
-        fork.setTitle("fork");
-        fork.setPrice(2L);
-        fork.setCategory(categoryService.get(2L));
-        productService.create(fork);
-
-        return "Success!";
-    }
-
-    @GetMapping
-    public ProductResponseDto get(@RequestParam Long id) {
+    @GetMapping("/{id}")
+    public ProductResponseDto get(@PathVariable Long id) {
         return productResponseDtoMapper.mapToDto(productService.get(id));
     }
 
     @GetMapping("/by-category")
-    public List<ProductResponseDto> getByCategory(@RequestParam(name = "id") Long categoryId) {
-        return productService.getByCategory(categoryService.get(categoryId))
+    public List<ProductResponseDto> getByCategory(@RequestParam List<String> categories) {
+        return productService.findProductsByCategoryName(categories)
                 .stream()
                 .map(productResponseDtoMapper::mapToDto)
                 .collect(Collectors.toList());
@@ -83,7 +50,7 @@ public class ProductController {
     @GetMapping("/by-price-between")
     public List<ProductResponseDto> getByPriceBetween(@RequestParam Long from,
                                                       @RequestParam Long to) {
-        return productService.getByPriceBetween(from, to)
+        return productService.findProductsByPriceBetween(from, to)
                 .stream()
                 .map(productResponseDtoMapper::mapToDto)
                 .collect(Collectors.toList());
@@ -96,8 +63,8 @@ public class ProductController {
                         productRequestDtoMapper.mapToModel(productRequestDto)));
     }
 
-    @PutMapping
-    public ProductResponseDto update(@RequestParam Long id,
+    @PutMapping("/{id}")
+    public ProductResponseDto update(@PathVariable Long id,
             @RequestBody ProductRequestDto productRequestDto) {
         Product product = productRequestDtoMapper.mapToModel(productRequestDto);
         product.setId(id);
@@ -105,9 +72,8 @@ public class ProductController {
                 productService.update(product));
     }
 
-    @DeleteMapping
-    public String delete(@RequestParam Long id) {
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id) {
         productService.delete(productService.get(id));
-        return "Product with id %s has been deleted".formatted(id);
     }
 }
