@@ -21,5 +21,4 @@ public class Product {
     private BigDecimal price;
     @ManyToOne(fetch = FetchType.LAZY)
     private Category category;
-
 }

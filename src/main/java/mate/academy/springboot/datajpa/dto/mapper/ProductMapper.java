@@ -34,4 +34,3 @@ public class ProductMapper implements RequestDtoMapper<ProductRequestDto, Produc
         return productResponseDto;
     }
 }
-
