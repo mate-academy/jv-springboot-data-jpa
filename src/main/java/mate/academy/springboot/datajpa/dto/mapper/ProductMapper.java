@@ -29,7 +29,7 @@ public class ProductMapper implements RequestDtoMapper<ProductRequestDto, Produc
         ProductResponseDto productResponseDto = new ProductResponseDto();
         productResponseDto.setId(product.getId());
         productResponseDto.setTitle(product.getTitle());
-        product.setPrice(product.getPrice());
+        productResponseDto.setPrice(product.getPrice());
         productResponseDto.setCategoryId(product.getCategory().getId());
         return productResponseDto;
     }
