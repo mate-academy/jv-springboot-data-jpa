@@ -48,7 +48,6 @@ public class ProductController {
     @GetMapping("/categories")
     public List<ProductResponseDto> findProductsByCategoryIn(
             @RequestParam(name = "categories") List<String> categories) {
-        System.out.println(categories);
         return productService.findProductsByCategoryNameIn(categories).stream()
                 .map(productMapperDto::toDto)
                 .collect(Collectors.toList());
