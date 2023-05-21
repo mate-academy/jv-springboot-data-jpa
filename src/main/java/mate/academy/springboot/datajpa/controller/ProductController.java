@@ -2,8 +2,10 @@ package mate.academy.springboot.datajpa.controller;
 
 import java.math.BigDecimal;
 import java.util.List;
+import lombok.RequiredArgsConstructor;
 import mate.academy.springboot.datajpa.dto.request.RequestProductDto;
 import mate.academy.springboot.datajpa.dto.response.ResponseProductDto;
+import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.service.ProductService;
 import mate.academy.springboot.datajpa.service.mapper.DtoMapper;
@@ -14,20 +16,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/products")
 public class ProductController {
     private final ProductService productService;
     private final DtoMapper<Product, RequestProductDto, ResponseProductDto> productMapper;
-
-    public ProductController(
-            ProductService productService,
-            DtoMapper<Product, RequestProductDto, ResponseProductDto> productMapper) {
-        this.productService = productService;
-        this.productMapper = productMapper;
-    }
 
     @PostMapping
     public ResponseProductDto create(@RequestBody RequestProductDto productDto) {
@@ -47,23 +44,34 @@ public class ProductController {
 
     @PutMapping("/{id}")
     public ResponseProductDto update(@PathVariable Long id,
-                                     @RequestBody RequestProductDto productDto ) {
+                                     @RequestBody RequestProductDto productDto) {
         Product product = productMapper.toModel(productDto);
         product.setId(id);
         return productMapper.toDto(productService.update(product));
     }
 
-    @GetMapping("/inject")
-    public void saveProduct() {
-        Product product = new Product();
-        product.setTitle("Lenovo");
-        product.setPrice(BigDecimal.valueOf(1000));
+    @GetMapping("/by-price")
+    public List<ResponseProductDto> getAllByPriceBetween(@RequestParam BigDecimal from,
+                                                         @RequestParam BigDecimal to) {
+        return modelsListToDto(productService.findAllByPriceBetween(from, to));
+    }
 
-        productService.save(product);
+    @GetMapping("by-category")
+    public List<ResponseProductDto> getAllByCategoryIn(List<Category> categories) {
+        return modelsListToDto(productService.findAllByCategory(categories));
+
     }
 
     @GetMapping
-    public List<Product> getAll() {
-        return productService.findAll();
+    public List<ResponseProductDto> getAll() {
+        return productService.findAll().stream()
+                .map(productMapper::toDto)
+                .toList();
+    }
+
+    private List<ResponseProductDto> modelsListToDto(List<Product> products) {
+        return products.stream()
+                .map(productMapper::toDto)
+                .toList();
     }
 }
