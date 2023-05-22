@@ -30,7 +30,11 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product update(Product product) {
-        return productRepository.save(product);
+        Product reference = productRepository.getReferenceById(product.getId());
+        reference.setPrice(product.getPrice());
+        reference.setTitle(product.getTitle());
+        reference.setCategory(product.getCategory());
+        return productRepository.save(reference);
     }
 
     @Override

@@ -64,9 +64,7 @@ public class ProductController {
 
     @GetMapping
     public List<ResponseProductDto> getAll() {
-        return productService.findAll().stream()
-                .map(productMapper::toDto)
-                .toList();
+        return modelsListToDto(productService.findAll());
     }
 
     private List<ResponseProductDto> modelsListToDto(List<Product> products) {
