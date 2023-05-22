@@ -23,7 +23,7 @@ public class CategoryController {
     private final CategoryService categoryService;
 
     @GetMapping("/{id}")
-    public CategoryResponseDto showById(@PathVariable Long id) {
+    public CategoryResponseDto get(@PathVariable Long id) {
         return categoryDtoMapper.mapToDto(categoryService.get(id));
     }
 
@@ -43,7 +43,6 @@ public class CategoryController {
                                       @RequestBody CategoryRequestDto categoryRequestDto) {
         Category category = categoryDtoMapper.mapToModel(categoryRequestDto);
         category.setId(id);
-        categoryService.update(category);
-        return categoryDtoMapper.mapToDto(category);
+        return categoryDtoMapper.mapToDto(categoryService.update(category));
     }
 }

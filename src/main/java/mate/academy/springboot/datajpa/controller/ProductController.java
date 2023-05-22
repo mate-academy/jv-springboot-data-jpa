@@ -27,7 +27,7 @@ public class ProductController {
     private final ProductService productService;
 
     @GetMapping("/{id}")
-    public ProductResponseDto showById(@PathVariable Long id) {
+    public ProductResponseDto get(@PathVariable Long id) {
         return productDtoMapper.mapToDto(productService.get(id));
     }
 
@@ -47,8 +47,7 @@ public class ProductController {
                                       @RequestBody ProductRequestDto categoryRequestDto) {
         Product product = productDtoMapper.mapToModel(categoryRequestDto);
         product.setId(id);
-        productService.update(product);
-        return productDtoMapper.mapToDto(product);
+        return productDtoMapper.mapToDto(productService.update(product));
     }
 
     @GetMapping("/by-price")
