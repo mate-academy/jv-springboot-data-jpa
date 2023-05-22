@@ -2,18 +2,16 @@ package mate.academy.springboot.datajpa.service.impl;
 
 import java.math.BigDecimal;
 import java.util.List;
+import lombok.AllArgsConstructor;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.repository.ProductRepository;
 import mate.academy.springboot.datajpa.service.ProductService;
 import org.springframework.stereotype.Service;
 
+@AllArgsConstructor
 @Service
 public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
-
-    public ProductServiceImpl(ProductRepository productRepository) {
-        this.productRepository = productRepository;
-    }
 
     @Override
     public Product save(Product product) {
@@ -32,7 +30,10 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product update(Product product) {
-        return productRepository.save(product);
+        if (productRepository.existsById(product.getId())) {
+            return productRepository.save(product);
+        }
+        throw new RuntimeException("Can't find product by id " + product.getId());
     }
 
     @Override
@@ -41,7 +42,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> findAllByCategoryIdIn(List<Long> categoriesId) {
-        return productRepository.findAllByCategoryIdIn(categoriesId);
+    public List<Product> findAllByCategoryIdIn(List<String> categories) {
+        return productRepository.findAllByCategoryIdIn(categories);
     }
 }

@@ -8,9 +8,15 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.math.BigDecimal;
-import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
-@Data
+@Getter
+@Setter
+@ToString
+@EqualsAndHashCode
 @Entity
 @Table(name = "products")
 public class Product {
@@ -20,5 +26,6 @@ public class Product {
     private String title;
     private BigDecimal price;
     @ManyToOne(fetch = FetchType.LAZY)
+    @ToString.Exclude
     private Category category;
 }

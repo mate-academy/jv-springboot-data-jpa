@@ -3,6 +3,7 @@ package mate.academy.springboot.datajpa.controller;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
+import lombok.AllArgsConstructor;
 import mate.academy.springboot.datajpa.dto.mapper.RequestDtoMapper;
 import mate.academy.springboot.datajpa.dto.mapper.ResponseDtoMapper;
 import mate.academy.springboot.datajpa.dto.request.ProductRequestDto;
@@ -19,20 +20,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+@AllArgsConstructor
 @RestController
 @RequestMapping("/products")
 public class ProductController {
     private final ProductService productService;
     private final RequestDtoMapper<ProductRequestDto, Product> requestDtoMapper;
     private final ResponseDtoMapper<ProductResponseDto, Product> responseDtoMapper;
-
-    public ProductController(ProductService productService,
-                             RequestDtoMapper<ProductRequestDto, Product> requestDtoMapper,
-                             ResponseDtoMapper<ProductResponseDto, Product> responseDtoMapper) {
-        this.productService = productService;
-        this.requestDtoMapper = requestDtoMapper;
-        this.responseDtoMapper = responseDtoMapper;
-    }
 
     @PostMapping
     public ProductResponseDto create(@RequestBody ProductRequestDto product) {
@@ -69,8 +63,8 @@ public class ProductController {
     }
 
     @GetMapping("/by-category")
-    public List<ProductResponseDto> getAllByCategoryIdIn(@RequestParam List<Long> id) {
-        return productService.findAllByCategoryIdIn(id)
+    public List<ProductResponseDto> getAllByCategoryIdIn(@RequestParam List<String> categories) {
+        return productService.findAllByCategoryIdIn(categories)
                 .stream()
                 .map(responseDtoMapper::mapToDto)
                 .collect(Collectors.toList());
