@@ -11,5 +11,4 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     List<Product> findAllByPriceBetween(BigDecimal from, BigDecimal to);
 
     List<Product> findProductsByCategoryNameIn(List<String> categoriesName);
-
 }
