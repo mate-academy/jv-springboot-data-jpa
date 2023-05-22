@@ -29,6 +29,8 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category update(Category category) {
+        categoryRepository.findById(category.getId()).orElseThrow(() ->
+                new RuntimeException("Category is not exist with id: " + category.getId()));
         return categoryRepository.save(category);
     }
 }

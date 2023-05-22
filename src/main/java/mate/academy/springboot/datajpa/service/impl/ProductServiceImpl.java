@@ -31,6 +31,8 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product update(Product product) {
+        productRepository.findById(product.getId()).orElseThrow(() ->
+                new RuntimeException("Product is not exist with id: " + product.getId()));
         return productRepository.save(product);
     }
 
