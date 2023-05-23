@@ -5,7 +5,7 @@ import mate.academy.springboot.datajpa.model.Category;
 public interface CategoryService {
     Category get(Long id);
 
-    Category add(Category category);
+    Category save(Category category);
 
     void delete(Long id);
 }

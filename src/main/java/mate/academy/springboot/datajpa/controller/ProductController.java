@@ -32,9 +32,9 @@ public class ProductController {
     }
 
     @PostMapping
-    public ProductResponseDto add(@RequestBody ProductRequestDto productRequestDto) {
+    public ProductResponseDto save(@RequestBody ProductRequestDto productRequestDto) {
         return productDtoMapper.mapToDto(productService
-                .add(productDtoMapper.mapToModel(productRequestDto)));
+                .save(productDtoMapper.mapToModel(productRequestDto)));
     }
 
     @DeleteMapping("/{id}")
@@ -47,7 +47,7 @@ public class ProductController {
                                       @RequestBody ProductRequestDto productRequestDto) {
         Product product = productDtoMapper.mapToModel(productRequestDto);
         product.setId(id);
-        return productDtoMapper.mapToDto(productService.add(product));
+        return productDtoMapper.mapToDto(productService.save(product));
     }
 
     @GetMapping("/by-price")
