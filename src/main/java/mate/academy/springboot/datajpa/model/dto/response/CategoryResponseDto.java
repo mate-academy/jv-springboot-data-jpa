@@ -1,8 +1,8 @@
 package mate.academy.springboot.datajpa.model.dto.response;
 
-import lombok.Setter;
+import lombok.Data;
 
-@Setter
+@Data
 public class CategoryResponseDto {
     private Long id;
     private String name;
