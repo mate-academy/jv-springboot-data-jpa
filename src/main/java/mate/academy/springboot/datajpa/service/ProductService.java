@@ -13,7 +13,7 @@ public interface ProductService {
 
     Product update(Product product);
 
-    List<Product> getAllPriceBetween(BigDecimal from, BigDecimal to);
+    List<Product> getAllProductsByPriceBetween(BigDecimal from, BigDecimal to);
 
-    List<Product> getAllProducts(List<Long> categoryIds);
+    List<Product> getAllProductsByCategories(List<Long> categoryIds);
 }

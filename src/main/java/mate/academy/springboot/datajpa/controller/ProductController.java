@@ -5,9 +5,8 @@ import java.util.List;
 import mate.academy.springboot.datajpa.dto.request.ProductRequestDto;
 import mate.academy.springboot.datajpa.dto.response.ProductResponseDto;
 import mate.academy.springboot.datajpa.model.Product;
-import mate.academy.springboot.datajpa.service.CategoryService;
 import mate.academy.springboot.datajpa.service.ProductService;
-import mate.academy.springboot.datajpa.service.mapper.ProductDtoMapper;
+import mate.academy.springboot.datajpa.service.mapper.DtoMapper;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,14 +21,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/products")
 public class ProductController {
     private final ProductService productService;
-    private final CategoryService categoryService;
-    private final ProductDtoMapper mapper;
+    private final DtoMapper<Product, ProductRequestDto, ProductResponseDto> mapper;
 
     public ProductController(ProductService productService,
-                             CategoryService categoryService,
-                             ProductDtoMapper mapper) {
+                             DtoMapper<Product, ProductRequestDto, ProductResponseDto> mapper) {
         this.productService = productService;
-        this.categoryService = categoryService;
         this.mapper = mapper;
     }
 
@@ -56,10 +52,10 @@ public class ProductController {
         return mapper.toDto(productService.update(product));
     }
 
-    @GetMapping
+    @GetMapping("by-price")
     public List<ProductResponseDto> getAllBetween(@RequestParam BigDecimal from,
                                                   @RequestParam BigDecimal to) {
-        return productService.getAllPriceBetween(from, to)
+        return productService.getAllProductsByPriceBetween(from, to)
                 .stream()
                 .map(mapper::toDto)
                 .toList();
@@ -67,7 +63,7 @@ public class ProductController {
 
     @GetMapping("/by-categories")
     public List<ProductResponseDto> getAllByCategories(@RequestParam List<Long> categoryIds) {
-        return productService.getAllProducts(categoryIds).stream()
+        return productService.getAllProductsByCategories(categoryIds).stream()
                 .map(mapper::toDto)
                 .toList();
     }
