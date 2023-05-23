@@ -53,7 +53,7 @@ public class ProductController {
         productService.deleteById(id);
     }
 
-    @PostMapping("/by-price")
+    @GetMapping("/by-price")
     public List<ProductResponseDto> findAllByPrice(
             @RequestParam BigDecimal from, @RequestParam BigDecimal to) {
         return productService.findAllByPriceBetween(from, to)
@@ -62,7 +62,7 @@ public class ProductController {
                 .collect(Collectors.toList());
     }
 
-    @PostMapping("/by-categories")
+    @GetMapping("/by-categories")
     public List<ProductResponseDto> findAllByCategories(
             @RequestParam("categories") List<String> categories) {
         return productService.findAllByCategoryNames(categories)
