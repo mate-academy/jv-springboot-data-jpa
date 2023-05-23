@@ -43,6 +43,6 @@ public class CategoryController {
                                       @RequestBody CategoryRequestDto categoryRequestDto) {
         Category category = categoryDtoMapper.mapToModel(categoryRequestDto);
         category.setId(id);
-        return categoryDtoMapper.mapToDto(categoryService.update(category));
+        return categoryDtoMapper.mapToDto(categoryService.add(category));
     }
 }

@@ -8,6 +8,4 @@ public interface CategoryService {
     Category add(Category category);
 
     void delete(Long id);
-
-    Category update(Category category);
 }

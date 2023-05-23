@@ -9,8 +9,6 @@ public interface ProductService {
 
     void delete(Long id);
 
-    Product update(Product product);
-
     Product get(Long id);
 
     List<Product> findAllByPriceBetween(BigDecimal from, BigDecimal to);

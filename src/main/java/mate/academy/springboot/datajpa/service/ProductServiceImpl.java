@@ -23,11 +23,6 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product update(Product product) {
-        return productRepository.saveAndFlush(product);
-    }
-
-    @Override
     public Product get(Long id) {
         return productRepository.getReferenceById(id);
     }
