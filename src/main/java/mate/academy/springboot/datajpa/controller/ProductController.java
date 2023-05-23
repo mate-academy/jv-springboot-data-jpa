@@ -49,7 +49,7 @@ public class ProductController {
                                      @RequestBody ProductRequestDto requestDto) {
         Product model = productMapper.toModel(requestDto);
         model.setId(id);
-        return productMapper.toDto(productService.update(model));
+        return productMapper.toDto(productService.save(model));
     }
 
     @GetMapping("/by-price")
