@@ -7,7 +7,7 @@ import mate.academy.springboot.datajpa.model.Product;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ProductMapper {
+public class ProductMapper implements Mapper<Product, ProductRequestDto, ProductResponseDto> {
     public ProductResponseDto mapToDto(Product product) {
         ProductResponseDto responseDto = new ProductResponseDto();
         responseDto.setId(product.getId());
