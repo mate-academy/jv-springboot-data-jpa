@@ -20,12 +20,12 @@ public class ProductMapper implements DtoMapper<Product, RequestProductDto, Resp
     }
 
     @Override
-    public ResponseProductDto toDto(Product product) {
+    public ResponseProductDto toDto(Product model) {
         ResponseProductDto responseProductDto = new ResponseProductDto();
-        responseProductDto.setId(product.getId());
-        responseProductDto.setPrice(product.getPrice());
-        responseProductDto.setTitle(product.getTitle());
-        responseProductDto.setCategoryId(product.getCategory().getId());
+        responseProductDto.setId(model.getId());
+        responseProductDto.setPrice(model.getPrice());
+        responseProductDto.setTitle(model.getTitle());
+        responseProductDto.setCategoryId(model.getCategory().getId());
         return responseProductDto;
     }
 }
