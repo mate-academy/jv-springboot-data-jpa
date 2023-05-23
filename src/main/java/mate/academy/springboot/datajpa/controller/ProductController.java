@@ -3,11 +3,12 @@ package mate.academy.springboot.datajpa.controller;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
+import lombok.AllArgsConstructor;
 import mate.academy.springboot.datajpa.dto.request.ProductRequestDto;
 import mate.academy.springboot.datajpa.dto.response.ProductResponseDto;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.service.ProductService;
-import mate.academy.springboot.datajpa.service.mapper.ProductMapper;
+import mate.academy.springboot.datajpa.service.mapper.DtoMapper;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,14 +21,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/products")
+@AllArgsConstructor
 public class ProductController {
     private final ProductService productService;
-    private final ProductMapper mapper;
-
-    public ProductController(ProductService productService, ProductMapper mapper) {
-        this.productService = productService;
-        this.mapper = mapper;
-    }
+    private final DtoMapper<ProductRequestDto, ProductResponseDto, Product> mapper;
 
     @GetMapping("/{id}")
     public ProductResponseDto get(@PathVariable Long id) {

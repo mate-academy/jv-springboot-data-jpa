@@ -1,10 +1,11 @@
 package mate.academy.springboot.datajpa.controller;
 
+import lombok.AllArgsConstructor;
 import mate.academy.springboot.datajpa.dto.request.CategoryRequestDto;
 import mate.academy.springboot.datajpa.dto.response.CategoryResponseDto;
 import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.service.CategoryService;
-import mate.academy.springboot.datajpa.service.mapper.CategoryMapper;
+import mate.academy.springboot.datajpa.service.mapper.DtoMapper;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,14 +17,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/categories")
+@AllArgsConstructor
 public class CategoryController {
     private final CategoryService categoryService;
-    private final CategoryMapper mapper;
-
-    public CategoryController(CategoryService categoryService, CategoryMapper mapper) {
-        this.categoryService = categoryService;
-        this.mapper = mapper;
-    }
+    private final DtoMapper<CategoryRequestDto, CategoryResponseDto, Category> mapper;
 
     @GetMapping("/{id}")
     public CategoryResponseDto get(@PathVariable Long id) {
