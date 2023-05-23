@@ -15,7 +15,7 @@ public class ProductMapper implements Mapper<Product, ProductRequestDto, Product
         return product;
     }
 
-    public ProductResponseDto toDto (Product product) {
+    public ProductResponseDto toDto(Product product) {
         ProductResponseDto productResponseDto = new ProductResponseDto();
         productResponseDto.setId(product.getId());
         productResponseDto.setTitle(product.getTitle());
