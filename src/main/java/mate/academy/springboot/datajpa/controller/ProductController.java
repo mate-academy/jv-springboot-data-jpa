@@ -47,27 +47,27 @@ public class ProductController {
                                      @RequestBody RequestProductDto productDto) {
         Product product = productMapper.toModel(productDto);
         product.setId(id);
-        return productMapper.toDto(productService.update(product));
+        return productMapper.toDto(productService.save(product));
     }
 
     @GetMapping("/by-price")
     public List<ResponseProductDto> getAllByPriceBetween(@RequestParam BigDecimal from,
                                                          @RequestParam BigDecimal to) {
-        return modelsListToDto(productService.findAllByPriceBetween(from, to));
+        return convertModelsListToDto(productService.findAllByPriceBetween(from, to));
     }
 
     @GetMapping("by-category")
-    public List<ResponseProductDto> getAllByCategoryIn(List<Category> categories) {
-        return modelsListToDto(productService.findAllByCategory(categories));
+    public List<ResponseProductDto> getAllByCategoryIn(@RequestParam List<Category> categories) {
+        return convertModelsListToDto(productService.findAllByCategory(categories));
 
     }
 
     @GetMapping
     public List<ResponseProductDto> getAll() {
-        return modelsListToDto(productService.findAll());
+        return convertModelsListToDto(productService.findAll());
     }
 
-    private List<ResponseProductDto> modelsListToDto(List<Product> products) {
+    private List<ResponseProductDto> convertModelsListToDto(List<Product> products) {
         return products.stream()
                 .map(productMapper::toDto)
                 .toList();

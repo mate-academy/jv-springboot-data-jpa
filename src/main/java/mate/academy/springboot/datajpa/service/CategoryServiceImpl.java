@@ -23,14 +23,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public void delete(Long id) {
-        categoryRepository.delete(getById(id));
-    }
-
-    @Override
-    public Category update(Category category) {
-        Category reference = categoryRepository.getReferenceById(category.getId());
-        reference.setName(category.getName());
-        return categoryRepository.save(reference);
+        categoryRepository.deleteById(id);
     }
 
     @Override
