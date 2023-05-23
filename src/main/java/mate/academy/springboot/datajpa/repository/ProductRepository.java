@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
-    List<Product> getProductsByCategory_IdIn(List<Long> categoryId);
+    List<Product> getProductsByCategoryIdIn(List<Long> categoryIds);
 
     List<Product> getProductsByPriceBetween(BigDecimal fromPrice, BigDecimal toPrice);
 }

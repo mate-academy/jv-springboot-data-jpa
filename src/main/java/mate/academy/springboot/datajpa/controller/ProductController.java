@@ -64,8 +64,8 @@ public class ProductController {
 
     @GetMapping("/by-categories")
     public List<ProductResponseDto> getProductsByCategories(
-            @RequestParam("category") List<Long> id) {
-        return productService.getProductsByCategories(id)
+            @RequestParam("categoryIds") List<Long> categoryIds) {
+        return productService.getProductsByCategories(categoryIds)
                 .stream()
                 .map(dtoMapper::mapToDto)
                 .collect(Collectors.toList());
