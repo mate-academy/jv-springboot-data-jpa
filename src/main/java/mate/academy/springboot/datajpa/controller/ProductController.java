@@ -6,10 +6,11 @@ import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.model.dto.request.ProductRequestDto;
-import mate.academy.springboot.datajpa.model.dto.respons.ProductResponseDto;
+import mate.academy.springboot.datajpa.model.dto.response.ProductResponseDto;
 import mate.academy.springboot.datajpa.service.ProductService;
 import mate.academy.springboot.datajpa.service.mapper.RequestDtoMapper;
 import mate.academy.springboot.datajpa.service.mapper.ResponseDtoMapper;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,7 +36,7 @@ public class ProductController {
 
     @GetMapping("/{id}")
     public ProductResponseDto getById(@PathVariable Long id) {
-        return responseDtoMapper.mapToDto(productService.getProductById(id));
+        return responseDtoMapper.mapToDto(productService.getById(id));
     }
 
     @PutMapping("/{id}")
@@ -60,5 +61,10 @@ public class ProductController {
         return productService.findAllByCategory(categories).stream()
                 .map(responseDtoMapper::mapToDto)
                 .collect(Collectors.toList());
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteById(@PathVariable Long id) {
+        productService.deleteById(id);
     }
 }

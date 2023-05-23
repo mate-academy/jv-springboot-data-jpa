@@ -3,7 +3,7 @@ package mate.academy.springboot.datajpa.controller;
 import lombok.AllArgsConstructor;
 import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.model.dto.request.CategoryRequestDto;
-import mate.academy.springboot.datajpa.model.dto.respons.CategoryResponseDto;
+import mate.academy.springboot.datajpa.model.dto.response.CategoryResponseDto;
 import mate.academy.springboot.datajpa.service.CategoryService;
 import mate.academy.springboot.datajpa.service.mapper.RequestDtoMapper;
 import mate.academy.springboot.datajpa.service.mapper.ResponseDtoMapper;
