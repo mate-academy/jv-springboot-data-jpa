@@ -23,7 +23,10 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category update(Category category) {
-        return repository.saveAndFlush(category);
+        if (repository.existsById(category.getId())) {
+            return repository.save(category);
+        }
+        throw new RuntimeException("Can't find category by id " + category.getId());
     }
 
     @Override
