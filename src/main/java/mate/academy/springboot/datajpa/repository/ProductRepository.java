@@ -10,5 +10,5 @@ import org.springframework.stereotype.Repository;
 public interface ProductRepository extends JpaRepository<Product, Long> {
     List<Product> getProductsByCategoryIdIn(List<Long> categoryIds);
 
-    List<Product> getProductsByPriceBetween(BigDecimal fromPrice, BigDecimal toPrice);
+    List<Product> getProductsByPriceBetween(BigDecimal from, BigDecimal to);
 }

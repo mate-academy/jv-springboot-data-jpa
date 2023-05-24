@@ -13,7 +13,7 @@ public interface ProductService {
 
     void deleteById(Long id);
 
-    List<Product> getProductsByPriceBetween(BigDecimal fromPrice, BigDecimal toPrice);
+    List<Product> getProductsByPriceBetween(BigDecimal from, BigDecimal to);
 
     List<Product> getProductsByCategories(List<Long> categoriesId);
 }
