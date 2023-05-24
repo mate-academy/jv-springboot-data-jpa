@@ -2,7 +2,6 @@ package mate.academy.springboot.datajpa.service.impl;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.repository.ProductRepository;
@@ -12,7 +11,7 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
-    private ProductRepository productRepository;
+    private final ProductRepository productRepository;
 
     @Override
     public Product add(Product product) {
@@ -32,21 +31,19 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product update(Product product) {
-        return productRepository.saveAndFlush(product);
+        if (productRepository.existsById(product.getId())) {
+            return productRepository.saveAndFlush(product);
+        }
+        throw new RuntimeException("Can't find product with id: " + product.getId());
     }
 
     @Override
-    public List<Product> findAll(Map<String, String> params) {
-        return null;
+    public List<Product> findProductsByPriceBetween(BigDecimal from, BigDecimal to) {
+        return productRepository.findProductsByPriceBetween(from, to);
     }
 
     @Override
-    public List<Product> findAllByPriceBetween(BigDecimal from, BigDecimal to) {
-        return productRepository.findAllByPriceBetween(from, to);
-    }
-
-    @Override
-    public List<Product> findAllByCategoryNameIn(List<String> categories) {
-        return productRepository.findProductByCategoryNameIn(categories);
+    public List<Product> findProductsByCategoryNameIn(List<String> categoryNames) {
+        return productRepository.findProductsByCategoryNameIn(categoryNames);
     }
 }

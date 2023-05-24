@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class CategoryServiceImpl implements CategoryService {
-    private CategoryRepository categoryRepository;
+    private final CategoryRepository categoryRepository;
 
     @Override
     public Category add(Category category) {
@@ -29,6 +29,9 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category update(Category category) {
-        return categoryRepository.saveAndFlush(category);
+        if (categoryRepository.existsById(category.getId())) {
+            return categoryRepository.saveAndFlush(category);
+        }
+        throw new RuntimeException("Can't find category with id: " + category.getId());
     }
 }

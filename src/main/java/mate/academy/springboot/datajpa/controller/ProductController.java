@@ -23,8 +23,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/products")
 @RequiredArgsConstructor
 public class ProductController {
-    private ProductService productService;
-    private DtoMapper<ProductResponseDto, Product, ProductRequestDto> productMapper;
+    private final ProductService productService;
+    private final DtoMapper<ProductResponseDto, Product, ProductRequestDto> productMapper;
 
     @GetMapping("/{id}")
     public ProductResponseDto getById(@PathVariable Long id) {
@@ -50,17 +50,17 @@ public class ProductController {
     }
 
     @GetMapping("/by-price")
-    public List<ProductResponseDto> findProductByPriceBetween(@RequestParam BigDecimal from,
+    public List<ProductResponseDto> findProductsByPriceBetween(@RequestParam BigDecimal from,
                                                               @RequestParam BigDecimal to) {
-        return productService.findAllByPriceBetween(from, to).stream()
+        return productService.findProductsByPriceBetween(from, to).stream()
                 .map(productMapper::toDto)
                 .collect(Collectors.toList());
     }
 
     @GetMapping("/by-categories")
-    public List<ProductResponseDto> findProductByCategoryName(
-            @RequestParam("categories") List<String> categories) {
-        return productService.findAllByCategoryNameIn(categories).stream()
+    public List<ProductResponseDto> findProductsByCategoryName(
+            @RequestParam("categories") List<String> categoryNames) {
+        return productService.findProductsByCategoryNameIn(categoryNames).stream()
                 .map(productMapper::toDto)
                 .collect(Collectors.toList());
     }
