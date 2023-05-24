@@ -25,7 +25,7 @@ public class CategoryController {
     private final ResponseDtoMapper<CategoryResponseDto, Category> responseDtoMapper;
 
     @GetMapping("/{id}")
-    public CategoryResponseDto getCategoryById(@PathVariable Long id) {
+    public CategoryResponseDto get(@PathVariable Long id) {
         return responseDtoMapper.mapToDto(categoryService.get(id));
     }
 
