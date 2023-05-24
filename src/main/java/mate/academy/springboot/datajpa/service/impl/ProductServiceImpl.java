@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
+import lombok.AllArgsConstructor;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.repository.ProductRepository;
 import mate.academy.springboot.datajpa.service.ProductService;
@@ -12,15 +13,10 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 
 @Component
+@AllArgsConstructor
 public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
     private final ProductSpecificationManager productSpecificationManager;
-
-    public ProductServiceImpl(ProductRepository productRepository,
-                              ProductSpecificationManager productSpecificationManager) {
-        this.productRepository = productRepository;
-        this.productSpecificationManager = productSpecificationManager;
-    }
 
     @Override
     public Product save(Product product) {

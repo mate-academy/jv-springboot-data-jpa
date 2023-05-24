@@ -1,13 +1,11 @@
 package mate.academy.springboot.datajpa.service.mappers;
 
-import lombok.AllArgsConstructor;
 import mate.academy.springboot.datajpa.dto.CategoryRequestDto;
 import mate.academy.springboot.datajpa.dto.CategoryResponseDto;
 import mate.academy.springboot.datajpa.model.Category;
 import org.springframework.stereotype.Component;
 
 @Component
-@AllArgsConstructor
 public class CategoryMapper implements
         DtoMapper<CategoryRequestDto, CategoryResponseDto, Category> {
     @Override
