@@ -46,7 +46,7 @@ public class ProductController {
                                      @RequestBody ProductRequestDto requestDto) {
         Product product = productMapper.mapToModel(requestDto);
         product.setId(id);
-        return productMapper.mapToDto(productService.update(product));
+        return productMapper.mapToDto(productService.create(product));
     }
 
     @GetMapping("/by-price")

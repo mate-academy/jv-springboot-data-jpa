@@ -11,10 +11,7 @@ public interface ProductService {
 
     void delete(Long id);
 
-    Product update(Product product);
-
     List<Product> findByPrice(BigDecimal from, BigDecimal to);
 
     List<Product> findByCategory(List<String> categories);
-
 }

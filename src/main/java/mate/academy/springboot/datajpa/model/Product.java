@@ -8,21 +8,30 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.math.BigDecimal;
-import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
-@Data
+@Getter
+@Setter
+@EqualsAndHashCode
 @Table(name = "products")
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @EqualsAndHashCode.Exclude
     private Long id;
     private String title;
     private BigDecimal price;
     @ManyToOne(fetch = FetchType.LAZY)
-    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Category category;
+
+    @Override
+    public String toString() {
+        return "Product{"
+                + "id=" + id
+                + ", title=" + title
+                + ", price=" + price + '}';
+    }
 }
