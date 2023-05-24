@@ -3,6 +3,7 @@ package mate.academy.springboot.datajpa.service.impl;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
+import lombok.RequiredArgsConstructor;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.repository.ProductRepository;
 import mate.academy.springboot.datajpa.repository.specification.SpecificationManager;
@@ -11,15 +12,10 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
     private final SpecificationManager<Product> specificationManager;
-
-    public ProductServiceImpl(ProductRepository productRepository,
-                              SpecificationManager<Product> specificationManager) {
-        this.productRepository = productRepository;
-        this.specificationManager = specificationManager;
-    }
 
     @Override
     public Product save(Product product) {
@@ -38,7 +34,10 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product update(Product product) {
-        return productRepository.save(product);
+        if (product != null) {
+            return productRepository.save(product);
+        }
+        throw new RuntimeException("Can't update Product! Product doesn't exist.");
     }
 
     @Override

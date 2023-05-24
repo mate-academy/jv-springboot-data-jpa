@@ -8,9 +8,9 @@ import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.repository.specification.SpecificationManager;
 import mate.academy.springboot.datajpa.repository.specification.SpecificationProvider;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
-@Service
+@Component
 public class ProductSpecificationManager implements SpecificationManager<Product> {
     private final Map<String, SpecificationProvider<Product>> providerMap;
 
