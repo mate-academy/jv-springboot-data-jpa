@@ -37,7 +37,7 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
-    public ProductResponseDto update(@RequestParam Long id,
+    public ProductResponseDto update(@PathVariable Long id,
                                      @RequestBody ProductRequestDto productRequestDto) {
         Product product = productMapper.toModel(productRequestDto);
         product.setId(id);
@@ -45,7 +45,7 @@ public class ProductController {
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@RequestParam Long id) {
+    public void delete(@PathVariable Long id) {
         productService.delete(id);
     }
 
