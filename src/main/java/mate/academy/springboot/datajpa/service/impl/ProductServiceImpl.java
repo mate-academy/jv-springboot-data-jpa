@@ -34,7 +34,12 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product update(Product product) {
-        return productRepository.save(product);
+        return productRepository.findById(product.getId())
+                .map(productRepository::save)
+                .orElseThrow(
+                        () -> new NoSuchElementException(
+                                "Can't find product!")
+                );
     }
 
     @Override

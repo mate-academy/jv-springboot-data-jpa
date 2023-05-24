@@ -32,6 +32,11 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category update(Category category) {
-        return categoryRepository.save(category);
+        return categoryRepository.findById(category.getId())
+                .map(categoryRepository::save)
+                .orElseThrow(
+                        () -> new NoSuchElementException(
+                                "Can't find category!")
+                );
     }
 }
