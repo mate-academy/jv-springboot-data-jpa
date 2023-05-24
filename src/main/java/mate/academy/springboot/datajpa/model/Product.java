@@ -23,4 +23,13 @@ public class Product {
     private BigDecimal price;
     @ManyToOne(fetch = FetchType.LAZY)
     private Category category;
+
+    @Override
+    public String toString() {
+        return "Product{"
+                + "id=" + id
+                + ", title='" + title + '\''
+                + ", price=" + price
+                + '}';
+    }
 }

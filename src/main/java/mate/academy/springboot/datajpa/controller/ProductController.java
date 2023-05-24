@@ -2,6 +2,7 @@ package mate.academy.springboot.datajpa.controller;
 
 import java.math.BigDecimal;
 import java.util.List;
+import lombok.AllArgsConstructor;
 import mate.academy.springboot.datajpa.dto.request.ProductRequestDto;
 import mate.academy.springboot.datajpa.dto.response.ProductResponseDto;
 import mate.academy.springboot.datajpa.model.Product;
@@ -17,17 +18,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+@AllArgsConstructor
 @RestController
 @RequestMapping("/products")
 public class ProductController {
     private final ProductService productService;
     private final DtoMapper<Product, ProductRequestDto, ProductResponseDto> mapper;
-
-    public ProductController(ProductService productService,
-                             DtoMapper<Product, ProductRequestDto, ProductResponseDto> mapper) {
-        this.productService = productService;
-        this.mapper = mapper;
-    }
 
     @PostMapping
     public ProductResponseDto create(@RequestBody ProductRequestDto productRequestDto) {
