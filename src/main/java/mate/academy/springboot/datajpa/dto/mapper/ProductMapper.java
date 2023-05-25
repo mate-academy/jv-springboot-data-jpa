@@ -4,7 +4,9 @@ import mate.academy.springboot.datajpa.dto.request.ProductRequestDto;
 import mate.academy.springboot.datajpa.dto.response.ProductResponseDto;
 import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.model.Product;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ProductMapper implements DtoMapper<ProductRequestDto, ProductResponseDto, Product> {
     @Override
     public Product mapToModel(ProductRequestDto requestDto) {

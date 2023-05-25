@@ -1,6 +1,7 @@
 package mate.academy.springboot.datajpa.dto.mapper;
 
-public interface DtoMapper<RQ, RS, M> {
-    M mapToModel(RQ requestDto);
-    RS mapToDto(M model);
+public interface DtoMapper<R, S, M> {
+    M mapToModel(R requestDto);
+
+    S mapToDto(M model);
 }
