@@ -28,7 +28,7 @@ public class ProductController {
     @PostMapping
     public ProductResponseDto add(@RequestBody ProductRequestDto requestDto) {
         return productMapper.mapToDto(productService
-                .create(productMapper.mapToModel(requestDto)));
+                .save(productMapper.mapToModel(requestDto)));
     }
 
     @GetMapping("/{id}")
@@ -46,7 +46,7 @@ public class ProductController {
                                      @RequestBody ProductRequestDto requestDto) {
         Product product = productMapper.mapToModel(requestDto);
         product.setId(id);
-        return productMapper.mapToDto(productService.create(product));
+        return productMapper.mapToDto(productService.save(product));
     }
 
     @GetMapping("/by-price")
@@ -59,8 +59,7 @@ public class ProductController {
     }
 
     @GetMapping("/by-categories")
-    public List<ProductResponseDto> getByCategories(@RequestParam("categories")
-                                                        List<String> categories) {
+    public List<ProductResponseDto> getByCategories(@RequestParam List<String> categories) {
         return productService.findByCategory(categories)
                 .stream()
                 .map(productMapper::mapToDto)

@@ -25,7 +25,7 @@ public class CategoryController {
     @PostMapping
     public CategoryResponseDto add(@RequestBody CategoryRequestDto requestDto) {
         return categoryMapper.mapToDto(categoryService
-                .create(categoryMapper.mapToModel(requestDto)));
+                .save(categoryMapper.mapToModel(requestDto)));
     }
 
     @GetMapping("/{id}")
@@ -43,6 +43,6 @@ public class CategoryController {
                                       @RequestBody CategoryRequestDto requestDto) {
         Category category = categoryMapper.mapToModel(requestDto);
         category.setId(id);
-        return categoryMapper.mapToDto(categoryService.create(category));
+        return categoryMapper.mapToDto(categoryService.save(category));
     }
 }
