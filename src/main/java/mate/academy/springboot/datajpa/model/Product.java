@@ -29,5 +29,6 @@ public class Product {
     private BigDecimal price;
     @ManyToOne(fetch = FetchType.LAZY)
     @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Category category;
 }
