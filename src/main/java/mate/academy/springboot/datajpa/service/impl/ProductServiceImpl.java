@@ -24,7 +24,8 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product get(Long id) {
-        return productRepository.getReferenceById(id);
+        return productRepository.findById(id).orElseThrow(() ->
+                new RuntimeException("Can't get Product from DB by ID: " + id));
     }
 
     @Override
@@ -34,10 +35,12 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product update(Product product) {
-        if (product != null) {
+        try {
+            get(product.getId());
             return productRepository.save(product);
+        } catch (RuntimeException e) {
+            throw new RuntimeException("Can't update Product in DB: " + product);
         }
-        throw new RuntimeException("Can't update Product! Product doesn't exist.");
     }
 
     @Override
@@ -46,7 +49,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> findAllInCategories(Map<String, String> params) {
+    public List<Product> findAll(Map<String, String> params) {
         Specification<Product> specification = null;
         for (Map.Entry<String, String> entry : params.entrySet()) {
             Specification<Product> sp = specificationManager.get(entry.getKey(),

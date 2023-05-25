@@ -26,6 +26,7 @@ public class Product {
     private BigDecimal price;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
+    @EqualsAndHashCode.Exclude
     private Category category;
 
     @Override
