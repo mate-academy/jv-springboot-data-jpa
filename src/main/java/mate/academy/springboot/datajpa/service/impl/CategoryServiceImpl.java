@@ -1,4 +1,4 @@
-package mate.academy.springboot.datajpa.service.Impl;
+package mate.academy.springboot.datajpa.service.impl;
 
 import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.repository.CategoryRepository;
