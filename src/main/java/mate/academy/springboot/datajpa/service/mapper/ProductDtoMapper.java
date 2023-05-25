@@ -7,7 +7,8 @@ import mate.academy.springboot.datajpa.model.Product;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ProductDtoMapper extends DtoMapper<Product, ProductRequestDto, ProductResponseDto> {
+public class ProductDtoMapper implements
+        DtoMapper<Product, ProductRequestDto, ProductResponseDto> {
     @Override
     public Product toModel(ProductRequestDto request) {
         Product product = new Product();

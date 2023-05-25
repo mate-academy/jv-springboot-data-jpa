@@ -1,7 +1,7 @@
 package mate.academy.springboot.datajpa.service.mapper;
 
-public abstract class DtoMapper<M, R, V> {
-    public abstract M toModel(R request);
+public interface DtoMapper<M, R, V> {
+    M toModel(R request);
 
-    public abstract V toDto(M model);
+    V toDto(M model);
 }
