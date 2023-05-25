@@ -7,7 +7,6 @@ import java.util.stream.Collectors;
 import mate.academy.springboot.datajpa.dto.ProductRequestDto;
 import mate.academy.springboot.datajpa.dto.ProductResponseDto;
 import mate.academy.springboot.datajpa.mapper.impl.ProductDtoMapper;
-import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.service.CategoryService;
 import mate.academy.springboot.datajpa.service.ProductService;
@@ -86,26 +85,23 @@ public class ProductController {
         return productDtoMapper.toDto(product);
     }
 
-    @GetMapping("/findAll/betweenPrice")
-    public List<ProductResponseDto> findAllProductBetweenPrices(@RequestParam Long from,
-                                                                @RequestParam Long to) {
+    @GetMapping("/findAll/prices")
+    public List<ProductResponseDto> findAllByPrices(@RequestParam Long from,
+                                                    @RequestParam Long to) {
         return productService.findAllByPriceBetween(BigDecimal.valueOf(from),
                         BigDecimal.valueOf(to)).stream()
                 .map(productDtoMapper::toDto)
                 .collect(Collectors.toList());
     }
 
-    @GetMapping("/findAll")
+    @GetMapping("/findAll/categories")
     public List<ProductResponseDto> findAllInCategories(@RequestParam List<Long> categories) {
         List<ProductResponseDto> responseDtos = new ArrayList<>();
-        List<Product> products = productService.findAll();
         for (Long id : categories) {
-            Category category = categoryService.get(id);
-            for (Product product : products) {
-                if (product.getCategory().equals(category)) {
-                    responseDtos.add(productDtoMapper.toDto(product));
-                }
-            }
+            List<Product> products = productService.findAllByCategoryId(id);
+            responseDtos.addAll(products.stream()
+                    .map(productDtoMapper::toDto)
+                    .toList());
         }
         return responseDtos;
     }
