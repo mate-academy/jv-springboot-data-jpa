@@ -18,12 +18,16 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category get(Long id) {
-        return categoryRepository.getReferenceById(id);
+        return categoryRepository.findById(id).orElseThrow(() ->
+                new RuntimeException("Can't get Category from DB by ID: " + id));
     }
 
     @Override
     public Category update(Category category) {
-        return categoryRepository.saveAndFlush(category);
+        if (categoryRepository.existsById(category.getId())) {
+            return categoryRepository.save(category);
+        }
+        throw new RuntimeException("There is no such category " + category);
     }
 
     @Override
