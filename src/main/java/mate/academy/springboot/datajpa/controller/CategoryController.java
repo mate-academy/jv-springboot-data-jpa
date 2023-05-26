@@ -1,5 +1,6 @@
 package mate.academy.springboot.datajpa.controller;
 
+import jakarta.annotation.PostConstruct;
 import mate.academy.springboot.datajpa.dto.CategoryRequestDto;
 import mate.academy.springboot.datajpa.dto.CategoryResponseDto;
 import mate.academy.springboot.datajpa.mapper.impl.CategoryDtoMapper;
@@ -26,7 +27,7 @@ public class CategoryController {
         this.categoryDtoMapper = categoryDtoMapper;
     }
 
-    @GetMapping("/inject")
+    @PostConstruct
     public void saveCategory() {
         Category phone = new Category();
         phone.setName("Phones");

@@ -1,5 +1,6 @@
 package mate.academy.springboot.datajpa.controller;
 
+import jakarta.annotation.PostConstruct;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +35,7 @@ public class ProductController {
         this.productDtoMapper = productDtoMapper;
     }
 
-    @GetMapping("/inject")
+    @PostConstruct
     public void saveProduct() {
         Product s21 = new Product();
         s21.setTitle("S21 Samsung");
@@ -58,11 +59,11 @@ public class ProductController {
         nvidia2.setTitle("3080");
         nvidia2.setPrice(BigDecimal.valueOf(800));
         nvidia2.setCategory(categoryService.get(2L));
-        productService.save(nvidia);
+        productService.save(nvidia2);
     }
 
     @PostMapping
-    public ProductResponseDto createProduct(ProductRequestDto dto) {
+    public ProductResponseDto createProduct(@RequestBody ProductRequestDto dto) {
         return productDtoMapper.toDto(productService.save(productDtoMapper.toModel(dto)));
     }
 

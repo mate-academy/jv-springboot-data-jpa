@@ -8,15 +8,10 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.math.BigDecimal;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.Data;
 import lombok.ToString;
 
-@Setter
-@Getter
-@RequiredArgsConstructor
-@ToString
+@Data
 @Entity
 @Table(name = "products")
 public class Product {
