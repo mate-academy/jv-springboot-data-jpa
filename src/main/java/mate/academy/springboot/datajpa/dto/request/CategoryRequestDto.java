@@ -1,4 +1,4 @@
-package mate.academy.springboot.datajpa.mapper.dto.request;
+package mate.academy.springboot.datajpa.dto.request;
 
 import lombok.Getter;
 
