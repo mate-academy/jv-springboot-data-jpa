@@ -46,8 +46,9 @@ public class ProductController {
     @PutMapping("/{id}")
     public ProductResponseDto update(@PathVariable Long id,
                                       @RequestBody ProductRequestDto productRequestDto) {
-        return productMapper.mapToDto(productService
-                .update(productMapper.mapToModel(productRequestDto)));
+        Product product = productMapper.mapToModel(productRequestDto);
+        product.setId(id);
+        return productMapper.mapToDto(productService.save(product));
     }
 
     @GetMapping("/by-price")
@@ -61,7 +62,7 @@ public class ProductController {
 
     @GetMapping
     public List<ProductResponseDto> getAllByParams(@RequestParam Map<String, String> params) {
-        return productService.findAll(params)
+        return productService.findAllProductsByParams(params)
                 .stream()
                 .map(productMapper::mapToDto)
                 .collect(Collectors.toList());

@@ -10,9 +10,9 @@ import mate.academy.springboot.datajpa.repository.ProductRepository;
 import mate.academy.springboot.datajpa.service.ProductService;
 import mate.academy.springboot.datajpa.specification.ProductSpecificationManager;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
+@Service
 @AllArgsConstructor
 public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
@@ -35,12 +35,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product update(Product product) {
-        return productRepository.save(product);
-    }
-
-    @Override
-    public List<Product> findAll(Map<String, String> params) {
+    public List<Product> findAllProductsByParams(Map<String, String> params) {
         Specification<Product> specification = null;
         for (Map.Entry<String, String> entry : params.entrySet()) {
             Specification<Product> sp = productSpecificationManager.get(entry.getKey(),
