@@ -2,16 +2,20 @@ package mate.academy.springboot.datajpa.service.impl;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 import lombok.AllArgsConstructor;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.repository.ProductRepository;
 import mate.academy.springboot.datajpa.service.ProductService;
+import mate.academy.springboot.datajpa.specification.ProductSpecificationManager;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
 public class ProductServiceImpl implements ProductService {
     private ProductRepository productRepository;
+    private ProductSpecificationManager productSpecificationManager;
 
     @Override
     public Product save(Product product) {
@@ -45,7 +49,23 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> getByCategory(List<String> categories) {
-        return productRepository.findByCategoryIn(categories);
+    public List<Product> getByCategory(Map<String, String> params) {
+        Specification<Product> specification = null;
+        for (Map.Entry<String, String> entry : params.entrySet()) {
+            if (specification == null) {
+                specification = Specification.where(
+                        productSpecificationManager.getSpecification(
+                                entry.getKey(), entry.getValue().split(",")
+                        )
+                );
+            } else {
+                specification = specification.and(
+                        productSpecificationManager.getSpecification(
+                                entry.getKey(), entry.getValue().split(",")
+                        )
+                );
+            }
+        }
+        return productRepository.findAll(specification);
     }
 }

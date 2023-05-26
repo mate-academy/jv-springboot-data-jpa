@@ -2,6 +2,7 @@ package mate.academy.springboot.datajpa.controller;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 import lombok.AllArgsConstructor;
 import mate.academy.springboot.datajpa.dto.request.ProductRequestDto;
 import mate.academy.springboot.datajpa.dto.response.ProductResponseDto;
@@ -45,7 +46,7 @@ public class ProductController {
 
     @PutMapping("/{id}")
     public ProductResponseDto updateProduct(@PathVariable Long id,
-                                            ProductRequestDto productRequestDto) {
+                                            @RequestParam ProductRequestDto productRequestDto) {
         Product product = productMapper.dtoToModel(productRequestDto);
         product.setId(id);
         return productMapper.modelToDto(productService.update(product));
@@ -61,7 +62,8 @@ public class ProductController {
     }
 
     @GetMapping("/by-category")
-    public List<ProductResponseDto> getProductByCategory(@RequestParam List<String> categories) {
+    public List<ProductResponseDto> getProductByCategory(
+            @RequestParam Map<String, String> categories) {
         return productService.getByCategory(categories)
                 .stream()
                 .map(productMapper::modelToDto)
