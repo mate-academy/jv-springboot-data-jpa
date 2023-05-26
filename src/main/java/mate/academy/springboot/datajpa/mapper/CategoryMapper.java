@@ -1,9 +1,11 @@
 package mate.academy.springboot.datajpa.mapper;
 
-import mate.academy.springboot.datajpa.mapper.dto.CategoryRequestDto;
-import mate.academy.springboot.datajpa.mapper.dto.CategoryResponseDto;
+import mate.academy.springboot.datajpa.mapper.dto.request.CategoryRequestDto;
+import mate.academy.springboot.datajpa.mapper.dto.response.CategoryResponseDto;
 import mate.academy.springboot.datajpa.model.Category;
+import org.springframework.stereotype.Component;
 
+@Component
 public class CategoryMapper implements DtoMapper<Category, CategoryRequestDto, CategoryResponseDto> {
     @Override
     public CategoryResponseDto toDto(Category category) {

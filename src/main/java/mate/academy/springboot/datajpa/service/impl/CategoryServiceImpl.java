@@ -30,7 +30,13 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Category update(Category category) {
-        return categoryRepository.save(category);
+    public Category update(Long id, Category category) {
+        Optional<Category> categoryOptional = categoryRepository.findById(id);
+        if (categoryOptional.isEmpty()) {
+            throw new NoSuchElementException("Category with id " + id + " hasn't found");
+        }
+        Category categoryByName = categoryOptional.get();
+        categoryByName.setName(category.getName());
+        return categoryRepository.save(categoryByName);
     }
 }
