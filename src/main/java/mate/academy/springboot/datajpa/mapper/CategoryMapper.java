@@ -6,7 +6,8 @@ import mate.academy.springboot.datajpa.model.Category;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CategoryMapper implements DtoMapper<Category, CategoryRequestDto, CategoryResponseDto> {
+public class CategoryMapper implements DtoMapper<Category,
+        CategoryRequestDto, CategoryResponseDto> {
     @Override
     public CategoryResponseDto toDto(Category category) {
         CategoryResponseDto responseDto = new CategoryResponseDto();

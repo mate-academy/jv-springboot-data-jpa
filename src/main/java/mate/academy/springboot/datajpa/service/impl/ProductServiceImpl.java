@@ -51,9 +51,6 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> getAllByCategories(List<String> categories) {
-//        Specification<Product> specification =
-//                Specification.where(specificationProvider.getSpecification(categories));
-//        return productRepository.findAll(specification);
         return productRepository.findByCategoryNameIn(categories);
     }
 }
