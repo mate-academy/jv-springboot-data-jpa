@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
-import mate.academy.springboot.datajpa.dto.mapper.ProductMapper;
+import mate.academy.springboot.datajpa.dto.mapper.DtoMapper;
 import mate.academy.springboot.datajpa.dto.request.ProductRequestDto;
 import mate.academy.springboot.datajpa.dto.response.ProductResponseDto;
 import mate.academy.springboot.datajpa.model.Product;
@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/products")
 public class ProductController {
     private final ProductService productService;
-    private final ProductMapper productMapper;
+    private final DtoMapper<Product, ProductRequestDto, ProductResponseDto> productMapper;
 
     @PostMapping
     public ProductResponseDto create(@RequestBody ProductRequestDto requestDto) {
@@ -32,7 +32,7 @@ public class ProductController {
         return productMapper.toDto(product);
     }
 
-    @GetMapping("/between-price")
+    @GetMapping("/by-price")
     public List<ProductResponseDto> getAllBetweenPrice(@RequestParam BigDecimal from,
                                                        @RequestParam BigDecimal to) {
         return productService.findAllByPriceBetween(from, to)
@@ -51,7 +51,7 @@ public class ProductController {
         productService.deleteById(id);
     }
 
-    @GetMapping("/all")
+    @GetMapping
     public List<ProductResponseDto> getAll() {
         return productService.findAll().stream()
                 .map(productMapper::toDto)

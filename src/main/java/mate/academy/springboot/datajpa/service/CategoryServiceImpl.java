@@ -30,7 +30,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public Category update(Category category) {
         categoryRepository.findById(category.getId()).orElseThrow(() ->
-                new EntityNotFoundException("Can't find category by id: " + category.getId()));
-        return category;
+                new EntityNotFoundException("Can't find category with id " + category.getId()));
+        return categoryRepository.saveAndFlush(category);
     }
 }
