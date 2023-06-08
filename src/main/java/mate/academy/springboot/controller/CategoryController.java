@@ -1,14 +1,21 @@
 package mate.academy.springboot.controller;
 
-import mate.academy.springboot.dto.request.CategoryUpdateRequestDto;
-import mate.academy.springboot.model.Category;
 import mate.academy.springboot.dto.request.CategoryRequestDto;
+import mate.academy.springboot.dto.request.CategoryUpdateRequestDto;
 import mate.academy.springboot.dto.response.CategoryResponseDto;
+import mate.academy.springboot.model.Category;
 import mate.academy.springboot.service.CategoryService;
 import mate.academy.springboot.service.mapper.RequestDtoMapper;
 import mate.academy.springboot.service.mapper.ResponseDtoMapper;
 import mate.academy.springboot.service.mapper.UpdateRequestDtoMapper;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/categories")
@@ -21,7 +28,8 @@ public class CategoryController {
     public CategoryController(CategoryService categoryService,
                               RequestDtoMapper<Category, CategoryRequestDto> requestDtoMapper,
                               ResponseDtoMapper<Category, CategoryResponseDto> responseDtoMapper,
-                              UpdateRequestDtoMapper<Category, CategoryUpdateRequestDto> updateRequestDtoMapper) {
+                              UpdateRequestDtoMapper<Category,
+                                      CategoryUpdateRequestDto> updateRequestDtoMapper) {
         this.categoryService = categoryService;
         this.requestDtoMapper = requestDtoMapper;
         this.responseDtoMapper = responseDtoMapper;

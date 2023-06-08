@@ -1,9 +1,11 @@
 package mate.academy.springboot.dto.response;
 
-import lombok.Data;
 import java.math.BigDecimal;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 public class ProductResponseDto {
     private Long id;
     private String title;

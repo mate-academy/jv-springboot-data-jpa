@@ -1,10 +1,14 @@
 package mate.academy.springboot.controller;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+import mate.academy.springboot.dto.request.ProductRequestDto;
 import mate.academy.springboot.dto.request.ProductUpdateRequestDto;
+import mate.academy.springboot.dto.response.ProductResponseDto;
 import mate.academy.springboot.model.Category;
 import mate.academy.springboot.model.Product;
-import mate.academy.springboot.dto.request.ProductRequestDto;
-import mate.academy.springboot.dto.response.ProductResponseDto;
 import mate.academy.springboot.service.CategoryService;
 import mate.academy.springboot.service.ProductService;
 import mate.academy.springboot.service.mapper.RequestDtoMapper;
@@ -20,11 +24,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-
 @RestController
 @RequestMapping("/products")
 public class ProductController {
@@ -38,7 +37,8 @@ public class ProductController {
                              CategoryService categoryService,
                              RequestDtoMapper<Product, ProductRequestDto> requestDtoMapper,
                              ResponseDtoMapper<Product, ProductResponseDto> responseDtoMapper,
-                             UpdateRequestDtoMapper<Product, ProductUpdateRequestDto> updateRequestDtoMapper) {
+                             UpdateRequestDtoMapper<Product,
+                                     ProductUpdateRequestDto> updateRequestDtoMapper) {
         this.productService = productService;
         this.categoryService = categoryService;
         this.requestDtoMapper = requestDtoMapper;
@@ -74,7 +74,7 @@ public class ProductController {
                 .collect(Collectors.toList());
     }
 
-    @GetMapping("/get-by-categories")
+    @PostMapping("/get-by-categories")
     public List<ProductResponseDto> getByCategories(@RequestParam List<Long> categoryIds) {
         List<Category> categories = new ArrayList<>();
         for (Long categoryId : categoryIds) {

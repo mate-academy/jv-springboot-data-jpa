@@ -1,9 +1,9 @@
 package mate.academy.springboot.service.mapper;
 
-import mate.academy.springboot.dto.request.CategoryUpdateRequestDto;
-import mate.academy.springboot.model.Category;
 import mate.academy.springboot.dto.request.CategoryRequestDto;
+import mate.academy.springboot.dto.request.CategoryUpdateRequestDto;
 import mate.academy.springboot.dto.response.CategoryResponseDto;
+import mate.academy.springboot.model.Category;
 import org.springframework.stereotype.Component;
 
 @Component
