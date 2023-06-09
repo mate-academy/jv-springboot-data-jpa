@@ -3,6 +3,7 @@ package mate.academy.springboot.datajpa.service.mapper;
 import lombok.AllArgsConstructor;
 import mate.academy.springboot.datajpa.dto.request.ProductRequestDto;
 import mate.academy.springboot.datajpa.dto.response.ProductResponseDto;
+import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.service.CategoryService;
 import org.springframework.stereotype.Component;
@@ -24,7 +25,9 @@ public class ProductMapper {
         Product product = new Product();
         product.setTitle(productRequestDto.getTitle());
         product.setPrice(productRequestDto.getPrice());
-        product.setCategory(categoryService.getById(productRequestDto.getCategoryId()));
+        Category category = new Category();
+        category.setId(productRequestDto.getCategoryId());
+        product.setCategory(category);
         return product;
     }
 }
