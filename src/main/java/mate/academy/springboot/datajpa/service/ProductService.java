@@ -6,7 +6,6 @@ import java.util.Map;
 import mate.academy.springboot.datajpa.model.Product;
 
 public interface ProductService {
-
     Product save(Product product);
 
     Product getById(Long id);
@@ -17,5 +16,5 @@ public interface ProductService {
 
     List<Product> getByPriceBetween(BigDecimal from, BigDecimal to);
 
-    List<Product> getByCategory(Map<String, String> categories);
+    List<Product> getAll(Map<String, String> categories);
 }

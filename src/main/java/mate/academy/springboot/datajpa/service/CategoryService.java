@@ -9,5 +9,5 @@ public interface CategoryService {
 
     Category getById(Long id);
 
-    Category updateById(Long id, Category category);
+    Category updateById(Category category);
 }

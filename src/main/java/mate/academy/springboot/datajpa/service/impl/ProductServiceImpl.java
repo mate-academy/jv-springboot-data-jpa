@@ -36,11 +36,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product update(Product product) {
-        Product productFromDb = getById(product.getId());
-        productFromDb.setTitle(product.getTitle());
-        productFromDb.setPrice(product.getPrice());
-        productFromDb.setCategory(product.getCategory());
-        return productRepository.save(productFromDb);
+        return productRepository.save(product);
     }
 
     @Override
@@ -49,7 +45,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> getByCategory(Map<String, String> params) {
+    public List<Product> getAll(Map<String, String> params) {
         Specification<Product> specification = null;
         for (Map.Entry<String, String> entry : params.entrySet()) {
             if (specification == null) {

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -46,7 +47,7 @@ public class ProductController {
 
     @PutMapping("/{id}")
     public ProductResponseDto updateProduct(@PathVariable Long id,
-                                            @RequestParam ProductRequestDto productRequestDto) {
+                                            @RequestBody ProductRequestDto productRequestDto) {
         Product product = productMapper.dtoToModel(productRequestDto);
         product.setId(id);
         return productMapper.modelToDto(productService.update(product));
@@ -61,10 +62,10 @@ public class ProductController {
                 .toList();
     }
 
-    @GetMapping("/by-category")
-    public List<ProductResponseDto> getProductByCategory(
-            @RequestParam Map<String, String> categories) {
-        return productService.getByCategory(categories)
+    @GetMapping
+    public List<ProductResponseDto> getAll(
+            @RequestParam Map<String, String> parameters) {
+        return productService.getAll(parameters)
                 .stream()
                 .map(productMapper::modelToDto)
                 .toList();
