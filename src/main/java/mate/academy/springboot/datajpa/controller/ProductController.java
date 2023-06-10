@@ -5,7 +5,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 import mate.academy.springboot.datajpa.dto.ProductRequestDto;
 import mate.academy.springboot.datajpa.dto.ProductResponseDto;
-import mate.academy.springboot.datajpa.dto.mapper.ProductMapper;
+import mate.academy.springboot.datajpa.dto.mapper.RequestDtoMapper;
+import mate.academy.springboot.datajpa.dto.mapper.ResponseDtoMapper;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.service.CategoryService;
 import mate.academy.springboot.datajpa.service.ProductService;
@@ -23,28 +24,33 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/products")
 public class ProductController {
     private final ProductService productService;
-    private final ProductMapper productMapper;
     private final CategoryService categoryService;
+    private final RequestDtoMapper<ProductRequestDto, Product> productRequestDtoMapper;
+    private final ResponseDtoMapper<ProductResponseDto, Product> productResponseDtoMapper;
 
     public ProductController(ProductService productService,
-                             ProductMapper productMapper,
-                             CategoryService categoryService) {
+                             CategoryService categoryService,
+                             RequestDtoMapper<ProductRequestDto, Product>
+                                     productRequestDtoMapper,
+                             ResponseDtoMapper<ProductResponseDto, Product>
+                                     productResponseDtoMapper) {
         this.productService = productService;
-        this.productMapper = productMapper;
         this.categoryService = categoryService;
+        this.productRequestDtoMapper = productRequestDtoMapper;
+        this.productResponseDtoMapper = productResponseDtoMapper;
     }
 
     @PostMapping
     public ProductResponseDto create(@RequestBody ProductRequestDto requestDto) {
-        Product product = productService.create(productMapper.toModel(requestDto));
-        return productMapper.toResponseDto(product);
+        Product product = productService.create(productRequestDtoMapper.toModel(requestDto));
+        return productResponseDtoMapper.toDto(product);
     }
 
     @GetMapping
     public List<ProductResponseDto> getAll() {
         return productService.findAll()
                 .stream()
-                .map(productMapper::toResponseDto)
+                .map(productResponseDtoMapper::toDto)
                 .collect(Collectors.toList());
     }
 
@@ -66,7 +72,7 @@ public class ProductController {
         product.setPrice(requestDto.getPrice());
         product.setCategory(categoryService.findById(requestDto.getCategoryId()));
         Product updatedProduct = productService.update(product);
-        return productMapper.toResponseDto(updatedProduct);
+        return productResponseDtoMapper.toDto(updatedProduct);
     }
 
     @GetMapping("/price-between")
