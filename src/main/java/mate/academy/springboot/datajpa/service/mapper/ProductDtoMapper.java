@@ -7,10 +7,8 @@ import mate.academy.springboot.datajpa.service.CategoryService;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 @Mapper(componentModel = "spring")
-@Component
 public abstract class ProductDtoMapper implements DtoMapper<Product,
         ProductResponseDto,
         ProductRequestDto> {
