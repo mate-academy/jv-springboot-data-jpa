@@ -18,6 +18,14 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    public Category update(Long id, Category category) {
+        if (categoryRepository.existsById(id)) {
+            return categoryRepository.save(category);
+        }
+        throw new NoSuchElementException("No category present with id " + id);
+    }
+
+    @Override
     public Category getById(Long id) {
         return categoryRepository.findById(id).orElseThrow(() ->
                 new NoSuchElementException("No category present with id " + id));

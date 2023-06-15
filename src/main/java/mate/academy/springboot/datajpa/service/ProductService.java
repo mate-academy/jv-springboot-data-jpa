@@ -7,6 +7,8 @@ import mate.academy.springboot.datajpa.model.Product;
 public interface ProductService {
     Product save(Product product);
 
+    Product update(Long id, Product product);
+
     Product getById(Long id);
 
     boolean deleteById(Long id);

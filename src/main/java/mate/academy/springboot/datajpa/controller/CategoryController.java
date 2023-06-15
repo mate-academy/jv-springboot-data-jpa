@@ -3,8 +3,7 @@ package mate.academy.springboot.datajpa.controller;
 import lombok.RequiredArgsConstructor;
 import mate.academy.springboot.datajpa.dto.request.CategoryRequestDto;
 import mate.academy.springboot.datajpa.dto.response.CategoryResponseDto;
-import mate.academy.springboot.datajpa.mapper.RequestDtoMapper;
-import mate.academy.springboot.datajpa.mapper.ResponseDtoMapper;
+import mate.academy.springboot.datajpa.mapper.DtoMapper;
 import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.service.CategoryService;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -21,18 +20,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/categories")
 public class CategoryController {
     private final CategoryService categoryService;
-    private final RequestDtoMapper<Category, CategoryRequestDto> reqDtoMapper;
-    private final ResponseDtoMapper<Category, CategoryResponseDto> respDtoMapper;
+    private final DtoMapper<Category, CategoryRequestDto, CategoryResponseDto> dtoMapper;
 
-    @PostMapping("/create")
+    @PostMapping
     CategoryResponseDto create(@RequestBody CategoryRequestDto reqDto) {
-        Category category = categoryService.save(reqDtoMapper.toModel(reqDto));
-        return respDtoMapper.toDto(category);
+        Category category = categoryService.save(dtoMapper.toModel(reqDto));
+        return dtoMapper.toDto(category);
     }
 
     @GetMapping("/{id}")
     CategoryResponseDto getById(@PathVariable Long id) {
-        return respDtoMapper.toDto(categoryService.getById(id));
+        return dtoMapper.toDto(categoryService.getById(id));
     }
 
     @DeleteMapping("/{id}")
@@ -42,8 +40,8 @@ public class CategoryController {
 
     @PutMapping("/{id}")
     CategoryResponseDto update(@PathVariable Long id, @RequestBody CategoryRequestDto reqDto) {
-        Category category = reqDtoMapper.toModel(reqDto);
+        Category category = dtoMapper.toModel(reqDto);
         category.setId(id);
-        return respDtoMapper.toDto(categoryService.save(category));
+        return dtoMapper.toDto(categoryService.update(id, category));
     }
 }

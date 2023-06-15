@@ -20,6 +20,14 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public Product update(Long id, Product product) {
+        if (productRepository.existsById(id)) {
+            productRepository.save(product);
+        }
+        throw new NoSuchElementException("No product present with id " + id);
+    }
+
+    @Override
     public Product getById(Long id) {
         return productRepository.findById(id).orElseThrow(() ->
                 new NoSuchElementException("No product present with id " + id));

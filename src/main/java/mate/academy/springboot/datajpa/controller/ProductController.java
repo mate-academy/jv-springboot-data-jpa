@@ -5,8 +5,7 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import mate.academy.springboot.datajpa.dto.request.ProductRequestDto;
 import mate.academy.springboot.datajpa.dto.response.ProductResponseDto;
-import mate.academy.springboot.datajpa.mapper.RequestDtoMapper;
-import mate.academy.springboot.datajpa.mapper.ResponseDtoMapper;
+import mate.academy.springboot.datajpa.mapper.DtoMapper;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.service.ProductService;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -24,18 +23,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/products")
 public class ProductController {
     private final ProductService productService;
-    private final RequestDtoMapper<Product, ProductRequestDto> reqDtoMapper;
-    private final ResponseDtoMapper<Product, ProductResponseDto> respDtoMapper;
+    private final DtoMapper<Product, ProductRequestDto, ProductResponseDto> dtoMapper;
 
-    @PostMapping("/create")
+    @PostMapping
     ProductResponseDto create(@RequestBody ProductRequestDto reqDto) {
-        Product product = reqDtoMapper.toModel(reqDto);
-        return respDtoMapper.toDto(productService.save(product));
+        Product product = dtoMapper.toModel(reqDto);
+        return dtoMapper.toDto(productService.save(product));
     }
 
     @GetMapping("/{id}")
     ProductResponseDto getById(@PathVariable Long id) {
-        return respDtoMapper.toDto(productService.getById(id));
+        return dtoMapper.toDto(productService.getById(id));
     }
 
     @DeleteMapping("/{id}")
@@ -45,9 +43,9 @@ public class ProductController {
 
     @PutMapping("/{id}")
     ProductResponseDto update(@PathVariable Long id, @RequestBody ProductRequestDto reqDto) {
-        Product product = reqDtoMapper.toModel(reqDto);
+        Product product = dtoMapper.toModel(reqDto);
         product.setId(id);
-        return respDtoMapper.toDto(productService.save(product));
+        return dtoMapper.toDto(productService.update(id, product));
     }
 
     @GetMapping("/by-price")
@@ -56,14 +54,14 @@ public class ProductController {
             @RequestParam BigDecimal to
     ) {
         return productService.getByPriceBetween(from, to).stream()
-                .map(respDtoMapper::toDto)
+                .map(dtoMapper::toDto)
                 .toList();
     }
 
     @PostMapping("/by-categories")
     List<ProductResponseDto> getByCategories(@RequestBody List<Long> categoryIds) {
         return productService.getByCategoryIds(categoryIds).stream()
-                .map(respDtoMapper::toDto)
+                .map(dtoMapper::toDto)
                 .toList();
     }
 }
