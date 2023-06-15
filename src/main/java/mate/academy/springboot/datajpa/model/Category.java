@@ -14,7 +14,6 @@ import lombok.EqualsAndHashCode;
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @EqualsAndHashCode.Exclude
     private Long id;
     private String name;
 }

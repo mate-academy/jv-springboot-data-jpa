@@ -25,6 +25,9 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public void delete(Long id) {
+        if (!categoryRepository.existsById(id)) {
+            throw new NoSuchElementException("Can`t find category by id: " + id);
+        }
         categoryRepository.deleteById(id);
     }
 

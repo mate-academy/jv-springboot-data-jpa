@@ -2,6 +2,7 @@ package mate.academy.springboot.datajpa.controller;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import mate.academy.springboot.datajpa.dto.mapper.DtoMapper;
@@ -60,7 +61,7 @@ public class ProductController {
 
     @GetMapping("/by-categories")
     public List<ProductResponseDto> getProductsByCategoryIn(
-            @RequestParam("category") List<String> categories) {
+            @RequestParam("category") Set<String> categories) {
         return productService.findAllByCategoriesIn(categories).stream()
                 .map(productDtoMapper::mapToDto)
                 .collect(Collectors.toList());

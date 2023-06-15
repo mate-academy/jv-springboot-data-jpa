@@ -3,6 +3,7 @@ package mate.academy.springboot.datajpa.service.impl;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Set;
 import lombok.AllArgsConstructor;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.repository.ProductRepository;
@@ -27,6 +28,9 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void delete(Long id) {
+        if (!productRepository.existsById(id)) {
+            throw new NoSuchElementException("Can`t find product by id: " + id);
+        }
         productRepository.deleteById(id);
     }
 
@@ -44,7 +48,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> findAllByCategoriesIn(List<String> categories) {
+    public List<Product> findAllByCategoriesIn(Set<String> categories) {
         return productRepository.findProductsByCategoryNameIn(categories);
     }
 }
