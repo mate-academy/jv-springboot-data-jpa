@@ -17,5 +17,5 @@ public interface ProductService {
 
     List<Product> getAllByPriceBetween(BigDecimal from, BigDecimal to);
 
-    List<Product> getByCategories(List<Category> categories);
+    List<Product> getByCategoryId(Long categoryId);
 }

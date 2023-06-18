@@ -11,9 +11,8 @@ import mate.academy.springboot.datajpa.service.mappers.RequestDtoMapper;
 import mate.academy.springboot.datajpa.service.mappers.ResponseDtoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.math.BigDecimal;
-import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,19 +23,16 @@ public class ProductController {
     private final ResponseDtoMapper<ProductResponseDto, Product> responseDtoMapper;
     private final ProductService productService;
     private final ProductMapper productMapper;
-    private final CategoryService categoryService;
 
     @Autowired
     public ProductController(RequestDtoMapper<ProductRequestDto, Product> requestDtoMapper,
                              ResponseDtoMapper<ProductResponseDto, Product> responseDtoMapper,
                              ProductService productService,
-                             ProductMapper productMapper,
-                             CategoryService categoryService) {
+                             ProductMapper productMapper) {
         this.requestDtoMapper = requestDtoMapper;
         this.responseDtoMapper = responseDtoMapper;
         this.productService = productService;
         this.productMapper = productMapper;
-        this.categoryService = categoryService;
     }
 
     @PostMapping
@@ -75,9 +71,11 @@ public class ProductController {
 
     @GetMapping("byCategories")
     public List<ProductResponseDto> getProductsByCategory(@RequestParam List<Long> categories) {
-        List<Category> categoriesFromDb = categories.stream().map(categoryService::get).toList();
-        List<Product> byCategories = productService.getByCategories(categoriesFromDb);
-        return byCategories.stream()
+        List<Product> products = categories.stream()
+                .map(productService::getByCategoryId)
+                .flatMap(Collection::stream)
+                .toList();
+        return products.stream()
                 .map(responseDtoMapper::mapToDto)
                 .collect(Collectors.toList());
     }

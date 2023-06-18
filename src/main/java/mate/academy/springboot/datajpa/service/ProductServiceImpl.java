@@ -1,10 +1,10 @@
 package mate.academy.springboot.datajpa.service;
 
-import mate.academy.springboot.datajpa.models.Category;
 import mate.academy.springboot.datajpa.models.Product;
 import mate.academy.springboot.datajpa.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -43,7 +43,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> getByCategories(List<Category> categories) {
-        return productRepository.getByCategories(categories);
+    public List<Product> getByCategoryId(Long categoryId) {
+        return productRepository.getByCategoryId(categoryId);
     }
 }
