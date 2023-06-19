@@ -1,12 +1,11 @@
 package mate.academy.springboot.datajpa.service;
 
+import java.math.BigDecimal;
+import java.util.List;
 import mate.academy.springboot.datajpa.models.Product;
 import mate.academy.springboot.datajpa.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.math.BigDecimal;
-import java.util.List;
 
 @Service
 public class ProductServiceImpl implements ProductService {

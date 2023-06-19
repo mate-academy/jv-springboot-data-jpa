@@ -1,10 +1,8 @@
 package mate.academy.springboot.datajpa.service;
 
-import mate.academy.springboot.datajpa.models.Category;
-import mate.academy.springboot.datajpa.models.Product;
-
 import java.math.BigDecimal;
 import java.util.List;
+import mate.academy.springboot.datajpa.models.Product;
 
 public interface ProductService {
     Product save(Product product);

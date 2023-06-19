@@ -1,9 +1,8 @@
 package mate.academy.springboot.datajpa.dto.request;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
 import java.math.BigDecimal;
+import lombok.Getter;
+import lombok.ToString;
 
 @ToString
 @Getter
