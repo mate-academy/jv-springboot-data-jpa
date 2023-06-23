@@ -14,13 +14,11 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category saveCategory(Category category) {
-
         return categoryRepository.save(category);
     }
 
     @Override
     public Category getCategoryById(Long id) {
-
         return categoryRepository.findById(id).orElseThrow(() ->
                 new RuntimeException("Can't get category by id:" + id));
     }

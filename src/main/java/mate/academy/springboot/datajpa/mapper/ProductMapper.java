@@ -1,10 +1,12 @@
 package mate.academy.springboot.datajpa.mapper;
 
-import mate.academy.springboot.datajpa.dto.ProductRequestDto;
-import mate.academy.springboot.datajpa.dto.ProductResponseDto;
+import mate.academy.springboot.datajpa.dto.request.ProductRequestDto;
+import mate.academy.springboot.datajpa.dto.response.ProductResponseDto;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.service.CategoryService;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ProductMapper implements
         DtoMapper<Product, ProductRequestDto, ProductResponseDto> {
     private final CategoryService categoryService;

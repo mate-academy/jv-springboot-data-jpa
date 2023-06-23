@@ -13,8 +13,8 @@ public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
     private final CategoryService categoryService;
 
-
-    public ProductServiceImpl(ProductRepository productRepository, CategoryService categoryService) {
+    public ProductServiceImpl(ProductRepository productRepository,
+                              CategoryService categoryService) {
         this.productRepository = productRepository;
         this.categoryService = categoryService;
     }
@@ -26,7 +26,6 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product findById(Long id) {
-
         return productRepository.findById(id).orElseThrow(() ->
                 new RuntimeException("Can't find product by id:" + id));
     }
@@ -43,7 +42,6 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> findAllByPriceBetween(BigDecimal from, BigDecimal to) {
-
         return productRepository.findAllByPriceBetween(from, to);
     }
 

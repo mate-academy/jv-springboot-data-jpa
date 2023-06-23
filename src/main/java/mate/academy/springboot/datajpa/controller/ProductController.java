@@ -3,8 +3,8 @@ package mate.academy.springboot.datajpa.controller;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
-import mate.academy.springboot.datajpa.dto.ProductRequestDto;
-import mate.academy.springboot.datajpa.dto.ProductResponseDto;
+import mate.academy.springboot.datajpa.dto.request.ProductRequestDto;
+import mate.academy.springboot.datajpa.dto.response.ProductResponseDto;
 import mate.academy.springboot.datajpa.mapper.DtoMapper;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.service.CategoryService;
@@ -28,7 +28,8 @@ public class ProductController {
 
     public ProductController(ProductService productService,
                              CategoryService categoryService,
-                             DtoMapper<Product, ProductRequestDto, ProductResponseDto> dtoMapper) {
+                             DtoMapper<Product, ProductRequestDto,
+                                     ProductResponseDto> dtoMapper) {
         this.productService = productService;
         this.categoryService = categoryService;
         this.dtoMapper = dtoMapper;
@@ -42,7 +43,6 @@ public class ProductController {
     @GetMapping("/{id}")
     public ProductResponseDto getById(@PathVariable Long id) {
         return dtoMapper.mapToDto(productService.findById(id));
-
     }
 
     @DeleteMapping("/{id}")
