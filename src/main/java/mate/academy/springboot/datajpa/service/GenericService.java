@@ -5,7 +5,7 @@ import java.util.List;
 public interface GenericService<T> {
     T save(T entity);
 
-    T find(Long id);
+    T findById(Long id);
 
     List<T> findAll();
 

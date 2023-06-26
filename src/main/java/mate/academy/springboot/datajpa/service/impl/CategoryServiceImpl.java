@@ -19,7 +19,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Category find(Long id) {
+    public Category findById(Long id) {
         return categoryRepository.findById(id).orElseThrow(() ->
                 new NoSuchElementException("No such category with id: "
                 + id + " exists"));
@@ -32,6 +32,10 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public void update(Category entity) {
+        if (!categoryRepository.existsById(entity.getId())) {
+            throw new NoSuchElementException("can't update non "
+                    + "existent category by id: " + entity.getId());
+        }
         categoryRepository.save(entity);
     }
 

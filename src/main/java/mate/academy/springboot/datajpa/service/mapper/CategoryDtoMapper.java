@@ -6,12 +6,12 @@ import mate.academy.springboot.datajpa.model.dto.response.CategoryResponseDto;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
-public abstract class CategoryDtoMapper implements DtoMapper<Category,
+public interface CategoryDtoMapper extends DtoMapper<Category,
         CategoryResponseDto,
         CategoryRequestDto> {
     @Override
-    public abstract CategoryResponseDto toDto(Category entity);
+    CategoryResponseDto toDto(Category entity);
 
     @Override
-    public abstract Category toModel(CategoryRequestDto dto);
+    Category toModel(CategoryRequestDto dto);
 }

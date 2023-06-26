@@ -3,6 +3,7 @@ package mate.academy.springboot.datajpa.service.impl;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Set;
 import lombok.AllArgsConstructor;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.repository.ProductRepository;
@@ -20,7 +21,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product find(Long id) {
+    public Product findById(Long id) {
         return productRepository.findById(id).orElseThrow(() ->
                 new NoSuchElementException("No such product with id: "
                         + id + " exists"));
@@ -28,12 +29,12 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> findProductByPriceBetween(BigDecimal from, BigDecimal to) {
-        return productRepository.findProductByPriceBetween(from, to);
+        return productRepository.findAllByPriceBetween(from, to);
     }
 
     @Override
-    public List<Product> findAll(List<String> categories) {
-        return productRepository.findProductsByCategoryNameIn(categories);
+    public List<Product> findAll(Set<String> categories) {
+        return productRepository.findAllByCategoryNameIn(categories);
     }
 
     @Override
@@ -43,6 +44,10 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void update(Product entity) {
+        if (!productRepository.existsById(entity.getId())) {
+            throw new NoSuchElementException("can't update non "
+                    + "existent product by id: " + entity.getId());
+        }
         productRepository.save(entity);
     }
 
