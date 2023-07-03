@@ -30,7 +30,7 @@ public class ProductController {
     public ProductController(ProductService productService,
                              ProductMapper productMapper) {
         this.productService = productService;
-        this.productMapper = productMapper;;
+        this.productMapper = productMapper;
     }
 
     @GetMapping("/{id}")
@@ -38,7 +38,7 @@ public class ProductController {
         return productMapper.toDto(productService.get(id));
     }
 
-    @GetMapping("/price-between")
+    @GetMapping("/price")
     public List<ProductResponseDto> getAll(@RequestParam BigDecimal from,
                                            @RequestParam BigDecimal to) {
         return productService.findAllByPriceBetween(from, to).stream()
@@ -47,7 +47,7 @@ public class ProductController {
     }
 
     @GetMapping("/category")
-    public List<ProductResponseDto> byCategoryId(@RequestParam Set<String> categories) {
+    public List<ProductResponseDto> getByCategory(@RequestParam Set<String> categories) {
         return productService.getAllProductsFromCategory(categories).stream()
                 .map(productMapper::toDto)
                 .collect(Collectors.toList());
