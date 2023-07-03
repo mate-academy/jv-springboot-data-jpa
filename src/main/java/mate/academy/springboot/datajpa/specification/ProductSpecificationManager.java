@@ -9,7 +9,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ProductSpecificationManager implements SpecificationManager {
+public class ProductSpecificationManager implements SpecificationManager<Product> {
     private final Map<String, SpecificationProvider<Product>> providersMap;
 
     public ProductSpecificationManager(List<SpecificationProvider<Product>>
@@ -28,3 +28,4 @@ public class ProductSpecificationManager implements SpecificationManager {
         return providersMap.get(filterKey).getSpecification(params);
     }
 }
+
