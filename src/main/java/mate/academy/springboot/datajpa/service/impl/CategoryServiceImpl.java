@@ -1,5 +1,6 @@
 package mate.academy.springboot.datajpa.service.impl;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.repository.CategoryRepository;
@@ -12,13 +13,19 @@ public class CategoryServiceImpl implements CategoryService {
     private final CategoryRepository categoryRepository;
 
     @Override
-    public Category save(Category category) {
+    public Category create(Category category) {
         return categoryRepository.save(category);
     }
 
     @Override
+    public Category update(Category category) {
+        return categoryRepository.saveAndFlush(category);
+    }
+
+    @Override
     public Category getById(Long id) {
-        return categoryRepository.getReferenceById(id);
+        return categoryRepository.findById(id).orElseThrow(() ->
+                new EntityNotFoundException("There is no category with id " + id));
     }
 
     @Override

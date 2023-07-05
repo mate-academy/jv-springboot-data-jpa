@@ -1,5 +1,6 @@
 package mate.academy.springboot.datajpa.service.impl;
 
+import jakarta.persistence.EntityNotFoundException;
 import java.math.BigDecimal;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -14,13 +15,19 @@ public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
 
     @Override
-    public Product save(Product product) {
+    public Product create(Product product) {
         return productRepository.save(product);
     }
 
     @Override
+    public Product update(Product product) {
+        return productRepository.saveAndFlush(product);
+    }
+
+    @Override
     public Product getById(Long id) {
-        return productRepository.getReferenceById(id);
+        return productRepository.findById(id).orElseThrow(() ->
+                new EntityNotFoundException("No product found with id " + id));
     }
 
     @Override

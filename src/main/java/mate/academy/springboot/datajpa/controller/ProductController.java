@@ -28,7 +28,7 @@ public class ProductController {
 
     @PostMapping
     public ProductResponseDto create(@RequestBody ProductRequestDto dto) {
-        return dtoMapper.mapToDto(productService.save(dtoMapper.mapToModel(dto)));
+        return dtoMapper.mapToDto(productService.create(dtoMapper.mapToModel(dto)));
     }
 
     @GetMapping("/{id}")
@@ -42,10 +42,10 @@ public class ProductController {
     }
 
     @PutMapping("{id}")
-    public ProductResponseDto update(@PathVariable Long id, @RequestBody ProductRequestDto dto) {
+    public void update(@PathVariable Long id, @RequestBody ProductRequestDto dto) {
         Product product = dtoMapper.mapToModel(dto);
         product.setId(id);
-        return dtoMapper.mapToDto(productService.save(product));
+        productService.update(product);
     }
 
     @GetMapping("/by-price")

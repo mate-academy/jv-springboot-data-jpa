@@ -5,7 +5,9 @@ import java.util.List;
 import mate.academy.springboot.datajpa.model.Product;
 
 public interface ProductService {
-    Product save(Product product);
+    Product create(Product product);
+
+    Product update(Product product);
 
     Product getById(Long id);
 
