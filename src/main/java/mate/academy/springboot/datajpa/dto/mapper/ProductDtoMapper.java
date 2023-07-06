@@ -7,10 +7,10 @@ import mate.academy.springboot.datajpa.service.CategoryService;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ProductMapper {
+public class ProductDtoMapper {
     private CategoryService categoryService;
 
-    public ProductMapper(CategoryService categoryService) {
+    public ProductDtoMapper(CategoryService categoryService) {
         this.categoryService = categoryService;
     }
 
