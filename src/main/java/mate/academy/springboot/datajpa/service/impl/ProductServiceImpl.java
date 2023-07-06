@@ -7,7 +7,6 @@ import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.repository.ProductRepository;
 import mate.academy.springboot.datajpa.service.ProductService;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -17,7 +16,6 @@ public class ProductServiceImpl implements ProductService {
     public ProductServiceImpl(ProductRepository productRepository) {
         this.productRepository = productRepository;
     }
-
 
     @Override
     public Product save(Product product) {
@@ -34,14 +32,16 @@ public class ProductServiceImpl implements ProductService {
     public void delete(Long id) {
         if (productRepository.existsById(id)) {
             productRepository.deleteById(id);
-        } throw new NoSuchElementException("Can not delete product by id " + id);
+        }
+        throw new NoSuchElementException("Can not delete product by id " + id);
     }
 
     @Override
     public Product update(Product product) {
         if (productRepository.existsById(product.getId())) {
             return productRepository.save(product);
-        } throw new NoSuchElementException("Can not update product " + product.getTitle());
+        }
+        throw new NoSuchElementException("Can not update product " + product.getTitle());
     }
 
     @Override
@@ -53,6 +53,4 @@ public class ProductServiceImpl implements ProductService {
     public List<Product> findAllByCategoryIn(List<Category> categories) {
         return productRepository.findAllByCategoryIn(categories);
     }
-
-
 }

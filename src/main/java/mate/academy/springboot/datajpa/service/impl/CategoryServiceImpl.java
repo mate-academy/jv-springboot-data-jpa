@@ -14,7 +14,6 @@ public class CategoryServiceImpl implements CategoryService {
         this.categoryRepository = categoryRepository;
     }
 
-
     @Override
     public Category save(Category category) {
         return categoryRepository.save(category);
@@ -30,8 +29,8 @@ public class CategoryServiceImpl implements CategoryService {
     public void delete(Long id) {
         if (categoryRepository.existsById(id)) {
             categoryRepository.deleteById(id);
-        } throw new NoSuchElementException("Can not delete category by id "
-                + id);
+        }
+        throw new NoSuchElementException("Can not delete category by id " + id);
     }
 
     @Override
