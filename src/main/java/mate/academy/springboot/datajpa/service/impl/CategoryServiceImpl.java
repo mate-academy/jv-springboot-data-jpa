@@ -1,6 +1,5 @@
 package mate.academy.springboot.datajpa.service.impl;
 
-import java.util.List;
 import java.util.NoSuchElementException;
 import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.repository.CategoryRepository;
@@ -21,11 +20,6 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public List<Category> findAll() {
-        return categoryRepository.findAll();
-    }
-
-    @Override
     public Category getById(Long id) {
         return categoryRepository.findById(id).get();
     }
@@ -37,11 +31,6 @@ public class CategoryServiceImpl implements CategoryService {
         } else {
             throw new NoSuchElementException("Can't update category: " + category);
         }
-    }
-
-    @Override
-    public void delete(Category category) {
-        categoryRepository.delete(category);
     }
 
     @Override
