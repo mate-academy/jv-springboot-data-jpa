@@ -29,15 +29,17 @@ public class CategoryServiceImpl implements CategoryService {
     public void delete(Long id) {
         if (categoryRepository.existsById(id)) {
             categoryRepository.deleteById(id);
+        } else {
+            throw new NoSuchElementException("Can not delete category by id " + id);
         }
-        throw new NoSuchElementException("Can not delete category by id " + id);
     }
 
     @Override
     public Category update(Category category) {
         if (categoryRepository.existsById(category.getId())) {
-            categoryRepository.save(category);
+            return categoryRepository.save(category);
+        } else {
+            throw new NoSuchElementException("Can not update category " + category.getName());
         }
-        throw new NoSuchElementException("Can not update category " + category.getName());
     }
 }
