@@ -25,19 +25,6 @@ public class CategoryController {
         this.categoryMapper = categoryMapper;
     }
 
-    @GetMapping("/inject")
-    public String injectCategories() {
-        Category cheap = new Category();
-        cheap.setName("cheap");
-        categoryService.save(cheap);
-
-        Category expensive = new Category();
-        expensive.setName("expensive");
-        categoryService.save(expensive);
-
-        return "Done";
-    }
-
     @PostMapping
     public CategoryResponseDto create(@RequestBody CategoryRequestDto categoryRequestDto) {
         Category savedCategory = categoryService
