@@ -23,10 +23,9 @@ public class ProductMapper implements DtoMapper<Product, ProductResponseDto, Pro
 
     @Override
     public Product mapToEntity(ProductRequestDto dto) {
-        Product product = new Product();
-        product.setTitle(dto.getTitle());
-        product.setPrice(dto.getPrice());
-        product.setCategory(categoryService.findByNameOrSave(dto.getCategory()));
-        return product;
+        return new Product(
+                dto.getTitle(),
+                dto.getPrice(),
+                categoryService.findByNameOrSave(dto.getCategory()));
     }
 }

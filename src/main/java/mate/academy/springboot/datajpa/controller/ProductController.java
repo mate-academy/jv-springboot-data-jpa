@@ -12,6 +12,7 @@ import org.hibernate.PropertyValueException;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,18 +32,18 @@ public class ProductController {
         return mapper.mapToDto(productService.save(mapper.mapToEntity(requestDto)));
     }
 
-    @GetMapping
-    public ProductResponseDto getProductById(@RequestParam Long id) {
+    @GetMapping("/{id}")
+    public ProductResponseDto getProductById(@PathVariable Long id) {
         return mapper.mapToDto(productService.findById(id));
     }
 
-    @DeleteMapping
-    public void deleteProduct(@RequestParam Long id) {
+    @DeleteMapping("/{id}")
+    public void deleteProduct(@PathVariable Long id) {
         productService.delete(id);
     }
 
-    @PutMapping
-    public ProductResponseDto update(@RequestParam Long id,
+    @PutMapping("/{id}")
+    public ProductResponseDto update(@PathVariable Long id,
                                      @RequestBody ProductRequestDto productRequestDto) {
         Product product = mapper.mapToEntity(productRequestDto);
         product.setId(id);

@@ -7,10 +7,12 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "products")
 @Data
+@NoArgsConstructor
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,4 +21,10 @@ public class Product {
     private double price;
     @ManyToOne
     private Category category;
+
+    public Product(String title, double price, Category category) {
+        this.title = title;
+        this.price = price;
+        this.category = category;
+    }
 }
