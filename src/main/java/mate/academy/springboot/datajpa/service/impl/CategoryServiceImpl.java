@@ -21,7 +21,11 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category getById(Long id) {
-        return categoryRepository.findById(id).get();
+        if (!categoryRepository.existsById(id)) {
+            throw new NoSuchElementException("Can't get category by id: " + id);
+        } else {
+            return categoryRepository.getById(id);
+        }
     }
 
     @Override
@@ -35,6 +39,11 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public void deleteById(Long id) {
-        categoryRepository.deleteById(id);
+        if (categoryRepository.existsById(id)) {
+            categoryRepository.deleteById(id);
+        } else {
+            throw new NoSuchElementException("Can't delete category with id: " + id);
+        }
     }
+
 }
