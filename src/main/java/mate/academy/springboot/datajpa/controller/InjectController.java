@@ -46,6 +46,10 @@ public class InjectController {
         product3.setPrice(BigDecimal.valueOf(1100));
         product3.setCategory(category2);
         productService.save(product3);
+
+        System.out.println(productService.findAllByPriceBetween(
+                BigDecimal.valueOf(800),BigDecimal.valueOf(1100)));
+        System.out.println(productService.findAllProductsByCategory(1L));
         return "Done";
     }
 }

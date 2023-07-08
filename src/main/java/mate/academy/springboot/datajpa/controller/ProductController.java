@@ -1,5 +1,9 @@
 package mate.academy.springboot.datajpa.controller;
 
+import java.math.BigDecimal;
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 import mate.academy.springboot.datajpa.dto.ProductRequestDto;
 import mate.academy.springboot.datajpa.dto.ProductResponseDto;
 import mate.academy.springboot.datajpa.dto.mapper.ProductDtoMapper;
@@ -12,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -50,5 +55,26 @@ public class ProductController {
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
         productService.deleteById(id);
+    }
+
+    @GetMapping("/price")
+    public List<ProductResponseDto> getAllProductByPriceBetween(
+            @RequestParam BigDecimal from, @RequestParam BigDecimal to) {
+        return productService.findAllByPriceBetween(from, to)
+                .stream()
+                .map(productDtoMapper::toResponseDto)
+                .collect(Collectors.toList());
+    }
+
+    @GetMapping("/categories")
+    public List<ProductResponseDto> findAllProductsByCategories(
+            @RequestParam List<Long> categories) {
+        List<Product> products = categories.stream()
+                .map(productService::findAllProductsByCategory)
+                .flatMap(Collection::stream)
+                .toList();
+        return products.stream()
+                .map(productDtoMapper::toResponseDto)
+                .collect(Collectors.toList());
     }
 }

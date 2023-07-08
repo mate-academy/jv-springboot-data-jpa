@@ -52,4 +52,9 @@ public class ProductServiceImpl implements ProductService {
     public List<Product> findAllByPriceBetween(BigDecimal from, BigDecimal to) {
         return productRepository.findAllByPriceBetween(from, to);
     }
+
+    @Override
+    public List<Product> findAllProductsByCategory(Long categoryId) {
+        return productRepository.getByCategoryId(categoryId);
+    }
 }
