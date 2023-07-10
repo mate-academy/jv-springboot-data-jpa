@@ -1,5 +1,6 @@
 package mate.academy.springboot.datajpa.model.dto.response;
 
+import java.math.BigDecimal;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,6 +13,6 @@ import lombok.Setter;
 public class ProductResponseDto {
     private Long id;
     private String title;
-    private Float price;
+    private BigDecimal price;
     private String category;
 }

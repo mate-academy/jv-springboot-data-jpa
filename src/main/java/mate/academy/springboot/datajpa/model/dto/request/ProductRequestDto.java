@@ -1,5 +1,6 @@
 package mate.academy.springboot.datajpa.model.dto.request;
 
+import java.math.BigDecimal;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,6 +9,6 @@ import lombok.Setter;
 public class ProductRequestDto {
     private Long id;
     private String title;
-    private Float price;
+    private BigDecimal price;
     private String category;
 }
