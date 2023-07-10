@@ -20,8 +20,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product update(Product product) {
-        return productRepository.saveAndFlush(product);
+    public Product update(Long id, Product product) {
+        productRepository.findById(id).orElseThrow(() ->
+                new EntityNotFoundException("There is no product to update with id " + id));
+        product.setId(id);
+        return productRepository.save(product);
     }
 
     @Override

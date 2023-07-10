@@ -18,8 +18,11 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Category update(Category category) {
-        return categoryRepository.saveAndFlush(category);
+    public Category update(Long id, Category category) {
+        categoryRepository.findById(id).orElseThrow(() ->
+                new EntityNotFoundException("There is no category to update with id " + id));
+        category.setId(id);
+        return categoryRepository.save(category);
     }
 
     @Override

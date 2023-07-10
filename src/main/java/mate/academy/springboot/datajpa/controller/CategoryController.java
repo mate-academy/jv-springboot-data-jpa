@@ -38,11 +38,10 @@ public class CategoryController {
     }
 
     @PutMapping("{id}")
-    public void update(@PathVariable Long id,
+    public CategoryResponseDto update(@PathVariable Long id,
                        @RequestBody CategoryRequestDto dto) {
-        Category category = dtoMapper.mapToModel(dto);
-        category.setId(id);
-        categoryService.update(category);
+        Category category = categoryService.update(id, dtoMapper.mapToModel(dto));
+        return dtoMapper.mapToDto(category);
     }
 }
 
