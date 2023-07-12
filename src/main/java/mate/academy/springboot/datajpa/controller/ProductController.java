@@ -1,5 +1,6 @@
 package mate.academy.springboot.datajpa.controller;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +23,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/products")
 @RequiredArgsConstructor
 public class ProductController {
-
     private final Mapper<Product, ProductRequestDto, ProductResponseDto> mapper;
     private final ProductService productService;
 
@@ -52,8 +52,8 @@ public class ProductController {
 
     @GetMapping("/by-price")
     public List<ProductResponseDto> getByPriceBetween(
-            @RequestParam Float priceFrom,
-            @RequestParam Float priceTo) {
+            @RequestParam BigDecimal priceFrom,
+            @RequestParam BigDecimal priceTo) {
         return productService.findByPriceBetween(priceFrom, priceTo)
                 .stream()
                 .map(mapper::toDto)

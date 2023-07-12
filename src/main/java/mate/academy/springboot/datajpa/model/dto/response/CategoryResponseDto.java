@@ -1,13 +1,9 @@
 package mate.academy.springboot.datajpa.model.dto.response;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
-@NoArgsConstructor
+@Data
 @AllArgsConstructor
 public class CategoryResponseDto {
     private String name;

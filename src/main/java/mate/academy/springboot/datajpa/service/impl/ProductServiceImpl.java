@@ -1,5 +1,6 @@
 package mate.academy.springboot.datajpa.service.impl;
 
+import java.math.BigDecimal;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import mate.academy.springboot.datajpa.exception.DataProcessingException;
@@ -11,7 +12,6 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
-
     private ProductRepository productRepository;
 
     public Product add(Product product) {
@@ -29,11 +29,13 @@ public class ProductServiceImpl implements ProductService {
     }
 
     public Product update(Product product) {
+        productRepository.findById(product.getId()).orElseThrow(() -> new DataProcessingException(
+                        "Couldn't find original product to update, consider creating a new one."));
         return productRepository.save(product);
     }
 
     @Override
-    public List<Product> findByPriceBetween(Float priceFrom, Float priceTo) {
+    public List<Product> findByPriceBetween(BigDecimal priceFrom, BigDecimal priceTo) {
         return productRepository.findAllByPriceBetween(priceFrom, priceTo);
     }
 

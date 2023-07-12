@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class CategoryServiceImpl implements CategoryService {
-
     private CategoryRepository categoryRepository;
 
     public Category add(Category category) {
@@ -28,6 +27,8 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     public Category update(Category category) {
+        categoryRepository.findById(category.getId()).orElseThrow(() -> new DataProcessingException(
+                "Couldn't find original category to update, consider creating a new one."));
         return categoryRepository.save(category);
     }
 }
