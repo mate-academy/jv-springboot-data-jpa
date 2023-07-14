@@ -6,7 +6,6 @@ import java.util.stream.Collectors;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.model.dto.request.ProductRequestDto;
 import mate.academy.springboot.datajpa.model.dto.response.ProductResponseDto;
-import mate.academy.springboot.datajpa.service.CategoryService;
 import mate.academy.springboot.datajpa.service.ProductService;
 import mate.academy.springboot.datajpa.service.mapper.RequestDtoMapper;
 import mate.academy.springboot.datajpa.service.mapper.ResponseDtoMapper;
@@ -24,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/products")
 public class ProductController {
     private final ProductService productService;
-        private final RequestDtoMapper<ProductRequestDto, Product> requestMapper;
+    private final RequestDtoMapper<ProductRequestDto, Product> requestMapper;
     private final ResponseDtoMapper<ProductResponseDto, Product> responseMapper;
 
     public ProductController(ProductService productService,
@@ -62,7 +61,7 @@ public class ProductController {
     public List<ProductResponseDto> getByPriceBetween(@RequestParam double from,
                                                       @RequestParam double to) {
         return productService.findAllByPriceBetween(
-                BigDecimal.valueOf(from), BigDecimal.valueOf(to)).stream()
+                        BigDecimal.valueOf(from), BigDecimal.valueOf(to)).stream()
                 .map(responseMapper::mapToDto)
                 .collect(Collectors.toList());
     }
