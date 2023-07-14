@@ -15,7 +15,7 @@ Use interface as type when you declare mapper fields in controllers.
      ```
         @RestController
         public class ProductController {     
-            private final ProductDtoMapper productMapper;
+            private final ProductDtoMapper responseMapper;
     
         }
     ```
@@ -23,7 +23,7 @@ Use interface as type when you declare mapper fields in controllers.
      ```
         @RestController
         public class ProductController {     
-            private final DtoMapper<Product, ProductRequestDto, ProductResponceDto> productMapper;
+            private final DtoMapper<Product, ProductRequestDto, ProductResponceDto> responseMapper;
                     
         }
     ```
