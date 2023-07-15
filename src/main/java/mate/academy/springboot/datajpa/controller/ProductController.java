@@ -2,7 +2,6 @@ package mate.academy.springboot.datajpa.controller;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 import mate.academy.springboot.datajpa.mapper.impl.request.ProductDtoRequestMapper;
 import mate.academy.springboot.datajpa.mapper.impl.response.ProductDtoResponseMapper;
@@ -35,14 +34,14 @@ public class ProductController {
         this.productDtoResponseMapper = productDtoResponseMapper;
     }
 
-    @PostMapping()
+    @PostMapping
     public ProductResponseDto add(@RequestBody ProductRequestDto dto) {
         Product product = productService.save(productDtoRequestMapper.fromDto(dto));
         return productDtoResponseMapper.toDto(product);
     }
 
-    @GetMapping()
-    public ProductResponseDto get(@RequestParam Long id) {
+    @GetMapping("/{id}")
+    public ProductResponseDto get(@PathVariable Long id) {
         return productDtoResponseMapper.toDto(productService.get(id));
     }
 
@@ -60,15 +59,15 @@ public class ProductController {
 
     @GetMapping("/price-between")
     public List<ProductResponseDto> findAllByPriceBetween(
-            @RequestParam BigDecimal priceFrom, BigDecimal priceTo) {
+            @RequestParam BigDecimal priceFrom, @RequestParam BigDecimal priceTo) {
         return productService.findAllByPriceBetween(priceFrom, priceTo).stream()
                 .map(productDtoResponseMapper::toDto)
                 .collect(Collectors.toList());
     }
-    
-    @GetMapping("/filter")
-    public List<ProductResponseDto> findAll(@RequestParam Map<String, String> params) {
-        return productService.findAllByFilter(params).stream()
+
+    @GetMapping("/by-category")
+    public List<ProductResponseDto> findAllByCategory(@RequestParam List<String> categories) {
+        return productService.findAllByCategory(categories).stream()
                 .map(productDtoResponseMapper::toDto)
                 .collect(Collectors.toList());
     }

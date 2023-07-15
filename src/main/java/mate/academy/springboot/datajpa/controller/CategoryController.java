@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -31,14 +30,14 @@ public class CategoryController {
         this.categoryDtoResponseMapper = categoryDtoResponseMapper;
     }
 
-    @PostMapping()
+    @PostMapping
     public CategoryResponseDto add(@RequestBody CategoryRequestDto dto) {
         Category category = categoryService.save(categoryDtoRequestMapper.fromDto(dto));
         return categoryDtoResponseMapper.toDto(category);
     }
 
-    @GetMapping()
-    public CategoryResponseDto get(@RequestParam Long id) {
+    @GetMapping("/{id}")
+    public CategoryResponseDto get(@PathVariable Long id) {
         return categoryDtoResponseMapper.toDto(categoryService.get(id));
     }
 

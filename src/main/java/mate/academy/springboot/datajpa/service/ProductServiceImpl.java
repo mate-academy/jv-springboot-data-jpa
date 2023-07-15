@@ -2,22 +2,20 @@ package mate.academy.springboot.datajpa.service;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Map;
 import mate.academy.springboot.datajpa.model.Product;
+import mate.academy.springboot.datajpa.repository.CategoryRepository;
 import mate.academy.springboot.datajpa.repository.ProductRepository;
-import mate.academy.springboot.datajpa.repository.specification.SpecificationManager;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
-    private final SpecificationManager<Product> productSpecificationManager;
+    private final CategoryRepository categoryRepository;
 
     public ProductServiceImpl(ProductRepository productRepository,
-                              SpecificationManager<Product> productSpecificationManager) {
+                              CategoryRepository categoryRepository) {
         this.productRepository = productRepository;
-        this.productSpecificationManager = productSpecificationManager;
+        this.categoryRepository = categoryRepository;
     }
 
     @Override
@@ -46,14 +44,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> findAllByFilter(Map<String, String> params) {
-        Specification<Product> specification = null;
-        for (Map.Entry<String,String> entry : params.entrySet()) {
-            Specification<Product> sp = productSpecificationManager
-                    .get(entry.getKey(), entry.getValue().split(","));
-            specification = specification == null ? Specification.where(sp) : specification.and(sp);
-
-        }
-        return productRepository.findAll(specification);
+    public List<Product> findAllByCategory(List<String> categories) {
+        return productRepository.findProductsByCategoryNameIn(categories);
     }
 }
