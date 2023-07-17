@@ -3,6 +3,7 @@ package mate.academy.springboot.datajpa.controller;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.validation.Valid;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.model.dto.request.ProductRequestDto;
 import mate.academy.springboot.datajpa.model.dto.response.ProductResponseDto;
@@ -35,7 +36,7 @@ public class ProductController {
     }
 
     @PostMapping("/create")
-    public ProductResponseDto create(@RequestBody ProductRequestDto requestDto) {
+    public ProductResponseDto create(@RequestBody @Valid ProductRequestDto requestDto) {
         return responseMapper.mapToDto(productService.save(requestMapper.mapToModel(requestDto)));
     }
 
@@ -46,7 +47,7 @@ public class ProductController {
 
     @PutMapping("/{id}")
     public ProductResponseDto update(@PathVariable Long id,
-                                     @RequestBody ProductRequestDto requestDto) {
+                                     @RequestBody @Valid ProductRequestDto requestDto) {
         Product product = requestMapper.mapToModel(requestDto);
         product.setId(id);
         return responseMapper.mapToDto(productService.update(product));
