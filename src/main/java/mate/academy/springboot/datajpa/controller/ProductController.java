@@ -28,25 +28,25 @@ public class ProductController {
     private final DtoMapper<ProductRequestDto, Product, ProductResponseDto> dtoMapper;
 
     @PostMapping
-    ProductResponseDto create(@RequestBody ProductRequestDto requestDto) {
+    public ProductResponseDto create(@RequestBody ProductRequestDto requestDto) {
         return dtoMapper.mapToDto(
                 productService.save(
                 dtoMapper.mapToModel(requestDto)));
     }
 
     @GetMapping("/{id}")
-    ProductResponseDto get(@PathVariable Long id) {
+    public ProductResponseDto get(@PathVariable Long id) {
         return dtoMapper.mapToDto(
                 productService.get(id));
     }
 
     @DeleteMapping("/{id}")
-    void delete(@PathVariable Long id) {
+    public void delete(@PathVariable Long id) {
         productService.delete(id);
     }
 
     @PutMapping("/{id}")
-    ProductResponseDto update(@PathVariable Long id,
+    public ProductResponseDto update(@PathVariable Long id,
                               @RequestBody ProductRequestDto requestDto) {
         Product product = dtoMapper.mapToModel(requestDto);
         product.setId(id);
@@ -55,7 +55,7 @@ public class ProductController {
     }
 
     @GetMapping("/price-between")
-    List<ProductResponseDto> findAllByPriceBetween(@RequestParam BigDecimal from,
+    public List<ProductResponseDto> findAllByPriceBetween(@RequestParam BigDecimal from,
                                                    @RequestParam BigDecimal to) {
         return productService.findAllByPriceBetween(from, to)
                 .stream()
@@ -64,7 +64,7 @@ public class ProductController {
     }
 
     @GetMapping("/in-categories")
-    List<ProductResponseDto> findAllByCategories(@RequestParam(value = "categories")
+    public List<ProductResponseDto> findAllByCategories(@RequestParam(value = "categories")
                                                  List<Category> categories) {
         return productService.findAllByCategories(categories)
                 .stream()

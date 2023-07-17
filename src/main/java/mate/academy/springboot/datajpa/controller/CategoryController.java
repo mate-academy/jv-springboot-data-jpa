@@ -23,25 +23,25 @@ public class CategoryController {
     private final DtoMapper<CategoryRequestDto, Category, CategoryResponseDto> dtoMapper;
 
     @PostMapping
-    CategoryResponseDto create(@RequestBody CategoryRequestDto requestDto) {
+    public CategoryResponseDto create(@RequestBody CategoryRequestDto requestDto) {
         return dtoMapper.mapToDto(
                 categoryService.save(
                         dtoMapper.mapToModel(requestDto)));
     }
 
     @GetMapping("/{id}")
-    CategoryResponseDto get(@PathVariable Long id) {
+    public CategoryResponseDto get(@PathVariable Long id) {
         return dtoMapper.mapToDto(
                 categoryService.get(id));
     }
 
     @DeleteMapping("/{id}")
-    void delete(@PathVariable Long id) {
+    public void delete(@PathVariable Long id) {
         categoryService.delete(id);
     }
 
     @PutMapping("/{id}")
-    CategoryResponseDto update(@PathVariable Long id,
+    public CategoryResponseDto update(@PathVariable Long id,
                                @RequestBody CategoryRequestDto requestDto) {
         Category category = dtoMapper.mapToModel(requestDto);
         category.setId(id);
