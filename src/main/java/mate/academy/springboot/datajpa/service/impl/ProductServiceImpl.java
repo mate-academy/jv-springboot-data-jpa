@@ -33,7 +33,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product get(Long id) {
         return productRepository.findById(id).orElseThrow(
-                ()-> new NoSuchElementException("Product by id [" + id + "] not founded"));
+                () -> new NoSuchElementException("Product by id [" + id + "] not founded"));
     }
 
     @Override

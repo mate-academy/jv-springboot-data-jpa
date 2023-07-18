@@ -2,7 +2,6 @@ package mate.academy.springboot.datajpa.service.impl;
 
 import java.util.NoSuchElementException;
 import lombok.AllArgsConstructor;
-import mate.academy.springboot.datajpa.dto.request.CategoryRequestDto;
 import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.repository.CategoryRepository;
 import mate.academy.springboot.datajpa.service.CategoryService;
