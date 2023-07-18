@@ -1,20 +1,18 @@
 package mate.academy.springboot.datajpa.service.impl;
 
-import java.util.Optional;
+import java.util.NoSuchElementException;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.repository.CategoryRepository;
 import mate.academy.springboot.datajpa.service.CategoryService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
+@NoArgsConstructor
+@AllArgsConstructor
 public class CategoryServiceImpl implements CategoryService {
-    private final CategoryRepository categoryRepository;
-
-    @Autowired
-    public CategoryServiceImpl(CategoryRepository categoryRepository) {
-        this.categoryRepository = categoryRepository;
-    }
+    private CategoryRepository categoryRepository;
 
     @Override
     public Category save(Category category) {
@@ -22,17 +20,14 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Optional<Category> get(Long id) {
-        return categoryRepository.findById(id);
+    public Category get(Long id) {
+        return categoryRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Can`t find category with id: "
+                + id));
     }
 
     @Override
     public void remove(Long id) {
         categoryRepository.deleteById(id);
-    }
-
-    @Override
-    public Category update(Category category) {
-        return categoryRepository.saveAndFlush(category);
     }
 }

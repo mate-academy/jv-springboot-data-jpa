@@ -1,6 +1,9 @@
 package mate.academy.springboot.datajpa.controller;
 
-import java.util.NoSuchElementException;
+import javax.validation.Valid;
+import javax.validation.constraints.Positive;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import mate.academy.springboot.datajpa.dto.request.CategoryRequestDto;
 import mate.academy.springboot.datajpa.dto.response.CategoryResponseDto;
 import mate.academy.springboot.datajpa.mapper.RequestDtoMapper;
@@ -20,45 +23,35 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/categories")
+@NoArgsConstructor
+@AllArgsConstructor
 public class CategoryController {
     private CategoryService categoryService;
     private RequestDtoMapper<CategoryRequestDto, Category> categoryRequestMapper;
     private ResponseDtoMapper<Category, CategoryResponseDto> categoryResponseMapper;
 
-    public CategoryController(CategoryService categoryService,
-                              RequestDtoMapper<CategoryRequestDto,
-                                      Category> categoryRequestMapper,
-                              ResponseDtoMapper<Category,
-                                      CategoryResponseDto> categoryResponseMapper) {
-        this.categoryService = categoryService;
-        this.categoryRequestMapper = categoryRequestMapper;
-        this.categoryResponseMapper = categoryResponseMapper;
-    }
-
     @PostMapping
-    public CategoryResponseDto create(@RequestBody CategoryRequestDto categoryRequestDto) {
+    public CategoryResponseDto create(@RequestBody @Valid CategoryRequestDto categoryRequestDto) {
         return categoryResponseMapper.mapToDto(categoryService.save(
                 categoryRequestMapper.mapToModel(categoryRequestDto)));
     }
 
     @GetMapping
-    public CategoryResponseDto get(@RequestParam Long id) {
-        return categoryResponseMapper.mapToDto(categoryService.get(id)
-                .orElseThrow(() -> new NoSuchElementException("Can`t find category with id: "
-                        + id)));
+    public CategoryResponseDto get(@RequestParam @Positive Long id) {
+        return categoryResponseMapper.mapToDto(categoryService.get(id));
     }
 
     @PutMapping
-    public CategoryResponseDto update(@RequestParam Long id,
-                                      @RequestBody CategoryRequestDto categoryRequestDto) {
+    public CategoryResponseDto update(@RequestParam @Positive Long id,
+                                      @RequestBody @Valid CategoryRequestDto categoryRequestDto) {
         Category category = categoryRequestMapper.mapToModel(categoryRequestDto);
         category.setId(id);
-        return categoryResponseMapper.mapToDto(categoryService.update(category));
+        return categoryResponseMapper.mapToDto(categoryService.save(category));
     }
 
     @DeleteMapping
     @ResponseStatus(HttpStatus.OK)
-    public void delete(@RequestParam Long id) {
+    public void delete(@RequestParam @Positive Long id) {
         categoryService.remove(id);
     }
 }

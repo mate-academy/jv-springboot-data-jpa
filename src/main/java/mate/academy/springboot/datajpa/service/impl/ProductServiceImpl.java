@@ -3,21 +3,19 @@ package mate.academy.springboot.datajpa.service.impl;
 import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
+import java.util.NoSuchElementException;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.repository.ProductRepository;
 import mate.academy.springboot.datajpa.service.ProductService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
+@NoArgsConstructor
+@AllArgsConstructor
 public class ProductServiceImpl implements ProductService {
-    private final ProductRepository productRepository;
-
-    @Autowired
-    public ProductServiceImpl(ProductRepository productRepository) {
-        this.productRepository = productRepository;
-    }
+    private ProductRepository productRepository;
 
     @Override
     public Product save(Product product) {
@@ -25,18 +23,15 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Optional<Product> get(Long id) {
-        return productRepository.findById(id);
+    public Product get(Long id) {
+        return productRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Can`t find product with id: "
+                + id));
     }
 
     @Override
     public void remove(Long id) {
         productRepository.deleteById(id);
-    }
-
-    @Override
-    public Product update(Product product) {
-        return productRepository.saveAndFlush(product);
     }
 
     @Override

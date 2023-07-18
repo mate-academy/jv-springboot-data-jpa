@@ -2,9 +2,12 @@ package mate.academy.springboot.datajpa.controller;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.stream.Collectors;
+import javax.validation.Valid;
+import javax.validation.constraints.Positive;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import mate.academy.springboot.datajpa.dto.request.ProductRequestDto;
 import mate.academy.springboot.datajpa.dto.response.ProductResponseDto;
 import mate.academy.springboot.datajpa.mapper.RequestDtoMapper;
@@ -26,43 +29,30 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/products")
+@NoArgsConstructor
+@AllArgsConstructor
 public class ProductController {
-    private final ProductService productService;
-    private final CategoryService categoryService;
-    private final RequestDtoMapper<ProductRequestDto, Product> requestMapper;
-    private final ResponseDtoMapper<Product, ProductResponseDto> responseMapper;
-
-    public ProductController(ProductService productService,
-                             CategoryService categoryService,
-                             RequestDtoMapper<ProductRequestDto,
-                                     Product> requestMapper,
-                             ResponseDtoMapper<Product,
-                                     ProductResponseDto> responseMapper) {
-        this.productService = productService;
-        this.categoryService = categoryService;
-        this.requestMapper = requestMapper;
-        this.responseMapper = responseMapper;
-    }
+    private ProductService productService;
+    private CategoryService categoryService;
+    private RequestDtoMapper<ProductRequestDto, Product> requestMapper;
+    private ResponseDtoMapper<Product, ProductResponseDto> responseMapper;
 
     @PostMapping
-    public ProductResponseDto create(@RequestBody ProductRequestDto productRequestDto) {
+    public ProductResponseDto create(@RequestBody @Valid ProductRequestDto productRequestDto) {
         Product product = requestMapper.mapToModel(productRequestDto);
-        Category category = categoryService.get(productRequestDto.getCategoryId())
-                .orElseThrow(() -> new NoSuchElementException("Can`t find category with id:"
-                        + productRequestDto.getCategoryId()));
+        Category category = categoryService.get(productRequestDto.getCategoryId());
         product.setCategory(category);
         return responseMapper.mapToDto(productService.save(product));
     }
 
     @GetMapping
-    public ProductResponseDto get(@RequestParam Long id) {
-        return responseMapper.mapToDto(productService.get(id)
-                .orElseThrow(() -> new NoSuchElementException("Can`t find product by id:" + id)));
+    public ProductResponseDto get(@RequestParam @Positive Long id) {
+        return responseMapper.mapToDto(productService.get(id));
     }
 
     @GetMapping("/by-price")
-    public List<ProductResponseDto> getAllByPrice(@RequestParam BigDecimal from,
-                                                  @RequestParam BigDecimal to) {
+    public List<ProductResponseDto> getAllByPrice(@RequestParam @Positive BigDecimal from,
+                                                  @RequestParam @Positive BigDecimal to) {
         return productService.getAllByPriceBetween(from, to).stream()
                 .map(responseMapper::mapToDto)
                 .collect(Collectors.toList());
@@ -76,20 +66,18 @@ public class ProductController {
     }
 
     @PutMapping
-    public ProductResponseDto update(@RequestParam Long id,
-                                     @RequestBody ProductRequestDto productRequestDto) {
+    public ProductResponseDto update(@RequestParam @Positive Long id,
+                                     @RequestBody @Valid ProductRequestDto productRequestDto) {
         Product product = requestMapper.mapToModel(productRequestDto);
         product.setId(id);
-        Category category = categoryService.get(productRequestDto.getCategoryId())
-                .orElseThrow(() -> new NoSuchElementException("Can`t find category with id:"
-                        + productRequestDto.getCategoryId()));
+        Category category = categoryService.get(productRequestDto.getCategoryId());
         product.setCategory(category);
-        return responseMapper.mapToDto(productService.update(product));
+        return responseMapper.mapToDto(productService.save(product));
     }
 
     @DeleteMapping
     @ResponseStatus(HttpStatus.OK)
-    public void delete(@RequestParam Long id) {
+    public void delete(@RequestParam @Positive Long id) {
         productService.remove(id);
     }
 }
