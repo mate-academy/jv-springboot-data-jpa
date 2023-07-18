@@ -5,14 +5,12 @@ import java.util.Collection;
 import java.util.List;
 import java.util.NoSuchElementException;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.repository.ProductRepository;
 import mate.academy.springboot.datajpa.service.ProductService;
 import org.springframework.stereotype.Service;
 
 @Service
-@NoArgsConstructor
 @AllArgsConstructor
 public class ProductServiceImpl implements ProductService {
     private ProductRepository productRepository;

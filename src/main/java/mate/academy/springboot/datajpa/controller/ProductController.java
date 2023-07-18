@@ -7,7 +7,6 @@ import java.util.stream.Collectors;
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import mate.academy.springboot.datajpa.dto.request.ProductRequestDto;
 import mate.academy.springboot.datajpa.dto.response.ProductResponseDto;
 import mate.academy.springboot.datajpa.mapper.RequestDtoMapper;
@@ -29,7 +28,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/products")
-@NoArgsConstructor
 @AllArgsConstructor
 public class ProductController {
     private ProductService productService;

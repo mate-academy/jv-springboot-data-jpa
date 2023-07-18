@@ -3,7 +3,6 @@ package mate.academy.springboot.datajpa.controller;
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import mate.academy.springboot.datajpa.dto.request.CategoryRequestDto;
 import mate.academy.springboot.datajpa.dto.response.CategoryResponseDto;
 import mate.academy.springboot.datajpa.mapper.RequestDtoMapper;
@@ -23,7 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/categories")
-@NoArgsConstructor
 @AllArgsConstructor
 public class CategoryController {
     private CategoryService categoryService;
