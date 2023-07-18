@@ -1,5 +1,6 @@
 package mate.academy.springboot.datajpa.service;
 
+import mate.academy.springboot.datajpa.dto.request.CategoryRequestDto;
 import mate.academy.springboot.datajpa.model.Category;
 
 public interface CategoryService {
@@ -8,4 +9,6 @@ public interface CategoryService {
     Category save(Category category);
 
     void delete(Long id);
+
+    Category update(Long id,Category category);
 }
