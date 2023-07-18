@@ -29,10 +29,4 @@ public class CategoryServiceImpl implements CategoryService {
     public void delete(Long id) {
         categoryRepository.deleteById(id);
     }
-
-    @Override
-    public Category update(Category category) {
-        get(category.getId());
-        return categoryRepository.save(category);
-    }
 }

@@ -6,6 +6,4 @@ public interface AbstractService<T> {
     T get(Long id);
 
     void delete(Long id);
-
-    T update(T entity);
 }

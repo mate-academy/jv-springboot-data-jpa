@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.validation.Valid;
+import lombok.AllArgsConstructor;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.model.dto.request.ProductRequestDto;
 import mate.academy.springboot.datajpa.model.dto.response.ProductResponseDto;
@@ -20,20 +21,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+@AllArgsConstructor
 @RestController
 @RequestMapping("/products")
 public class ProductController {
     private final ProductService productService;
     private final RequestDtoMapper<ProductRequestDto, Product> requestMapper;
     private final ResponseDtoMapper<ProductResponseDto, Product> responseMapper;
-
-    public ProductController(ProductService productService,
-                             ResponseDtoMapper<ProductResponseDto, Product> responseMapper,
-                             RequestDtoMapper<ProductRequestDto, Product> requestMapper) {
-        this.productService = productService;
-        this.responseMapper = responseMapper;
-        this.requestMapper = requestMapper;
-    }
 
     @PostMapping("/create")
     public ProductResponseDto create(@RequestBody @Valid ProductRequestDto requestDto) {
@@ -50,7 +44,7 @@ public class ProductController {
                                      @RequestBody @Valid ProductRequestDto requestDto) {
         Product product = requestMapper.mapToModel(requestDto);
         product.setId(id);
-        return responseMapper.mapToDto(productService.update(product));
+        return responseMapper.mapToDto(productService.save(product));
     }
 
     @DeleteMapping("/{id}")
