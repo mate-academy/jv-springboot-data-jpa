@@ -6,18 +6,17 @@ import mate.academy.springboot.datajpa.dto.request.ProductRequestDto;
 import mate.academy.springboot.datajpa.dto.response.ProductResponseDto;
 import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.model.Product;
-import mate.academy.springboot.datajpa.service.CategoryService;
 import org.springframework.stereotype.Component;
 
 @Component
 @AllArgsConstructor
 public class ProductDtoMapper implements
         DtoMapper<ProductRequestDto, Product, ProductResponseDto> {
-    private final CategoryService categoryService;
 
     @Override
     public Product mapToModel(ProductRequestDto requestDto) {
-        Category category = categoryService.get(requestDto.getCategoryId());
+        Category category = new Category();
+        category.setId(requestDto.getCategoryId());
         Product product = new Product();
         product.setTitle(requestDto.getTitle());
         product.setPrice(requestDto.getPrice());
