@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 @Service
 @AllArgsConstructor
 public class CategoryServiceImpl implements CategoryService {
-    private CategoryRepository categoryRepository;
+    private final CategoryRepository categoryRepository;
 
     @Override
     public Category save(Category category) {

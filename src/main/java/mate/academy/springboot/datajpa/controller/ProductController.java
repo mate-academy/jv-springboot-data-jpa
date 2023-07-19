@@ -9,15 +9,13 @@ import javax.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import mate.academy.springboot.datajpa.dto.request.ProductRequestDto;
 import mate.academy.springboot.datajpa.dto.response.ProductResponseDto;
-import mate.academy.springboot.datajpa.mapper.RequestDtoMapper;
-import mate.academy.springboot.datajpa.mapper.ResponseDtoMapper;
-import mate.academy.springboot.datajpa.model.Category;
+import mate.academy.springboot.datajpa.mapper.DtoMapper;
 import mate.academy.springboot.datajpa.model.Product;
-import mate.academy.springboot.datajpa.service.CategoryService;
 import mate.academy.springboot.datajpa.service.ProductService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,52 +28,46 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/products")
 @AllArgsConstructor
 public class ProductController {
-    private ProductService productService;
-    private CategoryService categoryService;
-    private RequestDtoMapper<ProductRequestDto, Product> requestMapper;
-    private ResponseDtoMapper<Product, ProductResponseDto> responseMapper;
+    private final ProductService productService;
+    private final DtoMapper<ProductRequestDto, ProductResponseDto, Product> productMapper;
 
     @PostMapping
     public ProductResponseDto create(@RequestBody @Valid ProductRequestDto productRequestDto) {
-        Product product = requestMapper.mapToModel(productRequestDto);
-        Category category = categoryService.get(productRequestDto.getCategoryId());
-        product.setCategory(category);
-        return responseMapper.mapToDto(productService.save(product));
+        Product product = productMapper.mapToModel(productRequestDto);
+        return productMapper.mapToDto(productService.save(product));
     }
 
-    @GetMapping
-    public ProductResponseDto get(@RequestParam @Positive Long id) {
-        return responseMapper.mapToDto(productService.get(id));
+    @GetMapping("/{id}")
+    public ProductResponseDto get(@PathVariable Long id) {
+        return productMapper.mapToDto(productService.get(id));
     }
 
     @GetMapping("/by-price")
     public List<ProductResponseDto> getAllByPrice(@RequestParam @Positive BigDecimal from,
                                                   @RequestParam @Positive BigDecimal to) {
         return productService.getAllByPriceBetween(from, to).stream()
-                .map(responseMapper::mapToDto)
+                .map(productMapper::mapToDto)
                 .collect(Collectors.toList());
     }
 
     @GetMapping("/by-categories")
-    public List<ProductResponseDto> getAllByCategories(@RequestParam Set<String> categories) {
-        return productService.getAllByCategoriesIn(categories).stream()
-                .map(responseMapper::mapToDto)
+    public List<ProductResponseDto> getAllByCategories(@RequestParam Set<String> categoryIds) {
+        return productService.getByCategoryIds(categoryIds).stream()
+                .map(productMapper::mapToDto)
                 .collect(Collectors.toList());
     }
 
-    @PutMapping
-    public ProductResponseDto update(@RequestParam @Positive Long id,
+    @PutMapping("/{id}")
+    public ProductResponseDto update(@PathVariable Long id,
                                      @RequestBody @Valid ProductRequestDto productRequestDto) {
-        Product product = requestMapper.mapToModel(productRequestDto);
+        Product product = productMapper.mapToModel(productRequestDto);
         product.setId(id);
-        Category category = categoryService.get(productRequestDto.getCategoryId());
-        product.setCategory(category);
-        return responseMapper.mapToDto(productService.save(product));
+        return productMapper.mapToDto(productService.save(product));
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public void delete(@RequestParam @Positive Long id) {
+    public void delete(@PathVariable Long id) {
         productService.remove(id);
     }
 }

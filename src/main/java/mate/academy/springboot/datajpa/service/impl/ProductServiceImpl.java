@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 @Service
 @AllArgsConstructor
 public class ProductServiceImpl implements ProductService {
-    private ProductRepository productRepository;
+    private final ProductRepository productRepository;
 
     @Override
     public Product save(Product product) {
@@ -38,7 +38,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> getAllByCategoriesIn(Collection<String> categoriesName) {
+    public List<Product> getByCategoryIds(Collection<String> categoriesName) {
         return productRepository.getAllProductsByCategoryNameIn(categoriesName);
     }
 }
