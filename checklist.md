@@ -15,7 +15,7 @@ Use interface as type when you declare mapper fields in controllers.
      ```
         @RestController
         public class ProductController {     
-            private final ProductDtoMapper responseMapper;
+            private final ProductDtoMapper productMapper;
     
         }
     ```
@@ -23,7 +23,7 @@ Use interface as type when you declare mapper fields in controllers.
      ```
         @RestController
         public class ProductController {     
-            private final DtoMapper<Product, ProductRequestDto, ProductResponceDto> responseMapper;
+            private final DtoMapper<Product, ProductRequestDto, ProductResponceDto> productMapper;
                     
         }
     ```
@@ -40,7 +40,7 @@ Take a look at these annotations (great source - https://projectlombok.org/featu
 5. `@EqualsAndHashcode`
 6. `@NoArgsConstructor`
 7. `@RequiredArgsConstructor`
-9. `@AllArgsConstructor`
+8. `@AllArgsConstructor`
 
 **BUT**, it should be used with caution, because it can cause performance issues. 
 Consider these articles: 

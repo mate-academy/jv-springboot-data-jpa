@@ -6,8 +6,7 @@ import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.model.dto.request.CategoryRequestDto;
 import mate.academy.springboot.datajpa.model.dto.response.CategoryResponseDto;
 import mate.academy.springboot.datajpa.service.CategoryService;
-import mate.academy.springboot.datajpa.service.mapper.RequestDtoMapper;
-import mate.academy.springboot.datajpa.service.mapper.ResponseDtoMapper;
+import mate.academy.springboot.datajpa.service.mapper.DtoMapper;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,25 +21,24 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/categories")
 public class CategoryController {
     private final CategoryService categoryService;
-    private final RequestDtoMapper<CategoryRequestDto, Category> requestMapper;
-    private final ResponseDtoMapper<CategoryResponseDto, Category> responseMapper;
+    private final DtoMapper<CategoryRequestDto, CategoryResponseDto, Category> mapper;
 
     @PostMapping("/create")
     public CategoryResponseDto create(@RequestBody @Valid CategoryRequestDto requestDto) {
-        return responseMapper.mapToDto(categoryService.save(requestMapper.mapToModel(requestDto)));
+        return mapper.mapToDto(categoryService.save(mapper.mapToModel(requestDto)));
     }
 
     @GetMapping("/{id}")
     public CategoryResponseDto get(@PathVariable Long id) {
-        return responseMapper.mapToDto(categoryService.get(id));
+        return mapper.mapToDto(categoryService.get(id));
     }
 
     @PutMapping("/{id}")
     public CategoryResponseDto update(@PathVariable Long id,
                                       @RequestBody @Valid CategoryRequestDto requestDto) {
-        Category category = requestMapper.mapToModel(requestDto);
+        Category category = mapper.mapToModel(requestDto);
         category.setId(id);
-        return responseMapper.mapToDto(categoryService.save(category));
+        return mapper.mapToDto(categoryService.save(category));
     }
 
     @DeleteMapping("/{id}")
