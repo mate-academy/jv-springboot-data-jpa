@@ -9,12 +9,14 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.math.BigDecimal;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
 @Getter
 @Setter
+@EqualsAndHashCode
 @Table(name = "products")
 public class Product {
     @Id
@@ -23,5 +25,6 @@ public class Product {
     private String title;
     private BigDecimal price;
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    @EqualsAndHashCode.Exclude
     private Category category;
 }
