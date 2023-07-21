@@ -40,7 +40,7 @@ Take a look at these annotations (great source - https://projectlombok.org/featu
 5. `@EqualsAndHashcode`
 6. `@NoArgsConstructor`
 7. `@RequiredArgsConstructor`
-8. `@AllArgsConstructor`
+9. `@AllArgsConstructor`
 
 **BUT**, it should be used with caution, because it can cause performance issues. 
 Consider these articles: 
