@@ -7,7 +7,6 @@ import mate.academy.springboot.datajpa.dto.mapper.DtoRequestMapper;
 import mate.academy.springboot.datajpa.dto.mapper.DtoResponseMapper;
 import mate.academy.springboot.datajpa.dto.request.ProductRequestDto;
 import mate.academy.springboot.datajpa.dto.response.ProductResponseDto;
-import mate.academy.springboot.datajpa.model.Category;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.service.CategoryService;
 import mate.academy.springboot.datajpa.service.ProductService;
@@ -72,12 +71,9 @@ public class ProductController {
     }
 
     @GetMapping("/category-in")
-    List<ProductResponseDto> getAllByCategoryIn(@RequestParam List<String> categoryNames) {
-        List<Category> categories = categoryNames.stream()
-                .map(categoryService::getByName)
-                .collect(Collectors.toList());
-        List<Product> products = service.getAllByCategoryIn(categories);
-        return products.stream().map(responseMapper::toDto)
+    List<ProductResponseDto> getAllByCategoryIn(@RequestParam List<String> categories) {
+        return service.findAllByCategoryNameIn(categories).stream()
+                .map(responseMapper::toDto)
                 .collect(Collectors.toList());
     }
 }
