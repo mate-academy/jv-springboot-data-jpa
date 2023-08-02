@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import mate.academy.springboot.datajpa.dto.ProductRequestDto;
 import mate.academy.springboot.datajpa.dto.ProductResponseDto;
-import mate.academy.springboot.datajpa.dto.mapper.ProductMapper;
+import mate.academy.springboot.datajpa.dto.mapper.DtoMapper;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.service.ProductService;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/products")
 public class ProductController {
     private final ProductService productService;
-    private final ProductMapper productMapper;
+    private final DtoMapper<Product, ProductResponseDto, ProductRequestDto> productMapper;
 
     @PostMapping
     public ProductResponseDto create(@RequestBody ProductRequestDto productRequestDto) {
@@ -51,7 +51,7 @@ public class ProductController {
         return productMapper.mapToDto(product);
     }
 
-    @GetMapping("/priceIn")
+    @GetMapping("/price-between")
     public List<ProductResponseDto> findAllByPriceBetween(@RequestParam BigDecimal from,
                                                           @RequestParam BigDecimal to) {
         return productService.findAllByPriceBetween(from, to)
@@ -60,7 +60,7 @@ public class ProductController {
                 .collect(Collectors.toList());
     }
 
-    @GetMapping("/categoryIn")
+    @GetMapping("/by-category")
     public List<ProductResponseDto> findAllByCategoryIn(@RequestParam List<String> categories) {
         return productService.findAllByCategoryNameIn(categories)
                 .stream()
