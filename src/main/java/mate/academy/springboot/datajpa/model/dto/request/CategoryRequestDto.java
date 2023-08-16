@@ -6,5 +6,5 @@ import lombok.Data;
 @Data
 public class CategoryRequestDto {
     @NotNull
-    private Long name;
+    private String name;
 }
