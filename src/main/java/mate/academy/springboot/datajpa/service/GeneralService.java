@@ -1,6 +1,6 @@
 package mate.academy.springboot.datajpa.service;
 
-public interface GenersalService<T> {
+public interface GeneralService<T> {
     T create(T model);
 
     T get(Long id);
