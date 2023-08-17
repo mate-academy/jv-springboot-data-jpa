@@ -34,7 +34,7 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseProductDto create(RequestProductDto dto) {
+    public ResponseProductDto create(@RequestBody RequestProductDto dto) {
         return productDtoMapper.mapToDto(productService.add(productDtoMapper.mapToModel(dto)));
     }
 
