@@ -1,5 +1,6 @@
 package mate.academy.springboot.datajpa.controller;
 
+import lombok.RequiredArgsConstructor;
 import mate.academy.springboot.datajpa.dto.request.RequestCategoryDto;
 import mate.academy.springboot.datajpa.dto.response.ResponseCategoryDto;
 import mate.academy.springboot.datajpa.model.Category;
@@ -16,16 +17,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/categories")
+@RequiredArgsConstructor
 public class CategoryController {
     private final DtoMapper<RequestCategoryDto, ResponseCategoryDto, Category> categoryDtoMapper;
     private final CategoryService categoryService;
-
-    public CategoryController(
-            DtoMapper<RequestCategoryDto, ResponseCategoryDto, Category> categoryDtoMapper,
-            CategoryService categoryService) {
-        this.categoryDtoMapper = categoryDtoMapper;
-        this.categoryService = categoryService;
-    }
 
     @PostMapping
     public ResponseCategoryDto create(@RequestBody RequestCategoryDto requestCategoryDto) {

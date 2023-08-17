@@ -4,6 +4,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
 import java.math.BigDecimal;
 import java.util.List;
+import lombok.RequiredArgsConstructor;
 import mate.academy.springboot.datajpa.dto.request.RequestProductDto;
 import mate.academy.springboot.datajpa.dto.response.ResponseProductDto;
 import mate.academy.springboot.datajpa.model.Category;
@@ -22,16 +23,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/products")
+@RequiredArgsConstructor
 public class ProductController {
     private final DtoMapper<RequestProductDto, ResponseProductDto, Product> productDtoMapper;
     private final ProductService productService;
-
-    public ProductController(
-            DtoMapper<RequestProductDto, ResponseProductDto, Product> productDtoMapper,
-            ProductService productService) {
-        this.productDtoMapper = productDtoMapper;
-        this.productService = productService;
-    }
 
     @PostMapping
     public ResponseProductDto create(@RequestBody RequestProductDto dto) {
