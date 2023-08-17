@@ -1,6 +1,5 @@
 package mate.academy.springboot.datajpa.model;
 
-import java.math.BigDecimal;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -8,6 +7,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import java.math.BigDecimal;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -26,10 +26,10 @@ public class Product {
 
     @Override
     public String toString() {
-        return "Product{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", price=" + price +
-                '}';
+        return "Product{"
+                + "id=" + id
+                + ", title='" + title + '\''
+                + ", price=" + price
+                + '}';
     }
 }
