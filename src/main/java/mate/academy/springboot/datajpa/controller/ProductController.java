@@ -30,8 +30,8 @@ public class ProductController {
     private final DtoMapper<ProductRequestDto, ProductResponseDto, Product> mapper;
 
     @PostMapping
-    public ProductResponseDto create(@RequestBody @Validated ProductRequestDto categoryRequestDto) {
-        Product product = productService.create(mapper.mapToModel(categoryRequestDto));
+    public ProductResponseDto save(@RequestBody @Validated ProductRequestDto categoryRequestDto) {
+        Product product = productService.save(mapper.mapToModel(categoryRequestDto));
         return mapper.mapToDto(product);
     }
 
@@ -60,7 +60,7 @@ public class ProductController {
                                      @RequestBody @Valid ProductRequestDto productRequestDto) {
         Product product = mapper.mapToModel(productRequestDto);
         product.setId(id);
-        return mapper.mapToDto(productService.create(product));
+        return mapper.mapToDto(productService.save(product));
     }
 
     @DeleteMapping("/{id}")

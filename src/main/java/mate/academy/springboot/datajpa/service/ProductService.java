@@ -8,5 +8,4 @@ public interface ProductService extends GeneralService<Product> {
     List<Product> findAllByPriceBetween(BigDecimal from, BigDecimal to);
 
     List<Product> findAllByCategoryNameIn(List<String> categoryName);
-
 }

@@ -15,14 +15,14 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Category create(Category model) {
+    public Category save(Category model) {
         return categoryRepository.save(model);
     }
 
     @Override
     public Category get(Long id) {
         return categoryRepository.findById(id).orElseThrow(()
-                -> new NoSuchElementException("Can`t find "));
+                -> new NoSuchElementException("Can`t find category by id: " + id));
     }
 
     @Override
