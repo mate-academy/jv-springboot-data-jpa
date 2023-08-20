@@ -3,18 +3,16 @@ package mate.academy.springboot.datajpa.service.impl;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.NoSuchElementException;
+import lombok.RequiredArgsConstructor;
 import mate.academy.springboot.datajpa.dao.ProductRepository;
 import mate.academy.springboot.datajpa.model.Product;
 import mate.academy.springboot.datajpa.service.ProductService;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
-
-    public ProductServiceImpl(ProductRepository productRepository) {
-        this.productRepository = productRepository;
-    }
 
     @Override
     public Product create(Product product) {
@@ -40,7 +38,6 @@ public class ProductServiceImpl implements ProductService {
         oldProduct.setCategory(product.getCategory());
         oldProduct.setTitle(product.getTitle());
         oldProduct.setPrice(product.getPrice());
-        oldProduct.setId(id);
         return productRepository.save(oldProduct);
     }
 
