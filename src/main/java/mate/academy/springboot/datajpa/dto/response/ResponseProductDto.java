@@ -5,6 +5,7 @@ import lombok.Data;
 
 @Data
 public class ResponseProductDto {
+    private Long id;
     private String title;
     private BigDecimal price;
     private String category;

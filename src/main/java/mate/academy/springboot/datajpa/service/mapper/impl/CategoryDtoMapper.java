@@ -19,6 +19,7 @@ public class CategoryDtoMapper implements
     @Override
     public ResponseCategoryDto mapToDto(Category model) {
         ResponseCategoryDto dto = new ResponseCategoryDto();
+        dto.setId(model.getId());
         dto.setName(model.getName());
         return dto;
     }

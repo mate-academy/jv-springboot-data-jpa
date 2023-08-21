@@ -1,5 +1,6 @@
 package mate.academy.springboot.datajpa.controller;
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
 import java.math.BigDecimal;
@@ -44,14 +45,13 @@ public class ProductController {
     }
 
     @PatchMapping
-    public ResponseProductDto update(@RequestBody RequestProductDto dto) {
+    public ResponseProductDto update(@RequestBody @Valid RequestProductDto dto) {
         return productDtoMapper.mapToDto(productService.update(productDtoMapper.mapToModel(dto)));
     }
 
     @GetMapping("/price")
     List<ResponseProductDto> getAllBetweenPrice(@RequestParam @Positive BigDecimal from,
                                                 @RequestParam @Positive BigDecimal to) {
-
         return productService.getAllBetweenPrice(from, to).stream()
                 .map(productDtoMapper::mapToDto)
                 .toList();

@@ -25,6 +25,7 @@ public class ProductDtoMapper implements
     @Override
     public ResponseProductDto mapToDto(Product model) {
         ResponseProductDto dto = new ResponseProductDto();
+        dto.setId(model.getId());
         dto.setTitle(model.getTitle());
         dto.setPrice(model.getPrice());
         dto.setCategory(model.getCategory().getName());
