@@ -31,9 +31,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category update(Category category, Long id) {
-        Category oldCategory = categoryRepository.findById(id)
-                .orElseThrow(() -> new NoSuchElementException("Can't find the category by "
-                        + "id: " + id));
+        Category oldCategory = getById(id);
         oldCategory.setName(category.getName());
         return categoryRepository.save(oldCategory);
     }

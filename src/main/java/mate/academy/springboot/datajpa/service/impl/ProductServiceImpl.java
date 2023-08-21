@@ -32,9 +32,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product update(Product product, Long id) {
-        Product oldProduct = productRepository.findById(id)
-                .orElseThrow(() -> new NoSuchElementException("Product not found with this "
-                        + "id: " + id));
+        Product oldProduct = getById(id);
         oldProduct.setCategory(product.getCategory());
         oldProduct.setTitle(product.getTitle());
         oldProduct.setPrice(product.getPrice());
