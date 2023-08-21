@@ -14,7 +14,6 @@ import lombok.ToString;
 
 @Getter
 @Setter
-@ToString
 @Entity
 @Table(name = "products")
 public class Product {
@@ -25,4 +24,14 @@ public class Product {
     private BigDecimal price;
     @ManyToOne(fetch = FetchType.LAZY)
     private Category category;
+
+    @Override
+    public String toString() {
+        return "Product{"
+                + "id=" + id
+                + ", title='" + title + '\''
+                + ", price=" + price
+                + ", category=" + category
+                + '}';
+    }
 }
