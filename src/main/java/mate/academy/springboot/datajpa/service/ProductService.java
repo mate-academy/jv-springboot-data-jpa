@@ -7,5 +7,5 @@ import mate.academy.springboot.datajpa.model.Product;
 public interface ProductService extends GeneralService<Product> {
     List<Product> findAllByPriceBetween(BigDecimal from, BigDecimal to);
 
-    List<Product> findAllByCategoryNameIn(List<String> categoryName);
+    List<Product> findByCategoryIds(List<String> categoryName);
 }
