@@ -35,7 +35,7 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public ProductResponseDto getByID(@PathVariable Long id) {
+    public ProductResponseDto get(@PathVariable Long id) {
         Product product = service.getById(id);
         return mapper.mapToDto(product);
     }
@@ -48,7 +48,8 @@ public class ProductController {
     @PutMapping("/{id}")
     public ProductResponseDto update(@PathVariable Long id,
             @RequestBody @Valid ProductRequestDto dto) {
-        return mapper.mapToDto(service.update(mapper.mapToModel(dto), id));
+        Product product = service.update(mapper.mapToModel(dto), id);
+        return mapper.mapToDto(product);
     }
 
     @GetMapping("/price")
@@ -60,7 +61,7 @@ public class ProductController {
     }
 
     @GetMapping("/categories")
-    public List<ProductResponseDto> getByCategorie(@RequestParam List<String> categoryNames) {
+    public List<ProductResponseDto> getByCategory(@RequestParam List<String> categoryNames) {
         return service.findAllByCategoryNameIn(categoryNames).stream()
                 .map(mapper::mapToDto)
                 .collect(Collectors.toList());

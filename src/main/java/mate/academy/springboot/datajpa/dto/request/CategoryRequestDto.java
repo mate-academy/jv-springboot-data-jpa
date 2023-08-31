@@ -1,9 +1,11 @@
 package mate.academy.springboot.datajpa.dto.request;
 
 import jakarta.validation.constraints.NotNull;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 public class CategoryRequestDto {
     @NotNull
     private String name;
