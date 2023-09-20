@@ -29,14 +29,14 @@ public class ProductController {
     }
 
     @GetMapping("/price")
-    public  List<ProductResponseDto> getProductsByPrice(
+    public List<ProductResponseDto> getProductsByPrice(
             @RequestParam BigDecimal from,
             @RequestParam BigDecimal to) {
         return productService.findByPriceBetween(from, to);
     }
 
     @GetMapping("/{id}")
-    public  ProductResponseDto getProductsById(@PathVariable Long id) {
+    public ProductResponseDto getProductsById(@PathVariable Long id) {
         return productService.get(id);
     }
 
@@ -68,10 +68,5 @@ public class ProductController {
         dto3.setPrice(BigDecimal.valueOf(18.20));
         productService.save(dto3);
 
-//        Product product3 = new Product();
-//        product3.setTitle("tomato");
-//        product3.setPrice(BigDecimal.valueOf(17.00));
-//        productService.save(product3);
-        //productService.getAllProducts().forEach(System.out::println);
     }
 }
