@@ -1,12 +1,10 @@
 package mate.academy.springboot.datajpa.controller;
 
-import java.util.List;
 import jakarta.validation.Valid;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import mate.academy.springboot.datajpa.dto.category.CategoryRequestDto;
 import mate.academy.springboot.datajpa.dto.category.CategoryResponseDto;
-import mate.academy.springboot.datajpa.dto.product.ProductRequestDto;
-import mate.academy.springboot.datajpa.dto.product.ProductResponseDto;
 import mate.academy.springboot.datajpa.service.CategoryService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -24,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/categories")
 public class CategoryController {
     private final CategoryService categoryService;
+
     @PostMapping
     public CategoryResponseDto create(
             @RequestBody @Valid CategoryRequestDto dto) {

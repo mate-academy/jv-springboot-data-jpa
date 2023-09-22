@@ -1,10 +1,9 @@
 package mate.academy.springboot.datajpa.dto.product;
 
 import jakarta.validation.constraints.NotNull;
-import java.math.BigDecimal;
 import jakarta.validation.constraints.Positive;
+import java.math.BigDecimal;
 import lombok.Data;
-import mate.academy.springboot.datajpa.model.Category;
 
 @Data
 public class ProductRequestDto {
