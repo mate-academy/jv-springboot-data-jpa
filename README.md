@@ -9,7 +9,7 @@ Your task is:
     - id
     - title
     - price
-    - category (one product can have one category but the category can have multiple products)
+    - category (one product can have one category)
 - create model `Category` with fields
     - id
     - name
@@ -29,5 +29,3 @@ Your task is:
     - delete Category by ID
     - update Category
 - create required DTOs and mappers
-
-__Before submitting solution make sure you checked it first with__ [checklist](https://mate-academy.github.io/jv-program-common-mistakes/java-spring-boot/spring-data-jpa/jv-springboot-data-jpa.html)
